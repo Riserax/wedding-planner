@@ -1,4 +1,4 @@
-package pl.com.WeddingPlanner.view;
+package pl.com.weddingPlanner.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

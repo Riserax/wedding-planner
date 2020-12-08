@@ -1,4 +1,4 @@
-package pl.com.WeddingPlanner;
+package pl.com.weddingPlanner;
 
 import org.junit.Test;
 

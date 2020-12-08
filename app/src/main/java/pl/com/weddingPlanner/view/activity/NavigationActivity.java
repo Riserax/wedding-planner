@@ -1,4 +1,4 @@
-package pl.com.WeddingPlanner.view;
+package pl.com.weddingPlanner.view.activity;
 
 import android.os.Bundle;
 
@@ -9,7 +9,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import pl.com.WeddingPlanner.R;
+import pl.com.weddingPlanner.R;
 
 public class NavigationActivity extends AppCompatActivity {
 

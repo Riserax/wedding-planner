@@ -7,20 +7,26 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="pl.com.WeddingPlanner.view.DashboardFragment"
+        android:name="pl.com.weddingPlanner.view.fragment.DashboardFragment"
         android:label="Start"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
+        android:id="@+id/navigation_tasks"
+        android:name="pl.com.weddingPlanner.view.fragment.TasksFragment"
+        android:label="Zadania"
+        tools:layout="@layout/fragment_tasks" />
+
+    <fragment
         android:id="@+id/navigation_budget"
-        android:name="pl.com.WeddingPlanner.view.BudgetFragment"
+        android:name="pl.com.weddingPlanner.view.fragment.BudgetFragment"
         android:label="Budżet"
         tools:layout="@layout/fragment_budget" />
 
     <fragment
-        android:id="@+id/navigation_planner"
-        android:name="pl.com.WeddingPlanner.view.PlannerFragment"
-        android:label="Planer"
-        tools:layout="@layout/fragment_planner" />
+        android:id="@+id/navigation_more"
+        android:name="pl.com.weddingPlanner.view.fragment.MoreFragment"
+        android:label="Więcej"
+        tools:layout="@layout/fragment_more" />
 
 </navigation>

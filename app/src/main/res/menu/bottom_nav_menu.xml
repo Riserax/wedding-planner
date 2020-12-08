@@ -6,11 +6,15 @@
         android:title="Start" />
 
     <item
+        android:id="@+id/navigation_tasks"
+        android:title="Zadania" />
+
+    <item
         android:id="@+id/navigation_budget"
         android:title="Budżet" />
 
     <item
-        android:id="@+id/navigation_planner"
-        android:title="Planer" />
+        android:id="@+id/navigation_more"
+        android:title="Więcej" />
 
 </menu>

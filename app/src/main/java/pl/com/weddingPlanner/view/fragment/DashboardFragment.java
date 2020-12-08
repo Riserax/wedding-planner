@@ -1,4 +1,4 @@
-package pl.com.WeddingPlanner.view;
+package pl.com.weddingPlanner.view.fragment;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -12,10 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import pl.com.WeddingPlanner.R;
-import pl.com.WeddingPlanner.model.MainViewModel;
+import pl.com.weddingPlanner.R;
+import pl.com.weddingPlanner.view.model.MainViewModel;
 
-public class PlannerFragment extends Fragment {
+public class DashboardFragment extends Fragment {
 
     private MainViewModel mViewModel;
 
@@ -24,7 +24,7 @@ public class PlannerFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        return inflater.inflate(R.layout.fragment_planner, container, false);
+        return inflater.inflate(R.layout.fragment_dashboard, container, false);
     }
 
 }
