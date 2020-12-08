@@ -1,4 +1,4 @@
-package pl.com.WeddingPlanner.model;
+package pl.com.weddingPlanner.view.model;
 
 import androidx.lifecycle.ViewModel;
 

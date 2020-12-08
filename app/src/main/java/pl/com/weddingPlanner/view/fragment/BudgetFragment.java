@@ -1,4 +1,4 @@
-package pl.com.WeddingPlanner.view;
+package pl.com.weddingPlanner.view.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,8 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import pl.com.WeddingPlanner.R;
-import pl.com.WeddingPlanner.model.MainViewModel;
+import pl.com.weddingPlanner.R;
+import pl.com.weddingPlanner.view.model.MainViewModel;
 
 public class BudgetFragment extends Fragment {
 

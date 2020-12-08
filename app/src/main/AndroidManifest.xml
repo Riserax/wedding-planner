@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="pl.com.WeddingPlanner">
+    package="pl.com.weddingPlanner">
 
     <application
         android:allowBackup="true"
@@ -9,9 +9,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WeddingPlanner">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".view.MainActivity"
+            android:name="pl.com.weddingPlanner.view.activity.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
@@ -22,15 +22,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.NavigationActivity"
+            android:name="pl.com.weddingPlanner.view.activity.NavigationActivity"
             android:label="activity_navigation"
-            android:parentActivityName=".view.MainActivity"
+            android:parentActivityName="pl.com.weddingPlanner.view.activity.MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="pl.com.WeddingPlanner.view.MainActivity" />
+                android:value="pl.com.weddingPlanner.view.activity.MainActivity" />
         </activity>
+        <activity
+            android:name="pl.com.weddingPlanner.view.activity.GuestsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="pl.com.weddingPlanner.view.activity.SubcontractorsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="pl.com.weddingPlanner.view.activity.SettingsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
     </application>
 
 </manifest>

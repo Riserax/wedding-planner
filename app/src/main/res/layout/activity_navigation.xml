@@ -20,7 +20,7 @@
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:background="@color/black"
+        android:background="@color/purple_700"
         android:filterTouchesWhenObscured="true"
         app:itemIconTint="@drawable/bottom_navbar_selector"
         app:itemTextColor="@drawable/bottom_navbar_selector"
