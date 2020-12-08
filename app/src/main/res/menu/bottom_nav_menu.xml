@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:title="Start" />
+
+    <item
+        android:id="@+id/navigation_budget"
+        android:title="Budżet" />
+
+    <item
+        android:id="@+id/navigation_planner"
+        android:title="Planer" />
+
+</menu>
