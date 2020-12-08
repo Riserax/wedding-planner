@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "pl.com.WeddingPlanner"
+        applicationId "pl.com.weddingPlanner"
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
