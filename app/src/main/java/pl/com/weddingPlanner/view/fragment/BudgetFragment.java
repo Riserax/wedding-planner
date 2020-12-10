@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import pl.com.weddingPlanner.R;
+import pl.com.weddingPlanner.view.activity.NavigationActivity;
 import pl.com.weddingPlanner.view.model.MainViewModel;
 
 public class BudgetFragment extends Fragment {
@@ -22,6 +23,9 @@ public class BudgetFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
+        ((NavigationActivity) requireActivity()).setFragmentToolbar(R.string.header_title_budget);
+
         return inflater.inflate(R.layout.fragment_budget, container, false);
     }
 
