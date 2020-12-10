@@ -29,10 +29,10 @@ public class MoreFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_more, container, false);
 
         ((NavigationActivity) requireActivity()).setFragmentToolbar(R.string.header_title_more);
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_more, container, false);
         setListeners();
 
         return binding.getRoot();
