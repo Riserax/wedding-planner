@@ -7,4 +7,7 @@
     <string name="header_title_guests">Goście</string>
     <string name="header_title_subcontractors">Podwykonawcy</string>
     <string name="header_title_settings">Ustawienia</string>
+
+    <string name="tab_title_guests_list">Lista</string>
+    <string name="tab_title_guests_groups">Stoły</string>
 </resources>
