@@ -4,7 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_guests"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/gray_F2F2F2">
+
+    <include android:id="@+id/toolbar_layout"
+        layout="@layout/toolbar" />
 
     <TextView
         android:id="@+id/message"
