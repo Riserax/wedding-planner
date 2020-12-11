@@ -21,6 +21,10 @@
     <string name="month_november">Listopad</string>
     <string name="month_december">Grudzień</string>
 
+    <string name="tab_title_tasks_categories">Kategorie</string>
+    <string name="tab_title_tasks_months">Miesiące</string>
+    <string name="tab_title_budget_categories">Kategorie</string>
+    <string name="tab_title_budget_descending">Chronologicznie</string>
     <string name="tab_title_guests_list">Lista</string>
     <string name="tab_title_guests_groups">Stoły</string>
 </resources>

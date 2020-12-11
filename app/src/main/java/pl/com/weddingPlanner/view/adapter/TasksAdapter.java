@@ -5,28 +5,32 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import java.util.Map;
-
-import pl.com.weddingPlanner.view.fragment.TasksMonthFragment;
+import pl.com.weddingPlanner.view.fragment.TasksCategoriesFragment;
+import pl.com.weddingPlanner.view.fragment.TasksMonthsFragment;
 
 public class TasksAdapter extends FragmentStateAdapter {
 
-    private Map<Integer, String> months;
+    private static final int TASKS_TABS_NUMBER = 2;
 
-    public TasksAdapter(@NonNull FragmentActivity fragmentActivity, Map<Integer, String> months) {
+    public TasksAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
-        this.months = months;
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return new TasksMonthFragment(months.get(position));
+        switch (position) {
+            case 0:
+                return new TasksCategoriesFragment();
+            case 1:
+                return new TasksMonthsFragment();
+            default:
+                throw new IllegalArgumentException("TasksAdapter position=" + position + " but max=" + (TASKS_TABS_NUMBER - 1));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return months.size();
+        return TASKS_TABS_NUMBER;
     }
-
 }
