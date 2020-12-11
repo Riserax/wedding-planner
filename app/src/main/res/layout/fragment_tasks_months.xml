@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:id="@+id/budget_tabs_layout"
+        android:id="@+id/tasks_months_tabs_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginTop="46dp">
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/budget_tabs"
+            android:id="@+id/tasks_months_tabs"
             android:layout_width="match_parent"
             android:layout_height="42dp"
             app:tabIndicatorColor="@color/black"
             app:tabGravity="fill"
             app:tabMaxWidth="0dp"
-            app:tabMode="fixed" />
+            app:tabMode="scrollable" />
 
         <View
             android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:background="@color/gray_E1E1E1" />
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/budget_view_pager"
+            android:id="@+id/tasks_months_view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="0dp" />

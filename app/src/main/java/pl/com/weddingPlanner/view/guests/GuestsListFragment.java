@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.view.fragment;
+package pl.com.weddingPlanner.view.guests;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,10 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import pl.com.weddingPlanner.R;
-import pl.com.weddingPlanner.view.activity.NavigationActivity;
 import pl.com.weddingPlanner.view.model.MainViewModel;
 
-public class BudgetFragment extends Fragment {
+public class GuestsListFragment extends Fragment {
 
     private MainViewModel mViewModel;
 
@@ -24,9 +23,7 @@ public class BudgetFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-        ((NavigationActivity) requireActivity()).setFragmentToolbar(R.string.header_title_budget);
-
-        return inflater.inflate(R.layout.fragment_budget, container, false);
+        return inflater.inflate(R.layout.fragment_guests_list, container, false);
     }
 
 }

@@ -1,8 +1,9 @@
-package pl.com.weddingPlanner.view.activity;
+package pl.com.weddingPlanner.view.settings;
 
 import android.os.Bundle;
 
 import pl.com.weddingPlanner.R;
+import pl.com.weddingPlanner.view.BaseActivity;
 
 public class SettingsActivity extends BaseActivity {
 

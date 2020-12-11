@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.view.activity;
+package pl.com.weddingPlanner.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat;
 
 import pl.com.weddingPlanner.R;
 
-import static pl.com.weddingPlanner.view.activity.NavigationActivity.FRAGMENT_TO_LOAD_ID;
+import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
 
 public class BaseActivity extends AppCompatActivity {
 

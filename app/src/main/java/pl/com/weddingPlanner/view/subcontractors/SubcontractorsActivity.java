@@ -1,8 +1,9 @@
-package pl.com.weddingPlanner.view.activity;
+package pl.com.weddingPlanner.view.subcontractors;
 
 import android.os.Bundle;
 
 import pl.com.weddingPlanner.R;
+import pl.com.weddingPlanner.view.BaseActivity;
 
 public class SubcontractorsActivity extends BaseActivity {
 
