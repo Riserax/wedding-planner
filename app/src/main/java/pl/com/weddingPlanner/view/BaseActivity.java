@@ -39,6 +39,15 @@ public class BaseActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
+    // finishes Activity (back to previous fragment/activity)
+    public void setActivityToolbarContentWithBackIcon(@StringRes int resourceId) {
+        initToolbar();
+        ImageButton backIcon = setComponentsAndReturnBackIcon(resourceId);
+        backIcon.setOnClickListener(view -> {
+            finish();
+        });
+    }
+
     // back from Activity to chosen Fragment
     public void setToolbarContentWithBackIcon(@StringRes int headerTitleId, final Context context, @IdRes final int backDestination) {
         View.OnClickListener backIconOnClickListener = view -> {

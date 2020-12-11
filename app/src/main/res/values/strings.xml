@@ -2,7 +2,9 @@
     <string name="app_name">WeddingPlanner</string>
 
     <string name="header_title_tasks">Zadania</string>
+    <string name="header_title_tasks_new">Nowe zadanie</string>
     <string name="header_title_budget">Budżet</string>
+    <string name="header_title_budget_new">Nowy wydatek</string>
     <string name="header_title_more">Więcej</string>
     <string name="header_title_guests">Goście</string>
     <string name="header_title_subcontractors">Podwykonawcy</string>

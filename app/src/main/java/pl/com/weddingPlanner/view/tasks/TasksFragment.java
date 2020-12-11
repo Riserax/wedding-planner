@@ -1,5 +1,6 @@
 package pl.com.weddingPlanner.view.tasks;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,8 +28,7 @@ public class TasksFragment extends Fragment {
     private ViewPager2 viewPager;
     private FragmentTasksBinding binding;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tasks, container, false);
 
@@ -37,6 +37,7 @@ public class TasksFragment extends Fragment {
         initComponents();
         setViewPager();
         attachTabLayoutMediator();
+        setListeners();
 
         return binding.getRoot();
     }
@@ -63,5 +64,22 @@ public class TasksFragment extends Fragment {
                         break;
                 }
             }).attach();
+    }
+
+    private void setListeners() {
+        binding.tasksFloatingButton.setOnClickListener(view -> {
+            Intent intent;
+            switch (viewPager.getCurrentItem()) {
+                case 0:
+                    //TODO do nowej kategorii
+                    intent = new Intent(requireActivity(), NewTaskActivity.class);
+                    startActivity(intent);
+                    break;
+                case 1:
+                    intent = new Intent(requireActivity(), NewTaskActivity.class);
+                    startActivity(intent);
+                    break;
+            }
+        });
     }
 }

@@ -1,5 +1,6 @@
 package pl.com.weddingPlanner.view.budget;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,8 +28,7 @@ public class BudgetFragment extends Fragment {
     private ViewPager2 viewPager;
     private FragmentBudgetBinding binding;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_budget, container, false);
 
@@ -37,6 +37,7 @@ public class BudgetFragment extends Fragment {
         initComponents();
         setViewPager();
         attachTabLayoutMediator();
+        setListeners();
 
         return binding.getRoot();
     }
@@ -63,5 +64,12 @@ public class BudgetFragment extends Fragment {
                         break;
                 }
             }).attach();
+    }
+
+    private void setListeners() {
+        binding.budgetFloatingButton.setOnClickListener(view -> {
+            Intent intent = new Intent(requireActivity(), NewBudgetActivity.class);
+            startActivity(intent);
+        });
     }
 }
