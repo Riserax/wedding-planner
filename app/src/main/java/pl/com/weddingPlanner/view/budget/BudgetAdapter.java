@@ -1,12 +1,9 @@
-package pl.com.weddingPlanner.view.adapter;
+package pl.com.weddingPlanner.view.budget;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-
-import pl.com.weddingPlanner.view.fragment.BudgetCategoriesFragment;
-import pl.com.weddingPlanner.view.fragment.BudgetDescendingFragment;
 
 public class BudgetAdapter extends FragmentStateAdapter {
 

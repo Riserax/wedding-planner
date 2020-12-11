@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.view.activity;
+package pl.com.weddingPlanner.view.guests;
 
 import android.os.Bundle;
 
@@ -10,7 +10,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityGuestsBinding;
-import pl.com.weddingPlanner.view.adapter.GuestsAdapter;
+import pl.com.weddingPlanner.view.BaseActivity;
 
 public class GuestsActivity extends BaseActivity {
 

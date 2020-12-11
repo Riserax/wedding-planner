@@ -1,12 +1,9 @@
-package pl.com.weddingPlanner.view.adapter;
+package pl.com.weddingPlanner.view.tasks;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-
-import pl.com.weddingPlanner.view.fragment.TasksCategoriesFragment;
-import pl.com.weddingPlanner.view.fragment.TasksMonthsFragment;
 
 public class TasksAdapter extends FragmentStateAdapter {
 

@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.view.fragment;
+package pl.com.weddingPlanner.view.more;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,12 +13,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentMoreBinding;
-import pl.com.weddingPlanner.view.activity.NavigationActivity;
-import pl.com.weddingPlanner.view.activity.SettingsActivity;
-import pl.com.weddingPlanner.view.activity.SubcontractorsActivity;
+import pl.com.weddingPlanner.view.NavigationActivity;
+import pl.com.weddingPlanner.view.settings.SettingsActivity;
+import pl.com.weddingPlanner.view.subcontractors.SubcontractorsActivity;
 import pl.com.weddingPlanner.view.model.MainViewModel;
 import pl.com.weddingPlanner.util.DebouncedOnClickListener;
-import pl.com.weddingPlanner.view.activity.GuestsActivity;
+import pl.com.weddingPlanner.view.guests.GuestsActivity;
 
 public class MoreFragment extends Fragment {
 

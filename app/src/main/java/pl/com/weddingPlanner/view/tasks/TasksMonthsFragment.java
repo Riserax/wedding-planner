@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.view.fragment;
+package pl.com.weddingPlanner.view.tasks;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,7 +19,6 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentTasksMonthsBinding;
-import pl.com.weddingPlanner.view.adapter.TasksMonthsAdapter;
 import pl.com.weddingPlanner.view.model.MainViewModel;
 
 public class TasksMonthsFragment extends Fragment {

@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.view.fragment;
+package pl.com.weddingPlanner.view.dashboard;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,9 +11,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import pl.com.weddingPlanner.R;
+import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.model.MainViewModel;
 
-public class GuestsListFragment extends Fragment {
+public class DashboardFragment extends Fragment {
 
     private MainViewModel mViewModel;
 
@@ -23,7 +24,9 @@ public class GuestsListFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-        return inflater.inflate(R.layout.fragment_guests_list, container, false);
+        ((NavigationActivity) requireActivity()).setFragmentWithoutToolbar();
+
+        return inflater.inflate(R.layout.fragment_dashboard, container, false);
     }
 
 }

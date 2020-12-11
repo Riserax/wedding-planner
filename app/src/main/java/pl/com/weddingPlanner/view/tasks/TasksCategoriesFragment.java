@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.view.fragment;
+package pl.com.weddingPlanner.view.tasks;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.view.model.MainViewModel;
 
-public class BudgetDescendingFragment extends Fragment {
+public class TasksCategoriesFragment extends Fragment {
 
     private MainViewModel mViewModel;
 
@@ -20,6 +20,6 @@ public class BudgetDescendingFragment extends Fragment {
                              Bundle savedInstanceState) {
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-        return inflater.inflate(R.layout.fragment_budget_descending, container, false);
+        return inflater.inflate(R.layout.fragment_tasks_categories, container, false);
     }
 }

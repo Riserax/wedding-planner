@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.view.activity;
+package pl.com.weddingPlanner.view;
 
 import android.content.Intent;
 import android.os.Bundle;

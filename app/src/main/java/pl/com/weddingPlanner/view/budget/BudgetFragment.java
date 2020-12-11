@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.view.fragment;
+package pl.com.weddingPlanner.view.budget;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,25 +15,24 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import pl.com.weddingPlanner.R;
-import pl.com.weddingPlanner.databinding.FragmentTasksBinding;
-import pl.com.weddingPlanner.view.activity.NavigationActivity;
-import pl.com.weddingPlanner.view.adapter.TasksAdapter;
+import pl.com.weddingPlanner.databinding.FragmentBudgetBinding;
+import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.model.MainViewModel;
 
-public class TasksFragment extends Fragment {
+public class BudgetFragment extends Fragment {
 
     private MainViewModel mViewModel;
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
-    private FragmentTasksBinding binding;
+    private FragmentBudgetBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tasks, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_budget, container, false);
 
-        ((NavigationActivity) requireActivity()).setFragmentToolbar(R.string.header_title_tasks);
+        ((NavigationActivity) requireActivity()).setFragmentToolbar(R.string.header_title_budget);
 
         initComponents();
         setViewPager();
@@ -43,12 +42,12 @@ public class TasksFragment extends Fragment {
     }
 
     private void initComponents() {
-        viewPager = binding.tasksViewPager;
-        tabLayout = binding.tasksTabs;
+        viewPager = binding.budgetViewPager;
+        tabLayout = binding.budgetTabs;
     }
 
     private void setViewPager() {
-        viewPager.setAdapter(new TasksAdapter(requireActivity()));
+        viewPager.setAdapter(new BudgetAdapter(requireActivity()));
         viewPager.setOffscreenPageLimit(1);
     }
 
@@ -57,10 +56,10 @@ public class TasksFragment extends Fragment {
             (tab, position) -> {
                 switch (position) {
                     case 0:
-                        tab.setText(getString(R.string.tab_title_tasks_categories));
+                        tab.setText(getString(R.string.tab_title_budget_categories));
                         break;
                     case 1:
-                        tab.setText(getString(R.string.tab_title_tasks_months));
+                        tab.setText(getString(R.string.tab_title_budget_descending));
                         break;
                 }
             }).attach();

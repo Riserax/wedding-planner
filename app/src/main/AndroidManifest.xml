@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name="pl.com.weddingPlanner.view.activity.MainActivity"
+            android:name="pl.com.weddingPlanner.view.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
@@ -22,27 +22,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="pl.com.weddingPlanner.view.activity.NavigationActivity"
+            android:name="pl.com.weddingPlanner.view.NavigationActivity"
             android:label="activity_navigation"
-            android:parentActivityName="pl.com.weddingPlanner.view.activity.MainActivity"
+            android:parentActivityName="pl.com.weddingPlanner.view.MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="pl.com.weddingPlanner.view.activity.MainActivity" />
+                android:value="pl.com.weddingPlanner.view.MainActivity" />
         </activity>
         <activity
-            android:name="pl.com.weddingPlanner.view.activity.GuestsActivity"
+            android:name="pl.com.weddingPlanner.view.guests.GuestsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="pl.com.weddingPlanner.view.activity.SubcontractorsActivity"
+            android:name="pl.com.weddingPlanner.view.subcontractors.SubcontractorsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="pl.com.weddingPlanner.view.activity.SettingsActivity"
+            android:name="pl.com.weddingPlanner.view.settings.SettingsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
