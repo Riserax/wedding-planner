@@ -3,6 +3,8 @@
 
     <string name="dialog_back">Powrót</string>
     <string name="dialog_pick">Wybierz</string>
+    <string name="dialog_task_bookmarks_title">Wybierz etykiety</string>
+    <string name="dialog_task_category_title">Wybierz kategorię</string>
 
     <string name="header_title_tasks">Zadania</string>
     <string name="header_title_tasks_new">Nowe zadanie</string>

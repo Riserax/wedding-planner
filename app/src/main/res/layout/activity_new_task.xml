@@ -139,6 +139,7 @@
                     android:text="@string/task_field_bookmarks"
                     android:textColor="@color/gray_949494"
                     android:textSize="16sp"
+                    android:ellipsize="end"
                     app:layout_constraintStart_toEndOf="@id/task_bookmarks_icon"
                     app:layout_constraintEnd_toStartOf="@id/bookmarks_arrow_right"
                     app:layout_constraintTop_toTopOf="parent"

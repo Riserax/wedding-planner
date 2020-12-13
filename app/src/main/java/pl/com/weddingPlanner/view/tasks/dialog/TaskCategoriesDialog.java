@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.view.tasks;
+package pl.com.weddingPlanner.view.tasks.dialog;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import java.util.List;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.DialogTaskCategoriesBinding;
 import pl.com.weddingPlanner.view.CustomAlertDialog;
+import pl.com.weddingPlanner.view.tasks.NewTaskActivity;
 
 public class TaskCategoriesDialog extends CustomAlertDialog {
 
