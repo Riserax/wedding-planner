@@ -39,7 +39,7 @@ public class MoreFragment extends Fragment {
     }
 
     private void setListeners() {
-        binding.buttonGuests.setOnClickListener(new DebouncedOnClickListener(1000) {
+        binding.buttonGuests.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
             @Override
             public void onDebouncedClick(View v) {
                 Intent intent = new Intent(requireActivity(), GuestsActivity.class);
@@ -47,7 +47,7 @@ public class MoreFragment extends Fragment {
             }
         });
 
-        binding.buttonSubcontractors.setOnClickListener(new DebouncedOnClickListener(1000) {
+        binding.buttonSubcontractors.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
             @Override
             public void onDebouncedClick(View v) {
                 Intent intent = new Intent(requireActivity(), SubcontractorsActivity.class);
@@ -55,7 +55,7 @@ public class MoreFragment extends Fragment {
             }
         });
 
-        binding.buttonSettings.setOnClickListener(new DebouncedOnClickListener(1000) {
+        binding.buttonSettings.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
             @Override
             public void onDebouncedClick(View v) {
                 Intent intent = new Intent(requireActivity(), SettingsActivity.class);

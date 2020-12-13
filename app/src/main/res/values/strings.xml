@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">WeddingPlanner</string>
 
+    <string name="dialog_back">Powrót</string>
+    <string name="dialog_pick">Wybierz</string>
+
     <string name="header_title_tasks">Zadania</string>
     <string name="header_title_tasks_new">Nowe zadanie</string>
     <string name="header_title_budget">Budżet</string>
@@ -29,4 +32,13 @@
     <string name="tab_title_budget_descending">Chronologicznie</string>
     <string name="tab_title_guests_list">Lista</string>
     <string name="tab_title_guests_groups">Stoły</string>
+
+    <string name="task_field_name">Nazwa</string>
+    <string name="task_field_category">Kategoria</string>
+    <string name="task_field_bookmarks">Etykiety</string>
+    <string name="task_field_people">Przypisane osoby</string>
+    <string name="task_field_description">Opis</string>
+    <string name="task_field_date">Data</string>
+    <string name="task_field_time">Godzina</string>
+    <string name="task_button">Dodaj</string>
 </resources>
