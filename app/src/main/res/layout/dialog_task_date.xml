@@ -11,21 +11,12 @@
         android:paddingEnd="20dp"
         android:filterTouchesWhenObscured="true">
 
-        <TextView
+        <DatePicker
+            android:id="@+id/task_date_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:text="@string/dialog_task_bookmarks_title"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <ListView
-            android:id="@+id/task_bookmarks"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"/>
+            android:datePickerMode="calendar"
+            style="@style/DatePickerStyle"/>
 
     </LinearLayout>
 

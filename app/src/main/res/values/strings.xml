@@ -5,6 +5,9 @@
     <string name="dialog_pick">Wybierz</string>
     <string name="dialog_task_bookmarks_title">Wybierz etykiety</string>
     <string name="dialog_task_category_title">Wybierz kategorię</string>
+    <string name="dialog_task_date_title">Wybierz datę</string>
+    <string name="dialog_task_people_title">Wybierz osoby</string>
+    <string name="dialog_task_time_title">Wybierz godzinę</string>
 
     <string name="header_title_tasks">Zadania</string>
     <string name="header_title_tasks_new">Nowe zadanie</string>

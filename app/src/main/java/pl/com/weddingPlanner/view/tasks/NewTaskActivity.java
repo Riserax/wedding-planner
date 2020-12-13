@@ -14,6 +14,7 @@ import pl.com.weddingPlanner.util.DebouncedOnClickListener;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskBookmarksDialog;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskCategoriesDialog;
+import pl.com.weddingPlanner.view.tasks.dialog.TaskDateDialog;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskPeopleDialog;
 
 public class NewTaskActivity extends BaseActivity {
@@ -48,6 +49,13 @@ public class NewTaskActivity extends BaseActivity {
             @Override
             public void onDebouncedClick(View v) {
                 new TaskPeopleDialog(NewTaskActivity.this).showDialog();
+            }
+        });
+
+        binding.taskDateLayout.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
+            @Override
+            public void onDebouncedClick(View v) {
+                new TaskDateDialog(NewTaskActivity.this).showDialog();
             }
         });
     }
