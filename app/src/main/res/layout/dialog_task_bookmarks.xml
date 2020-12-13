@@ -25,9 +25,7 @@
             android:id="@+id/task_bookmarks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp">
-
-        </ListView>
+            android:layout_marginStart="5dp"/>
 
     </LinearLayout>
 

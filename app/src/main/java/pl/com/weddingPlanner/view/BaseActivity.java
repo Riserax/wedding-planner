@@ -82,7 +82,7 @@ public class BaseActivity extends AppCompatActivity {
         initFragmentToolbar();
 
         Toolbar toolbar = findViewById(R.id.toolbar_layout);
-        toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+        toolbar.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_toolbar));
 
         ImageButton backIcon = findViewById(R.id.back_button);
         backIcon.setVisibility(View.GONE);

@@ -16,13 +16,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
-            android:text="Wybierz kategorię"
+            android:text="Wybierz osoby"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <ListView
-            android:id="@+id/task_categories"
+            android:id="@+id/task_people"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"/>

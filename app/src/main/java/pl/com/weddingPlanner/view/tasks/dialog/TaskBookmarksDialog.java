@@ -1,6 +1,5 @@
 package pl.com.weddingPlanner.view.tasks.dialog;
 
-import android.content.Context;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.widget.ArrayAdapter;
@@ -23,15 +22,15 @@ public class TaskBookmarksDialog extends CustomAlertDialog {
     private DialogTaskBookmarksBinding binding;
     private Map<Integer, String> bookmarks;
 
-    public TaskBookmarksDialog(final Context context, NewTaskActivity activity) {
-        super(context, R.layout.dialog_task_bookmarks);
+    public TaskBookmarksDialog(NewTaskActivity activity) {
+        super(activity, R.layout.dialog_task_bookmarks);
 
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_task_bookmarks, null, false);
 
         setAllBookmarks();
         initListView();
 
-        setPositiveButton(R.string.dialog_pick, (dialog, which) -> activity.setBookmarks(getSelectedBookmarks()));
+        setPositiveButton(R.string.dialog_pick, (dialog, which) -> activity.setFieldText(getSelectedBookmarks(), activity.findViewById(R.id.task_bookmarks_name)));
         setNegativeButton(R.string.dialog_back, (dialog, which) -> {});
 
         setView(binding.getRoot()).setCancelable(true);

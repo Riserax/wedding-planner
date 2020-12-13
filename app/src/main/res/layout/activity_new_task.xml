@@ -79,22 +79,42 @@
                     android:tint="@color/gray_949494"
                     app:srcCompat="@drawable/ic_dashboard"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/task_category_name"
+                    app:layout_constraintEnd_toStartOf="@id/task_category_name_layout"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />
 
-                <TextView
-                    android:id="@+id/task_category_name"
+                <LinearLayout
+                    android:id="@+id/task_category_name_layout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="12dp"
-                    android:text="@string/task_field_category"
-                    android:textColor="@color/gray_949494"
-                    android:textSize="16sp"
+                    android:orientation="vertical"
                     app:layout_constraintStart_toEndOf="@id/task_category_icon"
                     app:layout_constraintEnd_toStartOf="@id/categories_arrow_right"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="parent" >
+
+                    <TextView
+                        android:id="@+id/task_category_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:text="@string/task_field_category"
+                        android:textColor="@color/gray_949494"
+                        android:textSize="12sp"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/task_category_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:text="@string/task_field_category"
+                        android:textColor="@color/gray_949494"
+                        android:textSize="16sp"/>
+
+                </LinearLayout>
 
                 <ImageButton
                     android:id="@+id/categories_arrow_right"
@@ -103,7 +123,7 @@
                     android:background="@color/gray_FAFAFA"
                     android:tint="@color/gray_949494"
                     app:srcCompat="@drawable/ic_arrow_right_keyboard"
-                    app:layout_constraintStart_toEndOf="@id/task_category_name"
+                    app:layout_constraintStart_toEndOf="@id/task_category_name_layout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
@@ -127,23 +147,42 @@
                     android:tint="@color/gray_949494"
                     app:srcCompat="@drawable/ic_bookmarks"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/task_bookmarks_name"
+                    app:layout_constraintEnd_toStartOf="@id/task_bookmarks_name_layout"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />
 
-                <TextView
-                    android:id="@+id/task_bookmarks_name"
+                <LinearLayout
+                    android:id="@+id/task_bookmarks_name_layout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="12dp"
-                    android:text="@string/task_field_bookmarks"
-                    android:textColor="@color/gray_949494"
-                    android:textSize="16sp"
-                    android:ellipsize="end"
+                    android:orientation="vertical"
                     app:layout_constraintStart_toEndOf="@id/task_bookmarks_icon"
                     app:layout_constraintEnd_toStartOf="@id/bookmarks_arrow_right"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="parent" >
+
+                    <TextView
+                        android:id="@+id/task_bookmarks_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:text="@string/task_field_bookmarks"
+                        android:textColor="@color/gray_949494"
+                        android:textSize="12sp"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/task_bookmarks_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:text="@string/task_field_bookmarks"
+                        android:textColor="@color/gray_949494"
+                        android:textSize="16sp"/>
+
+                </LinearLayout>
 
                 <ImageButton
                     android:id="@+id/bookmarks_arrow_right"
@@ -152,7 +191,7 @@
                     android:background="@color/gray_FAFAFA"
                     android:tint="@color/gray_949494"
                     app:srcCompat="@drawable/ic_arrow_right_keyboard"
-                    app:layout_constraintStart_toEndOf="@id/task_bookmarks_name"
+                    app:layout_constraintStart_toEndOf="@id/task_bookmarks_name_layout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
@@ -176,22 +215,42 @@
                     android:tint="@color/gray_949494"
                     app:srcCompat="@drawable/ic_people"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/task_people_name"
+                    app:layout_constraintEnd_toStartOf="@id/task_people_name_layout"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />
 
-                <TextView
-                    android:id="@+id/task_people_name"
+                <LinearLayout
+                    android:id="@+id/task_people_name_layout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="12dp"
-                    android:text="@string/task_field_people"
-                    android:textColor="@color/gray_949494"
-                    android:textSize="16sp"
+                    android:orientation="vertical"
                     app:layout_constraintStart_toEndOf="@id/task_people_icon"
                     app:layout_constraintEnd_toStartOf="@id/people_arrow_right"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="parent" >
+
+                    <TextView
+                        android:id="@+id/task_people_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:text="@string/task_field_people"
+                        android:textColor="@color/gray_949494"
+                        android:textSize="12sp"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/task_people_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:text="@string/task_field_people"
+                        android:textColor="@color/gray_949494"
+                        android:textSize="16sp"/>
+
+                </LinearLayout>
 
                 <ImageButton
                     android:id="@+id/people_arrow_right"
@@ -200,7 +259,7 @@
                     android:background="@color/gray_FAFAFA"
                     android:tint="@color/gray_949494"
                     app:srcCompat="@drawable/ic_arrow_right_keyboard"
-                    app:layout_constraintStart_toEndOf="@id/task_people_name"
+                    app:layout_constraintStart_toEndOf="@id/task_people_name_layout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
