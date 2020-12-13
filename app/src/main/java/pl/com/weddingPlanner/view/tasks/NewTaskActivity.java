@@ -16,6 +16,7 @@ import pl.com.weddingPlanner.view.tasks.dialog.TaskBookmarksDialog;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskCategoriesDialog;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskDateDialog;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskPeopleDialog;
+import pl.com.weddingPlanner.view.tasks.dialog.TaskTimeDialog;
 
 public class NewTaskActivity extends BaseActivity {
 
@@ -56,6 +57,13 @@ public class NewTaskActivity extends BaseActivity {
             @Override
             public void onDebouncedClick(View v) {
                 new TaskDateDialog(NewTaskActivity.this).showDialog();
+            }
+        });
+
+        binding.taskTimeLayout.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
+            @Override
+            public void onDebouncedClick(View v) {
+                new TaskTimeDialog(NewTaskActivity.this).showDialog();
             }
         });
     }

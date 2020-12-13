@@ -11,11 +11,11 @@
         android:paddingEnd="20dp"
         android:filterTouchesWhenObscured="true">
 
-        <DatePicker
-            android:id="@+id/task_date_picker"
+        <TimePicker
+            android:id="@+id/task_time_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/DatePickerStyle"/>
+            style="@style/TimePickerStyle"/>
 
     </LinearLayout>
 
