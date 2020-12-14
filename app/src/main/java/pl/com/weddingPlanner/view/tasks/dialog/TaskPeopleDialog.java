@@ -67,7 +67,7 @@ public class TaskPeopleDialog extends CustomAlertDialog {
         List<String> selectedPeople = new ArrayList<>();
         for (Map.Entry<Integer, String> entry : people.entrySet()) {
             int key = entry.getKey();
-            if (selectedKeys.contains(key))
+            if (selectedKeys.contains(key) && selectedItems.get(key, false))
                 selectedPeople.add(people.get(key));
         }
 

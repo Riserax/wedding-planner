@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
@@ -18,18 +17,14 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentBudgetBinding;
 import pl.com.weddingPlanner.view.NavigationActivity;
-import pl.com.weddingPlanner.view.model.MainViewModel;
 
 public class BudgetFragment extends Fragment {
-
-    private MainViewModel mViewModel;
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     private FragmentBudgetBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_budget, container, false);
 
         ((NavigationActivity) requireActivity()).setFragmentToolbar(R.string.header_title_budget);

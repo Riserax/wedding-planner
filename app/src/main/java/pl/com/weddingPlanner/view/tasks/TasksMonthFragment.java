@@ -9,15 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentTasksMonthBinding;
-import pl.com.weddingPlanner.view.model.MainViewModel;
 
 public class TasksMonthFragment extends Fragment {
 
-    private MainViewModel mViewModel;
     private FragmentTasksMonthBinding binding;
 
     private final String month;
@@ -30,7 +27,6 @@ public class TasksMonthFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tasks_month, container, false);
 
         setMonthText();

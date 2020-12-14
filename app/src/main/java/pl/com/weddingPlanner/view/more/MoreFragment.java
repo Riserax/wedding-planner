@@ -9,26 +9,21 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentMoreBinding;
+import pl.com.weddingPlanner.util.DebouncedOnClickListener;
 import pl.com.weddingPlanner.view.NavigationActivity;
+import pl.com.weddingPlanner.view.guests.GuestsActivity;
 import pl.com.weddingPlanner.view.settings.SettingsActivity;
 import pl.com.weddingPlanner.view.subcontractors.SubcontractorsActivity;
-import pl.com.weddingPlanner.view.model.MainViewModel;
-import pl.com.weddingPlanner.util.DebouncedOnClickListener;
-import pl.com.weddingPlanner.view.guests.GuestsActivity;
 
 public class MoreFragment extends Fragment {
-
-    private MainViewModel mViewModel;
 
     private FragmentMoreBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_more, container, false);
 
         ((NavigationActivity) requireActivity()).setFragmentToolbar(R.string.header_title_more);
