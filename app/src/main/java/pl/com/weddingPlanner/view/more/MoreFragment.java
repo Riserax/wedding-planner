@@ -9,26 +9,21 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentMoreBinding;
+import pl.com.weddingPlanner.util.DebouncedOnClickListener;
 import pl.com.weddingPlanner.view.NavigationActivity;
+import pl.com.weddingPlanner.view.guests.GuestsActivity;
 import pl.com.weddingPlanner.view.settings.SettingsActivity;
 import pl.com.weddingPlanner.view.subcontractors.SubcontractorsActivity;
-import pl.com.weddingPlanner.view.model.MainViewModel;
-import pl.com.weddingPlanner.util.DebouncedOnClickListener;
-import pl.com.weddingPlanner.view.guests.GuestsActivity;
 
 public class MoreFragment extends Fragment {
-
-    private MainViewModel mViewModel;
 
     private FragmentMoreBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_more, container, false);
 
         ((NavigationActivity) requireActivity()).setFragmentToolbar(R.string.header_title_more);
@@ -39,7 +34,7 @@ public class MoreFragment extends Fragment {
     }
 
     private void setListeners() {
-        binding.buttonGuests.setOnClickListener(new DebouncedOnClickListener(1000) {
+        binding.buttonGuests.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
             @Override
             public void onDebouncedClick(View v) {
                 Intent intent = new Intent(requireActivity(), GuestsActivity.class);
@@ -47,7 +42,7 @@ public class MoreFragment extends Fragment {
             }
         });
 
-        binding.buttonSubcontractors.setOnClickListener(new DebouncedOnClickListener(1000) {
+        binding.buttonSubcontractors.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
             @Override
             public void onDebouncedClick(View v) {
                 Intent intent = new Intent(requireActivity(), SubcontractorsActivity.class);
@@ -55,7 +50,7 @@ public class MoreFragment extends Fragment {
             }
         });
 
-        binding.buttonSettings.setOnClickListener(new DebouncedOnClickListener(1000) {
+        binding.buttonSettings.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
             @Override
             public void onDebouncedClick(View v) {
                 Intent intent = new Intent(requireActivity(), SettingsActivity.class);

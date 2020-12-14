@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="gray_949494">#949494</color>
     <color name="gray_BCBCBC">#BCBCBC</color>
     <color name="gray_E1E1E1">#E1E1E1</color>
     <color name="gray_F2F2F2">#F2F2F2</color>
+    <color name="gray_FDFDFD">#FDFDFD</color>
 
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>

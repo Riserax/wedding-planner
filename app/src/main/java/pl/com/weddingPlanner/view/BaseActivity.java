@@ -39,6 +39,15 @@ public class BaseActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
+    // finishes Activity (back to previous fragment/activity)
+    public void setActivityToolbarContentWithBackIcon(@StringRes int resourceId) {
+        initToolbar();
+        ImageButton backIcon = setComponentsAndReturnBackIcon(resourceId);
+        backIcon.setOnClickListener(view -> {
+            finish();
+        });
+    }
+
     // back from Activity to chosen Fragment
     public void setToolbarContentWithBackIcon(@StringRes int headerTitleId, final Context context, @IdRes final int backDestination) {
         View.OnClickListener backIconOnClickListener = view -> {
@@ -73,7 +82,7 @@ public class BaseActivity extends AppCompatActivity {
         initFragmentToolbar();
 
         Toolbar toolbar = findViewById(R.id.toolbar_layout);
-        toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+        toolbar.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_toolbar));
 
         ImageButton backIcon = findViewById(R.id.back_button);
         backIcon.setVisibility(View.GONE);
