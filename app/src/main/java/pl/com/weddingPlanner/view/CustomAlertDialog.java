@@ -32,6 +32,8 @@ public class CustomAlertDialog extends AlertDialog.Builder {
         setView(view).setCancelable(true);
     }
 
+    public void showDialog() {}
+
     public void showOneButtonDialog() {
         createAndShowDialog();
         setOneButtonDialogLayout();

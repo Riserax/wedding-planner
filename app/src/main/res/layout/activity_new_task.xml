@@ -11,7 +11,7 @@
             layout="@layout/toolbar" />
 
         <ScrollView
-            android:id="@+id/tasks_root_scroll_view"
+            android:id="@+id/task_root_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="top"
@@ -26,7 +26,7 @@
                 android:id="@+id/components_layout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:padding="20dp"
+                android:padding="@dimen/components_layout_padding"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@id/toolbar_layout"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -36,16 +36,16 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/task_name_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginBottom="10dp"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="10dp"
+                    android:layout_height="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin_bottom"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
                     android:background="@drawable/bg_fields">
 
                     <ImageButton
                         android:id="@+id/task_name_icon"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="@dimen/image_button_size"
+                        android:layout_height="@dimen/image_button_size"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_edit"
@@ -58,12 +58,12 @@
                         android:id="@+id/task_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:padding="12dp"
+                        android:padding="@dimen/edit_text_padding"
                         android:maxLines="1"
                         android:maxLength="50"
                         android:inputType="text"
                         android:hint="@string/task_field_name"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/field_text_size"
                         android:textColorHint="@color/gray_949494"
                         android:textColor="@color/gray_949494"
                         android:background="@color/gray_FDFDFD"
@@ -75,69 +75,67 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/task_category_layout"
+                    android:id="@+id/category_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginBottom="10dp"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="10dp"
-                    android:background="@drawable/bg_fields"
-                    android:focusable="true"
-                    android:clickable="true">
+                    android:layout_height="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin_bottom"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
+                    android:background="@drawable/bg_fields">
 
                     <ImageButton
-                        android:id="@+id/task_category_icon"
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
+                        android:id="@+id/category_icon"
+                        android:layout_width="@dimen/image_button_size"
+                        android:layout_height="@dimen/image_button_size"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_dashboard"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/task_category_name_layout"
+                        app:layout_constraintEnd_toStartOf="@id/category_name_layout"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" />
 
                     <LinearLayout
-                        android:id="@+id/task_category_name_layout"
+                        android:id="@+id/category_name_layout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        app:layout_constraintStart_toEndOf="@id/task_category_icon"
+                        app:layout_constraintStart_toEndOf="@id/category_icon"
                         app:layout_constraintEnd_toStartOf="@id/categories_arrow_right"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" >
 
                         <TextView
-                            android:id="@+id/task_category_title"
+                            android:id="@+id/category_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingStart="12dp"
-                            android:paddingEnd="12dp"
+                            android:paddingStart="@dimen/text_view_padding"
+                            android:paddingEnd="@dimen/text_view_padding"
                             android:text="@string/task_field_category"
                             android:textColor="@color/gray_949494"
-                            android:textSize="12sp"
+                            android:textSize="@dimen/field_text_size_small"
                             android:visibility="gone"/>
 
                         <TextView
-                            android:id="@+id/task_category_name"
+                            android:id="@+id/category_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingStart="12dp"
-                            android:paddingEnd="12dp"
+                            android:paddingStart="@dimen/text_view_padding"
+                            android:paddingEnd="@dimen/text_view_padding"
                             android:text="@string/task_field_category"
                             android:textColor="@color/gray_949494"
-                            android:textSize="16sp"/>
+                            android:textSize="@dimen/field_text_size"/>
 
                     </LinearLayout>
 
                     <ImageButton
                         android:id="@+id/categories_arrow_right"
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
+                        android:layout_width="@dimen/image_button_size"
+                        android:layout_height="@dimen/image_button_size"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_arrow_right_keyboard"
-                        app:layout_constraintStart_toEndOf="@id/task_category_name_layout"
+                        app:layout_constraintStart_toEndOf="@id/category_name_layout"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -145,56 +143,56 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/task_bookmarks_layout"
+                    android:id="@+id/bookmarks_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginBottom="10dp"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="10dp"
+                    android:layout_height="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin_bottom"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
                     android:background="@drawable/bg_fields">
 
                     <ImageButton
-                        android:id="@+id/task_bookmarks_icon"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:id="@+id/bookmarks_icon"
+                        android:layout_width="@dimen/image_button_size"
+                        android:layout_height="@dimen/image_button_size"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_bookmarks"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/task_bookmarks_name_layout"
+                        app:layout_constraintEnd_toStartOf="@id/bookmarks_name_layout"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" />
 
                     <LinearLayout
-                        android:id="@+id/task_bookmarks_name_layout"
+                        android:id="@+id/bookmarks_name_layout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        app:layout_constraintStart_toEndOf="@id/task_bookmarks_icon"
+                        app:layout_constraintStart_toEndOf="@id/bookmarks_icon"
                         app:layout_constraintEnd_toStartOf="@id/bookmarks_arrow_right"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" >
 
                         <TextView
-                            android:id="@+id/task_bookmarks_title"
+                            android:id="@+id/bookmarks_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingStart="12dp"
-                            android:paddingEnd="12dp"
+                            android:paddingStart="@dimen/text_view_padding"
+                            android:paddingEnd="@dimen/text_view_padding"
                             android:text="@string/task_field_bookmarks"
                             android:textColor="@color/gray_949494"
-                            android:textSize="12sp"
+                            android:textSize="@dimen/field_text_size_small"
                             android:visibility="gone"/>
 
                         <TextView
-                            android:id="@+id/task_bookmarks_name"
+                            android:id="@+id/bookmarks_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingStart="12dp"
-                            android:paddingEnd="12dp"
+                            android:paddingStart="@dimen/text_view_padding"
+                            android:paddingEnd="@dimen/text_view_padding"
                             android:text="@string/task_field_bookmarks"
                             android:textColor="@color/gray_949494"
-                            android:textSize="16sp"
+                            android:textSize="@dimen/field_text_size"
                             android:singleLine="true"
                             android:ellipsize="end"/>
 
@@ -202,12 +200,12 @@
 
                     <ImageButton
                         android:id="@+id/bookmarks_arrow_right"
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
+                        android:layout_width="@dimen/image_button_size"
+                        android:layout_height="@dimen/image_button_size"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_arrow_right_keyboard"
-                        app:layout_constraintStart_toEndOf="@id/task_bookmarks_name_layout"
+                        app:layout_constraintStart_toEndOf="@id/bookmarks_name_layout"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -215,56 +213,56 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/task_people_layout"
+                    android:id="@+id/people_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginBottom="10dp"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="10dp"
+                    android:layout_height="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin_bottom"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
                     android:background="@drawable/bg_fields">
 
                     <ImageButton
-                        android:id="@+id/task_people_icon"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:id="@+id/people_icon"
+                        android:layout_width="@dimen/image_button_size"
+                        android:layout_height="@dimen/image_button_size"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_people"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/task_people_name_layout"
+                        app:layout_constraintEnd_toStartOf="@id/people_name_layout"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" />
 
                     <LinearLayout
-                        android:id="@+id/task_people_name_layout"
+                        android:id="@+id/people_name_layout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        app:layout_constraintStart_toEndOf="@id/task_people_icon"
+                        app:layout_constraintStart_toEndOf="@id/people_icon"
                         app:layout_constraintEnd_toStartOf="@id/people_arrow_right"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" >
 
                         <TextView
-                            android:id="@+id/task_people_title"
+                            android:id="@+id/people_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingStart="12dp"
-                            android:paddingEnd="12dp"
+                            android:paddingStart="@dimen/text_view_padding"
+                            android:paddingEnd="@dimen/text_view_padding"
                             android:text="@string/task_field_people"
                             android:textColor="@color/gray_949494"
-                            android:textSize="12sp"
+                            android:textSize="@dimen/field_text_size_small"
                             android:visibility="gone"/>
 
                         <TextView
-                            android:id="@+id/task_people_name"
+                            android:id="@+id/people_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingStart="12dp"
-                            android:paddingEnd="12dp"
+                            android:paddingStart="@dimen/text_view_padding"
+                            android:paddingEnd="@dimen/text_view_padding"
                             android:text="@string/task_field_people"
                             android:textColor="@color/gray_949494"
-                            android:textSize="16sp"
+                            android:textSize="@dimen/field_text_size"
                             android:singleLine="true"
                             android:ellipsize="end"/>
 
@@ -272,12 +270,12 @@
 
                     <ImageButton
                         android:id="@+id/people_arrow_right"
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
+                        android:layout_width="@dimen/image_button_size"
+                        android:layout_height="@dimen/image_button_size"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_arrow_right_keyboard"
-                        app:layout_constraintStart_toEndOf="@id/task_people_name_layout"
+                        app:layout_constraintStart_toEndOf="@id/people_name_layout"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -287,16 +285,16 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/task_description_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginBottom="10dp"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="10dp"
+                    android:layout_height="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin_bottom"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
                     android:background="@drawable/bg_fields">
 
                     <ImageButton
                         android:id="@+id/task_description_icon"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="@dimen/image_button_size"
+                        android:layout_height="@dimen/image_button_size"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_description"
@@ -309,12 +307,12 @@
                         android:id="@+id/task_description_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:padding="12dp"
+                        android:padding="@dimen/edit_text_padding"
                         android:maxLines="1"
                         android:maxLength="250"
                         android:inputType="text"
                         android:hint="@string/task_field_description"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/field_text_size"
                         android:textColorHint="@color/gray_949494"
                         android:textColor="@color/gray_949494"
                         android:background="@color/gray_FDFDFD"
@@ -329,16 +327,16 @@
                     android:id="@+id/task_datetime_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="@dimen/field_margin_bottom"
                     android:orientation="horizontal">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/task_date_layout"
                         android:layout_width="0dp"
-                        android:layout_height="60dp"
-                        android:layout_marginEnd="5dp"
-                        android:paddingStart="20dp"
-                        android:paddingEnd="10dp"
+                        android:layout_height="@dimen/field_height"
+                        android:layout_marginEnd="@dimen/fields_side_to_side_margin"
+                        android:paddingStart="@dimen/field_padding_start"
+                        android:paddingEnd="@dimen/field_padding_end"
                         android:background="@drawable/bg_fields"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/task_time_layout"
@@ -347,7 +345,7 @@
 
                         <ImageButton
                             android:id="@+id/task_date_icon"
-                            android:layout_width="24dp"
+                            android:layout_width="@dimen/image_button_size"
                             android:layout_height="28dp"
                             android:background="@color/gray_FDFDFD"
                             android:tint="@color/gray_949494"
@@ -361,10 +359,10 @@
                             android:id="@+id/task_date"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:padding="12dp"
+                            android:padding="@dimen/text_view_padding"
                             android:text="@string/task_field_date"
                             android:textColor="@color/gray_949494"
-                            android:textSize="16sp"
+                            android:textSize="@dimen/field_text_size"
                             app:layout_constraintStart_toEndOf="@id/task_date_icon"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -375,10 +373,10 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/task_time_layout"
                         android:layout_width="0dp"
-                        android:layout_height="60dp"
-                        android:layout_marginStart="5dp"
-                        android:paddingStart="20dp"
-                        android:paddingEnd="10dp"
+                        android:layout_height="@dimen/field_height"
+                        android:layout_marginStart="@dimen/fields_side_to_side_margin"
+                        android:paddingStart="@dimen/field_padding_start"
+                        android:paddingEnd="@dimen/field_padding_end"
                         android:background="@drawable/bg_fields"
                         app:layout_constraintStart_toEndOf="@id/task_date_layout"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -387,8 +385,8 @@
 
                         <ImageButton
                             android:id="@+id/task_time_icon"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/image_button_size"
+                            android:layout_height="@dimen/image_button_size"
                             android:background="@color/gray_FDFDFD"
                             android:tint="@color/gray_949494"
                             app:srcCompat="@drawable/ic_clock"
@@ -401,10 +399,10 @@
                             android:id="@+id/task_time"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:padding="12dp"
+                            android:padding="@dimen/text_view_padding"
                             android:text="@string/task_field_time"
                             android:textColor="@color/gray_949494"
-                            android:textSize="16sp"
+                            android:textSize="@dimen/field_text_size"
                             app:layout_constraintStart_toEndOf="@id/task_time_icon"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -416,16 +414,16 @@
 
                 <Button
                     android:id="@+id/add_button"
-                    android:layout_width="250dp"
-                    android:layout_height="70dp"
+                    android:layout_width="@dimen/add_button_width"
+                    android:layout_height="@dimen/add_button_height"
                     android:layout_gravity="center"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="@dimen/add_button_margin_top"
+                    android:layout_marginBottom="@dimen/add_button_margin_bottom"
                     android:background="@drawable/bg_buttons"
                     android:letterSpacing="0.075"
                     android:text="@string/task_button"
                     android:textColor="@color/white"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/add_button_text_size"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -433,4 +431,5 @@
         </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

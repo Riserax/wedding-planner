@@ -31,7 +31,7 @@ public class TaskBookmarksDialog extends CustomAlertDialog {
             activity.setSelectedBookmarksKeys(ListViewUtil.getSelectedKeys(binding.taskBookmarks.getCheckedItemPositions()));
             activity.setFieldText(
                     ListViewUtil.getSelectedItemsAndBuildSeparatedString(binding.taskBookmarks, bookmarks),
-                    activity.findViewById(R.id.task_bookmarks_name)
+                    activity.findViewById(R.id.bookmarks_name)
             );
         });
         setNegativeButton(R.string.dialog_back, (dialog, which) -> {});
@@ -68,12 +68,13 @@ public class TaskBookmarksDialog extends CustomAlertDialog {
     }
 
     private void setSelectedPositions(List<Integer> selectedBookmarksKeys) {
-        if (selectedBookmarksKeys != null && !selectedBookmarksKeys.isEmpty()) {
+        if (!selectedBookmarksKeys.isEmpty()) {
             for (Integer selectedPosition : selectedBookmarksKeys)
                 binding.taskBookmarks.setItemChecked(selectedPosition, true);
         }
     }
 
+    @Override
     public void showDialog() {
         super.showTwoButtonDialog();
     }

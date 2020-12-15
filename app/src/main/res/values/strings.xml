@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">WeddingPlanner</string>
 
+    <string name="budget_field_name">Nazwa</string>
+    <string name="budget_field_category">Kategoria</string>
+    <string name="budget_field_payer">Kto płaci</string>
+    <string name="budget_field_amount">Szacunkowa kwota</string>
+    <string name="budget_field_comment">Komentarz</string>
+
     <string name="dialog_back">Powrót</string>
     <string name="dialog_pick">Wybierz</string>
     <string name="dialog_task_bookmarks_title">Wybierz etykiety</string>

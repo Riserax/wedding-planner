@@ -12,26 +12,26 @@ import java.util.List;
 import java.util.Map;
 
 import pl.com.weddingPlanner.R;
-import pl.com.weddingPlanner.databinding.DialogTaskPeopleBinding;
+import pl.com.weddingPlanner.databinding.DialogPeopleBinding;
+import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.CustomAlertDialog;
-import pl.com.weddingPlanner.view.tasks.NewTaskActivity;
 import pl.com.weddingPlanner.view.util.ListViewUtil;
 
-public class TaskPeopleDialog extends CustomAlertDialog {
+public class PeopleDialog extends CustomAlertDialog {
 
-    private DialogTaskPeopleBinding binding;
+    private DialogPeopleBinding binding;
     private Map<Integer, String> people;
 
-    public TaskPeopleDialog(NewTaskActivity activity, List<Integer> selectedPeopleKeys) {
-        super(activity, R.layout.dialog_task_people);
+    public PeopleDialog(BaseActivity activity, List<Integer> selectedPeopleKeys) {
+        super(activity, R.layout.dialog_people);
 
-        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_task_people, null, false);
+        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_people, null, false);
 
         setPositiveButton(R.string.dialog_pick, (dialog, which) -> {
-            activity.setSelectedPeopleKeys(ListViewUtil.getSelectedKeys(binding.taskPeople.getCheckedItemPositions()));
+            activity.setSelectedPeopleKeys(ListViewUtil.getSelectedKeys(binding.peopleList.getCheckedItemPositions()));
             activity.setFieldText(
-                    ListViewUtil.getSelectedItemsAndBuildSeparatedString(binding.taskPeople, people),
-                    activity.findViewById(R.id.task_people_name)
+                    ListViewUtil.getSelectedItemsAndBuildSeparatedString(binding.peopleList, people),
+                    activity.findViewById(R.id.people_name)
             );
         });
         setNegativeButton(R.string.dialog_back, (dialog, which) -> {});
@@ -57,20 +57,21 @@ public class TaskPeopleDialog extends CustomAlertDialog {
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.list_row_multiple_choice, bookmarks);
-        binding.taskPeople.setAdapter(adapter);
-        binding.taskPeople.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        binding.taskPeople.setItemsCanFocus(false);
+        binding.peopleList.setAdapter(adapter);
+        binding.peopleList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        binding.peopleList.setItemsCanFocus(false);
 
         setSelectedPositions(selectedPeopleKeys);
     }
 
     private void setSelectedPositions(List<Integer> selectedPeopleKeys) {
-        if (selectedPeopleKeys != null && !selectedPeopleKeys.isEmpty()) {
+        if (!selectedPeopleKeys.isEmpty()) {
             for (Integer selectedPosition : selectedPeopleKeys)
-                binding.taskPeople.setItemChecked(selectedPosition, true);
+                binding.peopleList.setItemChecked(selectedPosition, true);
         }
     }
 
+    @Override
     public void showDialog() {
         super.showTwoButtonDialog();
     }

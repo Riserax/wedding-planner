@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Setter;
@@ -17,10 +18,10 @@ import pl.com.weddingPlanner.model.PickedDate;
 import pl.com.weddingPlanner.model.PickedTime;
 import pl.com.weddingPlanner.util.DebouncedOnClickListener;
 import pl.com.weddingPlanner.view.BaseActivity;
+import pl.com.weddingPlanner.view.dialog.CategoriesDialog;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskBookmarksDialog;
-import pl.com.weddingPlanner.view.tasks.dialog.TaskCategoriesDialog;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskDateDialog;
-import pl.com.weddingPlanner.view.tasks.dialog.TaskPeopleDialog;
+import pl.com.weddingPlanner.view.tasks.dialog.PeopleDialog;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskTimeDialog;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
 
@@ -29,9 +30,8 @@ public class NewTaskActivity extends BaseActivity {
     private ActivityNewTaskBinding binding;
 
     @Setter
-    private List<Integer> selectedBookmarksKeys;
-    @Setter
-    private List<Integer> selectedPeopleKeys;
+    private List<Integer> selectedBookmarksKeys = new ArrayList<>();
+    private List<Integer> selectedPeopleKeys = new ArrayList<>();
     @Setter
     private PickedDate pickedDate;
     @Setter
@@ -47,30 +47,46 @@ public class NewTaskActivity extends BaseActivity {
     }
 
     private void setListeners() {
-        binding.taskCategoryLayout.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
+        setCategoryOnClickListener();
+        setBookmarksOnClickListener();
+        setPeopleOnClickListener();
+        setDateOnCLickListener();
+        setTimeOnClickListener();
+        initRootScrollViewListener();
+        setOnFocusChangeListener();
+    }
+
+    private void setCategoryOnClickListener() {
+        binding.categoryLayout.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
             @Override
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
-                new TaskCategoriesDialog(NewTaskActivity.this).showDialog();
+                new CategoriesDialog(NewTaskActivity.this).showDialog();
             }
         });
+    }
 
-        binding.taskBookmarksLayout.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
+    private void setBookmarksOnClickListener() {
+        binding.bookmarksLayout.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
             @Override
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
                 new TaskBookmarksDialog(NewTaskActivity.this, selectedBookmarksKeys).showDialog();
             }
         });
+    }
 
-        binding.taskPeopleLayout.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
+    private void setPeopleOnClickListener() {
+        binding.peopleLayout.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
             @Override
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
-                new TaskPeopleDialog(NewTaskActivity.this, selectedPeopleKeys).showDialog();
+                new PeopleDialog(NewTaskActivity.this, selectedPeopleKeys).showDialog();
             }
         });
+    }
 
+    private void setDateOnCLickListener() {
         binding.taskDateLayout.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
             @Override
             public void onDebouncedClick(View v) {
@@ -78,7 +94,9 @@ public class NewTaskActivity extends BaseActivity {
                 new TaskDateDialog(NewTaskActivity.this, pickedDate).showDialog();
             }
         });
+    }
 
+    private void setTimeOnClickListener() {
         binding.taskTimeLayout.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
             @Override
             public void onDebouncedClick(View v) {
@@ -86,14 +104,11 @@ public class NewTaskActivity extends BaseActivity {
                 new TaskTimeDialog(NewTaskActivity.this, pickedTime).showDialog();
             }
         });
-
-        initRootScrollViewListener();
-        setOnFocusChangeListener();
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private void initRootScrollViewListener() {
-        binding.tasksRootScrollView.setOnTouchListener((v, event) -> {
+        binding.taskRootScrollView.setOnTouchListener((v, event) -> {
             clearFocusAndHideKeyboard();
             return false;
         });
@@ -118,41 +133,20 @@ public class NewTaskActivity extends BaseActivity {
         binding.taskDescriptionName.setOnFocusChangeListener(listener);
     }
 
-    public void setFieldText(String text, TextView textView) {
-        if (!text.isEmpty()) {
-            textView.setText(text);
-            setTitleVisibility(textView, true);
-        } else {
-            setDefaultFieldName(textView);
-            setTitleVisibility(textView, false);
-        }
-    }
-
-    private void setTitleVisibility(TextView view, boolean visible) {
+    @Override
+    public void setDefaultFieldName(TextView view) {
         switch (view.getId()) {
-            case R.id.task_category_name:
-                binding.taskCategoryTitle.setVisibility(visible ? View.VISIBLE : View.GONE);
-                break;
-            case R.id.task_bookmarks_name:
-                binding.taskBookmarksTitle.setVisibility(visible ? View.VISIBLE : View.GONE);
-                break;
-            case R.id.task_people_name:
-                binding.taskPeopleTitle.setVisibility(visible ? View.VISIBLE : View.GONE);
-                break;
-        }
-    }
-
-    private void setDefaultFieldName(TextView view) {
-        switch (view.getId()) {
-            case R.id.task_category_name:
-                view.setText(getResources().getString(R.string.task_field_category));
-                break;
-            case R.id.task_bookmarks_name:
+            case R.id.bookmarks_name:
                 view.setText(getResources().getString(R.string.task_field_bookmarks));
                 break;
-            case R.id.task_people_name:
+            case R.id.people_name:
                 view.setText(getResources().getString(R.string.task_field_people));
                 break;
         }
+    }
+
+    @Override
+    public void setSelectedPeopleKeys(List<Integer> selectedPeopleKeys) {
+        this.selectedPeopleKeys = selectedPeopleKeys;
     }
 }
