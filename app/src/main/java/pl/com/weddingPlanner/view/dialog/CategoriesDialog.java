@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.view.tasks.dialog;
+package pl.com.weddingPlanner.view.dialog;
 
 import android.view.LayoutInflater;
 import android.widget.ArrayAdapter;
@@ -11,19 +11,19 @@ import java.util.List;
 import java.util.Map;
 
 import pl.com.weddingPlanner.R;
-import pl.com.weddingPlanner.databinding.DialogTaskCategoriesBinding;
+import pl.com.weddingPlanner.databinding.DialogCategoriesBinding;
+import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.CustomAlertDialog;
-import pl.com.weddingPlanner.view.tasks.NewTaskActivity;
 
-public class TaskCategoriesDialog extends CustomAlertDialog {
+public class CategoriesDialog extends CustomAlertDialog {
 
-    private DialogTaskCategoriesBinding binding;
+    private DialogCategoriesBinding binding;
     private Map<Integer, String> categories;
 
-    public TaskCategoriesDialog(NewTaskActivity activity) {
-        super(activity, R.layout.dialog_task_categories);
+    public CategoriesDialog(BaseActivity activity) {
+        super(activity, R.layout.dialog_categories);
 
-        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_task_categories, null, false);
+        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_categories, null, false);
 
         setAllCategories();
         initListView();
@@ -52,12 +52,12 @@ public class TaskCategoriesDialog extends CustomAlertDialog {
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.list_row, categories);
-        binding.taskCategories.setAdapter(adapter);
+        binding.categoriesList.setAdapter(adapter);
     }
 
-    private void setListeners(NewTaskActivity activity) {
-        binding.taskCategories.setOnItemClickListener((adapterView, view, position, id) -> {
-            activity.setFieldText(getSelectedCategory(position), activity.findViewById(R.id.task_category_name));
+    private void setListeners(BaseActivity activity) {
+        binding.categoriesList.setOnItemClickListener((adapterView, view, position, id) -> {
+            activity.setFieldText(getSelectedCategory(position), activity.findViewById(R.id.category_name));
             super.hideDialog();
         });
     }
@@ -68,10 +68,10 @@ public class TaskCategoriesDialog extends CustomAlertDialog {
             if (position == key)
                 return categories.get(key);
         }
-
         return "";
     }
 
+    @Override
     public void showDialog() {
         super.showOneButtonDialog();
     }

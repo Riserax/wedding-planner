@@ -56,6 +56,7 @@ public class TaskTimeDialog extends CustomAlertDialog {
                 .build();
     }
 
+    @Override
     public void showDialog() {
         super.showTwoButtonDialog();
     }

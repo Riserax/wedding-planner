@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
+import java.util.List;
+
 import pl.com.weddingPlanner.R;
 
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
@@ -104,4 +106,35 @@ public class BaseActivity extends AppCompatActivity {
         TextView header = findViewById(R.id.activity_header);
         header.setVisibility(View.GONE);
     }
+
+    public void setFieldText(String text, TextView textView) {
+        if (!text.isEmpty()) {
+            textView.setText(text);
+            setTitleVisibility(textView, true);
+        } else {
+            setDefaultFieldName(textView);
+            setTitleVisibility(textView, false);
+        }
+    }
+
+    private void setTitleVisibility(TextView view, boolean visible) {
+        switch (view.getId()) {
+            case R.id.category_name:
+                TextView categoryTitle = findViewById(R.id.category_title);
+                categoryTitle.setVisibility(visible ? View.VISIBLE : View.GONE);
+                break;
+            case R.id.bookmarks_name:
+                TextView bookmarksTitle = findViewById(R.id.bookmarks_title);
+                bookmarksTitle.setVisibility(visible ? View.VISIBLE : View.GONE);
+                break;
+            case R.id.people_name:
+                TextView peopleTitle = findViewById(R.id.people_title);
+                peopleTitle.setVisibility(visible ? View.VISIBLE : View.GONE);
+                break;
+        }
+    }
+
+    public void setDefaultFieldName(TextView view) {}
+
+    public void setSelectedPeopleKeys(List<Integer> selectedPeopleKeys) {}
 }

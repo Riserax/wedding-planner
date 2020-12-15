@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="add_button_height">70dp</dimen>
+    <dimen name="add_button_letter_spacing">0.075</dimen>
+    <dimen name="add_button_margin_top">25dp</dimen>
+    <dimen name="add_button_margin_bottom">15dp</dimen>
+    <dimen name="add_button_text_size">18sp</dimen>
+    <dimen name="add_button_width">250dp</dimen>
+
+    <dimen name="components_layout_padding">12dp</dimen>
+
+    <dimen name="edit_text_padding">12dp</dimen>
+
+    <dimen name="field_height">60dp</dimen>
+    <dimen name="field_margin_bottom">10dp</dimen>
+    <dimen name="field_padding_start">20dp</dimen>
+    <dimen name="field_padding_end">20dp</dimen>
+    <dimen name="field_text_size">16sp</dimen>
+    <dimen name="field_text_size_small">12sp</dimen>
+    <dimen name="fields_side_to_side_margin">5dp</dimen>
+
+    <dimen name="image_button_size">24dp</dimen>
+
+    <dimen name="text_view_padding">12dp</dimen>
+</resources>
