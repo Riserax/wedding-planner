@@ -31,6 +31,8 @@ public class NewTaskActivity extends BaseActivity {
     @Setter
     private List<Integer> selectedBookmarksKeys;
     @Setter
+    private List<Integer> selectedPeopleKeys;
+    @Setter
     private PickedDate pickedDate;
     @Setter
     private PickedTime pickedTime;
@@ -65,7 +67,7 @@ public class NewTaskActivity extends BaseActivity {
             @Override
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
-                new TaskPeopleDialog(NewTaskActivity.this).showDialog();
+                new TaskPeopleDialog(NewTaskActivity.this, selectedPeopleKeys).showDialog();
             }
         });
 
@@ -119,22 +121,6 @@ public class NewTaskActivity extends BaseActivity {
     public void setFieldText(String text, TextView textView) {
         if (!text.isEmpty()) {
             textView.setText(text);
-            setTitleVisibility(textView, true);
-        }
-    }
-
-    public void setFieldText(List<String> list, TextView textView) {
-        StringBuilder bookmarksBuilder = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            if (i == list.size() - 1) {
-                bookmarksBuilder.append(list.get(i));
-            } else {
-                bookmarksBuilder.append(list.get(i)).append(" | ");
-            }
-        }
-
-        if (bookmarksBuilder.length() > 0) {
-            textView.setText(bookmarksBuilder.toString());
             setTitleVisibility(textView, true);
         } else {
             setDefaultFieldName(textView);
