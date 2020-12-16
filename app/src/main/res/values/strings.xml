@@ -7,6 +7,13 @@
     <string name="budget_field_amount">Szacunkowa kwota</string>
     <string name="budget_field_comment">Komentarz</string>
 
+    <string name="category_most_important">Najważniejsze</string>
+    <string name="category_most_ceremony">Ceremonia</string>
+    <string name="category_most_formal_documents">Dokumenty formalne</string>
+    <string name="category_most_wedding_hall">Sala weselna</string>
+    <string name="category_most_subcontractors">Podwykonawcy</string>
+    <string name="category_most_stylization">Stylizacje</string>
+
     <string name="dialog_back">Powrót</string>
     <string name="dialog_pick">Wybierz</string>
     <string name="dialog_task_bookmarks_title">Wybierz etykiety</string>
@@ -15,14 +22,15 @@
     <string name="dialog_task_people_title">Wybierz osoby</string>
     <string name="dialog_task_time_title">Wybierz godzinę</string>
 
-    <string name="header_title_tasks">Zadania</string>
-    <string name="header_title_tasks_new">Nowe zadanie</string>
     <string name="header_title_budget">Budżet</string>
     <string name="header_title_budget_new">Nowy wydatek</string>
-    <string name="header_title_more">Więcej</string>
+    <string name="header_title_category">Kategoria</string>
     <string name="header_title_guests">Goście</string>
-    <string name="header_title_subcontractors">Podwykonawcy</string>
+    <string name="header_title_more">Więcej</string>
     <string name="header_title_settings">Ustawienia</string>
+    <string name="header_title_subcontractors">Podwykonawcy</string>
+    <string name="header_title_tasks">Zadania</string>
+    <string name="header_title_tasks_new">Nowe zadanie</string>
 
     <string name="month_january">Styczeń</string>
     <string name="month_february">Luty</string>
