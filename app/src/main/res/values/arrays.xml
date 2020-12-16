@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="button_menu_fragment_text_sizes">
+        <item>10sp</item>
+        <item>15sp</item>
+    </array>
+</resources>

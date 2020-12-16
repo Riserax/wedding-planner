@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/button_menu_fragment_margin_bottom"
+    android:background="@drawable/button_shape_menu_fragment"
+    android:orientation="horizontal"
+    android:filterTouchesWhenObscured="true">
+
+    <ImageView
+        android:id="@+id/row_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/button_menu_fragment_height"
+        android:paddingStart="@dimen/button_menu_fragment_icon_padding_start"
+        android:paddingEnd="@dimen/button_menu_fragment_icon_padding_end"
+        app:tint="@color/purple_500" />
+
+    <TextView
+        android:id="@+id/row_caption"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_menu_fragment_height"
+        android:layout_toEndOf="@+id/row_icon"
+        android:gravity="center_vertical|start"
+        android:maxLines="2"
+        android:paddingStart="@dimen/button_menu_fragment_caption_padding_start"
+        android:paddingEnd="@dimen/button_menu_fragment_caption_padding_end"
+        android:textColor="@color/gray_555555"
+        app:autoSizePresetSizes="@array/button_menu_fragment_text_sizes"
+        app:autoSizeTextType="uniform" />
+
+</RelativeLayout>
