@@ -17,6 +17,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentBudgetBinding;
 import pl.com.weddingPlanner.view.NavigationActivity;
+import pl.com.weddingPlanner.view.category.NewCategoryActivity;
 
 public class BudgetFragment extends Fragment {
 
@@ -63,8 +64,16 @@ public class BudgetFragment extends Fragment {
 
     private void setListeners() {
         binding.budgetFloatingButton.setOnClickListener(view -> {
-            Intent intent = new Intent(requireActivity(), NewBudgetActivity.class);
-            startActivity(intent);
+            Intent intent;
+            switch (viewPager.getCurrentItem()) {
+                case 0:
+                    intent = new Intent(requireActivity(), NewCategoryActivity.class);
+                    startActivity(intent);
+                    break;
+                case 1:
+                    intent = new Intent(requireActivity(), NewBudgetActivity.class);
+                    startActivity(intent);
+            }
         });
     }
 }

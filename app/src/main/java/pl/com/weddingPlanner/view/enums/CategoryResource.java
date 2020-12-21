@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import pl.com.weddingPlanner.R;
+import pl.com.weddingPlanner.exception.EnumValueNotFoundException;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
@@ -21,11 +22,11 @@ public enum CategoryResource {
     private final int resourceId;
     private final String iconCode;
 
-    public static CategoryResource of(CategoryEnum category) {
+    public static CategoryResource of(CategoryEnum categoryEnum) throws EnumValueNotFoundException {
         for (CategoryResource value : values()) {
-            if (category.equals(value.category))
+            if (categoryEnum.equals(value.category))
                 return value;
         }
-        return null;
+        throw new EnumValueNotFoundException(categoryEnum.name());
     }
 }

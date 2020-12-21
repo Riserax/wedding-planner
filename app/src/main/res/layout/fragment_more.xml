@@ -1,42 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/fragment_more"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="53dp"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button_guests"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Goście"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/button_subcontractors"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+        <include android:id="@+id/side_by_side_menu"
+            layout="@layout/fragment_side_by_side_menu" />
 
-        <Button
-            android:id="@+id/button_subcontractors"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Podwykonawcy"
-            app:layout_constraintTop_toBottomOf="@+id/button_guests"
-            app:layout_constraintBottom_toTopOf="@+id/button_settings"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <Button
-            android:id="@+id/button_settings"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Ustawienia"
-            app:layout_constraintTop_toBottomOf="@+id/button_subcontractors"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </layout>

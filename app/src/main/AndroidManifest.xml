@@ -42,6 +42,11 @@
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
+            android:name="pl.com.weddingPlanner.view.category.NewCategoryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name="pl.com.weddingPlanner.view.budget.NewBudgetActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
