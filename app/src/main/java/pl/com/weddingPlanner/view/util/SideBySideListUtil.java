@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import java.util.List;
 import java.util.Objects;
@@ -19,25 +20,28 @@ import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.exception.EnumValueNotFoundException;
 import pl.com.weddingPlanner.util.DebouncedOnClickListener;
 import pl.com.weddingPlanner.util.Logger;
+import pl.com.weddingPlanner.view.budget.BudgetCategoriesFragment;
 import pl.com.weddingPlanner.view.category.CategoryActivity;
 import pl.com.weddingPlanner.view.enums.CategoryEnum;
 import pl.com.weddingPlanner.view.enums.CategoryResource;
 import pl.com.weddingPlanner.view.enums.MoreEnum;
 import pl.com.weddingPlanner.view.enums.MoreResource;
+import pl.com.weddingPlanner.view.tasks.TasksCategoriesFragment;
 
 public class SideBySideListUtil {
 
     public static String CATEGORY_NAME_EXTRA = "categoryNameExtra";
+    public static String FRAGMENT_SOURCE_EXTRA = "fragmentSourceExtra";
 
-    public static void renderCategoriesButtons(Context context, List categories, LinearLayout leftColumn, LinearLayout rightColumn) {
-        LayoutInflater inflater = LayoutInflater.from(context);
+    public static void renderCategoriesButtons(Fragment fragment, List categories, LinearLayout leftColumn, LinearLayout rightColumn) {
+        LayoutInflater inflater = LayoutInflater.from(fragment.getContext());
         for (int i = 0; i < categories.size(); i++) {
             RelativeLayout relativeLayout = null;
 
             try {
-                relativeLayout = prepareCategoryButton(context, Objects.requireNonNull(getResource(categories.get(i))), inflater);
+                relativeLayout = prepareCategoryButton(fragment, Objects.requireNonNull(getResource(categories.get(i))), inflater);
             } catch (EnumValueNotFoundException e) {
-                Logger.logToDevice(context.getClass().getName(), e);
+                Logger.logToDevice(fragment.getContext().getClass().getName(), e);
                 //TODO wyswietlic komunikat o nieprawidlowym typie
             }
 
@@ -49,7 +53,8 @@ public class SideBySideListUtil {
         }
     }
 
-    private static RelativeLayout prepareCategoryButton(Context context, Enum resource, LayoutInflater inflater) {
+    private static RelativeLayout prepareCategoryButton(Fragment fragment, Enum resource, LayoutInflater inflater) {
+        Context context = fragment.getContext();
         RelativeLayout relativeLayout = new RelativeLayout(context);
         View buttonView = inflater.inflate(R.layout.category_item, relativeLayout);
 
@@ -63,7 +68,7 @@ public class SideBySideListUtil {
             @Override
             public void onDebouncedClick(View v) {
                 Intent intent = new Intent(context, getTargetActivity(resource));
-                intent.putExtra(CATEGORY_NAME_EXTRA, getResourceId(resource));
+                setExtras(fragment, intent, resource);
                 context.startActivity(intent);
             }
         });
@@ -112,6 +117,13 @@ public class SideBySideListUtil {
             return ((MoreResource) resource).getTargetActivity();
         } else {
             return null;
+        }
+    }
+
+    private static void setExtras(Fragment fragment, Intent intent, Enum resource) {
+        if (fragment instanceof TasksCategoriesFragment || fragment instanceof BudgetCategoriesFragment) {
+            intent.putExtra(CATEGORY_NAME_EXTRA, getResourceId(resource));
+            intent.putExtra(FRAGMENT_SOURCE_EXTRA, fragment.getClass().toString());
         }
     }
 }
