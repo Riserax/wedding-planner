@@ -17,6 +17,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentTasksBinding;
 import pl.com.weddingPlanner.view.NavigationActivity;
+import pl.com.weddingPlanner.view.category.NewCategoryActivity;
 
 public class TasksFragment extends Fragment {
 
@@ -56,7 +57,6 @@ public class TasksFragment extends Fragment {
                         break;
                     case 1:
                         tab.setText(getString(R.string.tab_title_tasks_months));
-                        break;
                 }
             }).attach();
     }
@@ -66,14 +66,12 @@ public class TasksFragment extends Fragment {
             Intent intent;
             switch (viewPager.getCurrentItem()) {
                 case 0:
-                    //TODO do nowej kategorii
-                    intent = new Intent(requireActivity(), NewTaskActivity.class);
+                    intent = new Intent(requireActivity(), NewCategoryActivity.class);
                     startActivity(intent);
                     break;
                 case 1:
                     intent = new Intent(requireActivity(), NewTaskActivity.class);
                     startActivity(intent);
-                    break;
             }
         });
     }

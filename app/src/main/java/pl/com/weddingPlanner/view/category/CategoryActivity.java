@@ -1,5 +1,6 @@
 package pl.com.weddingPlanner.view.category;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -7,6 +8,7 @@ import androidx.databinding.DataBindingUtil;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityCategoryBinding;
 import pl.com.weddingPlanner.view.BaseActivity;
+import pl.com.weddingPlanner.view.tasks.NewTaskActivity;
 
 import static pl.com.weddingPlanner.view.util.SideBySideListUtil.CATEGORY_NAME_EXTRA;
 
@@ -25,6 +27,7 @@ public class CategoryActivity extends BaseActivity {
         setActivityToolbarContentWithBackIcon(categoryNameId);
 
         setField();
+        setListeners();
     }
 
     private void setCategoryName() {
@@ -34,5 +37,12 @@ public class CategoryActivity extends BaseActivity {
     private void setField() {
         String text = binding.message.getText() + " " + getResources().getString(categoryNameId);
         binding.message.setText(text);
+    }
+
+    private void setListeners() {
+        binding.categoryFloatingButton.setOnClickListener(view -> {
+            Intent intent = new Intent(this, NewTaskActivity.class);
+            startActivity(intent);
+        });
     }
 }

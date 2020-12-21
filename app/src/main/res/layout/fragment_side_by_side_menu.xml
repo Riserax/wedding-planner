@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/fragment_tasks_categories"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -15,7 +14,7 @@
             app:layout_constraintGuide_percent="0.5" />
 
         <LinearLayout
-            android:id="@+id/categories_left_column"
+            android:id="@+id/left_column"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/left_column_menu_fragment_margin_start"
@@ -27,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:id="@+id/categories_right_column"
+            android:id="@+id/right_column"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/right_column_menu_fragment_margin_start"
