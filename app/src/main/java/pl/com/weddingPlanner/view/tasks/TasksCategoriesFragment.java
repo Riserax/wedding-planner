@@ -27,7 +27,7 @@ public class TasksCategoriesFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tasks_categories, container, false);
 
-        renderCategoriesButtons(getContext(), getCategories(), binding.sideBySideMenu.leftColumn, binding.sideBySideMenu.rightColumn);
+        renderCategoriesButtons(this, getCategories(), binding.sideBySideMenu.leftColumn, binding.sideBySideMenu.rightColumn);
 
         return binding.getRoot();
     }
