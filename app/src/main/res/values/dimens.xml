@@ -13,6 +13,7 @@
     <dimen name="button_menu_fragment_icon_padding_end">9dp</dimen>
     <dimen name="button_menu_fragment_caption_padding_start">0dp</dimen>
     <dimen name="button_menu_fragment_caption_padding_end">9dp</dimen>
+    <dimen name="button_radius_big">20dp</dimen>
 
     <dimen name="components_layout_padding">12dp</dimen>
 
@@ -34,6 +35,20 @@
     <dimen name="right_column_menu_fragment_margin_start">3dp</dimen>
     <dimen name="right_column_menu_fragment_margin_top">30dp</dimen>
     <dimen name="right_column_menu_fragment_margin_end">15dp</dimen>
+
+    <dimen name="recycler_list_bottom_padding">70dp</dimen>
+    <dimen name="row_item_height">60dp</dimen>
+    <dimen name="row_item_margin_start">20dp</dimen>
+    <dimen name="row_item_margin_end">20dp</dimen>
+    <dimen name="row_item_margin_bottom">12dp</dimen>
+    <dimen name="row_item_elevation">12dp</dimen>
+    <dimen name="row_item_icon_margin_start">22dp</dimen>
+    <dimen name="row_item_right_icon_margin_end">22dp</dimen>
+    <dimen name="row_item_row_margin_start">10dp</dimen>
+    <dimen name="row_item_row_margin_end">10dp</dimen>
+    <dimen name="row_item_row_caption_margin_top">5dp</dimen>
+    <dimen name="row_item_row_caption_margin_end">5dp</dimen>
+    <dimen name="row_item_row_caption_text_size">16sp</dimen>
 
     <dimen name="text_view_padding">12dp</dimen>
 </resources>

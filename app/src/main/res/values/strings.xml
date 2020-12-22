@@ -14,6 +14,14 @@
     <string name="category_most_subcontractors">Podwykonawcy</string>
     <string name="category_most_stylization">Stylizacje</string>
 
+    <string name="day_monday">Poniedziałek</string>
+    <string name="day_tuesday">Wtorek</string>
+    <string name="day_wednesday">Środa</string>
+    <string name="day_thursday">Czwartek</string>
+    <string name="day_friday">Piątek</string>
+    <string name="day_saturday">Sobota</string>
+    <string name="day_sunday">Niedziela</string>
+
     <string name="dialog_back">Powrót</string>
     <string name="dialog_pick">Wybierz</string>
     <string name="dialog_task_bookmarks_title">Wybierz etykiety</string>
@@ -31,7 +39,10 @@
     <string name="header_title_settings">Ustawienia</string>
     <string name="header_title_subcontractors">Podwykonawcy</string>
     <string name="header_title_tasks">Zadania</string>
+    <string name="header_title_tasks_details">Zadanie</string>
     <string name="header_title_tasks_new">Nowe zadanie</string>
+
+    <string name="list_standard_caption_empty">Brak danych do wyświetlenia</string>
 
     <string name="month_january">Styczeń</string>
     <string name="month_february">Luty</string>
