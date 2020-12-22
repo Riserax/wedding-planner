@@ -40,7 +40,7 @@
     <dimen name="row_item_height">60dp</dimen>
     <dimen name="row_item_margin_start">20dp</dimen>
     <dimen name="row_item_margin_end">20dp</dimen>
-    <dimen name="row_item_margin_bottom">12dp</dimen>
+    <dimen name="row_item_margin_bottom">15dp</dimen>
     <dimen name="row_item_elevation">12dp</dimen>
     <dimen name="row_item_icon_margin_start">22dp</dimen>
     <dimen name="row_item_right_icon_margin_end">22dp</dimen>

@@ -9,8 +9,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import pl.com.weddingPlanner.R;
+import pl.com.weddingPlanner.model.GuestInfo;
 import pl.com.weddingPlanner.model.TaskInfo;
 import pl.com.weddingPlanner.view.enums.CategoryResource;
+import pl.com.weddingPlanner.view.enums.GuestTypeEnum;
 
 @Getter
 @Setter
@@ -38,10 +40,20 @@ public class ContentItem extends ListItem implements Serializable {
                 .build();
     }
 
+    public static ContentItem of(GuestInfo info) {
+        return ContentItem.builder()
+                .itemId(String.valueOf(info.getItemId()))
+                .mainCaption(info.getName() + " " + info.getSurname())
+                .mainCaptionColor(R.color.black)
+                .leftIconId(getLeftIconId(info.getGuestType()))
+                .leftIconColor(R.color.gray_949494)
+                .build();
+    }
+
     private static int getLeftIconId(CategoryResource category) {
         switch (category) {
             case MOST_IMPORTANT:
-                return R.drawable.ic_dashboard;
+                return R.drawable.ic_star;
             case CEREMONY:
                 return R.drawable.ic_dashboard;
             case WEDDING_HALL:
@@ -49,11 +61,21 @@ public class ContentItem extends ListItem implements Serializable {
             case SUBCONTRACTORS:
                 return R.drawable.ic_engineering;
             case STYLIZATION:
-                return R.drawable.ic_dashboard;
+                return R.drawable.ic_style;
             case FORMAL_DOCUMENTS:
                 return R.drawable.ic_assignment;
             default:
                 return R.drawable.ic_dashboard;
+        }
+    }
+
+    private static int getLeftIconId(GuestTypeEnum guestType) {
+        switch (guestType) {
+            case ACCOMPANYING:
+                return R.drawable.ic_person_add;
+            case GUEST:
+            default:
+                return R.drawable.ic_person;
         }
     }
 

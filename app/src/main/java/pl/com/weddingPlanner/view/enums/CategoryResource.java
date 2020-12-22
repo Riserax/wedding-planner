@@ -10,12 +10,12 @@ import pl.com.weddingPlanner.exception.EnumValueNotFoundException;
 @Getter
 public enum CategoryResource {
 
-    MOST_IMPORTANT(CategoryEnum.MOST_IMPORTANT, R.string.category_most_important, "ic_dashboard"),
+    MOST_IMPORTANT(CategoryEnum.MOST_IMPORTANT, R.string.category_most_important, "ic_star"),
     CEREMONY(CategoryEnum.CEREMONY, R.string.category_most_ceremony, "ic_dashboard"),
-    WEDDING_HALL(CategoryEnum.WEDDING_HALL, R.string.category_most_wedding_hall, "ic_dashboard"),
-    SUBCONTRACTORS(CategoryEnum.SUBCONTRACTORS, R.string.category_most_subcontractors, "ic_dashboard"),
-    STYLIZATION(CategoryEnum.STYLIZATION, R.string.category_most_stylization, "ic_dashboard"),
-    FORMAL_DOCUMENTS(CategoryEnum.FORMAL_DOCUMENTS, R.string.category_most_formal_documents, "ic_dashboard"),
+    WEDDING_HALL(CategoryEnum.WEDDING_HALL, R.string.category_most_wedding_hall, "ic_home"),
+    SUBCONTRACTORS(CategoryEnum.SUBCONTRACTORS, R.string.category_most_subcontractors, "ic_engineering"),
+    STYLIZATION(CategoryEnum.STYLIZATION, R.string.category_most_stylization, "ic_style"),
+    FORMAL_DOCUMENTS(CategoryEnum.FORMAL_DOCUMENTS, R.string.category_most_formal_documents, "ic_assignment"),
     ;
 
     private final CategoryEnum category;

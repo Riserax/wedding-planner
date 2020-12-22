@@ -2,7 +2,6 @@ package pl.com.weddingPlanner.view.category;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -56,14 +55,14 @@ public class CategoryActivity extends BaseActivity {
         getExtrasAndSetVariables();
         setActivityToolbarContentWithBackIcon(categoryNameId);
 
-        setRecyclerView(binding.getRoot());
-        setSwipeRefresh(binding.getRoot());
+        setRecyclerView();
+        setSwipeRefresh();
 
         setTasksList();
         setListeners();
     }
 
-    private void setRecyclerView(View view) {
+    private void setRecyclerView() {
         linearLayoutManager = new LinearLayoutManager(this);
         adapter = new ListRecyclerAdapter(this, new LinkedList<>(), item -> {
             Intent intent = new Intent(this, TaskDetailsActivity.class);
@@ -95,8 +94,8 @@ public class CategoryActivity extends BaseActivity {
         });
     }
 
-    private void setSwipeRefresh(View view) {
-        SwipeRefreshLayout swipeRefresh = view.findViewById(R.id.swipe_refresh);
+    private void setSwipeRefresh() {
+        SwipeRefreshLayout swipeRefresh = binding.swipeRefresh;
         swipeRefresh.setOnRefreshListener(() -> {
             swipeRefresh.setRefreshing(false);
             adapter.clear();

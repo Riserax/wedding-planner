@@ -1,5 +1,6 @@
 package pl.com.weddingPlanner.view.guests;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -29,6 +30,7 @@ public class GuestsActivity extends BaseActivity {
         initLayouts();
         initAndSetViewPager();
         attachTabLayoutMediator();
+        setListeners();
     }
 
     private void initLayouts() {
@@ -53,5 +55,20 @@ public class GuestsActivity extends BaseActivity {
                         break;
                 }
             }).attach();
+    }
+
+    private void setListeners() {
+        binding.guestsFloatingButton.setOnClickListener(view -> {
+            Intent intent;
+            switch (viewPager.getCurrentItem()) {
+                case 0:
+                    intent = new Intent(this, NewGuestActivity.class);
+                    startActivity(intent);
+                    break;
+                case 1:
+//                    intent = new Intent(this, NewTableActivity.class);
+//                    startActivity(intent);
+            }
+        });
     }
 }

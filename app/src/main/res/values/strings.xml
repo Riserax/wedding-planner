@@ -35,6 +35,8 @@
     <string name="header_title_category">Kategoria</string>
     <string name="header_title_category_new">Nowa kategoria</string>
     <string name="header_title_guests">Goście</string>
+    <string name="header_title_guest_details">Gość</string>
+    <string name="header_title_guest_new">Nowy gość</string>
     <string name="header_title_more">Więcej</string>
     <string name="header_title_settings">Ustawienia</string>
     <string name="header_title_subcontractors">Podwykonawcy</string>
