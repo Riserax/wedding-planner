@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.model.GuestInfo;
 import pl.com.weddingPlanner.model.TaskInfo;
-import pl.com.weddingPlanner.view.enums.CategoryResource;
+import pl.com.weddingPlanner.view.enums.CategoryEnum;
 import pl.com.weddingPlanner.view.enums.GuestTypeEnum;
 
 @Getter
@@ -50,7 +50,7 @@ public class ContentItem extends ListItem implements Serializable {
                 .build();
     }
 
-    private static int getLeftIconId(CategoryResource category) {
+    private static int getLeftIconId(CategoryEnum category) {
         switch (category) {
             case MOST_IMPORTANT:
                 return R.drawable.ic_star;

@@ -50,6 +50,15 @@ public class BaseActivity extends AppCompatActivity {
         });
     }
 
+    // finishes Activity (back to previous fragment/activity)
+    public void setActivityToolbarContentWithBackIcon(String headerTitle) {
+        initToolbar();
+        ImageButton backIcon = setComponentsAndReturnBackIcon(headerTitle);
+        backIcon.setOnClickListener(view -> {
+            finish();
+        });
+    }
+
     // back from Activity to chosen Fragment
     public void setToolbarContentWithBackIcon(@StringRes int headerTitleId, final Context context, @IdRes final int backDestination) {
         View.OnClickListener backIconOnClickListener = view -> {
@@ -75,6 +84,17 @@ public class BaseActivity extends AppCompatActivity {
 
         TextView header = findViewById(R.id.activity_header);
         header.setText(headerTitleId);
+        header.setVisibility(View.VISIBLE);
+
+        return backIcon;
+    }
+
+    private ImageButton setComponentsAndReturnBackIcon(String headerTitle) {
+        ImageButton backIcon = findViewById(R.id.back_button);
+        backIcon.setVisibility(View.VISIBLE);
+
+        TextView header = findViewById(R.id.activity_header);
+        header.setText(headerTitle);
         header.setVisibility(View.VISIBLE);
 
         return backIcon;
