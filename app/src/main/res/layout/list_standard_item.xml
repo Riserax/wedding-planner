@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/row_item_margin_start"
+    android:layout_marginEnd="@dimen/row_item_margin_end"
+    android:layout_marginBottom="@dimen/row_item_margin_bottom"
+    android:background="@drawable/standard_item_shape_ripple"
+    android:elevation="@dimen/row_item_elevation"
+    android:orientation="horizontal"
+    android:filterTouchesWhenObscured="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/row_item_height"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/row_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/row_item_icon_margin_start"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_dashboard" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/row_item_row_margin_start"
+            android:layout_marginEnd="@dimen/row_item_row_margin_end"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/row_caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/row_item_row_caption_margin_end"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/row_item_row_caption_text_size"
+                app:layout_constraintStart_toEndOf="@+id/row_icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/amount_caption"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="@dimen/row_item_row_subcaption_margin_bottom"-->
+<!--                android:textColor="@color/gray_F2F2F2"-->
+<!--                android:textSize="@dimen/row_item_row_subcaption_text_size" />-->
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/right_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/row_item_right_icon_margin_end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_person"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

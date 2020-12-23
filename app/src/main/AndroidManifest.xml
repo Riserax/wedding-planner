@@ -42,6 +42,11 @@
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
+            android:name="pl.com.weddingPlanner.view.tasks.TaskDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name="pl.com.weddingPlanner.view.category.NewCategoryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
@@ -53,6 +58,16 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name="pl.com.weddingPlanner.view.guests.GuestsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="pl.com.weddingPlanner.view.guests.GuestDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="pl.com.weddingPlanner.view.guests.NewGuestActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
