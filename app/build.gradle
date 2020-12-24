@@ -47,6 +47,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+    implementation 'androidx.room:room-runtime:2.2.6'
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -56,4 +57,5 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
     implementation 'org.apache.commons:commons-lang3:3.10'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
+    annotationProcessor 'androidx.room:room-compiler:2.2.6'
 }

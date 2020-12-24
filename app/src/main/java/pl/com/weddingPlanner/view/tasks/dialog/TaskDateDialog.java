@@ -36,11 +36,14 @@ public class TaskDateDialog extends CustomAlertDialog {
     }
 
     private String getSelectedDate() {
-        String dayOfMonth = String.valueOf(binding.taskDatePicker.getDayOfMonth());
-        String month = String.valueOf(binding.taskDatePicker.getMonth());
         String year = String.valueOf(binding.taskDatePicker.getYear());
+        int month = binding.taskDatePicker.getMonth() + 1;
+        int dayOfMonth = binding.taskDatePicker.getDayOfMonth();
 
-        return dayOfMonth + "-" + month + "-" + year;
+        String monthString = month < 10 ? ("0" + month) : String.valueOf(month);
+        String dayString = dayOfMonth < 10 ? ("0" + dayOfMonth) : String.valueOf(dayOfMonth);
+
+        return year + "-" + monthString + "-" + dayString;
     }
 
     private PickedDate getPickedDate() {

@@ -8,7 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.com.weddingPlanner.view.enums.BookmarkEnum;
-import pl.com.weddingPlanner.view.enums.CategoryResource;
+import pl.com.weddingPlanner.view.enums.CategoryEnum;
 
 @Data
 @Builder
@@ -17,7 +17,7 @@ import pl.com.weddingPlanner.view.enums.CategoryResource;
 public class TaskInfo implements Serializable {
 
     private int itemId;
-    private CategoryResource category;
+    private CategoryEnum category;
     private String title;
     private List<BookmarkEnum> bookmarks;
     private String assignee;

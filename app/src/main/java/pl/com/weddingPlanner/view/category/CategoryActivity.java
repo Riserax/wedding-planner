@@ -15,9 +15,11 @@ import java.util.List;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityCategoryBinding;
 import pl.com.weddingPlanner.model.TaskInfo;
+import pl.com.weddingPlanner.persistence.entity.Task;
+import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.budget.NewBudgetActivity;
-import pl.com.weddingPlanner.view.enums.CategoryResource;
+import pl.com.weddingPlanner.view.enums.CategoryEnum;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.HeaderItem;
 import pl.com.weddingPlanner.view.list.ListItem;
@@ -38,7 +40,7 @@ public class CategoryActivity extends BaseActivity {
 
     private ActivityCategoryBinding binding;
 
-    private int categoryNameId = R.string.header_title_category;
+    private String categoryName;
     private String fragmentClass = "";
 
     private int currentPage = PAGE_START;
@@ -53,12 +55,12 @@ public class CategoryActivity extends BaseActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_category);
 
         getExtrasAndSetVariables();
-        setActivityToolbarContentWithBackIcon(categoryNameId);
+        setActivityToolbarContentWithBackIcon(categoryName);
 
         setRecyclerView();
         setSwipeRefresh();
 
-        setTasksList();
+        getList();
         setListeners();
     }
 
@@ -100,56 +102,63 @@ public class CategoryActivity extends BaseActivity {
             swipeRefresh.setRefreshing(false);
             adapter.clear();
             currentPage = PAGE_START;
-            setTasksList();
+            getList();
         });
     }
 
     private void getExtrasAndSetVariables() {
-        categoryNameId = getIntent().getExtras().getInt(CATEGORY_NAME_EXTRA, categoryNameId);
+        categoryName = getIntent().getExtras().getString(CATEGORY_NAME_EXTRA, getResources().getString(R.string.header_title_category));
         fragmentClass = getIntent().getExtras().getString(FRAGMENT_SOURCE_EXTRA, fragmentClass);
     }
 
-    private void setTasksList() {
-        List<TaskInfo> tasks = new ArrayList<>();
+    private void getList() {
+        List<TaskInfo> toReturn = new ArrayList<>();
 
-        String title;
+        List<Task> allTasks = DAOUtil.getAllTasksByCategory(this, categoryName);
         if (TASKS_CATEGORIES_FRAGMENT.equals(fragmentClass)) {
-            title = "Zadanie ";
+            for (Task task : allTasks) {
+                TaskInfo taskInfo = TaskInfo.builder()
+                        .itemId(task.getId())
+                        .title(task.getTitle())
+                        .date(task.getDate())
+                        .build();
+                toReturn.add(taskInfo);
+            }
         } else {
-            title = "Wydatek ";
+            String title = "Wydatek ";
+
+            for (int i = 0; i < 5; i++) {
+                TaskInfo task = TaskInfo.builder()
+                        .itemId(i)
+                        .category(CategoryEnum.SUBCONTRACTORS)
+                        .title(title + i)
+                        .date("2020-12-22")
+                        .build();
+                toReturn.add(task);
+            }
+
+            for (int i = 5; i < 10; i++) {
+                TaskInfo task = TaskInfo.builder()
+                        .itemId(i)
+                        .category(CategoryEnum.MOST_IMPORTANT)
+                        .title(title + i)
+                        .date("2020-12-23")
+                        .build();
+                toReturn.add(task);
+            }
+
+            for (int i = 10; i < 15; i++) {
+                TaskInfo task = TaskInfo.builder()
+                        .itemId(i)
+                        .category(CategoryEnum.WEDDING_HALL)
+                        .title(title + i)
+                        .date("2020-12-24")
+                        .build();
+                toReturn.add(task);
+            }
         }
 
-        for (int i = 0; i < 5; i++) {
-            TaskInfo task = TaskInfo.builder()
-                    .itemId(i)
-                    .category(CategoryResource.SUBCONTRACTORS)
-                    .title(title + i)
-                    .date("2020-12-22")
-                    .build();
-            tasks.add(task);
-        }
-
-        for (int i = 5; i < 10; i++) {
-            TaskInfo task = TaskInfo.builder()
-                    .itemId(i)
-                    .category(CategoryResource.FORMAL_DOCUMENTS)
-                    .title(title + i)
-                    .date("2020-12-23")
-                    .build();
-            tasks.add(task);
-        }
-
-        for (int i = 10; i < 15; i++) {
-            TaskInfo task = TaskInfo.builder()
-                    .itemId(i)
-                    .category(CategoryResource.WEDDING_HALL)
-                    .title(title + i)
-                    .date("2020-12-24")
-                    .build();
-            tasks.add(task);
-        }
-
-        List<ListItem> listItems = prepareAccountsInfoList(tasks, adapter.getItems());
+        List<ListItem> listItems = prepareAccountsInfoList(toReturn, adapter.getItems());
         adapter.addItems(listItems);
     }
 

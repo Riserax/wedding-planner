@@ -1,6 +1,7 @@
 package pl.com.weddingPlanner.view.tasks;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -16,14 +17,19 @@ import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityNewTaskBinding;
 import pl.com.weddingPlanner.model.PickedDate;
 import pl.com.weddingPlanner.model.PickedTime;
+import pl.com.weddingPlanner.persistence.entity.Task;
+import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.util.DebouncedOnClickListener;
 import pl.com.weddingPlanner.view.BaseActivity;
+import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.dialog.CategoriesDialog;
+import pl.com.weddingPlanner.view.tasks.dialog.PeopleDialog;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskBookmarksDialog;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskDateDialog;
-import pl.com.weddingPlanner.view.tasks.dialog.PeopleDialog;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskTimeDialog;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
+
+import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
 
 public class NewTaskActivity extends BaseActivity {
 
@@ -54,6 +60,7 @@ public class NewTaskActivity extends BaseActivity {
         setTimeOnClickListener();
         initRootScrollViewListener();
         setOnFocusChangeListener();
+        setAddButtonClickListener();
     }
 
     private void setCategoryOnClickListener() {
@@ -131,6 +138,33 @@ public class NewTaskActivity extends BaseActivity {
 
         binding.taskName.setOnFocusChangeListener(listener);
         binding.taskDescriptionName.setOnFocusChangeListener(listener);
+    }
+
+    private void setAddButtonClickListener() {
+        binding.addButton.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
+            @Override
+            public void onDebouncedClick(View v) {
+                clearFocusAndHideKeyboard();
+
+                DAOUtil.insertTask(getApplicationContext(), getNewTaskData());
+
+                Intent intent = new Intent(NewTaskActivity.this, NavigationActivity.class);
+                intent.putExtra(FRAGMENT_TO_LOAD_ID, R.id.navigation_tasks);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private Task getNewTaskData() {
+        return Task.builder()
+                .category(binding.categoryName.getText().toString())
+                .title(binding.taskName.getText().toString())
+                .description(binding.taskDescriptionName.getText().toString())
+                .bookmarks(binding.bookmarksName.getText().toString())
+                .assignees(binding.peopleName.getText().toString())
+                .date(binding.taskDate.getText().toString())
+                .build();
     }
 
     @Override

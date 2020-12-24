@@ -18,9 +18,9 @@ public class TasksAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                return new TasksCategoriesFragment();
-            case 1:
                 return new TasksMonthsFragment();
+            case 1:
+                return new TasksCategoriesFragment();
             default:
                 throw new IllegalArgumentException("TasksAdapter position=" + position + " but max=" + (TASKS_TABS_NUMBER - 1));
         }
