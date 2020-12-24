@@ -53,10 +53,10 @@ public class TasksFragment extends Fragment {
             (tab, position) -> {
                 switch (position) {
                     case 0:
-                        tab.setText(getString(R.string.tab_title_tasks_categories));
+                        tab.setText(getString(R.string.tab_title_tasks_months));
                         break;
                     case 1:
-                        tab.setText(getString(R.string.tab_title_tasks_months));
+                        tab.setText(getString(R.string.tab_title_tasks_categories));
                 }
             }).attach();
     }
@@ -66,11 +66,11 @@ public class TasksFragment extends Fragment {
             Intent intent;
             switch (viewPager.getCurrentItem()) {
                 case 0:
-                    intent = new Intent(requireActivity(), NewCategoryActivity.class);
+                    intent = new Intent(requireActivity(), NewTaskActivity.class);
                     startActivity(intent);
                     break;
                 case 1:
-                    intent = new Intent(requireActivity(), NewTaskActivity.class);
+                    intent = new Intent(requireActivity(), NewCategoryActivity.class);
                     startActivity(intent);
             }
         });

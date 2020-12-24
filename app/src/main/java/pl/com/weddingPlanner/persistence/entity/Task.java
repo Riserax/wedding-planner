@@ -6,7 +6,6 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,14 +25,14 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Task implements Serializable {
 
-    @NonNull
     @PrimaryKey(autoGenerate = true)
     private Integer id;
     private String category;
+    @NonNull
     private String title;
     private String description;
     private String bookmarks;
     private String assignees;
-    private Date date;
+    private String date;
     private String subTasks;
 }

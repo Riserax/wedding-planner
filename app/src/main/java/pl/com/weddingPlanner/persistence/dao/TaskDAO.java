@@ -16,6 +16,12 @@ public interface TaskDAO {
     @Query("SELECT * FROM task")
     List<Task> getAll();
 
+    @Query("SELECT * FROM task WHERE category = :category")
+    List<Task> getAllByCategory(String category);
+
+    @Query("SELECT * FROM task WHERE id = :id")
+    Task get(Integer id);
+
     @Insert
     Long insert(Task task);
 
@@ -27,9 +33,6 @@ public interface TaskDAO {
 
     @Update
     void merge(Task task);
-
-    @Query("SELECT * FROM task WHERE id = :id")
-    Task get(Integer id);
 
     @Query("SELECT COUNT(*) FROM task")
     int count();

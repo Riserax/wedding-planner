@@ -35,7 +35,7 @@ public class ContentItem extends ListItem implements Serializable {
                 .itemId(String.valueOf(info.getItemId()))
                 .mainCaption(info.getTitle())
                 .mainCaptionColor(R.color.black)
-                .leftIconId(getLeftIconId(info.getCategory()))
+                .leftIconId(R.drawable.ic_dashboard)
                 .leftIconColor(R.color.gray_949494)
                 .build();
     }
@@ -50,6 +50,7 @@ public class ContentItem extends ListItem implements Serializable {
                 .build();
     }
 
+    //TODO nie bazować na CategoryEnum
     private static int getLeftIconId(CategoryEnum category) {
         switch (category) {
             case MOST_IMPORTANT:

@@ -13,7 +13,7 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tasks_months_tabs"
             android:layout_width="match_parent"
-            android:layout_height="42dp"
+            android:layout_height="44dp"
             app:tabIndicatorColor="@color/black"
             app:tabGravity="fill"
             app:tabMaxWidth="0dp"
