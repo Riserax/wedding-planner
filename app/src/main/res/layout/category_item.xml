@@ -14,7 +14,7 @@
         android:layout_height="@dimen/button_menu_fragment_height"
         android:paddingStart="@dimen/button_menu_fragment_icon_padding_start"
         android:paddingEnd="@dimen/button_menu_fragment_icon_padding_end"
-        app:tint="@color/purple_500" />
+        app:tint="@color/colorPrimaryDark" />
 
     <TextView
         android:id="@+id/row_caption"

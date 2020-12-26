@@ -23,17 +23,11 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Task implements Serializable {
+public class Person implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private Integer id;
     @NonNull
-    private String title;
-    private String category;
-    private String description;
-    private String bookmarks;
-    private String assignees;
-    private String date;
-    private String time;
-    private String subTasks;
+    private String name;
+    private Integer role;
 }

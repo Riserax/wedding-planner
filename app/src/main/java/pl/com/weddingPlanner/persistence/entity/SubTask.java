@@ -17,23 +17,19 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@Entity(indices = {@Index(value = "id", unique = true)})
+@Entity(indices = {@Index(value = {"id"}, unique = true)})
 @Builder(toBuilder = true)
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Task implements Serializable {
+public class SubTask implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private Integer id;
     @NonNull
-    private String title;
-    private String category;
-    private String description;
-    private String bookmarks;
-    private String assignees;
-    private String date;
-    private String time;
-    private String subTasks;
+    private Integer taskId;
+    @NonNull
+    private String name;
+    private String done;
 }

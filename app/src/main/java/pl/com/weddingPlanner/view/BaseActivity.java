@@ -157,4 +157,6 @@ public class BaseActivity extends AppCompatActivity {
     public void setDefaultFieldName(TextView view) {}
 
     public void setSelectedPeopleKeys(List<Integer> selectedPeopleKeys) {}
+
+    public void executeQuestionDialog() {}
 }

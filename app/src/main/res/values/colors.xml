@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="black">#FF000000</color>
+
+    <!-- fioletowy -->
+<!--    <color name="colorPrimary">#bb9edd</color>-->
+<!--    <color name="colorPrimaryDark">#8a6fab</color>-->
+<!--    <color name="colorPrimaryLight">#eecfff</color>-->
+
+    <!-- sliwkowy -->
+<!--    <color name="colorPrimary">#8a6fab</color>-->
+<!--    <color name="colorPrimaryDark">#5c437c</color>-->
+<!--    <color name="colorPrimaryLight">#bb9edd</color>-->
+
+    <!-- łososiowy -->
+<!--    <color name="colorPrimary">#dd8d89</color>-->
+<!--    <color name="colorPrimaryDark">#a95f5c</color>-->
+<!--    <color name="colorPrimaryLight">#ffbeb9</color>-->
+
+    <color name="colorPrimary">#7cb7ba</color>
+    <color name="colorPrimaryDark">#4d878a</color>
+    <color name="colorPrimaryLight">#ade9ec</color>
+
     <color name="gray_555555">#555555</color>
     <color name="gray_949494">#949494</color>
     <color name="gray_B4B4B4">#B4B4B4</color>
@@ -12,8 +33,14 @@
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
+
+    <color name="red_D60707">#D60707</color>
+
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <color name="white_FFFFFF">#FFFFFF</color>
+    <color name="white_FFFFFF_60">#99FFFFFF</color>
+
+    <color name="yellow_F99F1F">#F99F1F</color>
 </resources>

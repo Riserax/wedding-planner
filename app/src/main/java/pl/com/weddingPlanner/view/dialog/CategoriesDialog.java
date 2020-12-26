@@ -12,8 +12,9 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.DialogCategoriesBinding;
+import pl.com.weddingPlanner.persistence.entity.Category;
+import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
-import pl.com.weddingPlanner.view.CustomAlertDialog;
 
 public class CategoriesDialog extends CustomAlertDialog {
 
@@ -36,11 +37,11 @@ public class CategoriesDialog extends CustomAlertDialog {
 
     private void setAllCategories() {
         Map<Integer, String> categories = new LinkedHashMap<>();
-        categories.put(0, "Ceremonia");
-        categories.put(1, "Muzyka");
-        categories.put(2, "Foto & Wideo");
-        categories.put(3, "Strój");
-        categories.put(4, "Dekoracje");
+
+        int id = 0;
+        for (Category category : DAOUtil.getAllCategories(getContext())) {
+            categories.put(id++, category.getName());
+        }
 
         this.categories = categories;
     }

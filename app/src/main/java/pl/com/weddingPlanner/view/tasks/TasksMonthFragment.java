@@ -21,6 +21,7 @@ import java.util.List;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentTasksMonthBinding;
 import pl.com.weddingPlanner.model.TaskInfo;
+import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.util.DateUtil;
@@ -32,6 +33,7 @@ import pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView;
 
 import static pl.com.weddingPlanner.view.list.HeaderItem.getHeaderItemWithDayOfWeek;
 import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAGE_START;
+import static pl.com.weddingPlanner.view.tasks.TaskDetailsActivity.TASK_ID_EXTRA;
 
 public class TasksMonthFragment extends Fragment {
 
@@ -67,7 +69,7 @@ public class TasksMonthFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(requireContext());
         adapter = new ListRecyclerAdapter(requireContext(), new LinkedList<>(), item -> {
             Intent intent = new Intent(requireContext(), TaskDetailsActivity.class);
-//            intent.putExtra(ACCOUNT_NUMBER, item.getDetailsId()); //TODO put id extra
+            intent.putExtra(TASK_ID_EXTRA, item.getItemId());
             startActivity(intent);
         });
 
@@ -117,9 +119,12 @@ public class TasksMonthFragment extends Fragment {
         }
 
         for (Task task : tasksByMonth) {
+            Category category = DAOUtil.getCategoryByName(requireContext(), task.getCategory());
+
             TaskInfo taskInfo = TaskInfo.builder()
                     .itemId(task.getId())
                     .title(task.getTitle())
+                    .categoryIconId(category.getIconId())
                     .date(task.getDate())
                     .build();
             toReturn.add(taskInfo);

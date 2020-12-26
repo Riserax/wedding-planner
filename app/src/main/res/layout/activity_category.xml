@@ -40,8 +40,8 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:src="@drawable/ic_add"
-            android:tint="@color/white"
-            app:backgroundTint="@color/purple_500"/>
+            android:tint="@color/white_FFFFFF"
+            app:backgroundTint="@color/colorPrimary"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

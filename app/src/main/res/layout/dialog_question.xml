@@ -12,20 +12,15 @@
         android:filterTouchesWhenObscured="true">
 
         <TextView
+            android:id="@+id/question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
-            android:text="@string/dialog_task_people_title"
+            android:text="Czy na pewno chesz...?"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <ListView
-            android:id="@+id/people_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"/>
+            android:textSize="18sp"
+            android:textAlignment="center"/>
 
     </LinearLayout>
 

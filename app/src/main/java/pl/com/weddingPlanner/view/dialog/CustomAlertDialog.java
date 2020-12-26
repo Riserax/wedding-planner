@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.view;
+package pl.com.weddingPlanner.view.dialog;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -20,8 +20,8 @@ public class CustomAlertDialog extends AlertDialog.Builder {
     AlertDialog dialog;
     View view;
 
-    private final int buttonFontColor = R.color.purple_500;
-    private final int dialogBackgroundColor = R.color.white;
+    private final int buttonFontColor = R.color.colorPrimaryDark;
+    private final int dialogBackgroundColor = R.color.white_FFFFFF;
 
     public CustomAlertDialog(Context context, int layoutResource) {
         super(context, R.style.AlertDialog);
