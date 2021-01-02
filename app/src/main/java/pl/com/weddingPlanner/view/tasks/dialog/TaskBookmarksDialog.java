@@ -13,7 +13,9 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.DialogTaskBookmarksBinding;
-import pl.com.weddingPlanner.view.CustomAlertDialog;
+import pl.com.weddingPlanner.persistence.entity.Bookmark;
+import pl.com.weddingPlanner.util.DAOUtil;
+import pl.com.weddingPlanner.view.dialog.CustomAlertDialog;
 import pl.com.weddingPlanner.view.tasks.NewTaskActivity;
 import pl.com.weddingPlanner.view.util.ListViewUtil;
 
@@ -44,11 +46,11 @@ public class TaskBookmarksDialog extends CustomAlertDialog {
 
     private void setAllBookmarks() {
         Map<Integer, String> bookmarks = new LinkedHashMap<>();
-        bookmarks.put(0,"Ważne");
-        bookmarks.put(1, "Ciągłe");
-        bookmarks.put(2, "Wkrótce");
-        bookmarks.put(3, "Załatwione");
-        bookmarks.put(4, "Zapłacone");
+
+        int id = 0;
+        for (Bookmark bookmark : DAOUtil.getAllBookmarks(getContext())) {
+            bookmarks.put(id++, bookmark.getName());
+        }
 
         this.bookmarks = bookmarks;
     }

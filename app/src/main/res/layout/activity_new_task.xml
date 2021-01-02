@@ -422,7 +422,7 @@
                     android:background="@drawable/bg_buttons"
                     android:letterSpacing="0.075"
                     android:text="@string/task_button"
-                    android:textColor="@color/white"
+                    android:textColor="@color/white_FFFFFF"
                     android:textSize="@dimen/add_button_text_size"
                     android:textStyle="bold" />
 

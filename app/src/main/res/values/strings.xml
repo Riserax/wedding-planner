@@ -24,6 +24,8 @@
 
     <string name="dialog_back">Powrót</string>
     <string name="dialog_pick">Wybierz</string>
+    <string name="dialog_yes">Tak</string>
+    <string name="dialog_no">Nie</string>
     <string name="dialog_task_bookmarks_title">Wybierz etykiety</string>
     <string name="dialog_task_category_title">Wybierz kategorię</string>
     <string name="dialog_task_date_title">Wybierz datę</string>
@@ -41,7 +43,7 @@
     <string name="header_title_settings">Ustawienia</string>
     <string name="header_title_subcontractors">Podwykonawcy</string>
     <string name="header_title_tasks">Zadania</string>
-    <string name="header_title_tasks_details">Zadanie</string>
+    <string name="header_title_tasks_details">Szczegóły zadania</string>
     <string name="header_title_tasks_new">Nowe zadanie</string>
 
     <string name="list_standard_caption_empty">Brak danych do wyświetlenia</string>
@@ -65,6 +67,16 @@
     <string name="tab_title_budget_descending">Chronologicznie</string>
     <string name="tab_title_guests_list">Lista</string>
     <string name="tab_title_guests_groups">Stoły</string>
+
+    <string name="task_details_no_bookmarks">Brak etykiet</string>
+    <string name="task_details_no_description">Brak opisu</string>
+    <string name="task_details_no_assignees">Nie przypisano osób</string>
+    <string name="task_details_sub_tasks">Podzadania:</string>
+    <string name="task_details_no_sub_tasks">Brak elementów do wyświetlenia</string>
+    <string name="task_details_delete">Usuń zadanie</string>
+    <string name="task_details_delete_question">Czy na pewno chcesz usunąć to zadanie?</string>
+    <string name="task_details_add_sub_task">Dodaj podzadanie</string>
+    <string name="task_details_edit">Edytuj zadanie</string>
 
     <string name="task_field_name">Nazwa</string>
     <string name="task_field_category">Kategoria</string>

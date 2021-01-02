@@ -2,7 +2,6 @@ package pl.com.weddingPlanner.view.util;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import java.util.List;
@@ -27,13 +26,16 @@ import pl.com.weddingPlanner.view.enums.MoreEnum;
 import pl.com.weddingPlanner.view.enums.MoreResource;
 import pl.com.weddingPlanner.view.tasks.TasksCategoriesFragment;
 
+import static pl.com.weddingPlanner.view.util.ComponentsUtil.getIcon;
+
 public class SideBySideListUtil {
 
     public static String CATEGORY_NAME_EXTRA = "categoryNameExtra";
     public static String FRAGMENT_SOURCE_EXTRA = "fragmentSourceExtra";
 
     public static void renderCategoriesButtons(Fragment fragment, List positions, LinearLayout leftColumn, LinearLayout rightColumn) {
-        LayoutInflater inflater = LayoutInflater.from(fragment.getContext());
+        Context context = fragment.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
         for (int i = 0; i < positions.size(); i++) {
             RelativeLayout relativeLayout = null;
 
@@ -41,7 +43,7 @@ public class SideBySideListUtil {
                 try {
                     relativeLayout = prepareCategoryButton(fragment, Objects.requireNonNull(getResource(positions.get(i))), inflater);
                 } catch (EnumValueNotFoundException e) {
-                    Logger.logToDevice(fragment.getContext().getClass().getName(), e);
+                    Logger.logToDevice(context.getClass().getName(), e);
                     //TODO wyswietlic komunikat o nieprawidlowym typie
                 }
             } else {
@@ -53,6 +55,10 @@ public class SideBySideListUtil {
             } else {
                 rightColumn.addView(relativeLayout);
             }
+        }
+
+        if (positions.isEmpty()) {
+            setEmptyMessage(leftColumn);
         }
     }
 
@@ -108,10 +114,6 @@ public class SideBySideListUtil {
         } else {
             return null;
         }
-    }
-
-    private static Drawable getIcon(Context context, int iconId) {
-        return ContextCompat.getDrawable(context, iconId);
     }
 
     private static String getIconCode(Enum resource) {
@@ -174,5 +176,11 @@ public class SideBySideListUtil {
             intent.putExtra(CATEGORY_NAME_EXTRA, getCategoryName(entity));
             intent.putExtra(FRAGMENT_SOURCE_EXTRA, fragment.getClass().toString());
         }
+    }
+
+    private static void setEmptyMessage(LinearLayout leftColumn) {
+        ConstraintLayout sideBySideMenu = (ConstraintLayout) leftColumn.getParent();
+        TextView emptyMessage = (TextView) sideBySideMenu.getChildAt(0);
+        emptyMessage.setVisibility(View.VISIBLE);
     }
 }

@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.DialogTaskTimeBinding;
 import pl.com.weddingPlanner.model.PickedTime;
-import pl.com.weddingPlanner.view.CustomAlertDialog;
+import pl.com.weddingPlanner.view.dialog.CustomAlertDialog;
 import pl.com.weddingPlanner.view.tasks.NewTaskActivity;
 
 public class TaskTimeDialog extends CustomAlertDialog {

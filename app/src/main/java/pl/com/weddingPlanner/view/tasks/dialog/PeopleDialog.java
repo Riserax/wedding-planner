@@ -13,8 +13,10 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.DialogPeopleBinding;
+import pl.com.weddingPlanner.persistence.entity.Person;
+import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
-import pl.com.weddingPlanner.view.CustomAlertDialog;
+import pl.com.weddingPlanner.view.dialog.CustomAlertDialog;
 import pl.com.weddingPlanner.view.util.ListViewUtil;
 
 public class PeopleDialog extends CustomAlertDialog {
@@ -44,19 +46,22 @@ public class PeopleDialog extends CustomAlertDialog {
 
     private void setAllPeople() {
         Map<Integer, String> people = new LinkedHashMap<>();
-        people.put(0,"Pani młoda");
-        people.put(1, "Pan młody");
+
+        int id = 0;
+        for (Person person : DAOUtil.getAllPersons(getContext())) {
+            people.put(id++, person.getName());
+        }
 
         this.people = people;
     }
 
     private void initListView(List<Integer> selectedPeopleKeys) {
-        List<String> bookmarks = new ArrayList<>();
+        List<String> people = new ArrayList<>();
         for (int i = 0; i < this.people.size(); i++) {
-            bookmarks.add(this.people.get(i));
+            people.add(this.people.get(i));
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.list_row_multiple_choice, bookmarks);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.list_row_multiple_choice, people);
         binding.peopleList.setAdapter(adapter);
         binding.peopleList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         binding.peopleList.setItemsCanFocus(false);

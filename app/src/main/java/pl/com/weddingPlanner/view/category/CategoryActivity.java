@@ -15,11 +15,11 @@ import java.util.List;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityCategoryBinding;
 import pl.com.weddingPlanner.model.TaskInfo;
+import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.budget.NewBudgetActivity;
-import pl.com.weddingPlanner.view.enums.CategoryEnum;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.HeaderItem;
 import pl.com.weddingPlanner.view.list.ListItem;
@@ -30,6 +30,7 @@ import pl.com.weddingPlanner.view.tasks.TaskDetailsActivity;
 
 import static pl.com.weddingPlanner.view.list.HeaderItem.getHeaderItemWithDayOfWeek;
 import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAGE_START;
+import static pl.com.weddingPlanner.view.tasks.TaskDetailsActivity.TASK_ID_EXTRA;
 import static pl.com.weddingPlanner.view.util.SideBySideListUtil.CATEGORY_NAME_EXTRA;
 import static pl.com.weddingPlanner.view.util.SideBySideListUtil.FRAGMENT_SOURCE_EXTRA;
 
@@ -68,7 +69,7 @@ public class CategoryActivity extends BaseActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         adapter = new ListRecyclerAdapter(this, new LinkedList<>(), item -> {
             Intent intent = new Intent(this, TaskDetailsActivity.class);
-//            intent.putExtra(ACCOUNT_NUMBER, item.getDetailsId()); //TODO put id extra
+            intent.putExtra(TASK_ID_EXTRA, item.getItemId());
             startActivity(intent);
         });
 
@@ -114,12 +115,16 @@ public class CategoryActivity extends BaseActivity {
     private void getList() {
         List<TaskInfo> toReturn = new ArrayList<>();
 
-        List<Task> allTasks = DAOUtil.getAllTasksByCategory(this, categoryName);
         if (TASKS_CATEGORIES_FRAGMENT.equals(fragmentClass)) {
-            for (Task task : allTasks) {
+            List<Task> allTasksByCategory = DAOUtil.getAllTasksByCategory(this, categoryName);
+
+            for (Task task : allTasksByCategory) {
+                Category category = DAOUtil.getCategoryByName(this, task.getCategory());
+
                 TaskInfo taskInfo = TaskInfo.builder()
                         .itemId(task.getId())
                         .title(task.getTitle())
+                        .categoryIconId(category.getIconId())
                         .date(task.getDate())
                         .build();
                 toReturn.add(taskInfo);
@@ -130,8 +135,8 @@ public class CategoryActivity extends BaseActivity {
             for (int i = 0; i < 5; i++) {
                 TaskInfo task = TaskInfo.builder()
                         .itemId(i)
-                        .category(CategoryEnum.SUBCONTRACTORS)
                         .title(title + i)
+                        .categoryIconId("ic_dashboard")
                         .date("2020-12-22")
                         .build();
                 toReturn.add(task);
@@ -140,8 +145,8 @@ public class CategoryActivity extends BaseActivity {
             for (int i = 5; i < 10; i++) {
                 TaskInfo task = TaskInfo.builder()
                         .itemId(i)
-                        .category(CategoryEnum.MOST_IMPORTANT)
                         .title(title + i)
+                        .categoryIconId("ic_dashboard")
                         .date("2020-12-23")
                         .build();
                 toReturn.add(task);
@@ -150,19 +155,19 @@ public class CategoryActivity extends BaseActivity {
             for (int i = 10; i < 15; i++) {
                 TaskInfo task = TaskInfo.builder()
                         .itemId(i)
-                        .category(CategoryEnum.WEDDING_HALL)
                         .title(title + i)
+                        .categoryIconId("ic_dashboard")
                         .date("2020-12-24")
                         .build();
                 toReturn.add(task);
             }
         }
 
-        List<ListItem> listItems = prepareAccountsInfoList(toReturn, adapter.getItems());
+        List<ListItem> listItems = prepareItemsInfoList(toReturn, adapter.getItems());
         adapter.addItems(listItems);
     }
 
-    private List<ListItem> prepareAccountsInfoList(List<TaskInfo> taskInfoList, List<ListItem> list) {
+    private List<ListItem> prepareItemsInfoList(List<TaskInfo> taskInfoList, List<ListItem> list) {
         List<ListItem> toReturn = new ArrayList<>();
 
         for (TaskInfo taskInfo : taskInfoList) {

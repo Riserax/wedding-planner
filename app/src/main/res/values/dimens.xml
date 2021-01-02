@@ -6,6 +6,7 @@
     <dimen name="add_button_margin_bottom">15dp</dimen>
     <dimen name="add_button_text_size">18sp</dimen>
     <dimen name="add_button_width">250dp</dimen>
+    <dimen name="assignee_circle_size">40dp</dimen>
 
     <dimen name="button_menu_fragment_height">80dp</dimen>
     <dimen name="button_menu_fragment_margin_bottom">10dp</dimen>
@@ -16,6 +17,8 @@
     <dimen name="button_radius_big">20dp</dimen>
 
     <dimen name="components_layout_padding">12dp</dimen>
+    <dimen name="checkbox_margin_bottom">5dp</dimen>
+    <dimen name="checkbox_margin_start">15dp</dimen>
 
     <dimen name="edit_text_padding">12dp</dimen>
 
@@ -26,8 +29,13 @@
     <dimen name="field_text_size">16sp</dimen>
     <dimen name="field_text_size_small">12sp</dimen>
     <dimen name="fields_side_to_side_margin">5dp</dimen>
+    <dimen name="floating_button_option_margin_top">5dp</dimen>
+    <dimen name="floating_button_option_padding_top">5dp</dimen>
+    <dimen name="floating_button_option_padding_bottom">15dp</dimen>
 
     <dimen name="image_button_size">24dp</dimen>
+    <dimen name="image_button_margin_start">5dp</dimen>
+    <dimen name="image_button_margin_end">5dp</dimen>
 
     <dimen name="left_column_menu_fragment_margin_start">15dp</dimen>
     <dimen name="left_column_menu_fragment_margin_top">30dp</dimen>
@@ -50,5 +58,11 @@
     <dimen name="row_item_row_caption_margin_end">5dp</dimen>
     <dimen name="row_item_row_caption_text_size">16sp</dimen>
 
+    <dimen name="task_title_text_size">20sp</dimen>
+    <dimen name="task_subtitle_text_size">18sp</dimen>
+    <dimen name="task_description_text_size">16sp</dimen>
+    <dimen name="task_no_detail_text_size">13sp</dimen>
+    <dimen name="task_assignee_text_size">15</dimen>
     <dimen name="text_view_padding">12dp</dimen>
+    <dimen name="task_field_margin_bottom">20dp</dimen>
 </resources>

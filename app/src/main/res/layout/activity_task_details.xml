@@ -2,24 +2,536 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/gray_F2F2F2">
+        android:layout_height="match_parent">
 
-        <include android:id="@+id/toolbar_layout"
-            layout="@layout/toolbar" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/gray_F2F2F2">
 
-        <TextView
-            android:id="@+id/message"
+            <include android:id="@+id/toolbar_layout"
+                layout="@layout/toolbar"/>
+
+            <ScrollView
+                android:id="@+id/task_root_scroll_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="top"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:weightSum="2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar_layout">
+
+                <LinearLayout
+                    android:id="@+id/components_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:padding="@dimen/components_layout_padding"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/toolbar_layout"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/title_bookmarks_assignees"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/task_field_margin_bottom">
+
+                        <TextView
+                            android:id="@+id/title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:text="Troszkę przydługi tytuł zadania, który nie mieści się w jednej linii"
+                            android:textColor="@color/gray_555555"
+                            android:textSize="@dimen/task_title_text_size"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_title_bookmarks_assignees"/>
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_title_bookmarks_assignees"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.65" />
+
+                        <LinearLayout
+                            android:id="@+id/bookmarks_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/field_margin_bottom"
+                            android:orientation="horizontal"
+                            android:gravity="center_horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_title_bookmarks_assignees"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/no_bookmarks"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/task_details_no_bookmarks"
+                                android:textColor="@color/gray_949494"
+                                android:textSize="@dimen/task_no_detail_text_size"
+                                android:textStyle="bold"
+                                android:textAlignment="center"
+                                android:visibility="gone"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/assignees_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_title_bookmarks_assignees"
+                            app:layout_constraintTop_toBottomOf="@id/bookmarks_layout">
+
+                            <TextView
+                                android:id="@+id/no_assignees"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/task_details_no_assignees"
+                                android:textColor="@color/gray_949494"
+                                android:textSize="@dimen/task_no_detail_text_size"
+                                android:textStyle="bold"
+                                android:textAlignment="center"
+                                android:visibility="gone"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"/>
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_949494"
+                        android:layout_marginBottom="@dimen/task_field_margin_bottom"/>
+
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/task_field_margin_bottom"
+                        android:paddingStart="@dimen/text_view_padding"
+                        android:paddingEnd="@dimen/text_view_padding"
+                        android:text="Wielolinijkowy opis zadania, który może mieć maksymalnie 250 znaków, ale ten tyle nie ma, więc muszę go troszkę przeciągnąć, lejąc wodę o niczym."
+                        android:textColor="@color/gray_949494"
+                        android:textSize="@dimen/task_description_text_size"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/task_field_margin_bottom">
+
+                        <RelativeLayout
+                            android:id="@+id/progress_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_progress_info"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ProgressBar
+                                android:id="@+id/progress_bar"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_centerInParent="true"
+                                android:indeterminate="false"
+                                android:progressDrawable="@drawable/progress_bar_circle"
+                                android:background="@drawable/shape_circle"
+                                android:max="100"
+                                android:progress="0"
+                                style="?android:attr/progressBarStyleHorizontal"/>
+
+                            <TextView
+                                android:id="@+id/txtProgress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="0/0"
+                                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="0dp"
+                            android:background="@color/gray_949494"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_progress_info"/>
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_progress_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.40" />
+
+                        <LinearLayout
+                            android:id="@+id/info_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/text_view_padding"
+                            android:paddingBottom="@dimen/text_view_padding"
+                            android:paddingStart="@dimen/task_field_margin_bottom"
+                            android:orientation="vertical"
+                            app:layout_constraintStart_toEndOf="@id/guideline_progress_info"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <LinearLayout
+                                android:id="@+id/category"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/field_margin_bottom"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <ImageButton
+                                    android:id="@+id/category_icon"
+                                    android:layout_width="@dimen/image_button_size"
+                                    android:layout_height="@dimen/image_button_size"
+                                    android:background="@color/gray_F2F2F2"
+                                    android:tint="@color/gray_949494"
+                                    app:srcCompat="@drawable/ic_dashboard"/>
+
+                                <LinearLayout
+                                    android:id="@+id/category_name_layout"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/category_title"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingStart="@dimen/text_view_padding"
+                                        android:paddingEnd="@dimen/text_view_padding"
+                                        android:text="@string/task_field_category"
+                                        android:textColor="@color/gray_949494"
+                                        android:textSize="@dimen/field_text_size_small"/>
+
+                                    <TextView
+                                        android:id="@+id/category_name"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingStart="@dimen/text_view_padding"
+                                        android:paddingEnd="@dimen/text_view_padding"
+                                        android:text="@string/task_field_category"
+                                        android:textColor="@color/gray_949494"
+                                        android:textSize="@dimen/field_text_size"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <ImageButton
+                                    android:id="@+id/date_icon"
+                                    android:layout_width="@dimen/image_button_size"
+                                    android:layout_height="@dimen/image_button_size"
+                                    android:background="@color/gray_F2F2F2"
+                                    android:tint="@color/gray_949494"
+                                    app:srcCompat="@drawable/ic_clock"/>
+
+                                <LinearLayout
+                                    android:id="@+id/date_texts_layout"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/date_title"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingStart="@dimen/text_view_padding"
+                                        android:paddingEnd="@dimen/text_view_padding"
+                                        android:text="Data"
+                                        android:textColor="@color/gray_949494"
+                                        android:textSize="@dimen/field_text_size_small"/>
+
+                                    <TextView
+                                        android:id="@+id/date_text"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingStart="@dimen/text_view_padding"
+                                        android:paddingEnd="@dimen/text_view_padding"
+                                        android:text="2020-12-25"
+                                        android:textColor="@color/gray_949494"
+                                        android:textSize="@dimen/field_text_size"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/edit_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/field_margin_bottom"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:visibility="gone">
+
+                                <ImageButton
+                                    android:id="@+id/edit_time_icon"
+                                    android:layout_width="@dimen/image_button_size"
+                                    android:layout_height="@dimen/image_button_size"
+                                    android:background="@color/gray_F2F2F2"
+                                    android:tint="@color/gray_949494"
+                                    app:srcCompat="@drawable/ic_clock_update"/>
+
+                                <LinearLayout
+                                    android:id="@+id/edit_time_texts_layout"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/edit_time_title"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingStart="@dimen/text_view_padding"
+                                        android:paddingEnd="@dimen/text_view_padding"
+                                        android:text="Edytowano"
+                                        android:textColor="@color/gray_949494"
+                                        android:textSize="@dimen/field_text_size_small"/>
+
+                                    <TextView
+                                        android:id="@+id/edit_time_text"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingStart="@dimen/text_view_padding"
+                                        android:paddingEnd="@dimen/text_view_padding"
+                                        android:text="2020-12-26 21:42"
+                                        android:textColor="@color/gray_949494"
+                                        android:textSize="@dimen/field_text_size"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_949494"
+                        android:layout_marginBottom="@dimen/task_field_margin_bottom"/>
+
+                    <LinearLayout
+                        android:id="@+id/sub_tasks_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/sub_tasks_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/field_margin_bottom"
+                            android:paddingStart="@dimen/text_view_padding"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/task_details_sub_tasks"
+                            android:textColor="@color/gray_555555"
+                            android:textSize="@dimen/task_subtitle_text_size"/>
+
+                        <TextView
+                            android:id="@+id/no_sub_tasks"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="@dimen/text_view_padding"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/task_details_no_sub_tasks"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/task_description_text_size"
+                            android:visibility="gone"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+            <LinearLayout
+                android:id="@+id/background_fade"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/white_FFFFFF_60"
+                android:translationZ="-1dp"
+                android:elevation="4dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/delete_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Szczegóły zadania"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="bottom|end"
+            android:gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="200dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/delete_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/floating_button_option_margin_top"
+                android:paddingStart="@dimen/text_view_padding"
+                android:paddingEnd="@dimen/text_view_padding"
+                android:paddingTop="@dimen/floating_button_option_margin_top"
+                android:paddingBottom="@dimen/floating_button_option_padding_bottom"
+                android:text="@string/task_details_delete"
+                android:textColor="@color/gray_555555"
+                android:textSize="@dimen/field_text_size"
+                android:textStyle="bold"
+                android:background="@drawable/bg_fields"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/delete_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_delete"
+                android:tint="@color/white_FFFFFF"
+                app:fabSize="mini"
+                app:backgroundTint="@color/colorPrimary"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/add_sub_tasks_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="140dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/add_subtasks_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/floating_button_option_margin_top"
+                android:paddingStart="@dimen/text_view_padding"
+                android:paddingEnd="@dimen/text_view_padding"
+                android:paddingTop="@dimen/floating_button_option_margin_top"
+                android:paddingBottom="@dimen/floating_button_option_padding_bottom"
+                android:text="@string/task_details_add_sub_task"
+                android:textColor="@color/gray_555555"
+                android:textSize="@dimen/field_text_size"
+                android:textStyle="bold"
+                android:background="@drawable/bg_fields"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add_subtasks_floating_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_add"
+                android:tint="@color/white_FFFFFF"
+                app:fabSize="mini"
+                app:backgroundTint="@color/colorPrimary"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/edit_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="80dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/floating_button_option_margin_top"
+                android:paddingStart="@dimen/text_view_padding"
+                android:paddingEnd="@dimen/text_view_padding"
+                android:paddingTop="@dimen/floating_button_option_margin_top"
+                android:paddingBottom="@dimen/floating_button_option_padding_bottom"
+                android:text="@string/task_details_edit"
+                android:textColor="@color/gray_555555"
+                android:textSize="@dimen/field_text_size"
+                android:textStyle="bold"
+                android:background="@drawable/bg_fields"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/edit_floating_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_edit"
+                android:tint="@color/white_FFFFFF"
+                app:fabSize="mini"
+                app:backgroundTint="@color/colorPrimary"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/tasks_floating_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_menu"
+            android:tint="@color/white_FFFFFF"
+            app:backgroundTint="@color/colorPrimary"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>
