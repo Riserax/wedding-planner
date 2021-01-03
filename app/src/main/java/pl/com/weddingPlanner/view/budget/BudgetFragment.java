@@ -53,10 +53,10 @@ public class BudgetFragment extends Fragment {
             (tab, position) -> {
                 switch (position) {
                     case 0:
-                        tab.setText(getString(R.string.tab_title_budget_categories));
+                        tab.setText(getString(R.string.tab_title_budget_descending));
                         break;
                     case 1:
-                        tab.setText(getString(R.string.tab_title_budget_descending));
+                        tab.setText(getString(R.string.tab_title_budget_categories));
                         break;
                 }
             }).attach();
@@ -67,11 +67,11 @@ public class BudgetFragment extends Fragment {
             Intent intent;
             switch (viewPager.getCurrentItem()) {
                 case 0:
-                    intent = new Intent(requireActivity(), NewCategoryActivity.class);
+                    intent = new Intent(requireActivity(), NewBudgetActivity.class);
                     startActivity(intent);
                     break;
                 case 1:
-                    intent = new Intent(requireActivity(), NewBudgetActivity.class);
+                    intent = new Intent(requireActivity(), NewCategoryActivity.class);
                     startActivity(intent);
             }
         });

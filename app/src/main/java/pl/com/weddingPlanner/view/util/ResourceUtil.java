@@ -8,7 +8,7 @@ import pl.com.weddingPlanner.util.Logger;
 
 public class ResourceUtil {
 
-    public static final String IC_DASHBOARD = "ic_dashboard";
+    public static final String IC_ADD_BOX = "ic_add_box";
 
     public static int getResId(String resName, Class<?> c) {
         try {
@@ -17,7 +17,7 @@ public class ResourceUtil {
             if (StringUtils.isNotBlank(resName)) {
                 idField = c.getDeclaredField(resName);
             } else {
-                idField = c.getDeclaredField(IC_DASHBOARD);
+                idField = c.getDeclaredField(IC_ADD_BOX);
             }
 
             return idField.getInt(idField);

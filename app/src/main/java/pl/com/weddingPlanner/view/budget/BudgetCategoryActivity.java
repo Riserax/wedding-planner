@@ -1,18 +1,13 @@
 package pl.com.weddingPlanner.view.budget;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import org.apache.commons.lang3.StringUtils;
 import org.threeten.bp.LocalDate;
 
 import java.util.ArrayList;
@@ -21,30 +16,33 @@ import java.util.List;
 import java.util.Map;
 
 import pl.com.weddingPlanner.R;
-import pl.com.weddingPlanner.databinding.FragmentBudgetDescendingBinding;
+import pl.com.weddingPlanner.databinding.ActivityCategoryBudgetBinding;
 import pl.com.weddingPlanner.model.ExpenseInfo;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
 import pl.com.weddingPlanner.util.DAOUtil;
+import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.HeaderItem;
 import pl.com.weddingPlanner.view.list.ListItem;
 import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
 import pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView;
+import pl.com.weddingPlanner.view.tasks.TaskDetailsActivity;
 import pl.com.weddingPlanner.view.util.BudgetUtil;
-import pl.com.weddingPlanner.view.util.FormatUtil;
 
 import static pl.com.weddingPlanner.view.list.HeaderItem.getHeaderItemWithDayOfWeek;
 import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAGE_START;
+import static pl.com.weddingPlanner.view.tasks.TaskDetailsActivity.TASK_ID_EXTRA;
+import static pl.com.weddingPlanner.view.util.SideBySideListUtil.CATEGORY_NAME_EXTRA;
+import static pl.com.weddingPlanner.view.util.SideBySideListUtil.FRAGMENT_SOURCE_EXTRA;
 
-public class BudgetDescendingFragment extends Fragment {
+public class BudgetCategoryActivity extends BaseActivity {
 
-    private final double TOTAL_AMOUNT = 40000.00;
+    private ActivityCategoryBudgetBinding binding;
 
-    private FragmentBudgetDescendingBinding binding;
-
-    private double amountSum = 0.00;
+    private String categoryName;
+    private String fragmentClass = "";
 
     private int currentPage = PAGE_START;
     private boolean isLastPage = false;
@@ -52,60 +50,27 @@ public class BudgetDescendingFragment extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private ListRecyclerAdapter adapter;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_budget_descending, container, false);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_category_budget);
 
-        setComponents();
+        getExtrasAndSetVariables();
+        setActivityToolbarContentWithBackIcon(categoryName);
 
-        getBudgetList();
-
-        return binding.getRoot();
-    }
-
-    private void setComponents() {
-        setProgressBar();
-        setAmounts();
         setRecyclerView();
         setSwipeRefresh();
-    }
 
-    private void setProgressBar() {
-        List<Expense> allExpenses = DAOUtil.getAllExpenses(getContext());
-        amountSum = 0.00;
-
-        for (Expense expense : allExpenses) {
-            if (StringUtils.isNotBlank(expense.getAmount())) {
-                amountSum += Double.parseDouble(expense.getAmount());
-            }
-        }
-
-        setProgressAndText(amountSum);
-    }
-
-    private void setProgressAndText(double amountSum) {
-        int percentage = (int) (amountSum / TOTAL_AMOUNT * 100);
-        String progress = percentage + "%";
-
-        binding.progressBar.setProgress(percentage, true);
-        binding.txtProgress.setText(progress);
-    }
-
-    private void setAmounts() {
-        String spentAmount = FormatUtil.convertToAmount(amountSum);
-        String totalAmount = FormatUtil.convertToAmount(TOTAL_AMOUNT);
-
-        binding.amountSpent.setText(spentAmount);
-        binding.totalAmount.setText(totalAmount);
+        getList();
+        setListeners();
     }
 
     private void setRecyclerView() {
-        linearLayoutManager = new LinearLayoutManager(requireContext());
-        adapter = new ListRecyclerAdapter(requireContext(), new LinkedList<>(), item -> {
-            //TODO
-//            Intent intent = new Intent(requireContext(), BudgetDetailsActivity.class);
-//            intent.putExtra(TASK_ID_EXTRA, item.getItemId());
-//            startActivity(intent);
+        linearLayoutManager = new LinearLayoutManager(this);
+        adapter = new ListRecyclerAdapter(this, new LinkedList<>(), item -> {
+            Intent intent = new Intent(this, TaskDetailsActivity.class);
+            intent.putExtra(TASK_ID_EXTRA, item.getItemId());
+            startActivity(intent);
         });
 
         RecyclerView recyclerView = binding.recyclerView;
@@ -138,15 +103,18 @@ public class BudgetDescendingFragment extends Fragment {
             swipeRefresh.setRefreshing(false);
             adapter.clear();
             currentPage = PAGE_START;
-            getBudgetList();
-            setProgressBar();
-            setAmounts();
+            getList();
         });
     }
 
-    private void getBudgetList() {
+    private void getExtrasAndSetVariables() {
+        categoryName = getIntent().getExtras().getString(CATEGORY_NAME_EXTRA, getResources().getString(R.string.header_title_category));
+        fragmentClass = getIntent().getExtras().getString(FRAGMENT_SOURCE_EXTRA, fragmentClass);
+    }
+
+    private void getList() {
         List<ExpenseInfo> toReturn = new ArrayList<>();
-        List<Expense> allExpenses = DAOUtil.getAllExpenses(requireContext());
+        List<Expense> allExpenses = DAOUtil.getAllExpensesByCategory(this, categoryName);
 
         if (!allExpenses.isEmpty()) {
             Map<Integer, LocalDate> sortedIdDateMap = BudgetUtil.getSortedIdDateMap(allExpenses);
@@ -155,7 +123,7 @@ public class BudgetDescendingFragment extends Fragment {
             for (Map.Entry<Integer, LocalDate> sortedIdDate : sortedIdDateMap.entrySet()) {
                 Expense expense = (Expense) expensesMap.get(sortedIdDate.getKey());
 
-                Category category = DAOUtil.getCategoryByNameAndType(requireContext(), expense.getCategory(), CategoryTypeEnum.BUDGET.name());
+                Category category = DAOUtil.getCategoryByNameAndType(this, expense.getCategory(), CategoryTypeEnum.BUDGET.name());
 
                 ExpenseInfo expenseInfo = ExpenseInfo.builder()
                         .itemId(expense.getId())
@@ -170,23 +138,29 @@ public class BudgetDescendingFragment extends Fragment {
             }
         }
 
-        List<ListItem> listItems = prepareAccountsInfoList(toReturn, adapter.getItems());
+        List<ListItem> listItems = prepareItemsInfoList(toReturn, adapter.getItems());
         adapter.addItems(listItems);
     }
 
-    private List<ListItem> prepareAccountsInfoList(List<ExpenseInfo> expenseInfoList, List<ListItem> list) {
+    private List<ListItem> prepareItemsInfoList(List<ExpenseInfo> expenseInfoList, List<ListItem> list) {
         List<ListItem> toReturn = new ArrayList<>();
 
         for (ExpenseInfo expenseInfo : expenseInfoList) {
-            HeaderItem headerItem = getHeaderItemWithDayOfWeek(requireContext(), expenseInfo.getDate());
+            HeaderItem headerItem = getHeaderItemWithDayOfWeek(this, expenseInfo.getDate());
 
             if (!toReturn.contains(headerItem) && !list.contains(headerItem)) {
                 toReturn.add(headerItem);
             }
-
             toReturn.add(ContentItem.of(expenseInfo));
         }
 
         return toReturn;
+    }
+
+    private void setListeners() {
+        binding.categoryBudgetFloatingButton.setOnClickListener(view -> {
+            Intent intent = new Intent(this, NewBudgetActivity.class);
+            startActivity(intent);
+        });
     }
 }
