@@ -17,7 +17,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@Entity(indices = {@Index(value = "name", unique = true)})
+@Entity(indices = {@Index(value = "id", unique = true)})
 @Builder(toBuilder = true)
 @ToString
 @EqualsAndHashCode
@@ -25,8 +25,11 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Category implements Serializable {
 
-    @NonNull
     @PrimaryKey
+    private Integer id;
+    @NonNull
     private String name;
+    @NonNull
+    private String type;
     private String iconId;
 }

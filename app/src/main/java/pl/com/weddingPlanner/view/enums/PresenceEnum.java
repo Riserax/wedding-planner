@@ -7,5 +7,5 @@ public enum PresenceEnum {
     WAITING,
     CONFIRMED_PRESENCE,
     CONFIRMED_ABSENCE,
-
+    ;
 }

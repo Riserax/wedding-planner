@@ -21,12 +21,12 @@ public class CategoriesDialog extends CustomAlertDialog {
     private DialogCategoriesBinding binding;
     private Map<Integer, String> categories;
 
-    public CategoriesDialog(BaseActivity activity) {
+    public CategoriesDialog(BaseActivity activity, String type) {
         super(activity, R.layout.dialog_categories);
 
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_categories, null, false);
 
-        setAllCategories();
+        setAllCategories(type);
         initListView();
         setListeners(activity);
 
@@ -35,11 +35,11 @@ public class CategoriesDialog extends CustomAlertDialog {
         setView(binding.getRoot()).setCancelable(true);
     }
 
-    private void setAllCategories() {
+    private void setAllCategories(String type) {
         Map<Integer, String> categories = new LinkedHashMap<>();
 
         int id = 0;
-        for (Category category : DAOUtil.getAllCategories(getContext())) {
+        for (Category category : DAOUtil.getAllCategoriesByType(getContext(), type)) {
             categories.put(id++, category.getName());
         }
 

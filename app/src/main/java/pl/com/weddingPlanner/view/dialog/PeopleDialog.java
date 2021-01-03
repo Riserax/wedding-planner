@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.view.tasks.dialog;
+package pl.com.weddingPlanner.view.dialog;
 
 import android.view.LayoutInflater;
 import android.widget.ArrayAdapter;
@@ -16,7 +16,6 @@ import pl.com.weddingPlanner.databinding.DialogPeopleBinding;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
-import pl.com.weddingPlanner.view.dialog.CustomAlertDialog;
 import pl.com.weddingPlanner.view.util.ListViewUtil;
 
 public class PeopleDialog extends CustomAlertDialog {
