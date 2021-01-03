@@ -32,10 +32,16 @@ public class DAOUtil {
         return categoryDAO.getAll();
     }
 
-    public static Category getCategoryByName(Context context, String name) {
+    public static List<Category> getAllCategoriesByType(Context context, String type) {
         AppDatabase appDatabase = getInstance(context);
         CategoryDAO categoryDAO = appDatabase.categoryDAO();
-        return categoryDAO.get(name);
+        return categoryDAO.getAllByType(type);
+    }
+
+    public static Category getCategoryByNameAndType(Context context, String name, String type) {
+        AppDatabase appDatabase = getInstance(context);
+        CategoryDAO categoryDAO = appDatabase.categoryDAO();
+        return categoryDAO.getByNameAndType(name, type);
     }
 
     public static List<Task> getAllTasks(Context context) {
@@ -98,10 +104,34 @@ public class DAOUtil {
         return personDAO.getByName(name);
     }
 
+    public static void insertCategory(Context context, Category category) {
+        AppDatabase appDatabase = getInstance(context);
+        CategoryDAO categoryDAO = appDatabase.categoryDAO();
+        categoryDAO.insert(category);
+    }
+
     public static void insertTask(Context context, Task task) {
         AppDatabase appDatabase = getInstance(context);
         TaskDAO taskDAO = appDatabase.taskDAO();
         taskDAO.insert(task);
+    }
+
+    public static void insertBookmark(Context context, Bookmark bookmark) {
+        AppDatabase appDatabase = getInstance(context);
+        BookmarkDAO bookmarkDAO = appDatabase.bookmarkDAO();
+        bookmarkDAO.insert(bookmark);
+    }
+
+    public static void insertPerson(Context context, Person person) {
+        AppDatabase appDatabase = getInstance(context);
+        PersonDAO personDAO = appDatabase.personDAO();
+        personDAO.insert(person);
+    }
+
+    public static void insertSubTask(Context context, SubTask subTask) {
+        AppDatabase appDatabase = getInstance(context);
+        SubTaskDAO subTaskDAO = appDatabase.subTaskDAO();
+        subTaskDAO.insert(subTask);
     }
 
     public static void setSubTaskDone(Context context, String done, int subTaskId) {

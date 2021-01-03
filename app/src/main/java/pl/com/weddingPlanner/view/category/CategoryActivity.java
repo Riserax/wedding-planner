@@ -20,6 +20,7 @@ import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.budget.NewBudgetActivity;
+import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.HeaderItem;
 import pl.com.weddingPlanner.view.list.ListItem;
@@ -119,7 +120,7 @@ public class CategoryActivity extends BaseActivity {
             List<Task> allTasksByCategory = DAOUtil.getAllTasksByCategory(this, categoryName);
 
             for (Task task : allTasksByCategory) {
-                Category category = DAOUtil.getCategoryByName(this, task.getCategory());
+                Category category = DAOUtil.getCategoryByNameAndType(this, task.getCategory(), CategoryTypeEnum.TASKS.name());
 
                 TaskInfo taskInfo = TaskInfo.builder()
                         .itemId(task.getId())

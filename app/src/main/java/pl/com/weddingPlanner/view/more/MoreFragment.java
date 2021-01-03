@@ -30,7 +30,11 @@ public class MoreFragment extends Fragment {
 
         ((NavigationActivity) requireActivity()).setFragmentToolbar(R.string.header_title_more);
 
-        renderCategoriesButtons(this, getMenuItems(), binding.sideBySideMenu.leftColumn, binding.sideBySideMenu.rightColumn);
+        renderCategoriesButtons(
+                this,
+                getMenuItems(),
+                binding.sideBySideMenu.leftColumn,
+                binding.sideBySideMenu.rightColumn);
 
         return binding.getRoot();
     }

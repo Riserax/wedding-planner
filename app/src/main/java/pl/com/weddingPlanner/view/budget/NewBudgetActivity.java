@@ -16,7 +16,8 @@ import pl.com.weddingPlanner.databinding.ActivityNewBudgetBinding;
 import pl.com.weddingPlanner.util.DebouncedOnClickListener;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.dialog.CategoriesDialog;
-import pl.com.weddingPlanner.view.tasks.dialog.PeopleDialog;
+import pl.com.weddingPlanner.view.dialog.PeopleDialog;
+import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
 
 public class NewBudgetActivity extends BaseActivity {
@@ -46,7 +47,7 @@ public class NewBudgetActivity extends BaseActivity {
             @Override
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
-                new CategoriesDialog(NewBudgetActivity.this).showDialog();
+                new CategoriesDialog(NewBudgetActivity.this, CategoryTypeEnum.BUDGET.name()).showDialog();
             }
         });
     }

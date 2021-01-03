@@ -29,6 +29,7 @@ import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.dialog.QuestionDialog;
+import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.util.ResourceUtil;
 
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
@@ -64,7 +65,7 @@ public class TaskDetailsActivity extends BaseActivity {
         int taskId = getIntent().getExtras().getInt(TASK_ID_EXTRA, 0);
 
         taskDetails = DAOUtil.getTaskById(this, taskId);
-        categoryDetails = DAOUtil.getCategoryByName(this, taskDetails.getCategory());
+        categoryDetails = DAOUtil.getCategoryByNameAndType(this, taskDetails.getCategory(), CategoryTypeEnum.TASKS.name());
     }
 
     private void getAndSetData() {

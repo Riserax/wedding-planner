@@ -28,7 +28,8 @@ import pl.com.weddingPlanner.util.DebouncedOnClickListener;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.dialog.CategoriesDialog;
-import pl.com.weddingPlanner.view.tasks.dialog.PeopleDialog;
+import pl.com.weddingPlanner.view.dialog.PeopleDialog;
+import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskBookmarksDialog;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskDateDialog;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskTimeDialog;
@@ -78,7 +79,7 @@ public class NewTaskActivity extends BaseActivity {
             @Override
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
-                new CategoriesDialog(NewTaskActivity.this).showDialog();
+                new CategoriesDialog(NewTaskActivity.this, CategoryTypeEnum.TASKS.name()).showDialog();
             }
         });
     }

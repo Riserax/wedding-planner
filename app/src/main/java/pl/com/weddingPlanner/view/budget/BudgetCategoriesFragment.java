@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentBudgetCategoriesBinding;
 import pl.com.weddingPlanner.util.DAOUtil;
+import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
 
 import static pl.com.weddingPlanner.view.util.SideBySideListUtil.renderCategoriesButtons;
 
@@ -23,7 +24,11 @@ public class BudgetCategoriesFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_budget_categories, container, false);
 
-        renderCategoriesButtons(this, DAOUtil.getAllCategories(requireContext()), binding.sideBySideMenu.leftColumn, binding.sideBySideMenu.rightColumn);
+        renderCategoriesButtons(
+                this,
+                DAOUtil.getAllCategoriesByType(requireContext(), CategoryTypeEnum.BUDGET.name()),
+                binding.sideBySideMenu.leftColumn,
+                binding.sideBySideMenu.rightColumn);
 
         return binding.getRoot();
     }

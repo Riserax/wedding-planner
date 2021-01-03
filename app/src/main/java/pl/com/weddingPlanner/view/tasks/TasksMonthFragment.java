@@ -25,6 +25,7 @@ import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.util.DateUtil;
+import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.HeaderItem;
 import pl.com.weddingPlanner.view.list.ListItem;
@@ -119,7 +120,7 @@ public class TasksMonthFragment extends Fragment {
         }
 
         for (Task task : tasksByMonth) {
-            Category category = DAOUtil.getCategoryByName(requireContext(), task.getCategory());
+            Category category = DAOUtil.getCategoryByNameAndType(requireContext(), task.getCategory(), CategoryTypeEnum.TASKS.name());
 
             TaskInfo taskInfo = TaskInfo.builder()
                     .itemId(task.getId())

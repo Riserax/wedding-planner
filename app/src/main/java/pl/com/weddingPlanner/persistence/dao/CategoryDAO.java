@@ -16,6 +16,12 @@ public interface CategoryDAO {
     @Query("SELECT * FROM category")
     List<Category> getAll();
 
+    @Query("SELECT * FROM category WHERE type = :type")
+    List<Category> getAllByType(String type);
+
+    @Query("SELECT * FROM category WHERE name = :name AND type = :type")
+    Category getByNameAndType(String name, String type);
+
     @Insert
     Long insert(Category category);
 
@@ -27,9 +33,6 @@ public interface CategoryDAO {
 
     @Update
     void merge(Category category);
-
-    @Query("SELECT * FROM category WHERE name = :name")
-    Category get(String name);
 
     @Query("SELECT COUNT(*) FROM category")
     int count();
