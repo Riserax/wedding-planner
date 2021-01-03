@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import pl.com.weddingPlanner.R;
+import pl.com.weddingPlanner.model.ExpenseInfo;
 import pl.com.weddingPlanner.model.GuestInfo;
 import pl.com.weddingPlanner.model.TaskInfo;
 import pl.com.weddingPlanner.view.enums.GuestTypeEnum;
@@ -45,6 +46,16 @@ public class ContentItem extends ListItem implements Serializable {
                 .mainCaption(info.getName() + " " + info.getSurname())
                 .mainCaptionColor(R.color.black)
                 .leftIconId(getLeftIconId(info.getGuestType()))
+                .leftIconColor(R.color.colorPrimaryDark)
+                .build();
+    }
+
+    public static ContentItem of(ExpenseInfo info) {
+        return ContentItem.builder()
+                .itemId(info.getItemId())
+                .mainCaption(info.getTitle())
+                .mainCaptionColor(R.color.black)
+                .leftIconId(ResourceUtil.getResId(info.getCategoryIconId(), R.drawable.class))
                 .leftIconColor(R.color.colorPrimaryDark)
                 .build();
     }

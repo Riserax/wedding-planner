@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.view.category;
+package pl.com.weddingPlanner.view.tasks;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,26 +8,27 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import org.threeten.bp.LocalDate;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import pl.com.weddingPlanner.R;
-import pl.com.weddingPlanner.databinding.ActivityCategoryBinding;
+import pl.com.weddingPlanner.databinding.ActivityCategoryTasksBinding;
 import pl.com.weddingPlanner.model.TaskInfo;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
-import pl.com.weddingPlanner.view.budget.NewBudgetActivity;
 import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.HeaderItem;
 import pl.com.weddingPlanner.view.list.ListItem;
 import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
 import pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView;
-import pl.com.weddingPlanner.view.tasks.NewTaskActivity;
-import pl.com.weddingPlanner.view.tasks.TaskDetailsActivity;
+import pl.com.weddingPlanner.view.util.TasksUtil;
 
 import static pl.com.weddingPlanner.view.list.HeaderItem.getHeaderItemWithDayOfWeek;
 import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAGE_START;
@@ -35,12 +36,9 @@ import static pl.com.weddingPlanner.view.tasks.TaskDetailsActivity.TASK_ID_EXTRA
 import static pl.com.weddingPlanner.view.util.SideBySideListUtil.CATEGORY_NAME_EXTRA;
 import static pl.com.weddingPlanner.view.util.SideBySideListUtil.FRAGMENT_SOURCE_EXTRA;
 
-public class CategoryActivity extends BaseActivity {
+public class TasksCategoryActivity extends BaseActivity {
 
-    private final String TASKS_CATEGORIES_FRAGMENT = "class pl.com.weddingPlanner.view.tasks.TasksCategoriesFragment";
-    private final String BUDGET_CATEGORIES_FRAGMENT = "class pl.com.weddingPlanner.view.budget.BudgetCategoriesFragment";
-
-    private ActivityCategoryBinding binding;
+    private ActivityCategoryTasksBinding binding;
 
     private String categoryName;
     private String fragmentClass = "";
@@ -54,7 +52,7 @@ public class CategoryActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_category);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_category_tasks);
 
         getExtrasAndSetVariables();
         setActivityToolbarContentWithBackIcon(categoryName);
@@ -115,11 +113,15 @@ public class CategoryActivity extends BaseActivity {
 
     private void getList() {
         List<TaskInfo> toReturn = new ArrayList<>();
+        List<Task> allTasksByCategory = DAOUtil.getAllTasksByCategory(this, categoryName);
 
-        if (TASKS_CATEGORIES_FRAGMENT.equals(fragmentClass)) {
-            List<Task> allTasksByCategory = DAOUtil.getAllTasksByCategory(this, categoryName);
+        if (!allTasksByCategory.isEmpty()) {
+            Map<Integer, LocalDate> sortedIdDateMap = TasksUtil.getSortedIdDateMap(allTasksByCategory);
+            Map<Integer, Task> tasksMap = TasksUtil.getTasksMap(allTasksByCategory);
 
-            for (Task task : allTasksByCategory) {
+            for (Map.Entry<Integer, LocalDate> sortedIdDate : sortedIdDateMap.entrySet()) {
+                Task task = (Task) tasksMap.get(sortedIdDate.getKey());
+
                 Category category = DAOUtil.getCategoryByNameAndType(this, task.getCategory(), CategoryTypeEnum.TASKS.name());
 
                 TaskInfo taskInfo = TaskInfo.builder()
@@ -128,39 +130,8 @@ public class CategoryActivity extends BaseActivity {
                         .categoryIconId(category.getIconId())
                         .date(task.getDate())
                         .build();
+
                 toReturn.add(taskInfo);
-            }
-        } else {
-            String title = "Wydatek ";
-
-            for (int i = 0; i < 5; i++) {
-                TaskInfo task = TaskInfo.builder()
-                        .itemId(i)
-                        .title(title + i)
-                        .categoryIconId("ic_dashboard")
-                        .date("2020-12-22")
-                        .build();
-                toReturn.add(task);
-            }
-
-            for (int i = 5; i < 10; i++) {
-                TaskInfo task = TaskInfo.builder()
-                        .itemId(i)
-                        .title(title + i)
-                        .categoryIconId("ic_dashboard")
-                        .date("2020-12-23")
-                        .build();
-                toReturn.add(task);
-            }
-
-            for (int i = 10; i < 15; i++) {
-                TaskInfo task = TaskInfo.builder()
-                        .itemId(i)
-                        .title(title + i)
-                        .categoryIconId("ic_dashboard")
-                        .date("2020-12-24")
-                        .build();
-                toReturn.add(task);
             }
         }
 
@@ -184,15 +155,9 @@ public class CategoryActivity extends BaseActivity {
     }
 
     private void setListeners() {
-        binding.categoryFloatingButton.setOnClickListener(view -> {
-            Intent intent;
-            if (TASKS_CATEGORIES_FRAGMENT.equals(fragmentClass)) {
-                intent = new Intent(this, NewTaskActivity.class);
-                startActivity(intent);
-            } else if (BUDGET_CATEGORIES_FRAGMENT.equals(fragmentClass)) {
-                intent = new Intent(this, NewBudgetActivity.class);
-                startActivity(intent);
-            }
+        binding.categoryTasksFloatingButton.setOnClickListener(view -> {
+            Intent intent = new Intent(this, NewTaskActivity.class);
+            startActivity(intent);
         });
     }
 }

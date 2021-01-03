@@ -6,12 +6,14 @@ import java.util.List;
 
 import pl.com.weddingPlanner.persistence.dao.BookmarkDAO;
 import pl.com.weddingPlanner.persistence.dao.CategoryDAO;
+import pl.com.weddingPlanner.persistence.dao.ExpenseDAO;
 import pl.com.weddingPlanner.persistence.dao.PersonDAO;
 import pl.com.weddingPlanner.persistence.dao.SubTaskDAO;
 import pl.com.weddingPlanner.persistence.dao.TaskDAO;
 import pl.com.weddingPlanner.persistence.database.AppDatabase;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
+import pl.com.weddingPlanner.persistence.entity.Expense;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.SubTask;
 import pl.com.weddingPlanner.persistence.entity.Task;
@@ -36,6 +38,12 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         CategoryDAO categoryDAO = appDatabase.categoryDAO();
         return categoryDAO.getAllByType(type);
+    }
+
+    public static int getCategoriesCount(Context context) {
+        AppDatabase appDatabase = getInstance(context);
+        CategoryDAO categoryDAO = appDatabase.categoryDAO();
+        return categoryDAO.count();
     }
 
     public static Category getCategoryByNameAndType(Context context, String name, String type) {
@@ -92,6 +100,12 @@ public class DAOUtil {
         return personDAO.getAll();
     }
 
+    public static int getPersonsCount(Context context) {
+        AppDatabase appDatabase = getInstance(context);
+        PersonDAO personDAO = appDatabase.personDAO();
+        return personDAO.count();
+    }
+
     public static Person getPersonById(Context context, int id) {
         AppDatabase appDatabase = getInstance(context);
         PersonDAO personDAO = appDatabase.personDAO();
@@ -102,6 +116,18 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         PersonDAO personDAO = appDatabase.personDAO();
         return personDAO.getByName(name);
+    }
+
+    public static List<Expense> getAllExpenses(Context context) {
+        AppDatabase appDatabase = getInstance(context);
+        ExpenseDAO expenseDAO = appDatabase.expenseDAO();
+        return expenseDAO.getAll();
+    }
+
+    public static List<Expense> getAllExpensesByCategory(Context context, String category) {
+        AppDatabase appDatabase = getInstance(context);
+        ExpenseDAO expenseDAO = appDatabase.expenseDAO();
+        return expenseDAO.getAllByCategory(category);
     }
 
     public static void insertCategory(Context context, Category category) {
@@ -132,6 +158,12 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         SubTaskDAO subTaskDAO = appDatabase.subTaskDAO();
         subTaskDAO.insert(subTask);
+    }
+
+    public static void insertExpense(Context context, Expense expense) {
+        AppDatabase appDatabase = getInstance(context);
+        ExpenseDAO expenseDAO = appDatabase.expenseDAO();
+        expenseDAO.insert(expense);
     }
 
     public static void setSubTaskDone(Context context, String done, int subTaskId) {

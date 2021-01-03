@@ -58,4 +58,5 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.10'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
     annotationProcessor 'androidx.room:room-compiler:2.2.6'
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
 }

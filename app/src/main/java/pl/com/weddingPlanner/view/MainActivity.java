@@ -5,10 +5,9 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.List;
-
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
+import pl.com.weddingPlanner.persistence.entity.Expense;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.SubTask;
 import pl.com.weddingPlanner.persistence.entity.Task;
@@ -26,10 +25,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fillDatabaseIfEmpty() {
-        List<Category> categories = DAOUtil.getAllCategories(this);
-        List<Person> people = DAOUtil.getAllPersons(this);
+        int categoriesCount = DAOUtil.getCategoriesCount(this);
+        int peopleCount = DAOUtil.getPersonsCount(this);
 
-        if (categories.isEmpty() && people.isEmpty()) {
+        if (categoriesCount == 0 && peopleCount == 0) {
             fillDatabase();
         }
     }
@@ -45,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         insertPeople();
         insertTasks();
         insertSubTasks();
+        insertExpenses();
     }
 
     private void insertCategories() {
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         Category categoryTasks3 = Category.builder()
                 .name("Sala weselna")
                 .type(CategoryTypeEnum.TASKS.name())
-                .iconId("ic_dashboard")
+                .iconId("ic_home")
                 .build();
 
         Category categoryTasks4 = Category.builder()
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         Category categoryBudget2 = Category.builder()
                 .name("Sala weselna")
                 .type(CategoryTypeEnum.BUDGET.name())
-                .iconId("ic_dashboard")
+                .iconId("ic_home")
                 .build();
 
         Category categoryBudget3 = Category.builder()
@@ -293,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
         Task taskNotFilled = Task.builder()
                 .id(2)
                 .title("Nieuzupełnione zadanie")
-                .category("Różne")
+                .category("Inne")
                 .date("2021-01-31")
                 .build();
 
@@ -314,5 +314,26 @@ public class MainActivity extends AppCompatActivity {
 
         DAOUtil.insertSubTask(this, subTask1);
         DAOUtil.insertSubTask(this, subTask2);
+    }
+
+    private void insertExpenses() {
+        Expense expense1 = Expense.builder()
+                .title("Wypełniony wydatek")
+                .date("2021-01-03")
+                .amount("25000,00")
+                .category("Sala weselna")
+                .forWhomAndWhat("Sala weselna \"Zielone wzgórze\"\nSala weselna, goście")
+                .payer("1,2")
+                .subExpenses("1,2,3")
+                .build();
+
+        Expense expense2 = Expense.builder()
+                .title("Niewypełniony wydatek")
+                .date("2020-12-30")
+                .category("Inne")
+                .build();
+
+        DAOUtil.insertExpense(this, expense1);
+        DAOUtil.insertExpense(this, expense2);
     }
 }

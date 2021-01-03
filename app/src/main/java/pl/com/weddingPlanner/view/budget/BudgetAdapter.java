@@ -18,9 +18,9 @@ public class BudgetAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                return new BudgetCategoriesFragment();
-            case 1:
                 return new BudgetDescendingFragment();
+            case 1:
+                return new BudgetCategoriesFragment();
             default:
                 throw new IllegalArgumentException("BudgetAdapter position=" + position + " but max=" + (BUDGET_TABS_NUMBER - 1));
         }

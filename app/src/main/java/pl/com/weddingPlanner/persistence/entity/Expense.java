@@ -1,5 +1,6 @@
 package pl.com.weddingPlanner.persistence.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
@@ -22,17 +23,18 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Guest implements Serializable {
+public class Expense implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private Integer id;
-    private String guestType;
-    private String name;
-    private String surname;
-    private Integer age;
-    private String accompany;
-    private Integer tableNumber;
-    private String presence;
-    private String contact;
-    private String comments;
+    @NonNull
+    private String title;
+    @NonNull
+    private String date;
+    private String amount;
+    @NonNull
+    private String category;
+    private String forWhomAndWhat;
+    private String payer;
+    private String subExpenses;
 }

@@ -14,9 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import org.threeten.bp.LocalDate;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentTasksMonthBinding;
@@ -31,6 +34,7 @@ import pl.com.weddingPlanner.view.list.HeaderItem;
 import pl.com.weddingPlanner.view.list.ListItem;
 import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
 import pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView;
+import pl.com.weddingPlanner.view.util.TasksUtil;
 
 import static pl.com.weddingPlanner.view.list.HeaderItem.getHeaderItemWithDayOfWeek;
 import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAGE_START;
@@ -119,16 +123,24 @@ public class TasksMonthFragment extends Fragment {
             }
         }
 
-        for (Task task : tasksByMonth) {
-            Category category = DAOUtil.getCategoryByNameAndType(requireContext(), task.getCategory(), CategoryTypeEnum.TASKS.name());
+        if (!tasksByMonth.isEmpty()) {
+            Map<Integer, LocalDate> sortedIdDateMap = TasksUtil.getSortedIdDateMap(tasksByMonth);
+            Map<Integer, Task> tasksMap = TasksUtil.getTasksMap(tasksByMonth);
 
-            TaskInfo taskInfo = TaskInfo.builder()
-                    .itemId(task.getId())
-                    .title(task.getTitle())
-                    .categoryIconId(category.getIconId())
-                    .date(task.getDate())
-                    .build();
-            toReturn.add(taskInfo);
+            for (Map.Entry<Integer, LocalDate> sortedIdDate : sortedIdDateMap.entrySet()) {
+                Task task = (Task) tasksMap.get(sortedIdDate.getKey());
+
+                Category category = DAOUtil.getCategoryByNameAndType(requireContext(), task.getCategory(), CategoryTypeEnum.TASKS.name());
+
+                TaskInfo taskInfo = TaskInfo.builder()
+                        .itemId(task.getId())
+                        .title(task.getTitle())
+                        .categoryIconId(category.getIconId())
+                        .date(task.getDate())
+                        .build();
+
+                toReturn.add(taskInfo);
+            }
         }
 
         List<ListItem> listItems = prepareAccountsInfoList(toReturn, adapter.getItems());
@@ -144,6 +156,7 @@ public class TasksMonthFragment extends Fragment {
             if (!toReturn.contains(headerItem) && !list.contains(headerItem)) {
                 toReturn.add(headerItem);
             }
+
             toReturn.add(ContentItem.of(taskInfo));
         }
 

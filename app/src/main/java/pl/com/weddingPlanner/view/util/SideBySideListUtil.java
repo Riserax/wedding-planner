@@ -21,10 +21,12 @@ import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.util.DebouncedOnClickListener;
 import pl.com.weddingPlanner.util.Logger;
 import pl.com.weddingPlanner.view.budget.BudgetCategoriesFragment;
-import pl.com.weddingPlanner.view.category.CategoryActivity;
+import pl.com.weddingPlanner.view.budget.BudgetCategoryActivity;
+import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.enums.MoreEnum;
 import pl.com.weddingPlanner.view.enums.MoreResource;
 import pl.com.weddingPlanner.view.tasks.TasksCategoriesFragment;
+import pl.com.weddingPlanner.view.tasks.TasksCategoryActivity;
 
 import static pl.com.weddingPlanner.view.util.ComponentsUtil.getIcon;
 
@@ -158,7 +160,14 @@ public class SideBySideListUtil {
 
     private static Class getTargetActivity(Object object) {
         if (object instanceof Category) {
-            return CategoryActivity.class;
+            Category category = (Category) object;
+            if (CategoryTypeEnum.TASKS == CategoryTypeEnum.valueOf(category.getType())) {
+                return TasksCategoryActivity.class;
+            } else if (CategoryTypeEnum.BUDGET == CategoryTypeEnum.valueOf(category.getType())) {
+                return BudgetCategoryActivity.class;
+            } else {
+                return null;
+            }
         } else {
             return null;
         }

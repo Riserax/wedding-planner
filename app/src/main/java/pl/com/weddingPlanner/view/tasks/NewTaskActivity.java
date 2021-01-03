@@ -51,7 +51,7 @@ public class NewTaskActivity extends BaseActivity {
 
     private boolean isCategoryChosen;
     private boolean areBookmarksSet;
-    private boolean isAssigneesSet;
+    private boolean areAssigneesSet;
     private boolean isTimeSet;
 
     @Override
@@ -188,18 +188,18 @@ public class NewTaskActivity extends BaseActivity {
 
         isCategoryChosen = !category.equals(getResources().getString(R.string.task_field_category));
         areBookmarksSet = !bookmarks.equals(getResources().getString(R.string.task_field_bookmarks));
-        isAssigneesSet = !assignees.equals(getResources().getString(R.string.task_field_people));
+        areAssigneesSet = !assignees.equals(getResources().getString(R.string.task_field_people));
         isTimeSet = !time.equals(getResources().getString(R.string.task_field_time));
 
-        String bookmarksIdsString = getBookmarksIds(bookmarks);
-        String assigneesIdsString = getAssigneesIds(assignees);
+        String bookmarksIdsString = areBookmarksSet ? getBookmarksIds(bookmarks) : StringUtils.EMPTY;
+        String assigneesIdsString = areAssigneesSet ? getAssigneesIds(assignees) : StringUtils.EMPTY;
 
         return Task.builder()
-                .category(isCategoryChosen ? category : "Różne")
+                .category(isCategoryChosen ? category : "Inne")
                 .title(binding.taskName.getText().toString())
                 .description(binding.taskDescriptionName.getText().toString())
-                .bookmarks(areBookmarksSet ? bookmarksIdsString : StringUtils.EMPTY)
-                .assignees(isAssigneesSet ? assigneesIdsString : StringUtils.EMPTY)
+                .bookmarks(bookmarksIdsString)
+                .assignees(assigneesIdsString)
                 .date(binding.taskDate.getText().toString())
                 .time(isTimeSet ? time : StringUtils.EMPTY)
                 .build();
