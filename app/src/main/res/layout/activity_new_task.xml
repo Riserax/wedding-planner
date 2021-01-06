@@ -62,7 +62,7 @@
                         android:maxLines="1"
                         android:maxLength="50"
                         android:inputType="text"
-                        android:hint="@string/task_field_name"
+                        android:hint="@string/field_name"
                         android:textSize="@dimen/field_text_size"
                         android:textColorHint="@color/gray_949494"
                         android:textColor="@color/gray_949494"
@@ -101,7 +101,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         app:layout_constraintStart_toEndOf="@id/category_icon"
-                        app:layout_constraintEnd_toStartOf="@id/categories_arrow_right"
+                        app:layout_constraintEnd_toStartOf="@id/category_arrow_right"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" >
 
@@ -111,7 +111,7 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="@dimen/text_view_padding"
                             android:paddingEnd="@dimen/text_view_padding"
-                            android:text="@string/task_field_category"
+                            android:text="@string/field_category"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size_small"
                             android:visibility="gone"/>
@@ -122,14 +122,14 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="@dimen/text_view_padding"
                             android:paddingEnd="@dimen/text_view_padding"
-                            android:text="@string/task_field_category"
+                            android:text="@string/field_category"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"/>
 
                     </LinearLayout>
 
                     <ImageButton
-                        android:id="@+id/categories_arrow_right"
+                        android:id="@+id/category_arrow_right"
                         android:layout_width="@dimen/image_button_size"
                         android:layout_height="@dimen/image_button_size"
                         android:background="@color/gray_FDFDFD"

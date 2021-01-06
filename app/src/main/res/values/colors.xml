@@ -17,9 +17,19 @@
 <!--    <color name="colorPrimaryDark">#a95f5c</color>-->
 <!--    <color name="colorPrimaryLight">#ffbeb9</color>-->
 
-    <color name="colorPrimary">#7cb7ba</color>
-    <color name="colorPrimaryDark">#4d878a</color>
-    <color name="colorPrimaryLight">#ade9ec</color>
+    <!-- glonowaty -->
+<!--    <color name="colorPrimary">#7cb7ba</color>-->
+<!--    <color name="colorPrimaryDark">#4d878a</color>-->
+<!--    <color name="colorPrimaryLight">#ade9ec</color>-->
+
+    <!-- pomarańczowy -->
+<!--    <color name="colorPrimary">#ff7043</color>-->
+<!--    <color name="colorPrimaryDark">#c63f17</color>-->
+<!--    <color name="colorPrimaryLight">#ffa270</color>-->
+
+    <color name="colorPrimary">#ff7543</color>
+    <color name="colorPrimaryDark">#c64516</color>
+    <color name="colorPrimaryLight">#ffa670</color>
 
     <color name="gray_555555">#555555</color>
     <color name="gray_949494">#949494</color>

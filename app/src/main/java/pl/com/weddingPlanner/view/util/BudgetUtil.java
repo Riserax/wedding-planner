@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import pl.com.weddingPlanner.persistence.entity.Expense;
+import pl.com.weddingPlanner.util.DateUtil;
 
 public class BudgetUtil {
 
@@ -37,7 +38,8 @@ public class BudgetUtil {
     private static Map<Integer, String> getIdDateStringMap(List<Expense> allExpenses) {
         Map<Integer, String> idDateStringMap = new HashMap<>();
         for (Expense expense : allExpenses) {
-            idDateStringMap.put(expense.getId(), expense.getDate());
+            String date = DateUtil.getDateFromDateTime(expense.getEditDate());
+            idDateStringMap.put(expense.getId(), date);
         }
         return idDateStringMap;
     }

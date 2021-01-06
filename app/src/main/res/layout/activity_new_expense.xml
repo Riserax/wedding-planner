@@ -11,7 +11,7 @@
             layout="@layout/toolbar" />
 
         <ScrollView
-            android:id="@+id/budget_root_scroll_view"
+            android:id="@+id/expense_root_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="top"
@@ -34,7 +34,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/budget_name_layout"
+                    android:id="@+id/expense_name_layout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/field_height"
                     android:layout_marginBottom="@dimen/field_margin_bottom"
@@ -43,31 +43,31 @@
                     android:background="@drawable/bg_fields">
 
                     <ImageButton
-                        android:id="@+id/budget_name_icon"
+                        android:id="@+id/expense_name_icon"
                         android:layout_width="@dimen/image_button_size"
                         android:layout_height="@dimen/image_button_size"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_edit"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/budget_name"
+                        app:layout_constraintEnd_toStartOf="@id/expense_name"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" />
 
                     <EditText
-                        android:id="@+id/budget_name"
+                        android:id="@+id/expense_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/edit_text_padding"
                         android:maxLines="1"
                         android:maxLength="50"
                         android:inputType="text"
-                        android:hint="@string/budget_field_name"
+                        android:hint="@string/expense_field_name"
                         android:textSize="@dimen/field_text_size"
                         android:textColorHint="@color/gray_949494"
                         android:textColor="@color/gray_949494"
                         android:background="@color/gray_FDFDFD"
-                        app:layout_constraintStart_toEndOf="@id/budget_name_icon"
+                        app:layout_constraintStart_toEndOf="@id/expense_name_icon"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -101,7 +101,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         app:layout_constraintStart_toEndOf="@id/category_icon"
-                        app:layout_constraintEnd_toStartOf="@id/categories_arrow_right"
+                        app:layout_constraintEnd_toStartOf="@id/category_arrow_right"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" >
 
@@ -111,7 +111,7 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="@dimen/text_view_padding"
                             android:paddingEnd="@dimen/text_view_padding"
-                            android:text="@string/budget_field_category"
+                            android:text="@string/expense_field_category"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size_small"
                             android:visibility="gone"/>
@@ -122,14 +122,14 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="@dimen/text_view_padding"
                             android:paddingEnd="@dimen/text_view_padding"
-                            android:text="@string/budget_field_category"
+                            android:text="@string/expense_field_category"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"/>
 
                     </LinearLayout>
 
                     <ImageButton
-                        android:id="@+id/categories_arrow_right"
+                        android:id="@+id/category_arrow_right"
                         android:layout_width="@dimen/image_button_size"
                         android:layout_height="@dimen/image_button_size"
                         android:background="@color/gray_FDFDFD"
@@ -143,7 +143,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/budget_amount_layout"
+                    android:id="@+id/initial_amount_layout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/field_height"
                     android:layout_marginBottom="@dimen/field_margin_bottom"
@@ -152,19 +152,19 @@
                     android:background="@drawable/bg_fields">
 
                     <ImageButton
-                        android:id="@+id/budget_amount_icon"
+                        android:id="@+id/initial_amount_icon"
                         android:layout_width="@dimen/image_button_size"
                         android:layout_height="@dimen/image_button_size"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_dollar"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/budget_amount"
+                        app:layout_constraintEnd_toStartOf="@id/initial_amount"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" />
 
                     <EditText
-                        android:id="@+id/budget_amount"
+                        android:id="@+id/initial_amount"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/edit_text_padding"
@@ -172,12 +172,53 @@
                         android:maxLength="10"
                         android:inputType="number"
                         android:digits="0123456789,"
-                        android:hint="@string/budget_field_amount"
+                        android:hint="@string/expense_field_amount"
                         android:textSize="@dimen/field_text_size"
                         android:textColorHint="@color/gray_949494"
                         android:textColor="@color/gray_949494"
                         android:background="@color/gray_FDFDFD"
-                        app:layout_constraintStart_toEndOf="@id/budget_amount_icon"
+                        app:layout_constraintStart_toEndOf="@id/initial_amount_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/for_who_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin_bottom"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
+                    android:background="@drawable/bg_fields">
+
+                    <ImageButton
+                        android:id="@+id/for_who_icon"
+                        android:layout_width="@dimen/image_button_size"
+                        android:layout_height="@dimen/image_button_size"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_description"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/for_who_name"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <EditText
+                        android:id="@+id/for_who_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/edit_text_padding"
+                        android:maxLines="1"
+                        android:maxLength="250"
+                        android:inputType="text"
+                        android:hint="@string/expense_field_for_who"
+                        android:textSize="16sp"
+                        android:textColorHint="@color/gray_949494"
+                        android:textColor="@color/gray_949494"
+                        android:background="@color/gray_FDFDFD"
+                        app:layout_constraintStart_toEndOf="@id/for_who_icon"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -221,7 +262,7 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="@dimen/text_view_padding"
                             android:paddingEnd="@dimen/text_view_padding"
-                            android:text="@string/budget_field_payer"
+                            android:text="@string/expense_field_payer"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size_small"
                             android:visibility="gone"/>
@@ -232,7 +273,7 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="@dimen/text_view_padding"
                             android:paddingEnd="@dimen/text_view_padding"
-                            android:text="@string/budget_field_payer"
+                            android:text="@string/expense_field_payer"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"
                             android:singleLine="true"
@@ -254,46 +295,7 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/budget_comment_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/field_height"
-                    android:layout_marginBottom="@dimen/field_margin_bottom"
-                    android:paddingStart="@dimen/field_padding_start"
-                    android:paddingEnd="@dimen/field_padding_end"
-                    android:background="@drawable/bg_fields">
 
-                    <ImageButton
-                        android:id="@+id/budget_comment_icon"
-                        android:layout_width="@dimen/image_button_size"
-                        android:layout_height="@dimen/image_button_size"
-                        android:background="@color/gray_FDFDFD"
-                        android:tint="@color/gray_949494"
-                        app:srcCompat="@drawable/ic_description"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/budget_comment_name"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" />
-
-                    <EditText
-                        android:id="@+id/budget_comment_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/edit_text_padding"
-                        android:maxLines="1"
-                        android:maxLength="250"
-                        android:inputType="text"
-                        android:hint="@string/budget_field_comment"
-                        android:textSize="16sp"
-                        android:textColorHint="@color/gray_949494"
-                        android:textColor="@color/gray_949494"
-                        android:background="@color/gray_FDFDFD"
-                        app:layout_constraintStart_toEndOf="@id/budget_comment_icon"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <Button
                     android:id="@+id/add_button"

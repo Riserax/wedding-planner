@@ -12,16 +12,19 @@ import pl.com.weddingPlanner.persistence.dao.BookmarkDAO;
 import pl.com.weddingPlanner.persistence.dao.CategoryDAO;
 import pl.com.weddingPlanner.persistence.dao.ExpenseDAO;
 import pl.com.weddingPlanner.persistence.dao.PersonDAO;
+import pl.com.weddingPlanner.persistence.dao.SubExpenseDAO;
 import pl.com.weddingPlanner.persistence.dao.SubTaskDAO;
 import pl.com.weddingPlanner.persistence.dao.TaskDAO;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
 import pl.com.weddingPlanner.persistence.entity.Person;
+import pl.com.weddingPlanner.persistence.entity.SubExpense;
 import pl.com.weddingPlanner.persistence.entity.SubTask;
 import pl.com.weddingPlanner.persistence.entity.Task;
 
-@Database(entities = {Task.class, Category.class, SubTask.class, Bookmark.class, Person.class, Expense.class}, version = 1)
+@Database(entities = {Task.class, Category.class, SubTask.class, Bookmark.class, Person.class, Expense.class,
+        SubExpense.class}, version = 1)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -34,6 +37,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract BookmarkDAO bookmarkDAO();
     public abstract PersonDAO personDAO();
     public abstract ExpenseDAO expenseDAO();
+    public abstract SubExpenseDAO subExpenseDAO();
 
     public static AppDatabase getInstance(final Context context) {
 

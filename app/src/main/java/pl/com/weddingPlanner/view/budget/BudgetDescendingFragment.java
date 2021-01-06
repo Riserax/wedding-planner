@@ -26,6 +26,7 @@ import pl.com.weddingPlanner.model.ExpenseInfo;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
 import pl.com.weddingPlanner.util.DAOUtil;
+import pl.com.weddingPlanner.util.DateUtil;
 import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.HeaderItem;
@@ -75,8 +76,8 @@ public class BudgetDescendingFragment extends Fragment {
         amountSum = 0.00;
 
         for (Expense expense : allExpenses) {
-            if (StringUtils.isNotBlank(expense.getAmount())) {
-                amountSum += Double.parseDouble(expense.getAmount());
+            if (StringUtils.isNotBlank(expense.getInitialAmount())) {
+                amountSum += Double.parseDouble(expense.getInitialAmount());
             }
         }
 
@@ -161,9 +162,9 @@ public class BudgetDescendingFragment extends Fragment {
                         .itemId(expense.getId())
                         .title(expense.getTitle())
                         .categoryIconId(category.getIconId())
-                        .amount(expense.getAmount())
-                        .payer(expense.getPayer())
-                        .date(expense.getDate())
+                        .amount(expense.getInitialAmount())
+                        .payer(expense.getPayers())
+                        .date(expense.getEditDate())
                         .build();
 
                 toReturn.add(expenseInfo);
@@ -178,7 +179,8 @@ public class BudgetDescendingFragment extends Fragment {
         List<ListItem> toReturn = new ArrayList<>();
 
         for (ExpenseInfo expenseInfo : expenseInfoList) {
-            HeaderItem headerItem = getHeaderItemWithDayOfWeek(requireContext(), expenseInfo.getDate());
+            String date = DateUtil.getDateFromDateTime(expenseInfo.getDate());
+            HeaderItem headerItem = getHeaderItemWithDayOfWeek(requireContext(), date);
 
             if (!toReturn.contains(headerItem) && !list.contains(headerItem)) {
                 toReturn.add(headerItem);

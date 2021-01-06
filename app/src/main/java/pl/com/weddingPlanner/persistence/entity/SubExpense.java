@@ -23,18 +23,17 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Expense implements Serializable {
+public class SubExpense implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private Integer id;
     @NonNull
+    private Integer expenseId;
+    @NonNull
     private String title;
-    @NonNull
-    private String editDate;
-    private String initialAmount;
-    @NonNull
-    private String category;
-    private String forWhomAndWhat;
-    private String payers;
-    private String subExpenses;
+    private String date;
+    private String amount;
+    private String payer;
+    private String state;
+    private String info;
 }

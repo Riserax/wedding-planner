@@ -129,9 +129,9 @@ public class BudgetCategoryActivity extends BaseActivity {
                         .itemId(expense.getId())
                         .title(expense.getTitle())
                         .categoryIconId(category.getIconId())
-                        .amount(expense.getAmount())
-                        .payer(expense.getPayer())
-                        .date(expense.getDate())
+                        .amount(expense.getInitialAmount())
+                        .payer(expense.getPayers())
+                        .date(expense.getEditDate())
                         .build();
 
                 toReturn.add(expenseInfo);
@@ -159,7 +159,7 @@ public class BudgetCategoryActivity extends BaseActivity {
 
     private void setListeners() {
         binding.categoryBudgetFloatingButton.setOnClickListener(view -> {
-            Intent intent = new Intent(this, NewBudgetActivity.class);
+            Intent intent = new Intent(this, NewExpenseActivity.class);
             startActivity(intent);
         });
     }

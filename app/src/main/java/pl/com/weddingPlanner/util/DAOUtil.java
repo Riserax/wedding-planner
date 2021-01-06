@@ -28,12 +28,6 @@ public class DAOUtil {
         taskDAO.delete(id);
     }
 
-    public static List<Category> getAllCategories(Context context) {
-        AppDatabase appDatabase = getInstance(context);
-        CategoryDAO categoryDAO = appDatabase.categoryDAO();
-        return categoryDAO.getAll();
-    }
-
     public static List<Category> getAllCategoriesByType(Context context, String type) {
         AppDatabase appDatabase = getInstance(context);
         CategoryDAO categoryDAO = appDatabase.categoryDAO();

@@ -232,7 +232,7 @@
                                         android:layout_height="wrap_content"
                                         android:paddingStart="@dimen/text_view_padding"
                                         android:paddingEnd="@dimen/text_view_padding"
-                                        android:text="@string/task_field_category"
+                                        android:text="@string/field_category"
                                         android:textColor="@color/gray_949494"
                                         android:textSize="@dimen/field_text_size_small"/>
 
@@ -242,7 +242,7 @@
                                         android:layout_height="wrap_content"
                                         android:paddingStart="@dimen/text_view_padding"
                                         android:paddingEnd="@dimen/text_view_padding"
-                                        android:text="@string/task_field_category"
+                                        android:text="@string/field_category"
                                         android:textColor="@color/gray_949494"
                                         android:textSize="@dimen/field_text_size"/>
 

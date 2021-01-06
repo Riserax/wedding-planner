@@ -1,12 +1,6 @@
 <resources>
     <string name="app_name">WeddingPlanner</string>
 
-    <string name="budget_field_name">Nazwa</string>
-    <string name="budget_field_category">Kategoria</string>
-    <string name="budget_field_payer">Kto płaci</string>
-    <string name="budget_field_amount">Szacunkowa kwota</string>
-    <string name="budget_field_comment">Komentarz</string>
-
     <string name="category_most_important">Najważniejsze</string>
     <string name="category_most_ceremony">Ceremonia</string>
     <string name="category_most_formal_documents">Dokumenty formalne</string>
@@ -31,6 +25,15 @@
     <string name="dialog_task_date_title">Wybierz datę</string>
     <string name="dialog_task_people_title">Wybierz osoby</string>
     <string name="dialog_task_time_title">Wybierz godzinę</string>
+
+    <string name="expense_field_name">Nazwa</string>
+    <string name="expense_field_category">Kategoria</string>
+    <string name="expense_field_payer">Kto płaci</string>
+    <string name="expense_field_amount">Szacunkowa kwota</string>
+    <string name="expense_field_for_who">Dla kogo i za co</string>
+
+    <string name="field_name">Nazwa</string>
+    <string name="field_category">Kategoria</string>
 
     <string name="header_title_budget">Budżet</string>
     <string name="header_title_budget_new">Nowy wydatek</string>
@@ -78,8 +81,6 @@
     <string name="task_details_add_sub_task">Dodaj podzadanie</string>
     <string name="task_details_edit">Edytuj zadanie</string>
 
-    <string name="task_field_name">Nazwa</string>
-    <string name="task_field_category">Kategoria</string>
     <string name="task_field_bookmarks">Etykiety</string>
     <string name="task_field_people">Przypisane osoby</string>
     <string name="task_field_description">Opis</string>

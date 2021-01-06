@@ -36,6 +36,7 @@ import pl.com.weddingPlanner.view.tasks.dialog.TaskTimeDialog;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
 
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
+import static pl.com.weddingPlanner.view.util.ResourceUtil.CATEGORY_OTHER;
 
 public class NewTaskActivity extends BaseActivity {
 
@@ -186,7 +187,7 @@ public class NewTaskActivity extends BaseActivity {
         String assignees = binding.peopleName.getText().toString();
         String time = binding.taskTime.getText().toString();
 
-        isCategoryChosen = !category.equals(getResources().getString(R.string.task_field_category));
+        isCategoryChosen = !category.equals(getResources().getString(R.string.field_category));
         areBookmarksSet = !bookmarks.equals(getResources().getString(R.string.task_field_bookmarks));
         areAssigneesSet = !assignees.equals(getResources().getString(R.string.task_field_people));
         isTimeSet = !time.equals(getResources().getString(R.string.task_field_time));
@@ -195,7 +196,7 @@ public class NewTaskActivity extends BaseActivity {
         String assigneesIdsString = areAssigneesSet ? getAssigneesIds(assignees) : StringUtils.EMPTY;
 
         return Task.builder()
-                .category(isCategoryChosen ? category : "Inne")
+                .category(isCategoryChosen ? category : CATEGORY_OTHER)
                 .title(binding.taskName.getText().toString())
                 .description(binding.taskDescriptionName.getText().toString())
                 .bookmarks(bookmarksIdsString)

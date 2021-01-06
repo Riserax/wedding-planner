@@ -9,6 +9,8 @@ import pl.com.weddingPlanner.util.Logger;
 public class ResourceUtil {
 
     public static final String IC_ADD_BOX = "ic_add_box";
+    public static final String CATEGORY_OTHER = "Inne";
+    public static final String AMOUNT_ZERO = "0.00";
 
     public static int getResId(String resName, Class<?> c) {
         try {
