@@ -30,11 +30,13 @@ public class Expense implements Serializable {
     @NonNull
     private String title;
     @NonNull
-    private String editDate;
     private String initialAmount;
     @NonNull
     private String category;
-    private String forWhomAndWhat;
+    private String recipient;
+    private String forWhat;
     private String payers;
     private String subExpenses;
+    @NonNull
+    private String editDate;
 }

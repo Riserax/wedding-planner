@@ -29,7 +29,7 @@ public interface TaskDAO {
     void delete(Task task);
 
     @Query("DELETE FROM task WHERE id = :id")
-    void delete(Integer id);
+    void deleteById(Integer id);
 
     @Update
     void merge(Task task);

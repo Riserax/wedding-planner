@@ -1,5 +1,6 @@
 package pl.com.weddingPlanner.view.budget;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,7 @@ import pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView;
 import pl.com.weddingPlanner.view.util.BudgetUtil;
 import pl.com.weddingPlanner.view.util.FormatUtil;
 
+import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA;
 import static pl.com.weddingPlanner.view.list.HeaderItem.getHeaderItemWithDayOfWeek;
 import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAGE_START;
 
@@ -58,7 +60,6 @@ public class BudgetDescendingFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_budget_descending, container, false);
 
         setComponents();
-
         getBudgetList();
 
         return binding.getRoot();
@@ -103,10 +104,9 @@ public class BudgetDescendingFragment extends Fragment {
     private void setRecyclerView() {
         linearLayoutManager = new LinearLayoutManager(requireContext());
         adapter = new ListRecyclerAdapter(requireContext(), new LinkedList<>(), item -> {
-            //TODO
-//            Intent intent = new Intent(requireContext(), BudgetDetailsActivity.class);
-//            intent.putExtra(TASK_ID_EXTRA, item.getItemId());
-//            startActivity(intent);
+            Intent intent = new Intent(requireContext(), ExpenseActivity.class);
+            intent.putExtra(EXPENSE_ID_EXTRA, item.getItemId());
+            startActivity(intent);
         });
 
         RecyclerView recyclerView = binding.recyclerView;

@@ -26,11 +26,19 @@
     <string name="dialog_task_people_title">Wybierz osoby</string>
     <string name="dialog_task_time_title">Wybierz godzinę</string>
 
-    <string name="expense_field_name">Nazwa</string>
     <string name="expense_field_category">Kategoria</string>
     <string name="expense_field_payer">Kto płaci</string>
-    <string name="expense_field_amount">Szacunkowa kwota</string>
-    <string name="expense_field_for_who">Dla kogo i za co</string>
+    <string name="expense_field_initial_amount">Szacunkowa kwota</string>
+    <string name="expense_field_for_whom">Dla kogo</string>
+    <string name="expense_field_for_what">Za co</string>
+    <string name="expense_field_amount">Kwota</string>
+    <string name="expense_field_edit_date">Data edycji</string>
+    <string name="expense_field_real_expenses">Rzeczywiste wydatki</string>
+    <string name="expense_field_awaiting_payments">Oczekujące płatności</string>
+
+    <string name="expense_details_delete_question">Czy na pewno chcesz usunąć ten wydatek?</string>
+    <string name="expense_details_delete">Usuń wydatek</string>
+    <string name="expense_details_edit">Edytuj wydatek</string>
 
     <string name="field_name">Nazwa</string>
     <string name="field_category">Kategoria</string>
@@ -39,6 +47,7 @@
     <string name="header_title_budget_new">Nowy wydatek</string>
     <string name="header_title_category">Kategoria</string>
     <string name="header_title_category_new">Nowa kategoria</string>
+    <string name="header_title_expense_details">Wydatek</string>
     <string name="header_title_guests">Goście</string>
     <string name="header_title_guest_details">Gość</string>
     <string name="header_title_guest_new">Nowy gość</string>
@@ -64,16 +73,19 @@
     <string name="month_november">Listopad</string>
     <string name="month_december">Grudzień</string>
 
+    <string name="no_assignees">Nie przypisano osób</string>
+    <string name="no_description">Brak opisu</string>
+
     <string name="tab_title_tasks_categories">Kategorie</string>
     <string name="tab_title_tasks_months">Miesiące</string>
     <string name="tab_title_budget_categories">Kategorie</string>
     <string name="tab_title_budget_descending">Chronologicznie</string>
+    <string name="tab_title_expense_details">Szczegóły</string>
+    <string name="tab_title_expense_payments">Płatności</string>
     <string name="tab_title_guests_list">Lista</string>
     <string name="tab_title_guests_groups">Stoły</string>
 
     <string name="task_details_no_bookmarks">Brak etykiet</string>
-    <string name="task_details_no_description">Brak opisu</string>
-    <string name="task_details_no_assignees">Nie przypisano osób</string>
     <string name="task_details_sub_tasks">Podzadania:</string>
     <string name="task_details_no_sub_tasks">Brak elementów do wyświetlenia</string>
     <string name="task_details_delete">Usuń zadanie</string>

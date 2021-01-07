@@ -5,9 +5,7 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.TypeConverters;
 
-import pl.com.weddingPlanner.persistence.Converters;
 import pl.com.weddingPlanner.persistence.dao.BookmarkDAO;
 import pl.com.weddingPlanner.persistence.dao.CategoryDAO;
 import pl.com.weddingPlanner.persistence.dao.ExpenseDAO;
@@ -25,7 +23,6 @@ import pl.com.weddingPlanner.persistence.entity.Task;
 
 @Database(entities = {Task.class, Category.class, SubTask.class, Bookmark.class, Person.class, Expense.class,
         SubExpense.class}, version = 1)
-@TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "weddingPlannerDB";

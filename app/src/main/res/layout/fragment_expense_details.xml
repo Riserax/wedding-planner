@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:id="@+id/task_root_scroll_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:weightSum="2"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/components_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:paddingTop="@dimen/components_layout_padding"
+                    android:paddingBottom="@dimen/recycler_list_bottom_padding"
+                    android:paddingStart="@dimen/components_layout_padding"
+                    android:paddingEnd="@dimen/components_layout_padding"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/title_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/task_field_margin_bottom">
+
+                        <TextView
+                            android:id="@+id/title_header"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/field_name"
+                            android:textColor="@color/gray_555555"
+                            android:textSize="@dimen/_13sdp"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_title"/>
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.30" />
+
+                        <TextView
+                            android:id="@+id/title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="Przykładowa nazwa wydatku"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/task_description_text_size"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_title"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/recipient_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/task_field_margin_bottom">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_recipient">
+
+                            <TextView
+                                android:id="@+id/recipient_header"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/expense_field_for_whom"
+                                android:textColor="@color/gray_555555"
+                                android:textSize="@dimen/_13sdp"
+                                android:textStyle="bold"
+                                android:textAlignment="center"/>
+
+                        </LinearLayout>
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_recipient"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.30" />
+
+                        <TextView
+                            android:id="@+id/recipient"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="Sala weselna 'Zielone Wzgórze'"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/task_description_text_size"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_recipient"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/for_what_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/task_field_margin_bottom">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_for_what">
+
+                            <TextView
+                                android:id="@+id/for_what_header"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/expense_field_for_what"
+                                android:textColor="@color/gray_555555"
+                                android:textSize="@dimen/_13sdp"
+                                android:textStyle="bold"
+                                android:textAlignment="center"/>
+
+                        </LinearLayout>
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_for_what"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.30" />
+
+                        <TextView
+                            android:id="@+id/for_what"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="Za wynajem sali, wyżywienie dla gości, obsługę wesela"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/task_description_text_size"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_for_what"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_BCBCBC"
+                        android:layout_marginBottom="@dimen/task_field_margin_bottom"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/amount_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/task_field_margin_bottom">
+
+                        <TextView
+                            android:id="@+id/amount_header"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/expense_field_amount"
+                            android:textColor="@color/gray_555555"
+                            android:textSize="@dimen/_13sdp"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_amount"/>
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.30" />
+
+                        <RelativeLayout
+                            android:id="@+id/progress_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toEndOf="@id/guideline_amount"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ProgressBar
+                                android:id="@+id/progress_bar"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_centerInParent="true"
+                                android:indeterminate="false"
+                                android:progressDrawable="@drawable/progress_bar_circle"
+                                android:background="@drawable/shape_circle"
+                                android:max="100"
+                                android:progress="0"
+                                style="?android:attr/progressBarStyleHorizontal"/>
+
+                            <TextView
+                                android:id="@+id/txtProgress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="0/0"
+                                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:orientation="vertical"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/progress_layout"
+                            app:layout_constraintEnd_toEndOf="parent">
+
+                            <LinearLayout
+                                android:id="@+id/initial_amount_layout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="@dimen/text_view_padding"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/initial_amount_title"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/expense_field_initial_amount"
+                                    android:textColor="@color/gray_949494"
+                                    android:textSize="@dimen/field_text_size_small"/>
+
+                                <TextView
+                                    android:id="@+id/initial_amount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="25 000,00"
+                                    android:textColor="@color/gray_949494"
+                                    android:textSize="@dimen/task_description_text_size"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/real_expenses_layout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="@dimen/text_view_padding"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/real_expenses_title"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/expense_field_real_expenses"
+                                    android:textColor="@color/gray_949494"
+                                    android:textSize="@dimen/field_text_size_small"/>
+
+                                <TextView
+                                    android:id="@+id/real_expenses"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="10 000,00"
+                                    android:textColor="@color/gray_949494"
+                                    android:textSize="@dimen/task_description_text_size"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/awaiting_payments_layout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/awaiting_payments_title"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/expense_field_awaiting_payments"
+                                    android:textColor="@color/gray_949494"
+                                    android:textSize="@dimen/field_text_size_small"/>
+
+                                <TextView
+                                    android:id="@+id/awaiting_payments"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="5 000,00"
+                                    android:textColor="@color/gray_949494"
+                                    android:textSize="@dimen/task_description_text_size"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_BCBCBC"
+                        android:layout_marginBottom="@dimen/task_field_margin_bottom"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/task_field_margin_bottom">
+
+                        <LinearLayout
+                            android:id="@+id/payers_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_horizontal"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_info"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent">
+
+                            <TextView
+                                android:id="@+id/no_payers"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/no_assignees"
+                                android:textColor="@color/gray_949494"
+                                android:textSize="@dimen/task_no_detail_text_size"
+                                android:textStyle="bold"
+                                android:textAlignment="center"
+                                android:visibility="gone"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"/>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="0dp"
+                            android:background="@color/gray_BCBCBC"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_info"/>
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.40" />
+
+                        <LinearLayout
+                            android:id="@+id/info_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/text_view_padding"
+                            android:paddingBottom="@dimen/text_view_padding"
+                            android:paddingStart="@dimen/task_field_margin_bottom"
+                            android:orientation="vertical"
+                            app:layout_constraintStart_toEndOf="@id/guideline_info"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <LinearLayout
+                                android:id="@+id/category"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/field_margin_bottom"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <ImageButton
+                                    android:id="@+id/category_icon"
+                                    android:layout_width="@dimen/image_button_size_24"
+                                    android:layout_height="@dimen/image_button_size_24"
+                                    android:background="@color/gray_F2F2F2"
+                                    android:tint="@color/gray_949494"
+                                    app:srcCompat="@drawable/ic_dashboard"/>
+
+                                <LinearLayout
+                                    android:id="@+id/category_name_layout"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingStart="@dimen/text_view_padding"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/category_title"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/field_category"
+                                        android:textColor="@color/gray_949494"
+                                        android:textSize="@dimen/field_text_size_small"/>
+
+                                    <TextView
+                                        android:id="@+id/category_name"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/field_category"
+                                        android:textColor="@color/gray_949494"
+                                        android:textSize="@dimen/field_text_size"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/edit_date_layout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <ImageButton
+                                    android:id="@+id/edit_date_icon"
+                                    android:layout_width="@dimen/image_button_size_24"
+                                    android:layout_height="@dimen/image_button_size_24"
+                                    android:background="@color/gray_F2F2F2"
+                                    android:tint="@color/gray_949494"
+                                    app:srcCompat="@drawable/ic_clock"/>
+
+                                <LinearLayout
+                                    android:id="@+id/edit_date_texts_layout"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingStart="@dimen/text_view_padding"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/edit_date_title"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/expense_field_edit_date"
+                                        android:textColor="@color/gray_949494"
+                                        android:textSize="@dimen/field_text_size_small"/>
+
+                                    <TextView
+                                        android:id="@+id/edit_date_text"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="2020-12-25 17:15"
+                                        android:textColor="@color/gray_949494"
+                                        android:textSize="@dimen/field_text_size"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+            <LinearLayout
+                android:id="@+id/background_fade"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/white_FFFFFF_60"
+                android:translationZ="-1dp"
+                android:elevation="4dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/delete_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="140dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/delete_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/floating_button_option_margin_top"
+                android:paddingStart="@dimen/floating_button_option_padding_start_end"
+                android:paddingEnd="@dimen/floating_button_option_padding_start_end"
+                android:paddingTop="@dimen/floating_button_option_padding_top"
+                android:paddingBottom="@dimen/floating_button_option_padding_bottom"
+                android:text="@string/expense_details_delete"
+                android:textColor="@color/gray_555555"
+                android:textSize="@dimen/field_text_size"
+                android:textStyle="bold"
+                android:background="@drawable/bg_fields"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/delete_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_delete"
+                android:tint="@color/white_FFFFFF"
+                app:fabSize="mini"
+                app:backgroundTint="@color/colorPrimary"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/edit_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="80dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/floating_button_option_margin_top"
+                android:paddingStart="@dimen/floating_button_option_padding_start_end"
+                android:paddingEnd="@dimen/floating_button_option_padding_start_end"
+                android:paddingTop="@dimen/floating_button_option_padding_top"
+                android:paddingBottom="@dimen/floating_button_option_padding_bottom"
+                android:text="@string/expense_details_edit"
+                android:textColor="@color/gray_555555"
+                android:textSize="@dimen/field_text_size"
+                android:textStyle="bold"
+                android:background="@drawable/bg_fields"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/edit_floating_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_edit"
+                android:tint="@color/white_FFFFFF"
+                app:fabSize="mini"
+                app:backgroundTint="@color/colorPrimary"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/expense_floating_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_menu"
+            android:tint="@color/white_FFFFFF"
+            app:backgroundTint="@color/colorPrimary"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

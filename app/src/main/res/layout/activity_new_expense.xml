@@ -36,7 +36,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/expense_name_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/field_height"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/field_height"
                     android:layout_marginBottom="@dimen/field_margin_bottom"
                     android:paddingStart="@dimen/field_padding_start"
                     android:paddingEnd="@dimen/field_padding_end"
@@ -44,8 +45,8 @@
 
                     <ImageButton
                         android:id="@+id/expense_name_icon"
-                        android:layout_width="@dimen/image_button_size"
-                        android:layout_height="@dimen/image_button_size"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_edit"
@@ -59,10 +60,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/edit_text_padding"
-                        android:maxLines="1"
                         android:maxLength="50"
-                        android:inputType="text"
-                        android:hint="@string/expense_field_name"
+                        android:inputType="textMultiLine"
+                        android:hint="@string/field_name"
                         android:textSize="@dimen/field_text_size"
                         android:textColorHint="@color/gray_949494"
                         android:textColor="@color/gray_949494"
@@ -85,8 +85,8 @@
 
                     <ImageButton
                         android:id="@+id/category_icon"
-                        android:layout_width="@dimen/image_button_size"
-                        android:layout_height="@dimen/image_button_size"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_dashboard"
@@ -130,8 +130,8 @@
 
                     <ImageButton
                         android:id="@+id/category_arrow_right"
-                        android:layout_width="@dimen/image_button_size"
-                        android:layout_height="@dimen/image_button_size"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_arrow_right_keyboard"
@@ -153,8 +153,8 @@
 
                     <ImageButton
                         android:id="@+id/initial_amount_icon"
-                        android:layout_width="@dimen/image_button_size"
-                        android:layout_height="@dimen/image_button_size"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_dollar"
@@ -171,8 +171,8 @@
                         android:maxLines="1"
                         android:maxLength="10"
                         android:inputType="number"
-                        android:digits="0123456789,"
-                        android:hint="@string/expense_field_amount"
+                        android:digits="0123456789"
+                        android:hint="@string/expense_field_initial_amount"
                         android:textSize="@dimen/field_text_size"
                         android:textColorHint="@color/gray_949494"
                         android:textColor="@color/gray_949494"
@@ -185,40 +185,81 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/for_who_layout"
+                    android:id="@+id/recipient_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/field_height"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/field_height"
                     android:layout_marginBottom="@dimen/field_margin_bottom"
                     android:paddingStart="@dimen/field_padding_start"
                     android:paddingEnd="@dimen/field_padding_end"
                     android:background="@drawable/bg_fields">
 
                     <ImageButton
-                        android:id="@+id/for_who_icon"
-                        android:layout_width="@dimen/image_button_size"
-                        android:layout_height="@dimen/image_button_size"
+                        android:id="@+id/recipient_icon"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
-                        app:srcCompat="@drawable/ic_description"
+                        app:srcCompat="@drawable/ic_person"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/for_who_name"
+                        app:layout_constraintEnd_toStartOf="@id/recipient_name"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" />
 
                     <EditText
-                        android:id="@+id/for_who_name"
+                        android:id="@+id/recipient_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/edit_text_padding"
-                        android:maxLines="1"
-                        android:maxLength="250"
-                        android:inputType="text"
-                        android:hint="@string/expense_field_for_who"
+                        android:maxLength="140"
+                        android:inputType="textMultiLine"
+                        android:hint="@string/expense_field_for_whom"
                         android:textSize="16sp"
                         android:textColorHint="@color/gray_949494"
                         android:textColor="@color/gray_949494"
                         android:background="@color/gray_FDFDFD"
-                        app:layout_constraintStart_toEndOf="@id/for_who_icon"
+                        app:layout_constraintStart_toEndOf="@id/recipient_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/for_what_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin_bottom"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
+                    android:background="@drawable/bg_fields">
+
+                    <ImageButton
+                        android:id="@+id/for_what_icon"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_list_alt"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/for_what_name"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <EditText
+                        android:id="@+id/for_what_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/edit_text_padding"
+                        android:maxLength="250"
+                        android:inputType="textMultiLine"
+                        android:hint="@string/expense_field_for_what"
+                        android:textSize="16sp"
+                        android:textColorHint="@color/gray_949494"
+                        android:textColor="@color/gray_949494"
+                        android:background="@color/gray_FDFDFD"
+                        app:layout_constraintStart_toEndOf="@id/for_what_icon"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -236,8 +277,8 @@
 
                     <ImageButton
                         android:id="@+id/people_icon"
-                        android:layout_width="@dimen/image_button_size"
-                        android:layout_height="@dimen/image_button_size"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_people"
@@ -283,8 +324,8 @@
 
                     <ImageButton
                         android:id="@+id/people_arrow_right"
-                        android:layout_width="@dimen/image_button_size"
-                        android:layout_height="@dimen/image_button_size"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_arrow_right_keyboard"

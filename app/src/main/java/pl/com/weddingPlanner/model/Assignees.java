@@ -1,6 +1,5 @@
 package pl.com.weddingPlanner.model;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.TypedValue;
@@ -28,8 +27,8 @@ public class Assignees {
     private final List<Person> assigneeList;
     private final LinearLayout assigneesContainer;
 
-    public Assignees(Activity activity, List<Person> assigneeList) {
-        this.context = activity.getApplicationContext();
+    public Assignees(Context context, List<Person> assigneeList) {
+        this.context = context;
         this.assigneeList = assigneeList;
         this.assigneesContainer = new LinearLayout(context);
         buildAssignees();

@@ -25,7 +25,13 @@ public class DAOUtil {
     public static void deleteTaskById(Context context, int id) {
         AppDatabase appDatabase = getInstance(context);
         TaskDAO taskDAO = appDatabase.taskDAO();
-        taskDAO.delete(id);
+        taskDAO.deleteById(id);
+    }
+
+    public static void deleteExpenseById(Context context, int id) {
+        AppDatabase appDatabase = getInstance(context);
+        ExpenseDAO expenseDAO = appDatabase.expenseDAO();
+        expenseDAO.deleteById(id);
     }
 
     public static List<Category> getAllCategoriesByType(Context context, String type) {
@@ -122,6 +128,12 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         ExpenseDAO expenseDAO = appDatabase.expenseDAO();
         return expenseDAO.getAllByCategory(category);
+    }
+
+    public static Expense getExpenseById(Context context, int id) {
+        AppDatabase appDatabase = getInstance(context);
+        ExpenseDAO expenseDAO = appDatabase.expenseDAO();
+        return expenseDAO.getById(id);
     }
 
     public static void insertCategory(Context context, Category category) {

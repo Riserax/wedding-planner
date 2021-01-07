@@ -321,18 +321,20 @@ public class MainActivity extends AppCompatActivity {
     private void insertExpenses() {
         Expense expense1 = Expense.builder()
                 .title("Wypełniony wydatek")
-                .editDate("2021-01-03")
                 .initialAmount("25000.00")
                 .category("Bankiet")
-                .forWhomAndWhat("Sala weselna \"Zielone wzgórze\"\nSala weselna, goście")
+                .recipient("Sala weselna \"Zielone wzgórze\"")
+                .forWhat("Sala weselna, goście")
                 .payers("1,2")
                 .subExpenses("1,2,3")
+                .editDate("2021-01-03 21:40")
                 .build();
 
         Expense expense2 = Expense.builder()
                 .title("Niewypełniony wydatek")
-                .editDate("2020-12-30")
+                .initialAmount("0.00")
                 .category(CATEGORY_OTHER)
+                .editDate("2020-12-30 16:16")
                 .build();
 
         DAOUtil.insertExpense(this, expense1);

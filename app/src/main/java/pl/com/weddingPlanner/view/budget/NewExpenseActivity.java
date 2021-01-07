@@ -41,7 +41,8 @@ public class NewExpenseActivity extends BaseActivity {
 
     private boolean isCategoryChosen;
     private boolean isAmountSet;
-    private boolean isRecipientAndPurposeSet;
+    private boolean isRecipientSet;
+    private boolean isForWhatSet;
     private boolean arePayersSet;
 
     @Override
@@ -105,7 +106,8 @@ public class NewExpenseActivity extends BaseActivity {
         };
 
         binding.expenseName.setOnFocusChangeListener(listener);
-        binding.forWhoName.setOnFocusChangeListener(listener);
+        binding.recipientName.setOnFocusChangeListener(listener);
+        binding.forWhatName.setOnFocusChangeListener(listener);
     }
 
     private void setAddButtonClickListener() {
@@ -137,12 +139,14 @@ public class NewExpenseActivity extends BaseActivity {
     private Expense getNewExpenseData() {
         String category = binding.categoryName.getText().toString();
         String initialAmount = binding.initialAmount.getText().toString();
-        String recipientAndPurpose = binding.forWhoName.getText().toString();
+        String recipient = binding.recipientName.getText().toString();
+        String forWhat = binding.forWhatName.getText().toString();
         String payers = binding.peopleName.getText().toString();
 
         isCategoryChosen = !category.equals(getResources().getString(R.string.field_category));
-        isAmountSet = !initialAmount.equals(getResources().getString(R.string.expense_field_amount));
-        isRecipientAndPurposeSet = !recipientAndPurpose.equals(getResources().getString(R.string.expense_field_for_who));
+        isAmountSet = !initialAmount.equals(getResources().getString(R.string.expense_field_initial_amount));
+        isRecipientSet = !recipient.equals(getResources().getString(R.string.expense_field_for_whom));
+        isForWhatSet = !forWhat.equals(getResources().getString(R.string.expense_field_for_what));
         arePayersSet = !payers.equals(getResources().getString(R.string.expense_field_payer));
 
         String payersIdsString = arePayersSet ? getPayersIds(payers) : StringUtils.EMPTY;
@@ -152,7 +156,8 @@ public class NewExpenseActivity extends BaseActivity {
                 .editDate(DateUtil.getNewDateWithHourString())
                 .initialAmount(isAmountSet ? initialAmount : AMOUNT_ZERO)
                 .category(isCategoryChosen ? category : CATEGORY_OTHER)
-                .forWhomAndWhat(isRecipientAndPurposeSet ? recipientAndPurpose : StringUtils.EMPTY)
+                .recipient(isRecipientSet ? recipient : StringUtils.EMPTY)
+                .forWhat(isForWhatSet ? forWhat : StringUtils.EMPTY)
                 .payers(payersIdsString)
                 .build();
     }
