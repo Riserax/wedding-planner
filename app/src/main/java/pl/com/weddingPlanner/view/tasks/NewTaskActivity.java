@@ -3,6 +3,7 @@ package pl.com.weddingPlanner.view.tasks;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -37,6 +38,8 @@ import pl.com.weddingPlanner.view.tasks.dialog.TaskTimeDialog;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
 
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
+import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
+import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
 import static pl.com.weddingPlanner.view.util.ResourceUtil.CATEGORY_OTHER;
 
 public class NewTaskActivity extends BaseActivity {
@@ -62,9 +65,11 @@ public class NewTaskActivity extends BaseActivity {
         setActivityToolbarContentWithBackIcon(R.string.header_title_tasks_new);
 
         setListeners();
+        setButtonEnability(binding.addButton, false);
     }
 
     private void setListeners() {
+        initAddButtonEnableStatusListener();
         setCategoryOnClickListener();
         setBookmarksOnClickListener();
         setPeopleOnClickListener();
@@ -73,6 +78,24 @@ public class NewTaskActivity extends BaseActivity {
         initRootScrollViewListener();
         setOnFocusChangeListener();
         setAddButtonClickListener();
+    }
+
+    private void initAddButtonEnableStatusListener() {
+        TextWatcher listener = getOnTextChangedTextWatcher((s, start, before, count) ->
+                setButtonEnability(binding.addButton, areFieldsValid())
+        );
+
+        binding.taskName.addTextChangedListener(listener);
+        binding.categoryName.addTextChangedListener(listener);
+        binding.bookmarksName.addTextChangedListener(listener);
+        binding.peopleName.addTextChangedListener(listener);
+        binding.taskDescriptionName.addTextChangedListener(listener);
+        binding.taskDate.addTextChangedListener(listener);
+        binding.taskTime.addTextChangedListener(listener);
+    }
+
+    private boolean areFieldsValid() {
+        return !binding.taskName.getText().toString().isEmpty();
     }
 
     private void setCategoryOnClickListener() {

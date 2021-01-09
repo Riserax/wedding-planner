@@ -343,7 +343,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/add_button_margin_top"
                     android:layout_marginBottom="@dimen/add_button_margin_bottom"
-                    android:background="@drawable/bg_buttons"
+                    android:background="@drawable/bg_button"
                     android:letterSpacing="0.075"
                     android:text="@string/task_button"
                     android:textColor="@color/white_FFFFFF"

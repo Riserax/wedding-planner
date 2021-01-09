@@ -3,6 +3,7 @@ package pl.com.weddingPlanner.view.budget;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -34,11 +35,13 @@ import pl.com.weddingPlanner.view.util.FormatUtil;
 import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA;
 import static pl.com.weddingPlanner.view.budget.ExpenseActivity.TAB_ID_EXTRA;
 import static pl.com.weddingPlanner.view.budget.ExpenseActivity.TAB_PAYMENTS_ID;
+import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
+import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
 import static pl.com.weddingPlanner.view.util.ResourceUtil.AMOUNT_ZERO;
 
 public class NewPaymentActivity extends BaseActivity {
 
-    private AmountValidator AMOUNT_VALIDATOR;
+    private AmountValidator amountValidator;
 
     private ActivityNewPaymentBinding binding;
 
@@ -60,10 +63,11 @@ public class NewPaymentActivity extends BaseActivity {
         setVariables();
         getAndSetExtra();
         setListeners();
+        setButtonEnability(binding.addButton, false);
     }
 
     private void setVariables() {
-        AMOUNT_VALIDATOR = new AmountValidator(this,true);
+        amountValidator = new AmountValidator(this,true);
     }
 
     private void getAndSetExtra() {
@@ -71,6 +75,7 @@ public class NewPaymentActivity extends BaseActivity {
     }
 
     private void setListeners() {
+        initAddButtonEnableStatusListener();
         setPayerOnClickListener();
         setDateOnCLickListener();
         initRootScrollViewListener();
@@ -78,6 +83,22 @@ public class NewPaymentActivity extends BaseActivity {
         setAwaitingButtonListener();
         setPaidButtonListener();
         setAddButtonClickListener();
+    }
+
+    private void initAddButtonEnableStatusListener() {
+        TextWatcher listener = getOnTextChangedTextWatcher((s, start, before, count) ->
+                setButtonEnability(binding.addButton, areFieldsValid())
+        );
+
+        binding.paymentTitle.addTextChangedListener(listener);
+        binding.amount.addTextChangedListener(listener);
+        binding.payerName.addTextChangedListener(listener);
+        binding.paymentDate.addTextChangedListener(listener);
+        binding.infoText.addTextChangedListener(listener);
+    }
+
+    private boolean areFieldsValid() {
+        return !binding.paymentTitle.getText().toString().isEmpty();
     }
 
     private void setPayerOnClickListener() {
@@ -126,7 +147,7 @@ public class NewPaymentActivity extends BaseActivity {
                     String amount = binding.amount.getText().toString();
                     amount = FormatUtil.format(amount);
 
-                    ValidationUtil.isValid(amount, true, NewPaymentActivity.this, AMOUNT_VALIDATOR);
+                    ValidationUtil.isValid(amount, true, NewPaymentActivity.this, amountValidator);
 
                     binding.amount.setText(FormatUtil.convertToAmount(amount));
                 }
@@ -147,6 +168,7 @@ public class NewPaymentActivity extends BaseActivity {
         binding.awaitingButton.setOnClickListener(v -> {
             setAwaitingSelectedPaidNotSelected();
             state = StateEnum.AWAITING;
+            setButtonEnability(binding.addButton, areFieldsValid());
         });
     }
 
@@ -154,6 +176,7 @@ public class NewPaymentActivity extends BaseActivity {
         binding.paidButton.setOnClickListener(v -> {
             setPaidSelectedAwaitingNotSelected();
             state = StateEnum.PAID;
+            setButtonEnability(binding.addButton, areFieldsValid());
         });
     }
 
@@ -216,7 +239,7 @@ public class NewPaymentActivity extends BaseActivity {
     }
 
     private boolean isAmountValid(String amount) {
-        return ValidationUtil.isValid(amount, true, NewPaymentActivity.this, AMOUNT_VALIDATOR);
+        return ValidationUtil.isValid(amount, true, NewPaymentActivity.this, amountValidator);
     }
 
     private void prepareAmount(Payment newPayment) {

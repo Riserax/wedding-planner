@@ -3,6 +3,7 @@ package pl.com.weddingPlanner.view.budget;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -23,20 +24,27 @@ import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.util.DateUtil;
 import pl.com.weddingPlanner.util.DebouncedOnClickListener;
+import pl.com.weddingPlanner.validator.AmountValidator;
+import pl.com.weddingPlanner.validator.ValidationUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.dialog.PeopleDialog;
 import pl.com.weddingPlanner.view.dialog.SingleSelectionListDialog;
 import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
+import pl.com.weddingPlanner.view.util.FormatUtil;
 
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
+import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
+import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
 import static pl.com.weddingPlanner.view.util.ResourceUtil.AMOUNT_ZERO;
 import static pl.com.weddingPlanner.view.util.ResourceUtil.CATEGORY_OTHER;
 
 public class NewExpenseActivity extends BaseActivity {
 
     private ActivityNewExpenseBinding binding;
+
+    private AmountValidator amountValidator;
 
     private List<Integer> selectedPeopleKeys = new ArrayList<>();
 
@@ -52,15 +60,39 @@ public class NewExpenseActivity extends BaseActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_new_expense);
         setActivityToolbarContentWithBackIcon(R.string.header_title_budget_new);
 
+        setVariable();
         setListeners();
+        setButtonEnability(binding.addButton, false);
+    }
+
+    private void setVariable() {
+        amountValidator = new AmountValidator(this,true);
     }
 
     private void setListeners() {
+        initAddButtonEnableStatusListener();
         setCategoryOnClickListener();
         setPeopleOnClickListener();
         initRootScrollViewListener();
         setOnFocusChangeListener();
         setAddButtonClickListener();
+    }
+
+    private void initAddButtonEnableStatusListener() {
+        TextWatcher listener = getOnTextChangedTextWatcher((s, start, before, count) ->
+                setButtonEnability(binding.addButton, areFieldsValid())
+        );
+
+        binding.expenseName.addTextChangedListener(listener);
+        binding.categoryName.addTextChangedListener(listener);
+        binding.initialAmount.addTextChangedListener(listener);
+        binding.recipientName.addTextChangedListener(listener);
+        binding.forWhatName.addTextChangedListener(listener);
+        binding.peopleName.addTextChangedListener(listener);
+    }
+
+    private boolean areFieldsValid() {
+        return !binding.expenseName.getText().toString().isEmpty();
     }
 
     private void setCategoryOnClickListener() {
@@ -104,10 +136,25 @@ public class NewExpenseActivity extends BaseActivity {
         final View.OnFocusChangeListener listener = (v, hasFocus) -> {
             if (!hasFocus) {
                 ComponentsUtil.hideKeyboard(this, v);
+
+                if (R.id.initial_amount == v.getId()) {
+                    String amount = binding.initialAmount.getText().toString();
+                    amount = FormatUtil.format(amount);
+
+                    ValidationUtil.isValid(amount, true, NewExpenseActivity.this, amountValidator);
+
+                    binding.initialAmount.setText(FormatUtil.convertToAmount(amount));
+                }
+            } else {
+                if (R.id.initial_amount == v.getId()) {
+                    String amount = binding.initialAmount.getText().toString();
+                    binding.initialAmount.setText(amount.replaceAll("\\s", ""));
+                }
             }
         };
 
         binding.expenseName.setOnFocusChangeListener(listener);
+        binding.initialAmount.setOnFocusChangeListener(listener);
         binding.recipientName.setOnFocusChangeListener(listener);
         binding.forWhatName.setOnFocusChangeListener(listener);
     }
@@ -120,7 +167,9 @@ public class NewExpenseActivity extends BaseActivity {
 
                 Expense newExpense = getNewExpenseData();
 
-                if (!newExpense.getTitle().isEmpty()) {
+                if (!newExpense.getTitle().isEmpty() && isAmountValid(newExpense.getInitialAmount())) {
+                    prepareAmount(newExpense);
+
                     DAOUtil.insertExpense(getApplicationContext(), newExpense);
 
                     Intent intent = new Intent(NewExpenseActivity.this, NavigationActivity.class);
@@ -146,7 +195,7 @@ public class NewExpenseActivity extends BaseActivity {
         String payers = binding.peopleName.getText().toString();
 
         isCategoryChosen = !category.equals(getResources().getString(R.string.field_category));
-        isAmountSet = !initialAmount.equals(getResources().getString(R.string.expense_field_initial_amount));
+        isAmountSet = !initialAmount.isEmpty();
         isRecipientSet = !recipient.equals(getResources().getString(R.string.expense_field_for_whom));
         isForWhatSet = !forWhat.equals(getResources().getString(R.string.expense_field_for_what));
         arePayersSet = !payers.equals(getResources().getString(R.string.field_payer));
@@ -182,6 +231,14 @@ public class NewExpenseActivity extends BaseActivity {
         }
 
         return payersIdsSB.toString();
+    }
+
+    private boolean isAmountValid(String amount) {
+        return ValidationUtil.isValid(amount, true, NewExpenseActivity.this, amountValidator);
+    }
+
+    private void prepareAmount(Expense newExpense) {
+        newExpense.setInitialAmount(newExpense.getInitialAmount().replace(",", ".").replaceAll("\\s", ""));
     }
 
     @Override

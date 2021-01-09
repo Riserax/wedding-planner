@@ -275,65 +275,6 @@
 
                 </LinearLayout>
 
-<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                    android:id="@+id/payment_state_layout"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginBottom="@dimen/field_margin_bottom"-->
-<!--                    android:orientation="horizontal">-->
-
-<!--                    <LinearLayout-->
-<!--                        android:id="@+id/awaiting_layout"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="@dimen/field_height"-->
-<!--                        android:layout_marginEnd="@dimen/fields_side_to_side_margin"-->
-<!--                        android:paddingStart="@dimen/field_padding_start"-->
-<!--                        android:paddingEnd="@dimen/field_padding_end"-->
-<!--                        android:gravity="center"-->
-<!--                        android:background="@drawable/bg_fields"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintEnd_toStartOf="@id/paid_layout"-->
-<!--                        app:layout_constraintTop_toTopOf="parent"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent">-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/task_date"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:padding="@dimen/text_view_padding"-->
-<!--                            android:text="@string/payment_field_awaiting"-->
-<!--                            android:textColor="@color/gray_949494"-->
-<!--                            android:textSize="@dimen/field_text_size"/>-->
-
-<!--                    </LinearLayout>-->
-
-<!--                    <LinearLayout-->
-<!--                        android:id="@+id/paid_layout"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="@dimen/field_height"-->
-<!--                        android:layout_marginStart="@dimen/fields_side_to_side_margin"-->
-<!--                        android:paddingStart="@dimen/field_padding_start"-->
-<!--                        android:paddingEnd="@dimen/field_padding_end"-->
-<!--                        android:gravity="center"-->
-<!--                        android:background="@drawable/bg_fields"-->
-<!--                        app:layout_constraintStart_toEndOf="@id/awaiting_layout"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent">-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/task_time"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:padding="@dimen/text_view_padding"-->
-<!--                            android:text="@string/payment_field_paid"-->
-<!--                            android:textColor="@color/gray_949494"-->
-<!--                            android:textSize="@dimen/field_text_size"/>-->
-
-<!--                    </LinearLayout>-->
-
-<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/info_layout"
                     android:layout_width="match_parent"
@@ -382,7 +323,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/add_button_margin_top"
                     android:layout_marginBottom="@dimen/add_button_margin_bottom"
-                    android:background="@drawable/bg_buttons"
+                    android:background="@drawable/bg_button"
                     android:letterSpacing="0.075"
                     android:text="@string/task_button"
                     android:textColor="@color/white_FFFFFF"
