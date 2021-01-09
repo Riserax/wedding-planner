@@ -23,7 +23,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubExpense implements Serializable {
+public class Payment implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private Integer id;

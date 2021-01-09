@@ -11,6 +11,7 @@ import lombok.experimental.SuperBuilder;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.model.ExpenseInfo;
 import pl.com.weddingPlanner.model.GuestInfo;
+import pl.com.weddingPlanner.model.PaymentInfo;
 import pl.com.weddingPlanner.model.TaskInfo;
 import pl.com.weddingPlanner.view.enums.GuestTypeEnum;
 import pl.com.weddingPlanner.view.util.ResourceUtil;
@@ -56,6 +57,16 @@ public class ContentItem extends ListItem implements Serializable {
                 .mainCaption(info.getTitle())
                 .mainCaptionColor(R.color.black)
                 .leftIconId(ResourceUtil.getResId(info.getCategoryIconId(), R.drawable.class))
+                .leftIconColor(R.color.colorPrimaryDark)
+                .build();
+    }
+
+    public static ContentItem of(PaymentInfo info) {
+        return ContentItem.builder()
+                .itemId(info.getItemId())
+                .mainCaption(info.getTitle())
+                .mainCaptionColor(R.color.black)
+                .leftIconId(ResourceUtil.getResId(info.getStateIconId(), R.drawable.class))
                 .leftIconColor(R.color.colorPrimaryDark)
                 .build();
     }

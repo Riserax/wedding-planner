@@ -23,7 +23,7 @@ public class ExpenseAdapter extends FragmentStateAdapter {
             case 0:
                 return new ExpenseDetailsFragment(expenseId);
             case 1:
-                return new ExpensePaymentsFragment();
+                return new ExpensePaymentsFragment(expenseId);
             default:
                 throw new IllegalArgumentException("ExpenseAdapter position=" + position + " but max=" + (EXPENSE_TABS_NUMBER - 1));
         }

@@ -8,11 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
+import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.SubTask;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.view.enums.StateEnum;
 
 import static pl.com.weddingPlanner.view.util.ResourceUtil.CATEGORY_OTHER;
 
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         insertTasks();
         insertSubTasks();
         insertExpenses();
+        insertPayments();
     }
 
     private void insertCategories() {
@@ -339,5 +342,19 @@ public class MainActivity extends AppCompatActivity {
 
         DAOUtil.insertExpense(this, expense1);
         DAOUtil.insertExpense(this, expense2);
+    }
+
+    private void insertPayments() {
+        Payment payment1 = Payment.builder()
+                .expenseId(1)
+                .title("Zaliczka")
+                .date("2021-01-31")
+                .amount("250.00")
+                .payer("1")
+                .state(StateEnum.AWAITING.name())
+                .info("2000 zł")
+                .build();
+
+        DAOUtil.insertPayment(this, payment1);
     }
 }

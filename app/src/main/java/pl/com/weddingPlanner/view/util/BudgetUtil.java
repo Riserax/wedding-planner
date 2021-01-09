@@ -10,12 +10,13 @@ import java.util.List;
 import java.util.Map;
 
 import pl.com.weddingPlanner.persistence.entity.Expense;
+import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.util.DateUtil;
 
 public class BudgetUtil {
 
-    public static Map<Integer, LocalDate> getSortedIdDateMap(List<Expense> allExpenses) {
-        Map<Integer, String> idDateStringMap = getIdDateStringMap(allExpenses);
+    public static Map<Integer, LocalDate> getSortedIdDateMap(List objectList) {
+        Map<Integer, String> idDateStringMap = getIdDateStringMap(objectList);
 
         Map<Integer, LocalDate> unsortedIdDateMap = getUnsortedIdDateMap(idDateStringMap);
         Map<Integer, LocalDate> sortedIdDateMap = new LinkedHashMap<>();
@@ -27,19 +28,31 @@ public class BudgetUtil {
         return sortedIdDateMap;
     }
 
-    public static Map<Integer, Expense> getExpensesMap(List<Expense> allExpenses) {
-        Map<Integer, Expense> expensesMap = new HashMap<>();
-        for (Expense expense : allExpenses) {
-            expensesMap.put(expense.getId(), expense);
+    public static Map<Integer, Object> getObjectsMap(List objectList) {
+        Map<Integer, Object> objectsMap = new HashMap<>();
+        for (Object object : objectList) {
+            if (object instanceof Expense) {
+                Expense expense = (Expense) object;
+                objectsMap.put(expense.getId(), object);
+            } else if (object instanceof Payment) {
+                Payment payment = (Payment) object;
+                objectsMap.put(payment.getId(), object);
+            }
         }
-        return expensesMap;
+        return objectsMap;
     }
 
-    private static Map<Integer, String> getIdDateStringMap(List<Expense> allExpenses) {
+    private static Map<Integer, String> getIdDateStringMap(List objectList) {
         Map<Integer, String> idDateStringMap = new HashMap<>();
-        for (Expense expense : allExpenses) {
-            String date = DateUtil.getDateFromDateTime(expense.getEditDate());
-            idDateStringMap.put(expense.getId(), date);
+        for (Object object : objectList) {
+            if (object instanceof Expense) {
+                Expense expense = (Expense) object;
+                String date = DateUtil.getDateFromDateTime(expense.getEditDate());
+                idDateStringMap.put(expense.getId(), date);
+            } else if (object instanceof Payment) {
+                Payment payment = (Payment) object;
+                idDateStringMap.put(payment.getId(), payment.getDate());
+            }
         }
         return idDateStringMap;
     }

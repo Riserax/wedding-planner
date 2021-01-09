@@ -118,7 +118,7 @@ public class BudgetCategoryActivity extends BaseActivity {
 
         if (!allExpenses.isEmpty()) {
             Map<Integer, LocalDate> sortedIdDateMap = BudgetUtil.getSortedIdDateMap(allExpenses);
-            Map<Integer, Expense> expensesMap = BudgetUtil.getExpensesMap(allExpenses);
+            Map<Integer, Object> expensesMap = BudgetUtil.getObjectsMap(allExpenses);
 
             for (Map.Entry<Integer, LocalDate> sortedIdDate : sortedIdDateMap.entrySet()) {
                 Expense expense = (Expense) expensesMap.get(sortedIdDate.getKey());

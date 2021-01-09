@@ -7,6 +7,7 @@ import java.util.List;
 import pl.com.weddingPlanner.persistence.dao.BookmarkDAO;
 import pl.com.weddingPlanner.persistence.dao.CategoryDAO;
 import pl.com.weddingPlanner.persistence.dao.ExpenseDAO;
+import pl.com.weddingPlanner.persistence.dao.PaymentDAO;
 import pl.com.weddingPlanner.persistence.dao.PersonDAO;
 import pl.com.weddingPlanner.persistence.dao.SubTaskDAO;
 import pl.com.weddingPlanner.persistence.dao.TaskDAO;
@@ -14,6 +15,7 @@ import pl.com.weddingPlanner.persistence.database.AppDatabase;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
+import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.SubTask;
 import pl.com.weddingPlanner.persistence.entity.Task;
@@ -136,6 +138,12 @@ public class DAOUtil {
         return expenseDAO.getById(id);
     }
 
+    public static List<Payment> getAllPaymentsById(Context context, int expenseId) {
+        AppDatabase appDatabase = getInstance(context);
+        PaymentDAO paymentDAO = appDatabase.paymentDAO();
+        return paymentDAO.getAllByExpenseId(expenseId);
+    }
+
     public static void insertCategory(Context context, Category category) {
         AppDatabase appDatabase = getInstance(context);
         CategoryDAO categoryDAO = appDatabase.categoryDAO();
@@ -170,6 +178,12 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         ExpenseDAO expenseDAO = appDatabase.expenseDAO();
         expenseDAO.insert(expense);
+    }
+
+    public static void insertPayment(Context context, Payment payment) {
+        AppDatabase appDatabase = getInstance(context);
+        PaymentDAO paymentDAO = appDatabase.paymentDAO();
+        paymentDAO.insert(payment);
     }
 
     public static void setSubTaskDone(Context context, String done, int subTaskId) {

@@ -151,7 +151,7 @@ public class BudgetDescendingFragment extends Fragment {
 
         if (!allExpenses.isEmpty()) {
             Map<Integer, LocalDate> sortedIdDateMap = BudgetUtil.getSortedIdDateMap(allExpenses);
-            Map<Integer, Expense> expensesMap = BudgetUtil.getExpensesMap(allExpenses);
+            Map<Integer, Object> expensesMap = BudgetUtil.getObjectsMap(allExpenses);
 
             for (Map.Entry<Integer, LocalDate> sortedIdDate : sortedIdDateMap.entrySet()) {
                 Expense expense = (Expense) expensesMap.get(sortedIdDate.getKey());
@@ -171,11 +171,11 @@ public class BudgetDescendingFragment extends Fragment {
             }
         }
 
-        List<ListItem> listItems = prepareAccountsInfoList(toReturn, adapter.getItems());
+        List<ListItem> listItems = prepareBudgetInfoList(toReturn, adapter.getItems());
         adapter.addItems(listItems);
     }
 
-    private List<ListItem> prepareAccountsInfoList(List<ExpenseInfo> expenseInfoList, List<ListItem> list) {
+    private List<ListItem> prepareBudgetInfoList(List<ExpenseInfo> expenseInfoList, List<ListItem> list) {
         List<ListItem> toReturn = new ArrayList<>();
 
         for (ExpenseInfo expenseInfo : expenseInfoList) {
