@@ -349,12 +349,23 @@ public class MainActivity extends AppCompatActivity {
                 .expenseId(1)
                 .title("Zaliczka")
                 .date("2021-01-31")
-                .amount("250.00")
+                .amount("2000.00")
                 .payer("1")
-                .state(StateEnum.AWAITING.name())
+                .state(StateEnum.PAID.name())
                 .info("2000 zł")
                 .build();
 
+        Payment payment2 = Payment.builder()
+                .expenseId(1)
+                .title("Pierwsza rata")
+                .date("2023-03-31")
+                .amount("12500.00")
+                .payer("1")
+                .state(StateEnum.AWAITING.name())
+                .info("Połowa całości (minus zaliczka)")
+                .build();
+
         DAOUtil.insertPayment(this, payment1);
+        DAOUtil.insertPayment(this, payment2);
     }
 }

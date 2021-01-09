@@ -26,9 +26,11 @@ import pl.com.weddingPlanner.databinding.FragmentBudgetDescendingBinding;
 import pl.com.weddingPlanner.model.ExpenseInfo;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
+import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.util.DateUtil;
 import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.view.enums.StateEnum;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.HeaderItem;
 import pl.com.weddingPlanner.view.list.ListItem;
@@ -47,7 +49,8 @@ public class BudgetDescendingFragment extends Fragment {
 
     private FragmentBudgetDescendingBinding binding;
 
-    private double amountSum = 0.00;
+    private double initialAmountsSum = 0.00;
+    private double paidPaymentsSum = 0.00;
 
     private int currentPage = PAGE_START;
     private boolean isLastPage = false;
@@ -73,20 +76,33 @@ public class BudgetDescendingFragment extends Fragment {
     }
 
     private void setProgressBar() {
+        getAndSetInitialAmounts();
+        getAndSetPayments();
+        setProgressAndText();
+    }
+
+    private void getAndSetInitialAmounts() {
         List<Expense> allExpenses = DAOUtil.getAllExpenses(getContext());
-        amountSum = 0.00;
 
         for (Expense expense : allExpenses) {
             if (StringUtils.isNotBlank(expense.getInitialAmount())) {
-                amountSum += Double.parseDouble(expense.getInitialAmount());
+                initialAmountsSum += Double.parseDouble(expense.getInitialAmount());
             }
         }
-
-        setProgressAndText(amountSum);
     }
 
-    private void setProgressAndText(double amountSum) {
-        int percentage = (int) (amountSum / TOTAL_AMOUNT * 100);
+    private void getAndSetPayments() {
+        List<Payment> allPayments = DAOUtil.getAllPayments(getContext());
+
+        for (Payment payment : allPayments) {
+            if (StateEnum.PAID == StateEnum.valueOf(payment.getState())) {
+                paidPaymentsSum += Double.parseDouble(payment.getAmount());
+            }
+        }
+    }
+
+    private void setProgressAndText() {
+        int percentage = (int) (initialAmountsSum / TOTAL_AMOUNT * 100);
         String progress = percentage + "%";
 
         binding.progressBar.setProgress(percentage, true);
@@ -94,9 +110,11 @@ public class BudgetDescendingFragment extends Fragment {
     }
 
     private void setAmounts() {
-        String spentAmount = FormatUtil.convertToAmount(amountSum);
+        String initialSpentAmount = FormatUtil.convertToAmount(initialAmountsSum);
+        String spentAmount = FormatUtil.convertToAmount(paidPaymentsSum);
         String totalAmount = FormatUtil.convertToAmount(TOTAL_AMOUNT);
 
+        binding.amountInitialSpent.setText(initialSpentAmount);
         binding.amountSpent.setText(spentAmount);
         binding.totalAmount.setText(totalAmount);
     }

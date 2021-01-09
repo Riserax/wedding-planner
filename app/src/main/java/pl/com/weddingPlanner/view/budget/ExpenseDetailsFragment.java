@@ -22,11 +22,13 @@ import pl.com.weddingPlanner.databinding.FragmentExpenseDetailsBinding;
 import pl.com.weddingPlanner.model.Assignees;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
+import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.dialog.QuestionDialog;
 import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.view.enums.StateEnum;
 import pl.com.weddingPlanner.view.util.FormatUtil;
 import pl.com.weddingPlanner.view.util.ResourceUtil;
 
@@ -43,6 +45,9 @@ public class ExpenseDetailsFragment extends Fragment {
 
     private Expense expenseDetails;
     private Category categoryDetails;
+
+    private double paidPaymentsSum = 0;
+    private double awaitingPaymentsSum = 0;
 
     private List<Person> payersList = new ArrayList<>();
 
@@ -67,10 +72,23 @@ public class ExpenseDetailsFragment extends Fragment {
         expenseDetails = DAOUtil.getExpenseById(getContext(), expenseId);
         categoryDetails = DAOUtil.getCategoryByNameAndType(getContext(), expenseDetails.getCategory(), CategoryTypeEnum.BUDGET.name());
 
-        getPayers();
+        getAndSetPayments();
+        getAndSetPayers();
     }
 
-    private void getPayers() {
+    private void getAndSetPayments() {
+        List<Payment> allPayments = DAOUtil.getAllPaymentsByExpenseId(getContext(), expenseId);
+
+        for (Payment payment : allPayments) {
+            if (StateEnum.AWAITING == StateEnum.valueOf(payment.getState())) {
+                awaitingPaymentsSum += Double.parseDouble(payment.getAmount());
+            } else if (StateEnum.PAID == StateEnum.valueOf(payment.getState())) {
+                paidPaymentsSum += Double.parseDouble(payment.getAmount());
+            }
+        }
+    }
+
+    private void getAndSetPayers() {
         if (StringUtils.isNotBlank(expenseDetails.getPayers())) {
             String[] assigneesIds = expenseDetails.getPayers().split(",", -1);
 
@@ -91,7 +109,7 @@ public class ExpenseDetailsFragment extends Fragment {
 
         setRecipient();
         setForWhat();
-        setProgressBarAndText(10000); //TODO pobierać z podwydatków
+        setProgressBarAndText(paidPaymentsSum);
         setInitialAmount();
         setRealExpenses();
         setAwaitingPayments();
@@ -144,11 +162,11 @@ public class ExpenseDetailsFragment extends Fragment {
     }
 
     private void setRealExpenses() {
-        binding.realExpenses.setText(FormatUtil.convertToAmount(AMOUNT_ZERO)); //TODO pobierać z podwydatków
+        binding.realExpenses.setText(FormatUtil.convertToAmount(paidPaymentsSum));
     }
 
     private void setAwaitingPayments() {
-        binding.awaitingPayments.setText(FormatUtil.convertToAmount(AMOUNT_ZERO)); //TODO pobierać z podwydatków
+        binding.awaitingPayments.setText(FormatUtil.convertToAmount(awaitingPaymentsSum));
     }
 
     private void setPayers() {

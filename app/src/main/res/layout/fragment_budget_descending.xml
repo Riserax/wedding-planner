@@ -34,11 +34,40 @@
                         android:paddingEnd="20dp">
 
                         <LinearLayout
+                            android:id="@+id/amount_initial_spent_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_padding"
+                            android:orientation="vertical"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true">
+
+                            <TextView
+                                android:id="@+id/amount_initial_spent_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Wstępne\nwydatki"
+                                android:textColor="@color/gray_949494"
+                                android:textSize="@dimen/field_text_size"/>
+
+                            <TextView
+                                android:id="@+id/amount_initial_spent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/gray_949494"
+                                android:textSize="@dimen/field_text_size"
+                                android:textStyle="bold"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:id="@+id/amount_spent_layout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_padding"
                             android:orientation="vertical"
-                            android:layout_alignParentStart="true">
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentBottom="true">
 
                             <TextView
                                 android:id="@+id/amount_spent_title"

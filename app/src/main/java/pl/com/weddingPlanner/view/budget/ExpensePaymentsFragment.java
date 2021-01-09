@@ -110,7 +110,7 @@ public class ExpensePaymentsFragment extends Fragment {
 
     private void getPaymentsList() {
         List<PaymentInfo> toReturn = new ArrayList<>();
-        List<Payment> allPayments = DAOUtil.getAllPaymentsById(requireContext(), expenseId);
+        List<Payment> allPayments = DAOUtil.getAllPaymentsByExpenseId(requireContext(), expenseId);
 
         if (!allPayments.isEmpty()) {
             Map<Integer, LocalDate> sortedIdDateMap = BudgetUtil.getSortedIdDateMap(allPayments);
@@ -122,7 +122,7 @@ public class ExpensePaymentsFragment extends Fragment {
                 PaymentInfo paymentInfo = PaymentInfo.builder()
                         .itemId(payment.getId())
                         .title(payment.getTitle())
-                        .stateIconId(StateEnum.valueOf(payment.getState()).getIconCode())
+                        .state(StateEnum.valueOf(payment.getState()))
                         .amount(payment.getAmount())
                         .payer(payment.getPayer())
                         .date(payment.getDate())
