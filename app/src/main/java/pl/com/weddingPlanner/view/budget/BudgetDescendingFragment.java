@@ -83,6 +83,7 @@ public class BudgetDescendingFragment extends Fragment {
 
     private void getAndSetInitialAmounts() {
         List<Expense> allExpenses = DAOUtil.getAllExpenses(getContext());
+        initialAmountsSum = 0.00;
 
         for (Expense expense : allExpenses) {
             if (StringUtils.isNotBlank(expense.getInitialAmount())) {
@@ -93,6 +94,7 @@ public class BudgetDescendingFragment extends Fragment {
 
     private void getAndSetPayments() {
         List<Payment> allPayments = DAOUtil.getAllPayments(getContext());
+        paidPaymentsSum = 0.00;
 
         for (Payment payment : allPayments) {
             if (StateEnum.PAID == StateEnum.valueOf(payment.getState())) {

@@ -15,6 +15,7 @@ import pl.com.weddingPlanner.model.PaymentInfo;
 import pl.com.weddingPlanner.model.TaskInfo;
 import pl.com.weddingPlanner.view.enums.GuestTypeEnum;
 import pl.com.weddingPlanner.view.enums.StateEnum;
+import pl.com.weddingPlanner.view.util.FormatUtil;
 import pl.com.weddingPlanner.view.util.ResourceUtil;
 
 @Getter
@@ -25,10 +26,10 @@ public class ContentItem extends ListItem implements Serializable {
 
     private int itemId;
     private String mainCaption;
-//    private String subCaption;
+    private String subCaption;
 
     private int mainCaptionColor;
-//    private int subCaptionColor;
+    private int subCaptionColor;
     private int leftIconId;
     private int leftIconColor;
 
@@ -67,6 +68,8 @@ public class ContentItem extends ListItem implements Serializable {
                 .itemId(info.getItemId())
                 .mainCaption(info.getTitle())
                 .mainCaptionColor(R.color.black)
+                .subCaption(FormatUtil.convertToAmount(info.getAmount()))
+                .subCaptionColor(getSubCaptionColor(info.getState()))
                 .leftIconId(ResourceUtil.getResId(info.getState().getIconCode(), R.drawable.class))
                 .leftIconColor(getLeftIconColor(info.getState()))
                 .build();
@@ -83,6 +86,16 @@ public class ContentItem extends ListItem implements Serializable {
     }
 
     private static int getLeftIconColor(StateEnum stateEnum) {
+        switch (stateEnum) {
+            case AWAITING:
+                return R.color.colorPrimaryDark;
+            case PAID:
+            default:
+                return R.color.gray_949494;
+        }
+    }
+
+    private static int getSubCaptionColor(StateEnum stateEnum) {
         switch (stateEnum) {
             case AWAITING:
                 return R.color.colorPrimaryDark;

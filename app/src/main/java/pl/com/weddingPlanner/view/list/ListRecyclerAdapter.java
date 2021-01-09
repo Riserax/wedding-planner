@@ -16,6 +16,8 @@ import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -116,8 +118,11 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 VHitem.bind(currentItem, itemClickListener);
                 VHitem.caption.setText(currentItem.getMainCaption());
                 VHitem.caption.setTextColor(getColor(currentItem.getMainCaptionColor()));
-//                VHitem.amountCaption.setText(currentItem.getSubCaption());
-//                VHitem.amountCaption.setTextColor(getColor(currentItem.getSubCaptionColor()));
+                if (StringUtils.isNotBlank(currentItem.getSubCaption())) {
+                    VHitem.amountCaption.setVisibility(View.VISIBLE);
+                    VHitem.amountCaption.setText(currentItem.getSubCaption());
+                    VHitem.amountCaption.setTextColor(getColor(currentItem.getSubCaptionColor()));
+                }
                 VHitem.leftIcon.setImageDrawable(getIcon(currentItem));
 //                if (isIconEnabled()) {
 //                    VHitem.rightIcon.setImageDrawable(ContextCompat.getDrawable(context, iconDrawable));
@@ -326,14 +331,14 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ImageView leftIcon;
         ImageView rightIcon;
         TextView caption;
-//        TextView amountCaption;
+        TextView amountCaption;
 
         VHItem(View itemView) {
             super(itemView);
             this.leftIcon = itemView.findViewById(R.id.row_icon);
             this.rightIcon = itemView.findViewById(R.id.right_icon);
             this.caption = itemView.findViewById(R.id.row_caption);
-//            this.amountCaption = itemView.findViewById(R.id.amount_caption);
+            this.amountCaption = itemView.findViewById(R.id.amount_caption);
         }
 
         void bind(final ContentItem item, final OnClickListener listener) {
