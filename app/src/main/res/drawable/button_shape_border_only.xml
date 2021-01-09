@@ -39,8 +39,11 @@
 
     <item>
         <shape>
-            <solid android:color="@color/colorPrimaryLight" />
+            <solid android:color="@color/gray_F2F2F2" />
             <corners android:radius="12dp" />
+            <stroke
+                android:width="2dp"
+                android:color="@color/colorPrimaryLight" />
         </shape>
     </item>
 

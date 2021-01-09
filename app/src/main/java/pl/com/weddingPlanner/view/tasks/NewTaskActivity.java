@@ -21,17 +21,18 @@ import pl.com.weddingPlanner.databinding.ActivityNewTaskBinding;
 import pl.com.weddingPlanner.model.PickedDate;
 import pl.com.weddingPlanner.model.PickedTime;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
+import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.util.DebouncedOnClickListener;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.NavigationActivity;
-import pl.com.weddingPlanner.view.dialog.CategoriesDialog;
+import pl.com.weddingPlanner.view.dialog.DateDialog;
 import pl.com.weddingPlanner.view.dialog.PeopleDialog;
+import pl.com.weddingPlanner.view.dialog.SingleSelectionListDialog;
 import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskBookmarksDialog;
-import pl.com.weddingPlanner.view.tasks.dialog.TaskDateDialog;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskTimeDialog;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
 
@@ -45,7 +46,6 @@ public class NewTaskActivity extends BaseActivity {
     @Setter
     private List<Integer> selectedBookmarksKeys = new ArrayList<>();
     private List<Integer> selectedPeopleKeys = new ArrayList<>();
-    @Setter
     private PickedDate pickedDate;
     @Setter
     private PickedTime pickedTime;
@@ -80,7 +80,8 @@ public class NewTaskActivity extends BaseActivity {
             @Override
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
-                new CategoriesDialog(NewTaskActivity.this, CategoryTypeEnum.TASKS.name()).showDialog();
+                List<Category> categories = DAOUtil.getAllCategoriesByType(NewTaskActivity.this, CategoryTypeEnum.TASKS.name());
+                new SingleSelectionListDialog(NewTaskActivity.this, categories).showDialog();
             }
         });
     }
@@ -110,7 +111,7 @@ public class NewTaskActivity extends BaseActivity {
             @Override
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
-                new TaskDateDialog(NewTaskActivity.this, pickedDate).showDialog();
+                new DateDialog(NewTaskActivity.this, pickedDate).showDialog();
             }
         });
     }
@@ -255,11 +256,19 @@ public class NewTaskActivity extends BaseActivity {
             case R.id.people_name:
                 view.setText(getResources().getString(R.string.task_field_people));
                 break;
+            case R.id.task_date:
+                view.setText(getResources().getString(R.string.task_field_date));
+                break;
         }
     }
 
     @Override
     public void setSelectedPeopleKeys(List<Integer> selectedPeopleKeys) {
         this.selectedPeopleKeys = selectedPeopleKeys;
+    }
+
+    @Override
+    public void setPickedDate(PickedDate pickedDate) {
+        this.pickedDate = pickedDate;
     }
 }

@@ -1,33 +1,46 @@
-package pl.com.weddingPlanner.view.tasks.dialog;
+package pl.com.weddingPlanner.view.dialog;
 
 import android.view.LayoutInflater;
+import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 
 import pl.com.weddingPlanner.R;
-import pl.com.weddingPlanner.databinding.DialogTaskDateBinding;
+import pl.com.weddingPlanner.databinding.DialogDateBinding;
 import pl.com.weddingPlanner.model.PickedDate;
-import pl.com.weddingPlanner.view.dialog.CustomAlertDialog;
+import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.tasks.NewTaskActivity;
 
-public class TaskDateDialog extends CustomAlertDialog {
+public class DateDialog extends CustomAlertDialog {
 
-    private DialogTaskDateBinding binding;
+    private DialogDateBinding binding;
 
-    public TaskDateDialog(NewTaskActivity activity, PickedDate pickedDate) {
-        super(activity, R.layout.dialog_task_date);
+    public DateDialog(BaseActivity activity, PickedDate pickedDate) {
+        super(activity, R.layout.dialog_date);
 
-        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_task_date, null, false);
+        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_date, null, false);
 
         setPositiveButton(R.string.dialog_pick, (dialog, which) -> {
             activity.setPickedDate(getPickedDate());
-            activity.setFieldText(getSelectedDate(), activity.findViewById(R.id.task_date));
+            activity.setFieldText(getSelectedDate(), getTextView(activity));
         });
         setNegativeButton(R.string.dialog_back, (dialog, which) -> {});
 
         setView(binding.getRoot()).setCancelable(true);
 
         setDatePicker(pickedDate);
+    }
+
+    private TextView getTextView(BaseActivity activity) {
+        TextView textView;
+
+        if (NewTaskActivity.class == activity.getClass()) {
+            textView = activity.findViewById(R.id.task_date);
+        } else {
+            textView = activity.findViewById(R.id.payment_date);
+        }
+
+        return textView;
     }
 
     private void setDatePicker(PickedDate pickedDate) {

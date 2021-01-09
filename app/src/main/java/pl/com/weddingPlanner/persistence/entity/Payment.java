@@ -31,6 +31,7 @@ public class Payment implements Serializable {
     private Integer expenseId;
     @NonNull
     private String title;
+    @NonNull
     private String date;
     private String amount;
     private String payer;

@@ -66,7 +66,7 @@
                             android:id="@+id/bookmarks_layout"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:paddingTop="@dimen/field_margin_bottom"
+                            android:paddingTop="@dimen/field_margin"
                             android:orientation="horizontal"
                             android:gravity="center_horizontal"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -204,7 +204,7 @@
                                 android:id="@+id/category"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/field_margin_bottom"
+                                android:layout_marginBottom="@dimen/field_margin"
                                 android:gravity="center"
                                 android:orientation="horizontal">
 
@@ -295,7 +295,7 @@
                                 android:id="@+id/edit_time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/field_margin_bottom"
+                                android:layout_marginTop="@dimen/field_margin"
                                 android:gravity="center"
                                 android:orientation="horizontal"
                                 android:visibility="gone">
@@ -358,7 +358,7 @@
                             android:id="@+id/sub_tasks_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/field_margin_bottom"
+                            android:layout_marginBottom="@dimen/field_margin"
                             android:paddingStart="@dimen/text_view_padding"
                             android:paddingEnd="@dimen/text_view_padding"
                             android:text="@string/task_details_sub_tasks"

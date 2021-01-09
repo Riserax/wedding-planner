@@ -21,6 +21,7 @@ import pl.com.weddingPlanner.model.ExpenseInfo;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
 import pl.com.weddingPlanner.util.DAOUtil;
+import pl.com.weddingPlanner.util.DateUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.list.ContentItem;
@@ -146,7 +147,8 @@ public class BudgetCategoryActivity extends BaseActivity {
         List<ListItem> toReturn = new ArrayList<>();
 
         for (ExpenseInfo expenseInfo : expenseInfoList) {
-            HeaderItem headerItem = getHeaderItemWithDayOfWeek(this, expenseInfo.getDate());
+            String date = DateUtil.getDateFromDateTime(expenseInfo.getDate());
+            HeaderItem headerItem = getHeaderItemWithDayOfWeek(this, date);
 
             if (!toReturn.contains(headerItem) && !list.contains(headerItem)) {
                 toReturn.add(headerItem);

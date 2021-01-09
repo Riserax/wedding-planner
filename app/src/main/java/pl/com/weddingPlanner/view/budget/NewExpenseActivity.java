@@ -17,6 +17,7 @@ import java.util.List;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityNewExpenseBinding;
+import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.util.DAOUtil;
@@ -24,8 +25,8 @@ import pl.com.weddingPlanner.util.DateUtil;
 import pl.com.weddingPlanner.util.DebouncedOnClickListener;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.NavigationActivity;
-import pl.com.weddingPlanner.view.dialog.CategoriesDialog;
 import pl.com.weddingPlanner.view.dialog.PeopleDialog;
+import pl.com.weddingPlanner.view.dialog.SingleSelectionListDialog;
 import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
 
@@ -67,7 +68,8 @@ public class NewExpenseActivity extends BaseActivity {
             @Override
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
-                new CategoriesDialog(NewExpenseActivity.this, CategoryTypeEnum.BUDGET.name()).showDialog();
+                List<Category> categories = DAOUtil.getAllCategoriesByType(NewExpenseActivity.this, CategoryTypeEnum.BUDGET.name());
+                new SingleSelectionListDialog(NewExpenseActivity.this, categories).showDialog();
             }
         });
     }
@@ -147,7 +149,7 @@ public class NewExpenseActivity extends BaseActivity {
         isAmountSet = !initialAmount.equals(getResources().getString(R.string.expense_field_initial_amount));
         isRecipientSet = !recipient.equals(getResources().getString(R.string.expense_field_for_whom));
         isForWhatSet = !forWhat.equals(getResources().getString(R.string.expense_field_for_what));
-        arePayersSet = !payers.equals(getResources().getString(R.string.expense_field_payer));
+        arePayersSet = !payers.equals(getResources().getString(R.string.field_payer));
 
         String payersIdsString = arePayersSet ? getPayersIds(payers) : StringUtils.EMPTY;
 
@@ -185,7 +187,7 @@ public class NewExpenseActivity extends BaseActivity {
     @Override
     public void setDefaultFieldName(TextView view) {
         if (R.id.people_name == view.getId()) {
-            view.setText(getResources().getString(R.string.expense_field_payer));
+            view.setText(getResources().getString(R.string.field_payer));
         }
     }
 

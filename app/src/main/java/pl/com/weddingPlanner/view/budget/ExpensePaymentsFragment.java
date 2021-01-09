@@ -1,5 +1,6 @@
 package pl.com.weddingPlanner.view.budget;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
 import pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView;
 import pl.com.weddingPlanner.view.util.BudgetUtil;
 
+import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA;
 import static pl.com.weddingPlanner.view.list.HeaderItem.getHeaderItemWithDayOfWeek;
 import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAGE_START;
 
@@ -57,6 +59,7 @@ public class ExpensePaymentsFragment extends Fragment {
 
         setComponents();
         getPaymentsList();
+        setListeners();
 
         return binding.getRoot();
     }
@@ -150,5 +153,17 @@ public class ExpensePaymentsFragment extends Fragment {
         }
 
         return toReturn;
+    }
+
+    private void setListeners() {
+        setPaymentsFloatingButtonListener();
+    }
+
+    private void setPaymentsFloatingButtonListener() {
+        binding.expensePaymentsFloatingButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), NewPaymentActivity.class);
+            intent.putExtra(EXPENSE_ID_EXTRA, expenseId);
+            startActivity(intent);
+        });
     }
 }

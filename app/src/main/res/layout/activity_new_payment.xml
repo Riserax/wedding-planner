@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_F2F2F2">
+
+        <include android:id="@+id/toolbar_layout"
+            layout="@layout/toolbar" />
+
+        <ScrollView
+            android:id="@+id/expense_root_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="top"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:weightSum="2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_layout">
+
+            <LinearLayout
+                android:id="@+id/components_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:padding="@dimen/components_layout_padding"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/toolbar_layout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/payment_title_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
+                    android:background="@drawable/bg_fields">
+
+                    <ImageButton
+                        android:id="@+id/payment_title_icon"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_edit"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/payment_title"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <EditText
+                        android:id="@+id/payment_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/edit_text_padding"
+                        android:maxLength="50"
+                        android:inputType="textMultiLine"
+                        android:hint="@string/field_title"
+                        android:textSize="@dimen/field_text_size"
+                        android:textColorHint="@color/gray_949494"
+                        android:textColor="@color/gray_949494"
+                        android:background="@color/gray_FDFDFD"
+                        app:layout_constraintStart_toEndOf="@id/payment_title_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/amount_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
+                    android:background="@drawable/bg_fields">
+
+                    <ImageButton
+                        android:id="@+id/amount_icon"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_dollar"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/amount"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <EditText
+                        android:id="@+id/amount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/edit_text_padding"
+                        android:maxLines="1"
+                        android:maxLength="10"
+                        android:inputType="number"
+                        android:digits="0123456789,"
+                        android:hint="@string/payment_field_amount"
+                        android:textSize="@dimen/field_text_size"
+                        android:textColorHint="@color/gray_949494"
+                        android:textColor="@color/gray_949494"
+                        android:background="@color/gray_FDFDFD"
+                        app:layout_constraintStart_toEndOf="@id/amount_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/payer_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
+                    android:background="@drawable/bg_fields">
+
+                    <ImageButton
+                        android:id="@+id/payer_icon"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_person"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/payer_name_layout"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/payer_name_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toEndOf="@id/payer_icon"
+                        app:layout_constraintEnd_toStartOf="@id/people_arrow_right"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" >
+
+                        <TextView
+                            android:id="@+id/payer_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="@dimen/text_view_padding"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/field_payer"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size_small"
+                            android:visibility="gone"/>
+
+                        <TextView
+                            android:id="@+id/payer_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="@dimen/text_view_padding"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/field_payer"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"
+                            android:singleLine="true"
+                            android:ellipsize="end"/>
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/people_arrow_right"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_arrow_right_keyboard"
+                        app:layout_constraintStart_toEndOf="@id/payer_name_layout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/payment_date_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
+                    android:background="@drawable/bg_fields">
+
+                    <ImageButton
+                        android:id="@+id/payment_date_icon"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="28dp"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_calendar"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/payment_date"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <TextView
+                        android:id="@+id/payment_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/text_view_padding"
+                        android:text="@string/payment_field_date"
+                        android:textColor="@color/gray_949494"
+                        android:textSize="@dimen/field_text_size"
+                        app:layout_constraintStart_toEndOf="@id/payment_date_icon"
+                        app:layout_constraintEnd_toStartOf="@id/date_arrow_right"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/date_arrow_right"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_arrow_right_keyboard"
+                        app:layout_constraintStart_toEndOf="@id/payment_date"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/field_margin">
+
+                    <Button
+                        android:id="@+id/awaiting_button"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/field_height"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/field_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_shape_light"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="@string/payment_field_awaiting"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                        android:textStyle="bold"
+                        android:textColor="@color/white_FFFFFF"
+                        app:autoSizePresetSizes="@array/button_state_type_text_sizes"
+                        app:autoSizeTextType="uniform" />
+
+                    <Button
+                        android:id="@+id/paid_button"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/field_height"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/field_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_shape_border_only"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="@string/payment_field_paid"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryLight"
+                        app:autoSizePresetSizes="@array/button_state_type_text_sizes"
+                        app:autoSizeTextType="uniform" />
+
+                </LinearLayout>
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:id="@+id/payment_state_layout"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="@dimen/field_margin_bottom"-->
+<!--                    android:orientation="horizontal">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/awaiting_layout"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="@dimen/field_height"-->
+<!--                        android:layout_marginEnd="@dimen/fields_side_to_side_margin"-->
+<!--                        android:paddingStart="@dimen/field_padding_start"-->
+<!--                        android:paddingEnd="@dimen/field_padding_end"-->
+<!--                        android:gravity="center"-->
+<!--                        android:background="@drawable/bg_fields"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintEnd_toStartOf="@id/paid_layout"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent">-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/task_date"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:padding="@dimen/text_view_padding"-->
+<!--                            android:text="@string/payment_field_awaiting"-->
+<!--                            android:textColor="@color/gray_949494"-->
+<!--                            android:textSize="@dimen/field_text_size"/>-->
+
+<!--                    </LinearLayout>-->
+
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/paid_layout"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="@dimen/field_height"-->
+<!--                        android:layout_marginStart="@dimen/fields_side_to_side_margin"-->
+<!--                        android:paddingStart="@dimen/field_padding_start"-->
+<!--                        android:paddingEnd="@dimen/field_padding_end"-->
+<!--                        android:gravity="center"-->
+<!--                        android:background="@drawable/bg_fields"-->
+<!--                        app:layout_constraintStart_toEndOf="@id/awaiting_layout"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent">-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/task_time"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:padding="@dimen/text_view_padding"-->
+<!--                            android:text="@string/payment_field_paid"-->
+<!--                            android:textColor="@color/gray_949494"-->
+<!--                            android:textSize="@dimen/field_text_size"/>-->
+
+<!--                    </LinearLayout>-->
+
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/info_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
+                    android:background="@drawable/bg_fields">
+
+                    <ImageButton
+                        android:id="@+id/info_icon"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_description"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/info_text"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <EditText
+                        android:id="@+id/info_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/edit_text_padding"
+                        android:maxLength="140"
+                        android:inputType="textMultiLine"
+                        android:hint="@string/payment_field_info"
+                        android:textSize="16sp"
+                        android:textColorHint="@color/gray_949494"
+                        android:textColor="@color/gray_949494"
+                        android:background="@color/gray_FDFDFD"
+                        app:layout_constraintStart_toEndOf="@id/info_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <Button
+                    android:id="@+id/add_button"
+                    android:layout_width="@dimen/add_button_width"
+                    android:layout_height="@dimen/add_button_height"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/add_button_margin_top"
+                    android:layout_marginBottom="@dimen/add_button_margin_bottom"
+                    android:background="@drawable/bg_buttons"
+                    android:letterSpacing="0.075"
+                    android:text="@string/task_button"
+                    android:textColor="@color/white_FFFFFF"
+                    android:textSize="@dimen/add_button_text_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -184,11 +184,11 @@ public class ExpenseDetailsFragment extends Fragment {
     }
 
     private void setListeners() {
-        setTaskFloatingButtonListener();
-        setDeleteTaskListener();
+        setExpenseFloatingButtonListener();
+        setDeleteExpenseListener();
     }
 
-    private void setTaskFloatingButtonListener() {
+    private void setExpenseFloatingButtonListener() {
         binding.expenseFloatingButton.setOnClickListener(v -> {
             LinearLayout deleteLayout = binding.deleteLayout;
             LinearLayout editLayout = binding.editLayout;
@@ -206,7 +206,7 @@ public class ExpenseDetailsFragment extends Fragment {
         });
     }
 
-    private void setDeleteTaskListener() {
+    private void setDeleteExpenseListener() {
         binding.deleteLayout.setOnClickListener(v -> new QuestionDialog(getContext(), getResources().getString(R.string.expense_details_delete_question), getIntent()).showDialog());
     }
 

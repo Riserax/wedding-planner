@@ -37,7 +37,7 @@
                     android:id="@+id/task_name_layout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/field_height"
-                    android:layout_marginBottom="@dimen/field_margin_bottom"
+                    android:layout_marginBottom="@dimen/field_margin"
                     android:paddingStart="@dimen/field_padding_start"
                     android:paddingEnd="@dimen/field_padding_end"
                     android:background="@drawable/bg_fields">
@@ -78,7 +78,7 @@
                     android:id="@+id/category_layout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/field_height"
-                    android:layout_marginBottom="@dimen/field_margin_bottom"
+                    android:layout_marginBottom="@dimen/field_margin"
                     android:paddingStart="@dimen/field_padding_start"
                     android:paddingEnd="@dimen/field_padding_end"
                     android:background="@drawable/bg_fields">
@@ -146,7 +146,7 @@
                     android:id="@+id/bookmarks_layout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/field_height"
-                    android:layout_marginBottom="@dimen/field_margin_bottom"
+                    android:layout_marginBottom="@dimen/field_margin"
                     android:paddingStart="@dimen/field_padding_start"
                     android:paddingEnd="@dimen/field_padding_end"
                     android:background="@drawable/bg_fields">
@@ -216,7 +216,7 @@
                     android:id="@+id/people_layout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/field_height"
-                    android:layout_marginBottom="@dimen/field_margin_bottom"
+                    android:layout_marginBottom="@dimen/field_margin"
                     android:paddingStart="@dimen/field_padding_start"
                     android:paddingEnd="@dimen/field_padding_end"
                     android:background="@drawable/bg_fields">
@@ -286,7 +286,7 @@
                     android:id="@+id/task_description_layout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/field_height"
-                    android:layout_marginBottom="@dimen/field_margin_bottom"
+                    android:layout_marginBottom="@dimen/field_margin"
                     android:paddingStart="@dimen/field_padding_start"
                     android:paddingEnd="@dimen/field_padding_end"
                     android:background="@drawable/bg_fields">
@@ -327,7 +327,7 @@
                     android:id="@+id/task_datetime_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/field_margin_bottom"
+                    android:layout_marginBottom="@dimen/field_margin"
                     android:orientation="horizontal">
 
                     <androidx.constraintlayout.widget.ConstraintLayout

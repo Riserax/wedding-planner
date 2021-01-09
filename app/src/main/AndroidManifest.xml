@@ -57,12 +57,17 @@
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
+            android:name="pl.com.weddingPlanner.view.budget.ExpenseActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name="pl.com.weddingPlanner.view.budget.NewExpenseActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="pl.com.weddingPlanner.view.budget.ExpenseActivity"
+            android:name="pl.com.weddingPlanner.view.budget.NewPaymentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />

@@ -46,7 +46,7 @@
                                 android:id="@+id/amount_initial_spent_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Wstępne\nwydatki"
+                                android:text="@string/budget_estimated_expenses"
                                 android:textColor="@color/gray_949494"
                                 android:textSize="@dimen/field_text_size"/>
 
@@ -73,7 +73,7 @@
                                 android:id="@+id/amount_spent_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Wydano"
+                                android:text="@string/budget_paid"
                                 android:textColor="@color/gray_949494"
                                 android:textSize="@dimen/field_text_size"/>
 
@@ -119,7 +119,7 @@
                                 android:id="@+id/total_amount_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Do wydania"
+                                android:text="@string/budget_initial_budget"
                                 android:textColor="@color/gray_949494"
                                 android:textSize="@dimen/field_text_size"/>
 

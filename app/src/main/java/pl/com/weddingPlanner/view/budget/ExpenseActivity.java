@@ -15,6 +15,8 @@ import pl.com.weddingPlanner.view.BaseActivity;
 public class ExpenseActivity extends BaseActivity {
 
     public static String EXPENSE_ID_EXTRA = "expenseIdExtra";
+    public static String TAB_ID_EXTRA = "tabIdExtra";
+    public static int TAB_PAYMENTS_ID = 1;
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
@@ -26,7 +28,7 @@ public class ExpenseActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_expense);
 
-        setActivityToolbarContentWithBackIcon(R.string.header_title_expense_details);
+        setToolbarContentWithBackIcon(R.string.header_title_expense_details, this, R.id.navigation_budget);
 
         initLayouts();
         initAndSetViewPager();
@@ -57,5 +59,14 @@ public class ExpenseActivity extends BaseActivity {
                             break;
                     }
                 }).attach();
+
+        selectTab();
+    }
+
+    private void selectTab() {
+        int tabId = getIntent().getExtras().getInt(TAB_ID_EXTRA, 0);
+
+        TabLayout.Tab tab = tabLayout.getTabAt(tabId);
+        tab.select();
     }
 }
