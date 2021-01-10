@@ -48,7 +48,7 @@ public class NewPaymentActivity extends BaseActivity {
     private int expenseId;
 
     private PickedDate pickedDate;
-    private StateEnum state = StateEnum.AWAITING;
+    private StateEnum state = StateEnum.PENDING;
 
     private boolean isAmountSet;
     private boolean isDateSet;
@@ -167,7 +167,7 @@ public class NewPaymentActivity extends BaseActivity {
     private void setAwaitingButtonListener() {
         binding.awaitingButton.setOnClickListener(v -> {
             setAwaitingSelectedPaidNotSelected();
-            state = StateEnum.AWAITING;
+            state = StateEnum.PENDING;
             setButtonEnability(binding.addButton, areFieldsValid());
         });
     }

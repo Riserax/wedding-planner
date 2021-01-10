@@ -361,7 +361,7 @@ public class MainActivity extends AppCompatActivity {
                 .date("2023-03-31")
                 .amount("12500.00")
                 .payer("1")
-                .state(StateEnum.AWAITING.name())
+                .state(StateEnum.PENDING.name())
                 .info("Połowa całości (minus zaliczka)")
                 .build();
 

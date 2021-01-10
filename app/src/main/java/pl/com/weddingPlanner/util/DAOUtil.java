@@ -36,6 +36,12 @@ public class DAOUtil {
         expenseDAO.deleteById(id);
     }
 
+    public static void deleteAllPaymentsByExpenseId(Context context, int expenseId) {
+        AppDatabase appDatabase = getInstance(context);
+        PaymentDAO paymentDAO = appDatabase.paymentDAO();
+        paymentDAO.deleteByExpenseId(expenseId);
+    }
+
     public static List<Category> getAllCategoriesByType(Context context, String type) {
         AppDatabase appDatabase = getInstance(context);
         CategoryDAO categoryDAO = appDatabase.categoryDAO();
@@ -190,6 +196,12 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         PaymentDAO paymentDAO = appDatabase.paymentDAO();
         paymentDAO.insert(payment);
+    }
+
+    public static void mergeExpense(Context context, Expense expense) {
+        AppDatabase appDatabase = getInstance(context);
+        ExpenseDAO expenseDAO = appDatabase.expenseDAO();
+        expenseDAO.merge(expense);
     }
 
     public static void setSubTaskDone(Context context, String done, int subTaskId) {

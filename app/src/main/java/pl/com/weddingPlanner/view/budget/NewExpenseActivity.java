@@ -33,8 +33,10 @@ import pl.com.weddingPlanner.view.dialog.SingleSelectionListDialog;
 import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
 import pl.com.weddingPlanner.view.util.FormatUtil;
+import pl.com.weddingPlanner.view.util.PersonUtil;
 
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
+import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA;
 import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
 import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
 import static pl.com.weddingPlanner.view.util.ResourceUtil.AMOUNT_ZERO;
@@ -42,30 +44,78 @@ import static pl.com.weddingPlanner.view.util.ResourceUtil.CATEGORY_OTHER;
 
 public class NewExpenseActivity extends BaseActivity {
 
+    public static final String ACTIVITY_TITLE_EXTRA = "activityTitleExtra";
+
     private ActivityNewExpenseBinding binding;
+
+    private int expenseId;
+    private int headerTitle;
+
+    private Expense expenseDetails;
+    private Category categoryDetails;
 
     private AmountValidator amountValidator;
 
     private List<Integer> selectedPeopleKeys = new ArrayList<>();
 
-    private boolean isCategoryChosen;
-    private boolean isAmountSet;
-    private boolean isRecipientSet;
-    private boolean isForWhatSet;
-    private boolean arePayersSet;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_new_expense);
-        setActivityToolbarContentWithBackIcon(R.string.header_title_budget_new);
 
-        setVariable();
+        getAndSetExtras();
+        setActivityToolbarContentWithBackIcon(headerTitle);
+
+        getAndSetData();
+        fillFields();
+        setValidator();
         setListeners();
-        setButtonEnability(binding.addButton, false);
+        setButtonEnability(binding.addButton, areFieldsValid());
     }
 
-    private void setVariable() {
+    private void getAndSetExtras() {
+        expenseId = getIntent().getIntExtra(EXPENSE_ID_EXTRA, 0);
+        headerTitle = getIntent().getIntExtra(ACTIVITY_TITLE_EXTRA, R.string.header_title_budget_new);
+    }
+
+    private void getAndSetData() {
+        if (expenseId > 0) {
+            expenseDetails = DAOUtil.getExpenseById(this, expenseId);
+            categoryDetails = DAOUtil.getCategoryByNameAndType(this, expenseDetails.getCategory(), CategoryTypeEnum.BUDGET.name());
+
+        }
+    }
+
+    private void fillFields() {
+        if (expenseDetails != null) {
+            binding.expenseName.setText(expenseDetails.getTitle());
+
+            binding.categoryTitle.setVisibility(View.VISIBLE);
+            binding.categoryName.setText(categoryDetails.getName());
+
+            binding.initialAmount.setText(FormatUtil.convertToAmount(expenseDetails.getInitialAmount()));
+
+            binding.initialAmount.setText(FormatUtil.convertToAmount(expenseDetails.getInitialAmount()));
+
+            if (StringUtils.isNotBlank(expenseDetails.getRecipient())) {
+                binding.recipientName.setText(expenseDetails.getRecipient());
+            }
+
+            if (StringUtils.isNotBlank(expenseDetails.getForWhat())) {
+                binding.forWhatName.setText(expenseDetails.getForWhat());
+            }
+
+            if (StringUtils.isNotBlank(expenseDetails.getPayers())) {
+                String payers = PersonUtil.getPersonsStringFromList(this, expenseDetails.getPayers());
+                binding.peopleTitle.setVisibility(View.VISIBLE);
+                binding.peopleName.setText(payers);
+            }
+
+            binding.addButton.setText(getResources().getString(R.string.button_save));
+        }
+    }
+
+    private void setValidator() {
         amountValidator = new AmountValidator(this,true);
     }
 
@@ -170,12 +220,22 @@ public class NewExpenseActivity extends BaseActivity {
                 if (!newExpense.getTitle().isEmpty() && isAmountValid(newExpense.getInitialAmount())) {
                     prepareAmount(newExpense);
 
-                    DAOUtil.insertExpense(getApplicationContext(), newExpense);
+                    if (expenseDetails != null && expenseId > 0) {
+                        newExpense.setId(expenseId);
 
-                    Intent intent = new Intent(NewExpenseActivity.this, NavigationActivity.class);
-                    intent.putExtra(FRAGMENT_TO_LOAD_ID, R.id.navigation_budget);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+                        DAOUtil.mergeExpense(getApplicationContext(), newExpense);
+
+                        Intent intent = new Intent(NewExpenseActivity.this, ExpenseActivity.class);
+                        intent.putExtra(EXPENSE_ID_EXTRA, expenseId);
+                        startActivity(intent);
+                    } else {
+                        DAOUtil.insertExpense(getApplicationContext(), newExpense);
+
+                        Intent intent = new Intent(NewExpenseActivity.this, NavigationActivity.class);
+                        intent.putExtra(FRAGMENT_TO_LOAD_ID, R.id.navigation_budget);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
                 } else {
                     Toast toast;
                     if (newExpense.getTitle().isEmpty()) {
@@ -194,11 +254,11 @@ public class NewExpenseActivity extends BaseActivity {
         String forWhat = binding.forWhatName.getText().toString();
         String payers = binding.peopleName.getText().toString();
 
-        isCategoryChosen = !category.equals(getResources().getString(R.string.field_category));
-        isAmountSet = !initialAmount.isEmpty();
-        isRecipientSet = !recipient.equals(getResources().getString(R.string.expense_field_for_whom));
-        isForWhatSet = !forWhat.equals(getResources().getString(R.string.expense_field_for_what));
-        arePayersSet = !payers.equals(getResources().getString(R.string.field_payer));
+        boolean isCategoryChosen = !category.equals(getResources().getString(R.string.field_category));
+        boolean isAmountSet = !initialAmount.isEmpty();
+        boolean isRecipientSet = !recipient.equals(getResources().getString(R.string.expense_field_for_whom));
+        boolean isForWhatSet = !forWhat.equals(getResources().getString(R.string.expense_field_for_what));
+        boolean arePayersSet = !payers.equals(getResources().getString(R.string.field_payer));
 
         String payersIdsString = arePayersSet ? getPayersIds(payers) : StringUtils.EMPTY;
 

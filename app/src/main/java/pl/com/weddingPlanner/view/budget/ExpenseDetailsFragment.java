@@ -30,10 +30,12 @@ import pl.com.weddingPlanner.view.dialog.QuestionDialog;
 import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.enums.StateEnum;
 import pl.com.weddingPlanner.view.util.FormatUtil;
+import pl.com.weddingPlanner.view.util.PersonUtil;
 import pl.com.weddingPlanner.view.util.ResourceUtil;
 
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
 import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA;
+import static pl.com.weddingPlanner.view.budget.NewExpenseActivity.ACTIVITY_TITLE_EXTRA;
 import static pl.com.weddingPlanner.view.util.ComponentsUtil.getIcon;
 import static pl.com.weddingPlanner.view.util.ResourceUtil.AMOUNT_ZERO;
 
@@ -80,7 +82,7 @@ public class ExpenseDetailsFragment extends Fragment {
         List<Payment> allPayments = DAOUtil.getAllPaymentsByExpenseId(getContext(), expenseId);
 
         for (Payment payment : allPayments) {
-            if (StateEnum.AWAITING == StateEnum.valueOf(payment.getState())) {
+            if (StateEnum.PENDING == StateEnum.valueOf(payment.getState())) {
                 awaitingPaymentsSum += Double.parseDouble(payment.getAmount());
             } else if (StateEnum.PAID == StateEnum.valueOf(payment.getState())) {
                 paidPaymentsSum += Double.parseDouble(payment.getAmount());
@@ -89,17 +91,7 @@ public class ExpenseDetailsFragment extends Fragment {
     }
 
     private void getAndSetPayers() {
-        if (StringUtils.isNotBlank(expenseDetails.getPayers())) {
-            String[] assigneesIds = expenseDetails.getPayers().split(",", -1);
-
-            List<Person> payers = new ArrayList<>();
-            for (String payerIdString : assigneesIds) {
-                int payerId = Integer.parseInt(payerIdString);
-                payers.add(DAOUtil.getPersonById(getContext(), payerId));
-            }
-
-            this.payersList = payers;
-        }
+        this.payersList = PersonUtil.getPersonsList(getContext(), expenseDetails.getPayers());
     }
 
     private void setComponents() {
@@ -186,28 +178,50 @@ public class ExpenseDetailsFragment extends Fragment {
     private void setListeners() {
         setExpenseFloatingButtonListener();
         setDeleteExpenseListener();
+        setEditExpenseListener();
     }
 
     private void setExpenseFloatingButtonListener() {
         binding.expenseFloatingButton.setOnClickListener(v -> {
             LinearLayout deleteLayout = binding.deleteLayout;
             LinearLayout editLayout = binding.editLayout;
-            LinearLayout backgroundFade = binding.backgroundFade;
 
             if (deleteLayout.getVisibility() == View.GONE && editLayout.getVisibility() == View.GONE) {
-                deleteLayout.setVisibility(View.VISIBLE);
-                editLayout.setVisibility(View.VISIBLE);
-                backgroundFade.setVisibility(View.VISIBLE);
+                showFloatingMenu();
             } else {
-                deleteLayout.setVisibility(View.GONE);
-                editLayout.setVisibility(View.GONE);
-                backgroundFade.setVisibility(View.GONE);
+                hideFloatingMenu();
             }
         });
     }
 
     private void setDeleteExpenseListener() {
-        binding.deleteLayout.setOnClickListener(v -> new QuestionDialog(getContext(), getResources().getString(R.string.expense_details_delete_question), getIntent()).showDialog());
+        binding.deleteLayout.setOnClickListener(v -> {
+            new QuestionDialog(getContext(), getResources().getString(R.string.expense_details_delete_question), getIntent()).showDialog();
+            hideFloatingMenu();
+        });
+    }
+
+    private void setEditExpenseListener() {
+        binding.editLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), NewExpenseActivity.class);
+            intent.putExtra(EXPENSE_ID_EXTRA, expenseId);
+            intent.putExtra(ACTIVITY_TITLE_EXTRA, R.string.header_title_expense_details);
+            startActivity(intent);
+
+            hideFloatingMenu();
+        });
+    }
+
+    private void showFloatingMenu() {
+        binding.deleteLayout.setVisibility(View.VISIBLE);
+        binding.editLayout.setVisibility(View.VISIBLE);
+        binding.backgroundFade.setVisibility(View.VISIBLE);
+    }
+
+    private void hideFloatingMenu() {
+        binding.deleteLayout.setVisibility(View.GONE);
+        binding.editLayout.setVisibility(View.GONE);
+        binding.backgroundFade.setVisibility(View.GONE);
     }
 
     public Intent getIntent() {

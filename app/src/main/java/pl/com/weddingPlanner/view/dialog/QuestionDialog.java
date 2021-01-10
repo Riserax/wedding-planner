@@ -22,9 +22,7 @@ public class QuestionDialog extends CustomAlertDialog {
 
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_question, null, false);
 
-        setPositiveButton(R.string.dialog_yes, (dialog, which) -> {
-            activity.executeQuestionDialog();
-        });
+        setPositiveButton(R.string.dialog_yes, (dialog, which) -> activity.executeQuestionDialog());
         setNegativeButton(R.string.dialog_no, (dialog, which) -> {});
 
         setView(binding.getRoot()).setCancelable(true);
@@ -37,7 +35,7 @@ public class QuestionDialog extends CustomAlertDialog {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_question, null, false);
 
         setPositiveButton(R.string.dialog_yes, (dialog, which) -> {
-            DAOUtil.deleteExpenseById(getContext(), getExpenseId(intent));
+            deleteExpenseWithPayments(intent);
             context.startActivity(intent);
         });
         setNegativeButton(R.string.dialog_no, (dialog, which) -> {});
@@ -52,6 +50,12 @@ public class QuestionDialog extends CustomAlertDialog {
 
     private void setText(String question) {
         binding.question.setText(question);
+    }
+
+    private void deleteExpenseWithPayments(Intent intent) {
+        int expenseId = getExpenseId(intent);
+        DAOUtil.deleteExpenseById(getContext(), expenseId);
+        DAOUtil.deleteAllPaymentsByExpenseId(getContext(), expenseId);
     }
 
     @Override

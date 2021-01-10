@@ -6,6 +6,9 @@
     <string name="budget_initial_budget">Wstępny budżet</string>
     <string name="budget_paid">Wydano</string>
 
+    <string name="button_add">Dodaj</string>
+    <string name="button_save">Zapisz</string>
+
     <string name="category_most_important">Najważniejsze</string>
     <string name="category_most_ceremony">Ceremonia</string>
     <string name="category_most_formal_documents">Dokumenty formalne</string>
@@ -111,5 +114,4 @@
     <string name="task_field_description">Opis</string>
     <string name="task_field_date">Data</string>
     <string name="task_field_time">Godzina</string>
-    <string name="task_button">Dodaj</string>
 </resources>

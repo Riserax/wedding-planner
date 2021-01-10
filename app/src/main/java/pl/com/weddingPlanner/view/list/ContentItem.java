@@ -87,7 +87,7 @@ public class ContentItem extends ListItem implements Serializable {
 
     private static int getLeftIconColor(StateEnum stateEnum) {
         switch (stateEnum) {
-            case AWAITING:
+            case PENDING:
                 return R.color.colorPrimaryDark;
             case PAID:
             default:
@@ -97,7 +97,7 @@ public class ContentItem extends ListItem implements Serializable {
 
     private static int getSubCaptionColor(StateEnum stateEnum) {
         switch (stateEnum) {
-            case AWAITING:
+            case PENDING:
                 return R.color.colorPrimaryDark;
             case PAID:
             default:

@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 public enum StateEnum {
 
-    AWAITING("ic_clock"),
+    PENDING("ic_clock"),
     PAID("ic_check_circle_outline"),
     ;
 

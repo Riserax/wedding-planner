@@ -31,9 +31,15 @@ public interface PaymentDAO {
     @Query("DELETE FROM payment WHERE id = :id")
     void deleteById(int id);
 
+    @Query("DELETE FROM payment WHERE expenseId = :expenseId")
+    void deleteByExpenseId(int expenseId);
+
     @Update
     void merge(Payment payment);
 
     @Query("SELECT COUNT(*) FROM payment")
-    int count();
+    int countAll();
+
+    @Query("SELECT COUNT(*) FROM payment WHERE expenseId = :expenseId")
+    int countAllByExpenseId(int expenseId);
 }
