@@ -27,14 +27,19 @@ import pl.com.weddingPlanner.validator.AmountValidator;
 import pl.com.weddingPlanner.validator.ValidationUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.dialog.DateDialog;
+import pl.com.weddingPlanner.view.dialog.QuestionDialog;
 import pl.com.weddingPlanner.view.dialog.SingleSelectionListDialog;
 import pl.com.weddingPlanner.view.enums.StateEnum;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
 import pl.com.weddingPlanner.view.util.FormatUtil;
+import pl.com.weddingPlanner.view.util.PersonUtil;
 
 import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA;
 import static pl.com.weddingPlanner.view.budget.ExpenseActivity.TAB_ID_EXTRA;
 import static pl.com.weddingPlanner.view.budget.ExpenseActivity.TAB_PAYMENTS_ID;
+import static pl.com.weddingPlanner.view.budget.ExpensePaymentsFragment.PAYMENT_ID_EXTRA;
+import static pl.com.weddingPlanner.view.budget.NewExpenseActivity.ACTIVITY_TITLE_EXTRA;
+import static pl.com.weddingPlanner.view.dialog.QuestionDialog.CLASS_EXTRA;
 import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
 import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
 import static pl.com.weddingPlanner.view.util.ResourceUtil.AMOUNT_ZERO;
@@ -46,6 +51,10 @@ public class NewPaymentActivity extends BaseActivity {
     private ActivityNewPaymentBinding binding;
 
     private int expenseId;
+    private int paymentId;
+    private int headerTitle;
+
+    private Payment paymentDetails;
 
     private PickedDate pickedDate;
     private StateEnum state = StateEnum.PENDING;
@@ -58,15 +67,59 @@ public class NewPaymentActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_new_payment);
-        setActivityToolbarContentWithBackIcon(R.string.header_title_new_payment);
 
-        setVariables();
+        getAndSetExtras();
+        setActivityToolbarContentWithBackIcon(headerTitle);
+
+        getAndSetData();
+        fillFields();
+        setValidator();
         getAndSetExtra();
         setListeners();
-        setButtonEnability(binding.addButton, false);
+        setButtonEnability(binding.addButton, areFieldsValid());
     }
 
-    private void setVariables() {
+    private void getAndSetExtras() {
+        expenseId = getIntent().getIntExtra(EXPENSE_ID_EXTRA, 0);
+        paymentId = getIntent().getIntExtra(PAYMENT_ID_EXTRA, 0);
+        headerTitle = getIntent().getIntExtra(ACTIVITY_TITLE_EXTRA, R.string.header_title_new_payment);
+    }
+
+    private void getAndSetData() {
+        if (paymentId > 0) {
+            paymentDetails = DAOUtil.getPaymentById(this, paymentId);
+        }
+    }
+
+    private void fillFields() {
+        if (paymentDetails != null) {
+            binding.toolbarLayout.deleteButton.setVisibility(View.VISIBLE);
+
+            binding.paymentTitle.setText(paymentDetails.getTitle());
+
+            binding.amount.setText(FormatUtil.convertToAmount(paymentDetails.getAmount()));
+
+            if (StringUtils.isNotBlank(paymentDetails.getPayer())) {
+                String payer = PersonUtil.getPersonsStringFromIds(this, paymentDetails.getPayer());
+                binding.payerTitle.setVisibility(View.VISIBLE);
+                binding.payerName.setText(payer);
+            }
+
+            binding.paymentDate.setText(paymentDetails.getDate());
+
+            if (StateEnum.PENDING == StateEnum.valueOf(paymentDetails.getState())) {
+                setPendingSelectedPaidNotSelected();
+            } else {
+                setPaidSelectedPendingNotSelected();
+            }
+
+            binding.infoText.setText(paymentDetails.getInfo());
+
+            binding.addButton.setText(getResources().getString(R.string.button_save));
+        }
+    }
+
+    private void setValidator() {
         amountValidator = new AmountValidator(this,true);
     }
 
@@ -76,11 +129,12 @@ public class NewPaymentActivity extends BaseActivity {
 
     private void setListeners() {
         initAddButtonEnableStatusListener();
+        setDeleteButtonListener();
         setPayerOnClickListener();
         setDateOnCLickListener();
         initRootScrollViewListener();
         setOnFocusChangeListener();
-        setAwaitingButtonListener();
+        setPendingButtonListener();
         setPaidButtonListener();
         setAddButtonClickListener();
     }
@@ -101,13 +155,19 @@ public class NewPaymentActivity extends BaseActivity {
         return !binding.paymentTitle.getText().toString().isEmpty();
     }
 
+    private void setDeleteButtonListener() {
+        binding.toolbarLayout.deleteButton.setOnClickListener(v -> {
+            new QuestionDialog(this, getResources().getString(R.string.payment_delete_question), getDeleteIntent()).showDialog();
+        });
+    }
+
     private void setPayerOnClickListener() {
         binding.payerLayout.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
             @Override
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
                 List<Person> people = DAOUtil.getAllPersons(NewPaymentActivity.this);
-                new SingleSelectionListDialog(NewPaymentActivity.this, people).showDialog();
+                new SingleSelectionListDialog(NewPaymentActivity.this, people, R.string.dialog_person_choice).showDialog();
             }
         });
     }
@@ -164,18 +224,16 @@ public class NewPaymentActivity extends BaseActivity {
         binding.infoText.setOnFocusChangeListener(listener);
     }
 
-    private void setAwaitingButtonListener() {
+    private void setPendingButtonListener() {
         binding.awaitingButton.setOnClickListener(v -> {
-            setAwaitingSelectedPaidNotSelected();
-            state = StateEnum.PENDING;
+            setPendingSelectedPaidNotSelected();
             setButtonEnability(binding.addButton, areFieldsValid());
         });
     }
 
     private void setPaidButtonListener() {
         binding.paidButton.setOnClickListener(v -> {
-            setPaidSelectedAwaitingNotSelected();
-            state = StateEnum.PAID;
+            setPaidSelectedPendingNotSelected();
             setButtonEnability(binding.addButton, areFieldsValid());
         });
     }
@@ -191,7 +249,12 @@ public class NewPaymentActivity extends BaseActivity {
                 if (!newPayment.getTitle().isEmpty() && !newPayment.getDate().isEmpty() && isAmountValid(newPayment.getAmount())) {
                     prepareAmount(newPayment);
 
-                    DAOUtil.insertPayment(getApplicationContext(), newPayment);
+                    if (paymentDetails != null && paymentId > 0) {
+                        newPayment.setId(paymentId);
+                        DAOUtil.mergePayment(getApplicationContext(), newPayment);
+                    } else {
+                        DAOUtil.insertPayment(getApplicationContext(), newPayment);
+                    }
 
                     Intent intent = new Intent(NewPaymentActivity.this, ExpenseActivity.class);
                     intent.putExtra(EXPENSE_ID_EXTRA, expenseId);
@@ -246,23 +309,25 @@ public class NewPaymentActivity extends BaseActivity {
         newPayment.setAmount(newPayment.getAmount().replace(",", ".").replaceAll("\\s", ""));
     }
 
-    private void setAwaitingSelectedPaidNotSelected() {
-        setAwaitingButtonSelected();
+    private void setPendingSelectedPaidNotSelected() {
+        setPendingButtonSelected();
         setPaidButtonNotSelected();
+        state = StateEnum.PENDING;
     }
 
-    private void setPaidSelectedAwaitingNotSelected() {
-        setAwaitingButtonNotSelected();
+    private void setPaidSelectedPendingNotSelected() {
+        setPendingButtonNotSelected();
         setPaidButtonSelected();
+        state = StateEnum.PAID;
     }
 
-    private void setAwaitingButtonSelected() {
+    private void setPendingButtonSelected() {
         binding.awaitingButton.setTextColor(ContextCompat.getColor(this, R.color.white_FFFFFF));
         binding.awaitingButton.setBackground(ContextCompat.getDrawable(this, R.drawable.button_shape_light));
         binding.awaitingButton.setClickable(false);
     }
 
-    private void setAwaitingButtonNotSelected() {
+    private void setPendingButtonNotSelected() {
         binding.awaitingButton.setTextColor(ContextCompat.getColor(this, R.color.colorPrimaryLight));
         binding.awaitingButton.setBackground(ContextCompat.getDrawable(this, R.drawable.button_shape_border_only));
         binding.awaitingButton.setClickable(true);
@@ -278,6 +343,15 @@ public class NewPaymentActivity extends BaseActivity {
         binding.paidButton.setTextColor(ContextCompat.getColor(this, R.color.colorPrimaryLight));
         binding.paidButton.setBackground(ContextCompat.getDrawable(this, R.drawable.button_shape_border_only));
         binding.paidButton.setClickable(true);
+    }
+
+    public Intent getDeleteIntent() {
+        Intent intent = new Intent(NewPaymentActivity.this, ExpenseActivity.class);
+        intent.putExtra(PAYMENT_ID_EXTRA, paymentId);
+        intent.putExtra(EXPENSE_ID_EXTRA, expenseId);
+        intent.putExtra(CLASS_EXTRA, NewPaymentActivity.class.toString());
+        intent.putExtra(TAB_ID_EXTRA, TAB_PAYMENTS_ID);
+        return intent;
     }
 
     @Override

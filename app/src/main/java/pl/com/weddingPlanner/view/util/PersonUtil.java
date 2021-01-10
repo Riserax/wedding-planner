@@ -14,6 +14,17 @@ import static pl.com.weddingPlanner.view.util.ListViewUtil.getSeparatedString;
 
 public class PersonUtil {
 
+    public static String getPersonsStringFromIds(Context context, String personsString) {
+        List<Person> persons = getPersonsList(context, personsString);
+
+        List<String> personsNames = new ArrayList<>();
+        for (Person person : persons) {
+            personsNames.add(person.getName());
+        }
+
+        return getSeparatedString(personsNames);
+    }
+
     public static List<Person> getPersonsList(Context context, String personsString) {
         List<Person> persons = new ArrayList<>();
 
@@ -27,17 +38,6 @@ public class PersonUtil {
         }
 
         return persons;
-    }
-
-    public static String getPersonsStringFromList(Context context, String personsString) {
-        List<Person> persons = getPersonsList(context, personsString);
-
-        List<String> personsNames = new ArrayList<>();
-        for (Person person : persons) {
-            personsNames.add(person.getName());
-        }
-
-        return getSeparatedString(personsNames);
     }
 
     public static String getInitials(String personName) {

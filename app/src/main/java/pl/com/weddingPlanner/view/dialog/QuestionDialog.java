@@ -12,8 +12,13 @@ import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
 
 import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA;
+import static pl.com.weddingPlanner.view.budget.ExpensePaymentsFragment.PAYMENT_ID_EXTRA;
 
 public class QuestionDialog extends CustomAlertDialog {
+
+    public static final String CLASS_EXTRA = "classExtra";
+    private final String classExpenseDetailsFragment = "class pl.com.weddingPlanner.view.budget.ExpenseDetailsFragment";
+    private final String classNewPaymentActivity = "class pl.com.weddingPlanner.view.budget.NewPaymentActivity";
 
     private DialogQuestionBinding binding;
 
@@ -35,7 +40,7 @@ public class QuestionDialog extends CustomAlertDialog {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_question, null, false);
 
         setPositiveButton(R.string.dialog_yes, (dialog, which) -> {
-            deleteExpenseWithPayments(intent);
+            deleteItem(intent);
             context.startActivity(intent);
         });
         setNegativeButton(R.string.dialog_no, (dialog, which) -> {});
@@ -44,18 +49,33 @@ public class QuestionDialog extends CustomAlertDialog {
         setText(question);
     }
 
-    private int getExpenseId(Intent intent) {
-        return intent.getIntExtra(EXPENSE_ID_EXTRA, 0);
-    }
-
     private void setText(String question) {
         binding.question.setText(question);
     }
 
-    private void deleteExpenseWithPayments(Intent intent) {
+    private void deleteItem(Intent intent) {
         int expenseId = getExpenseId(intent);
-        DAOUtil.deleteExpenseById(getContext(), expenseId);
-        DAOUtil.deleteAllPaymentsByExpenseId(getContext(), expenseId);
+        int paymentId = getPaymentId(intent);
+        String classExtra = getClassExtra(intent);
+
+        if (classExpenseDetailsFragment.equals(classExtra)) {
+            DAOUtil.deleteExpenseById(getContext(), expenseId);
+            DAOUtil.deleteAllPaymentsByExpenseId(getContext(), expenseId);
+        } else if (classNewPaymentActivity.equals(classExtra)) {
+            DAOUtil.deletePaymentById(getContext(), paymentId);
+        }
+    }
+
+    private int getExpenseId(Intent intent) {
+        return intent.getIntExtra(EXPENSE_ID_EXTRA, 0);
+    }
+
+    private int getPaymentId(Intent intent) {
+        return intent.getIntExtra(PAYMENT_ID_EXTRA, 0);
+    }
+
+    private String getClassExtra(Intent intent) {
+        return intent.getStringExtra(CLASS_EXTRA);
     }
 
     @Override

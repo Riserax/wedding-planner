@@ -1,34 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:background="@drawable/bg_toolbar"
-    android:gravity="center_vertical"
-    android:filterTouchesWhenObscured="true">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageButton
-        android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:background="@color/white_FFFFFF"
-        android:clickable="true"
-        android:focusable="true"
-        android:tint="@color/colorPrimaryDark"
-        app:srcCompat="@drawable/ic_arrow_left"
-        android:visibility="gone"/>
+    <androidx.appcompat.widget.Toolbar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/bg_toolbar"
+        android:gravity="center_vertical"
+        android:filterTouchesWhenObscured="true">
 
-    <TextView
-        android:id="@+id/activity_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Nagłówek"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="gone"/>
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:background="@color/white_FFFFFF"
+            android:clickable="true"
+            android:focusable="true"
+            android:tint="@color/colorPrimaryDark"
+            app:srcCompat="@drawable/ic_arrow_left"
+            android:visibility="gone"/>
 
-</androidx.appcompat.widget.Toolbar>
+        <TextView
+            android:id="@+id/activity_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Nagłówek"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:id="@+id/delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="15dp"
+            android:background="@color/white_FFFFFF"
+            android:clickable="true"
+            android:focusable="true"
+            android:tint="@color/colorPrimaryDark"
+            app:srcCompat="@drawable/ic_delete"
+            android:visibility="gone"/>
+
+    </androidx.appcompat.widget.Toolbar>
+</layout>

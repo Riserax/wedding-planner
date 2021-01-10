@@ -95,8 +95,6 @@ public class NewExpenseActivity extends BaseActivity {
 
             binding.initialAmount.setText(FormatUtil.convertToAmount(expenseDetails.getInitialAmount()));
 
-            binding.initialAmount.setText(FormatUtil.convertToAmount(expenseDetails.getInitialAmount()));
-
             if (StringUtils.isNotBlank(expenseDetails.getRecipient())) {
                 binding.recipientName.setText(expenseDetails.getRecipient());
             }
@@ -106,7 +104,7 @@ public class NewExpenseActivity extends BaseActivity {
             }
 
             if (StringUtils.isNotBlank(expenseDetails.getPayers())) {
-                String payers = PersonUtil.getPersonsStringFromList(this, expenseDetails.getPayers());
+                String payers = PersonUtil.getPersonsStringFromIds(this, expenseDetails.getPayers());
                 binding.peopleTitle.setVisibility(View.VISIBLE);
                 binding.peopleName.setText(payers);
             }
@@ -151,7 +149,7 @@ public class NewExpenseActivity extends BaseActivity {
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
                 List<Category> categories = DAOUtil.getAllCategoriesByType(NewExpenseActivity.this, CategoryTypeEnum.BUDGET.name());
-                new SingleSelectionListDialog(NewExpenseActivity.this, categories).showDialog();
+                new SingleSelectionListDialog(NewExpenseActivity.this, categories, R.string.dialog_category_choice).showDialog();
             }
         });
     }

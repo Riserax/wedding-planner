@@ -104,7 +104,7 @@ public class NewTaskActivity extends BaseActivity {
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
                 List<Category> categories = DAOUtil.getAllCategoriesByType(NewTaskActivity.this, CategoryTypeEnum.TASKS.name());
-                new SingleSelectionListDialog(NewTaskActivity.this, categories).showDialog();
+                new SingleSelectionListDialog(NewTaskActivity.this, categories, R.string.dialog_category_choice).showDialog();
             }
         });
     }

@@ -360,7 +360,7 @@ public class MainActivity extends AppCompatActivity {
                 .title("Pierwsza rata")
                 .date("2023-03-31")
                 .amount("12500.00")
-                .payer("1")
+                .payer("2")
                 .state(StateEnum.PENDING.name())
                 .info("Połowa całości (minus zaliczka)")
                 .build();

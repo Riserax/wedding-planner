@@ -36,6 +36,7 @@ import pl.com.weddingPlanner.view.util.ResourceUtil;
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
 import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA;
 import static pl.com.weddingPlanner.view.budget.NewExpenseActivity.ACTIVITY_TITLE_EXTRA;
+import static pl.com.weddingPlanner.view.dialog.QuestionDialog.CLASS_EXTRA;
 import static pl.com.weddingPlanner.view.util.ComponentsUtil.getIcon;
 import static pl.com.weddingPlanner.view.util.ResourceUtil.AMOUNT_ZERO;
 
@@ -196,7 +197,7 @@ public class ExpenseDetailsFragment extends Fragment {
 
     private void setDeleteExpenseListener() {
         binding.deleteLayout.setOnClickListener(v -> {
-            new QuestionDialog(getContext(), getResources().getString(R.string.expense_details_delete_question), getIntent()).showDialog();
+            new QuestionDialog(getContext(), getResources().getString(R.string.expense_details_delete_question), getDeleteIntent()).showDialog();
             hideFloatingMenu();
         });
     }
@@ -224,10 +225,11 @@ public class ExpenseDetailsFragment extends Fragment {
         binding.backgroundFade.setVisibility(View.GONE);
     }
 
-    public Intent getIntent() {
+    public Intent getDeleteIntent() {
         Intent intent = new Intent(getContext(), NavigationActivity.class);
         intent.putExtra(FRAGMENT_TO_LOAD_ID, R.id.navigation_budget);
         intent.putExtra(EXPENSE_ID_EXTRA, expenseId);
+        intent.putExtra(CLASS_EXTRA, ExpenseDetailsFragment.class.toString());
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         return intent;
     }

@@ -24,11 +24,12 @@ public class SingleSelectionListDialog extends CustomAlertDialog {
     private Object listObject;
     private Map<Integer, String> positions;
 
-    public SingleSelectionListDialog(BaseActivity activity, List positionsList) {
+    public SingleSelectionListDialog(BaseActivity activity, List positionsList, int headerCaptionId) {
         super(activity, R.layout.dialog_single_selection_list);
 
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_single_selection_list, null, false);
 
+        setHeaderCaption(headerCaptionId);
         setAllPositions(positionsList);
         initListView();
         setListeners(activity);
@@ -36,6 +37,10 @@ public class SingleSelectionListDialog extends CustomAlertDialog {
         setNeutralButton(R.string.dialog_back, (dialog, which) -> {});
 
         setView(binding.getRoot()).setCancelable(true);
+    }
+
+    private void setHeaderCaption(int headerCaptionId) {
+        binding.header.setText(headerCaptionId);
     }
 
     private void setAllPositions(List positionsList) {

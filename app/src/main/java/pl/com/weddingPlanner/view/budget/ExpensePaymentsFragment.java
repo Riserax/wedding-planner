@@ -37,10 +37,13 @@ import pl.com.weddingPlanner.view.util.BudgetUtil;
 import pl.com.weddingPlanner.view.util.PersonUtil;
 
 import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA;
+import static pl.com.weddingPlanner.view.budget.NewExpenseActivity.ACTIVITY_TITLE_EXTRA;
 import static pl.com.weddingPlanner.view.list.HeaderItem.getHeaderItemWithDayOfWeek;
 import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAGE_START;
 
 public class ExpensePaymentsFragment extends Fragment {
+
+    public static String PAYMENT_ID_EXTRA = "paymentIdExtra";
 
     private FragmentExpensePaymentsBinding binding;
 
@@ -75,9 +78,11 @@ public class ExpensePaymentsFragment extends Fragment {
     private void setRecyclerView() {
         linearLayoutManager = new LinearLayoutManager(requireContext());
         adapter = new ListRecyclerAdapter(requireContext(), new LinkedList<>(), item -> {
-//            Intent intent = new Intent(requireContext(), ExpenseActivity.class);
-//            intent.putExtra(EXPENSE_ID_EXTRA, item.getItemId());
-//            startActivity(intent);
+            Intent intent = new Intent(getContext(), NewPaymentActivity.class);
+            intent.putExtra(EXPENSE_ID_EXTRA, expenseId);
+            intent.putExtra(PAYMENT_ID_EXTRA, item.getItemId());
+            intent.putExtra(ACTIVITY_TITLE_EXTRA, R.string.header_title_payment);
+            startActivity(intent);
         });
 
         RecyclerView recyclerView = binding.recyclerView;
@@ -174,9 +179,5 @@ public class ExpensePaymentsFragment extends Fragment {
             intent.putExtra(EXPENSE_ID_EXTRA, expenseId);
             startActivity(intent);
         });
-    }
-
-    private void removePayment() {
-
     }
 }
