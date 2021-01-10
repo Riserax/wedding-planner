@@ -29,21 +29,18 @@ import pl.com.weddingPlanner.view.list.HeaderItem;
 import pl.com.weddingPlanner.view.list.ListItem;
 import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
 import pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView;
-import pl.com.weddingPlanner.view.tasks.TaskDetailsActivity;
 import pl.com.weddingPlanner.view.util.BudgetUtil;
 
+import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA;
 import static pl.com.weddingPlanner.view.list.HeaderItem.getHeaderItemWithDayOfWeek;
 import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAGE_START;
-import static pl.com.weddingPlanner.view.tasks.TaskDetailsActivity.TASK_ID_EXTRA;
 import static pl.com.weddingPlanner.view.util.SideBySideListUtil.CATEGORY_NAME_EXTRA;
-import static pl.com.weddingPlanner.view.util.SideBySideListUtil.FRAGMENT_SOURCE_EXTRA;
 
 public class BudgetCategoryActivity extends BaseActivity {
 
     private ActivityCategoryBudgetBinding binding;
 
     private String categoryName;
-    private String fragmentClass = "";
 
     private int currentPage = PAGE_START;
     private boolean isLastPage = false;
@@ -56,8 +53,7 @@ public class BudgetCategoryActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_category_budget);
 
-        getExtrasAndSetVariables();
-        setActivityToolbarContentWithBackIcon(categoryName);
+        setActivityToolbarContentWithBackIcon(getCategoryNameAndSetVariable());
 
         setRecyclerView();
         setSwipeRefresh();
@@ -66,11 +62,23 @@ public class BudgetCategoryActivity extends BaseActivity {
         setListeners();
     }
 
+    private String getCategoryNameAndSetVariable() {
+        StringBuilder categoryNameSB = new StringBuilder();
+        String categoryName = getIntent().getExtras().getString(CATEGORY_NAME_EXTRA, getResources().getString(R.string.header_title_category));
+
+        categoryNameSB.append(getResources().getString(R.string.header_title_budget)).append(" - ");
+        categoryNameSB.append(categoryName);
+
+        this.categoryName = categoryName;
+
+        return categoryNameSB.toString();
+    }
+
     private void setRecyclerView() {
         linearLayoutManager = new LinearLayoutManager(this);
         adapter = new ListRecyclerAdapter(this, new LinkedList<>(), item -> {
-            Intent intent = new Intent(this, TaskDetailsActivity.class);
-            intent.putExtra(TASK_ID_EXTRA, item.getItemId());
+            Intent intent = new Intent(this, ExpenseActivity.class);
+            intent.putExtra(EXPENSE_ID_EXTRA, item.getItemId());
             startActivity(intent);
         });
 
@@ -106,11 +114,6 @@ public class BudgetCategoryActivity extends BaseActivity {
             currentPage = PAGE_START;
             getList();
         });
-    }
-
-    private void getExtrasAndSetVariables() {
-        categoryName = getIntent().getExtras().getString(CATEGORY_NAME_EXTRA, getResources().getString(R.string.header_title_category));
-        fragmentClass = getIntent().getExtras().getString(FRAGMENT_SOURCE_EXTRA, fragmentClass);
     }
 
     private void getList() {

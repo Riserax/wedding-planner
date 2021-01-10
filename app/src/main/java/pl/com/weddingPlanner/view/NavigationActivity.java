@@ -51,21 +51,21 @@ public class NavigationActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK)
-            return onKeyDownLogoutDialog() || super.onKeyDown(keyCode, event);
+            return onKeyDownDashboard() || super.onKeyDown(keyCode, event);
 
         return super.onKeyDown(keyCode, event);
     }
 
-    private boolean onKeyDownLogoutDialog() {
+    private boolean onKeyDownDashboard() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
         if (navController.getCurrentDestination() != null
                 && (navController.getCurrentDestination().getId() == R.id.navigation_dashboard)) {
 
-            Intent a = new Intent(Intent.ACTION_MAIN);
-            a.addCategory(Intent.CATEGORY_HOME);
-            a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(a);
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
 
             return true;
         }
