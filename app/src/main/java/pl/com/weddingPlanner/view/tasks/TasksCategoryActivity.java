@@ -34,14 +34,12 @@ import static pl.com.weddingPlanner.view.list.HeaderItem.getHeaderItemWithDayOfW
 import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAGE_START;
 import static pl.com.weddingPlanner.view.tasks.TaskDetailsActivity.TASK_ID_EXTRA;
 import static pl.com.weddingPlanner.view.util.SideBySideListUtil.CATEGORY_NAME_EXTRA;
-import static pl.com.weddingPlanner.view.util.SideBySideListUtil.FRAGMENT_SOURCE_EXTRA;
 
 public class TasksCategoryActivity extends BaseActivity {
 
     private ActivityCategoryTasksBinding binding;
 
     private String categoryName;
-    private String fragmentClass = "";
 
     private int currentPage = PAGE_START;
     private boolean isLastPage = false;
@@ -54,14 +52,25 @@ public class TasksCategoryActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_category_tasks);
 
-        getExtrasAndSetVariables();
-        setActivityToolbarContentWithBackIcon(categoryName);
+        setActivityToolbarContentWithBackIcon(getCategoryNameAndSetVariable());
 
         setRecyclerView();
         setSwipeRefresh();
 
         getList();
         setListeners();
+    }
+
+    private String getCategoryNameAndSetVariable() {
+        StringBuilder categoryNameSB = new StringBuilder();
+        String categoryName = getIntent().getExtras().getString(CATEGORY_NAME_EXTRA, getResources().getString(R.string.header_title_category));
+
+        categoryNameSB.append(getResources().getString(R.string.header_title_tasks)).append(" - ");
+        categoryNameSB.append(categoryName);
+
+        this.categoryName = categoryName;
+
+        return categoryNameSB.toString();
     }
 
     private void setRecyclerView() {
@@ -104,11 +113,6 @@ public class TasksCategoryActivity extends BaseActivity {
             currentPage = PAGE_START;
             getList();
         });
-    }
-
-    private void getExtrasAndSetVariables() {
-        categoryName = getIntent().getExtras().getString(CATEGORY_NAME_EXTRA, getResources().getString(R.string.header_title_category));
-        fragmentClass = getIntent().getExtras().getString(FRAGMENT_SOURCE_EXTRA, fragmentClass);
     }
 
     private void getList() {
