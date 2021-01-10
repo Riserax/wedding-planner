@@ -16,6 +16,7 @@ import java.util.List;
 import lombok.Getter;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.persistence.entity.Person;
+import pl.com.weddingPlanner.view.util.PersonUtil;
 
 @Getter
 public class Assignees {
@@ -106,7 +107,7 @@ public class Assignees {
         textView.setLayoutParams(layoutParams);
         textView.setClickable(true);
         textView.setFocusable(true);
-        textView.setText(getInitials(assignee.getName()));
+        textView.setText(PersonUtil.getInitials(assignee.getName()));
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
         textView.setTextColor(ContextCompat.getColor(context, R.color.gray_555555));
         textView.setTypeface(Typeface.DEFAULT_BOLD);
@@ -114,13 +115,5 @@ public class Assignees {
         return textView;
     }
 
-    private String getInitials(String personName) {
-        if (personName.contains(SPACE)) {
-            String firstLInitial = StringUtils.substring(personName, 0, 1);
-            String secondInitial = StringUtils.substring(personName, personName.indexOf(SPACE) + 1, personName.indexOf(SPACE) + 2);
-            return firstLInitial.toUpperCase() + secondInitial.toUpperCase();
-        } else {
-            return StringUtils.substring(personName, 0, 2).toUpperCase();
-        }
-    }
+
 }

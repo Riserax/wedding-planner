@@ -10,6 +10,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityExpenseBinding;
+import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
 
 public class ExpenseActivity extends BaseActivity {
@@ -17,6 +18,9 @@ public class ExpenseActivity extends BaseActivity {
     public static String EXPENSE_ID_EXTRA = "expenseIdExtra";
     public static String TAB_ID_EXTRA = "tabIdExtra";
     public static int TAB_PAYMENTS_ID = 1;
+
+    private int expenseId;
+    private int paymentsCount = 0;
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
@@ -41,13 +45,17 @@ public class ExpenseActivity extends BaseActivity {
     }
 
     private void initAndSetViewPager() {
-        int expenseId = getIntent().getExtras().getInt(EXPENSE_ID_EXTRA, 0);
+        expenseId = getIntent().getExtras().getInt(EXPENSE_ID_EXTRA, 0);
 
         viewPager.setAdapter(new ExpenseAdapter(ExpenseActivity.this, expenseId));
         viewPager.setOffscreenPageLimit(1);
     }
 
     private void attachTabLayoutMediator() {
+        if (expenseId > 0) {
+            paymentsCount = DAOUtil.getPaymentsCountByExpenseId(this, expenseId);
+        }
+
         new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> {
                     switch (position) {
@@ -55,7 +63,7 @@ public class ExpenseActivity extends BaseActivity {
                             tab.setText(getString(R.string.tab_title_expense_details));
                             break;
                         case 1:
-                            tab.setText(getString(R.string.tab_title_expense_payments));
+                            tab.setText(String.format(getString(R.string.tab_title_expense_payments), paymentsCount));
                             break;
                     }
                 }).attach();

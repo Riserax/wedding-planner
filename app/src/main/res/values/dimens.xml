@@ -27,6 +27,7 @@
     <dimen name="field_padding_start">20dp</dimen>
     <dimen name="field_padding_end">20dp</dimen>
     <dimen name="field_text_size">16sp</dimen>
+    <dimen name="field_text_size_15">15sp</dimen>
     <dimen name="field_text_size_small">12sp</dimen>
     <dimen name="fields_side_to_side_margin">5dp</dimen>
     <dimen name="floating_button_option_margin_top">5dp</dimen>

@@ -97,7 +97,7 @@
     <string name="tab_title_budget_categories">Kategorie</string>
     <string name="tab_title_budget_descending">Chronologicznie</string>
     <string name="tab_title_expense_details">Szczegóły</string>
-    <string name="tab_title_expense_payments">Płatności</string>
+    <string name="tab_title_expense_payments">Płatności: %1$d</string>
     <string name="tab_title_guests_list">Lista</string>
     <string name="tab_title_guests_groups">Stoły</string>
 

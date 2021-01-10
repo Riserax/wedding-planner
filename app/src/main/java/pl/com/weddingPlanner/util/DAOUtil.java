@@ -156,6 +156,12 @@ public class DAOUtil {
         return paymentDAO.getAllByExpenseId(expenseId);
     }
 
+    public static int getPaymentsCountByExpenseId(Context context, int expenseId) {
+        AppDatabase appDatabase = getInstance(context);
+        PaymentDAO paymentDAO = appDatabase.paymentDAO();
+        return paymentDAO.countByExpenseId(expenseId);
+    }
+
     public static void insertCategory(Context context, Category category) {
         AppDatabase appDatabase = getInstance(context);
         CategoryDAO categoryDAO = appDatabase.categoryDAO();

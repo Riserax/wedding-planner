@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.ColorRes;
@@ -124,6 +125,10 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     VHitem.amountCaption.setTextColor(getColor(currentItem.getSubCaptionColor()));
                 }
                 VHitem.leftIcon.setImageDrawable(getIcon(currentItem));
+                if (StringUtils.isNotBlank(currentItem.getRightIconCaption())) {
+                    VHitem.rightIconLayout.setVisibility(View.VISIBLE);
+                    VHitem.rightIconCaption.setText(currentItem.getRightIconCaption());
+                }
 //                if (isIconEnabled()) {
 //                    VHitem.rightIcon.setImageDrawable(ContextCompat.getDrawable(context, iconDrawable));
 //                    VHitem.rightIcon.setColorFilter(ContextCompat.getColor(context, R.color.purple_500), PorterDuff.Mode.SRC_IN);
@@ -262,7 +267,7 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 //    @Override
 //    public void onViewMoved(int oldPosition, int newPosition) {
-//        list.add(newPosition, list.remove(oldPosition));
+//        items.add(newPosition, items.remove(oldPosition));
 //        notifyItemMoved(oldPosition, newPosition);
 //    }
 
@@ -279,7 +284,7 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 //    @Override
 //    public void onViewSwiped(int position) {
-//        list.remove(position);
+//        items.remove(position);
 //        notifyItemRemoved(position);
 //        if (getItemCount() == 1) {
 //            notifyItemRangeChanged(0, getItemCount());
@@ -329,16 +334,18 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     static class VHItem extends RecyclerView.ViewHolder {
         ImageView leftIcon;
-        ImageView rightIcon;
         TextView caption;
         TextView amountCaption;
+        LinearLayout rightIconLayout;
+        TextView rightIconCaption;
 
         VHItem(View itemView) {
             super(itemView);
             this.leftIcon = itemView.findViewById(R.id.row_icon);
-            this.rightIcon = itemView.findViewById(R.id.right_icon);
             this.caption = itemView.findViewById(R.id.row_caption);
             this.amountCaption = itemView.findViewById(R.id.amount_caption);
+            this.rightIconLayout = itemView.findViewById(R.id.right_icon_layout);
+            this.rightIconCaption = itemView.findViewById(R.id.right_icon_caption);
         }
 
         void bind(final ContentItem item, final OnClickListener listener) {

@@ -25,8 +25,10 @@ import pl.com.weddingPlanner.view.util.ResourceUtil;
 public class ContentItem extends ListItem implements Serializable {
 
     private int itemId;
+
     private String mainCaption;
     private String subCaption;
+    private String rightIconCaption;
 
     private int mainCaptionColor;
     private int subCaptionColor;
@@ -72,6 +74,7 @@ public class ContentItem extends ListItem implements Serializable {
                 .subCaptionColor(getSubCaptionColor(info.getState()))
                 .leftIconId(ResourceUtil.getResId(info.getState().getIconCode(), R.drawable.class))
                 .leftIconColor(getLeftIconColor(info.getState()))
+                .rightIconCaption(info.getPayer())
                 .build();
     }
 

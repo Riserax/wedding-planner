@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import org.apache.commons.lang3.StringUtils;
 import org.threeten.bp.LocalDate;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentExpensePaymentsBinding;
 import pl.com.weddingPlanner.model.PaymentInfo;
 import pl.com.weddingPlanner.persistence.entity.Payment;
+import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.enums.StateEnum;
 import pl.com.weddingPlanner.view.list.ContentItem;
@@ -32,6 +34,7 @@ import pl.com.weddingPlanner.view.list.ListItem;
 import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
 import pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView;
 import pl.com.weddingPlanner.view.util.BudgetUtil;
+import pl.com.weddingPlanner.view.util.PersonUtil;
 
 import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA;
 import static pl.com.weddingPlanner.view.list.HeaderItem.getHeaderItemWithDayOfWeek;
@@ -122,12 +125,18 @@ public class ExpensePaymentsFragment extends Fragment {
             for (Map.Entry<Integer, LocalDate> sortedIdDate : sortedIdDateMap.entrySet()) {
                 Payment payment = (Payment) paymentsMap.get(sortedIdDate.getKey());
 
+                String payerInitials = StringUtils.EMPTY;
+                if (StringUtils.isNotBlank(payment.getPayer())) {
+                    Person payer = DAOUtil.getPersonById(getContext(), Integer.parseInt(payment.getPayer()));
+                    payerInitials = PersonUtil.getInitials(payer.getName());
+                }
+
                 PaymentInfo paymentInfo = PaymentInfo.builder()
                         .itemId(payment.getId())
                         .title(payment.getTitle())
                         .state(StateEnum.valueOf(payment.getState()))
                         .amount(payment.getAmount())
-                        .payer(payment.getPayer())
+                        .payer(payerInitials)
                         .date(payment.getDate())
                         .build();
 
@@ -165,5 +174,9 @@ public class ExpensePaymentsFragment extends Fragment {
             intent.putExtra(EXPENSE_ID_EXTRA, expenseId);
             startActivity(intent);
         });
+    }
+
+    private void removePayment() {
+
     }
 }

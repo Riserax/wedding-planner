@@ -39,4 +39,14 @@ public class PersonUtil {
 
         return getSeparatedString(personsNames);
     }
+
+    public static String getInitials(String personName) {
+        if (personName.contains(" ")) {
+            String firstLInitial = StringUtils.substring(personName, 0, 1);
+            String secondInitial = StringUtils.substring(personName, personName.indexOf(" ") + 1, personName.indexOf(" ") + 2);
+            return firstLInitial.toUpperCase() + secondInitial.toUpperCase();
+        } else {
+            return StringUtils.substring(personName, 0, 2).toUpperCase();
+        }
+    }
 }

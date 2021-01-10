@@ -41,5 +41,5 @@ public interface PaymentDAO {
     int countAll();
 
     @Query("SELECT COUNT(*) FROM payment WHERE expenseId = :expenseId")
-    int countAllByExpenseId(int expenseId);
+    int countByExpenseId(int expenseId);
 }

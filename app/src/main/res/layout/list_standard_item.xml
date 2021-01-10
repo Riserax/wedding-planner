@@ -68,10 +68,31 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/row_item_right_icon_margin_end"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_person"
             android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/right_icon_layout"
+            android:layout_width="@dimen/assignee_circle_size"
+            android:layout_height="@dimen/assignee_circle_size"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_marginEnd="@dimen/row_item_right_icon_margin_end"
+            android:orientation="vertical"
+            android:background="@drawable/bg_circle_white"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/right_icon_caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/field_text_size_15"
+                android:textColor="@color/gray_555555"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 
