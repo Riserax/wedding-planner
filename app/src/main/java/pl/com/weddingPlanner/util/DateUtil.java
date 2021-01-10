@@ -2,6 +2,7 @@ package pl.com.weddingPlanner.util;
 
 import android.content.Context;
 
+import org.apache.commons.lang3.StringUtils;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.Month;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -66,7 +67,12 @@ public class DateUtil {
         }
     }
 
-    public static void sortDatesDescending() {
+    public static String getNewDateWithHourString() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return formatter.format(new Date());
+    }
 
+    public static String getDateFromDateTime(String dateTime) {
+        return StringUtils.substring(dateTime, 0, dateTime.indexOf(StringUtils.SPACE));
     }
 }

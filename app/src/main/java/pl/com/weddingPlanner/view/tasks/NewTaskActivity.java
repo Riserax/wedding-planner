@@ -3,6 +3,7 @@ package pl.com.weddingPlanner.view.tasks;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,21 +22,25 @@ import pl.com.weddingPlanner.databinding.ActivityNewTaskBinding;
 import pl.com.weddingPlanner.model.PickedDate;
 import pl.com.weddingPlanner.model.PickedTime;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
+import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.util.DebouncedOnClickListener;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.NavigationActivity;
-import pl.com.weddingPlanner.view.dialog.CategoriesDialog;
+import pl.com.weddingPlanner.view.dialog.DateDialog;
 import pl.com.weddingPlanner.view.dialog.PeopleDialog;
+import pl.com.weddingPlanner.view.dialog.SingleSelectionListDialog;
 import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskBookmarksDialog;
-import pl.com.weddingPlanner.view.tasks.dialog.TaskDateDialog;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskTimeDialog;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
 
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
+import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
+import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
+import static pl.com.weddingPlanner.view.util.ResourceUtil.CATEGORY_OTHER;
 
 public class NewTaskActivity extends BaseActivity {
 
@@ -44,7 +49,6 @@ public class NewTaskActivity extends BaseActivity {
     @Setter
     private List<Integer> selectedBookmarksKeys = new ArrayList<>();
     private List<Integer> selectedPeopleKeys = new ArrayList<>();
-    @Setter
     private PickedDate pickedDate;
     @Setter
     private PickedTime pickedTime;
@@ -61,9 +65,11 @@ public class NewTaskActivity extends BaseActivity {
         setActivityToolbarContentWithBackIcon(R.string.header_title_tasks_new);
 
         setListeners();
+        setButtonEnability(binding.addButton, false);
     }
 
     private void setListeners() {
+        initAddButtonEnableStatusListener();
         setCategoryOnClickListener();
         setBookmarksOnClickListener();
         setPeopleOnClickListener();
@@ -74,12 +80,31 @@ public class NewTaskActivity extends BaseActivity {
         setAddButtonClickListener();
     }
 
+    private void initAddButtonEnableStatusListener() {
+        TextWatcher listener = getOnTextChangedTextWatcher((s, start, before, count) ->
+                setButtonEnability(binding.addButton, areFieldsValid())
+        );
+
+        binding.taskName.addTextChangedListener(listener);
+        binding.categoryName.addTextChangedListener(listener);
+        binding.bookmarksName.addTextChangedListener(listener);
+        binding.peopleName.addTextChangedListener(listener);
+        binding.taskDescriptionName.addTextChangedListener(listener);
+        binding.taskDate.addTextChangedListener(listener);
+        binding.taskTime.addTextChangedListener(listener);
+    }
+
+    private boolean areFieldsValid() {
+        return !binding.taskName.getText().toString().isEmpty();
+    }
+
     private void setCategoryOnClickListener() {
         binding.categoryLayout.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
             @Override
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
-                new CategoriesDialog(NewTaskActivity.this, CategoryTypeEnum.TASKS.name()).showDialog();
+                List<Category> categories = DAOUtil.getAllCategoriesByType(NewTaskActivity.this, CategoryTypeEnum.TASKS.name());
+                new SingleSelectionListDialog(NewTaskActivity.this, categories, R.string.dialog_category_choice).showDialog();
             }
         });
     }
@@ -109,7 +134,7 @@ public class NewTaskActivity extends BaseActivity {
             @Override
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
-                new TaskDateDialog(NewTaskActivity.this, pickedDate).showDialog();
+                new DateDialog(NewTaskActivity.this, pickedDate).showDialog();
             }
         });
     }
@@ -186,7 +211,7 @@ public class NewTaskActivity extends BaseActivity {
         String assignees = binding.peopleName.getText().toString();
         String time = binding.taskTime.getText().toString();
 
-        isCategoryChosen = !category.equals(getResources().getString(R.string.task_field_category));
+        isCategoryChosen = !category.equals(getResources().getString(R.string.field_category));
         areBookmarksSet = !bookmarks.equals(getResources().getString(R.string.task_field_bookmarks));
         areAssigneesSet = !assignees.equals(getResources().getString(R.string.task_field_people));
         isTimeSet = !time.equals(getResources().getString(R.string.task_field_time));
@@ -195,7 +220,7 @@ public class NewTaskActivity extends BaseActivity {
         String assigneesIdsString = areAssigneesSet ? getAssigneesIds(assignees) : StringUtils.EMPTY;
 
         return Task.builder()
-                .category(isCategoryChosen ? category : "Inne")
+                .category(isCategoryChosen ? category : CATEGORY_OTHER)
                 .title(binding.taskName.getText().toString())
                 .description(binding.taskDescriptionName.getText().toString())
                 .bookmarks(bookmarksIdsString)
@@ -254,11 +279,19 @@ public class NewTaskActivity extends BaseActivity {
             case R.id.people_name:
                 view.setText(getResources().getString(R.string.task_field_people));
                 break;
+            case R.id.task_date:
+                view.setText(getResources().getString(R.string.task_field_date));
+                break;
         }
     }
 
     @Override
     public void setSelectedPeopleKeys(List<Integer> selectedPeopleKeys) {
         this.selectedPeopleKeys = selectedPeopleKeys;
+    }
+
+    @Override
+    public void setPickedDate(PickedDate pickedDate) {
+        this.pickedDate = pickedDate;
     }
 }

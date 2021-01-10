@@ -11,8 +11,11 @@ import lombok.experimental.SuperBuilder;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.model.ExpenseInfo;
 import pl.com.weddingPlanner.model.GuestInfo;
+import pl.com.weddingPlanner.model.PaymentInfo;
 import pl.com.weddingPlanner.model.TaskInfo;
 import pl.com.weddingPlanner.view.enums.GuestTypeEnum;
+import pl.com.weddingPlanner.view.enums.StateEnum;
+import pl.com.weddingPlanner.view.util.FormatUtil;
 import pl.com.weddingPlanner.view.util.ResourceUtil;
 
 @Getter
@@ -22,11 +25,13 @@ import pl.com.weddingPlanner.view.util.ResourceUtil;
 public class ContentItem extends ListItem implements Serializable {
 
     private int itemId;
+
     private String mainCaption;
-//    private String subCaption;
+    private String subCaption;
+    private String rightIconCaption;
 
     private int mainCaptionColor;
-//    private int subCaptionColor;
+    private int subCaptionColor;
     private int leftIconId;
     private int leftIconColor;
 
@@ -60,6 +65,19 @@ public class ContentItem extends ListItem implements Serializable {
                 .build();
     }
 
+    public static ContentItem of(PaymentInfo info) {
+        return ContentItem.builder()
+                .itemId(info.getItemId())
+                .mainCaption(info.getTitle())
+                .mainCaptionColor(R.color.black)
+                .subCaption(FormatUtil.convertToAmount(info.getAmount()))
+                .subCaptionColor(getSubCaptionColor(info.getState()))
+                .leftIconId(ResourceUtil.getResId(info.getState().getIconCode(), R.drawable.class))
+                .leftIconColor(getLeftIconColor(info.getState()))
+                .rightIconCaption(info.getPayer())
+                .build();
+    }
+
     private static int getLeftIconId(GuestTypeEnum guestType) {
         switch (guestType) {
             case ACCOMPANYING:
@@ -67,6 +85,26 @@ public class ContentItem extends ListItem implements Serializable {
             case GUEST:
             default:
                 return R.drawable.ic_person;
+        }
+    }
+
+    private static int getLeftIconColor(StateEnum stateEnum) {
+        switch (stateEnum) {
+            case PENDING:
+                return R.color.colorPrimaryDark;
+            case PAID:
+            default:
+                return R.color.gray_949494;
+        }
+    }
+
+    private static int getSubCaptionColor(StateEnum stateEnum) {
+        switch (stateEnum) {
+            case PENDING:
+                return R.color.colorPrimaryDark;
+            case PAID:
+            default:
+                return R.color.gray_949494;
         }
     }
 

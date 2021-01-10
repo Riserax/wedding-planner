@@ -67,7 +67,7 @@ public class BudgetFragment extends Fragment {
             Intent intent;
             switch (viewPager.getCurrentItem()) {
                 case 0:
-                    intent = new Intent(requireActivity(), NewBudgetActivity.class);
+                    intent = new Intent(requireActivity(), NewExpenseActivity.class);
                     startActivity(intent);
                     break;
                 case 1:

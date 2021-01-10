@@ -7,6 +7,7 @@ import java.util.List;
 import pl.com.weddingPlanner.persistence.dao.BookmarkDAO;
 import pl.com.weddingPlanner.persistence.dao.CategoryDAO;
 import pl.com.weddingPlanner.persistence.dao.ExpenseDAO;
+import pl.com.weddingPlanner.persistence.dao.PaymentDAO;
 import pl.com.weddingPlanner.persistence.dao.PersonDAO;
 import pl.com.weddingPlanner.persistence.dao.SubTaskDAO;
 import pl.com.weddingPlanner.persistence.dao.TaskDAO;
@@ -14,6 +15,7 @@ import pl.com.weddingPlanner.persistence.database.AppDatabase;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
+import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.SubTask;
 import pl.com.weddingPlanner.persistence.entity.Task;
@@ -25,13 +27,25 @@ public class DAOUtil {
     public static void deleteTaskById(Context context, int id) {
         AppDatabase appDatabase = getInstance(context);
         TaskDAO taskDAO = appDatabase.taskDAO();
-        taskDAO.delete(id);
+        taskDAO.deleteById(id);
     }
 
-    public static List<Category> getAllCategories(Context context) {
+    public static void deleteExpenseById(Context context, int id) {
         AppDatabase appDatabase = getInstance(context);
-        CategoryDAO categoryDAO = appDatabase.categoryDAO();
-        return categoryDAO.getAll();
+        ExpenseDAO expenseDAO = appDatabase.expenseDAO();
+        expenseDAO.deleteById(id);
+    }
+
+    public static void deletePaymentById(Context context, int id) {
+        AppDatabase appDatabase = getInstance(context);
+        PaymentDAO paymentDAO = appDatabase.paymentDAO();
+        paymentDAO.deleteById(id);
+    }
+
+    public static void deleteAllPaymentsByExpenseId(Context context, int expenseId) {
+        AppDatabase appDatabase = getInstance(context);
+        PaymentDAO paymentDAO = appDatabase.paymentDAO();
+        paymentDAO.deleteByExpenseId(expenseId);
     }
 
     public static List<Category> getAllCategoriesByType(Context context, String type) {
@@ -130,6 +144,36 @@ public class DAOUtil {
         return expenseDAO.getAllByCategory(category);
     }
 
+    public static Expense getExpenseById(Context context, int id) {
+        AppDatabase appDatabase = getInstance(context);
+        ExpenseDAO expenseDAO = appDatabase.expenseDAO();
+        return expenseDAO.getById(id);
+    }
+
+    public static List<Payment> getAllPayments(Context context) {
+        AppDatabase appDatabase = getInstance(context);
+        PaymentDAO paymentDAO = appDatabase.paymentDAO();
+        return paymentDAO.getAll();
+    }
+
+    public static List<Payment> getAllPaymentsByExpenseId(Context context, int expenseId) {
+        AppDatabase appDatabase = getInstance(context);
+        PaymentDAO paymentDAO = appDatabase.paymentDAO();
+        return paymentDAO.getAllByExpenseId(expenseId);
+    }
+
+    public static Payment getPaymentById(Context context, int id) {
+        AppDatabase appDatabase = getInstance(context);
+        PaymentDAO paymentDAO = appDatabase.paymentDAO();
+        return paymentDAO.getById(id);
+    }
+
+    public static int getPaymentsCountByExpenseId(Context context, int expenseId) {
+        AppDatabase appDatabase = getInstance(context);
+        PaymentDAO paymentDAO = appDatabase.paymentDAO();
+        return paymentDAO.countByExpenseId(expenseId);
+    }
+
     public static void insertCategory(Context context, Category category) {
         AppDatabase appDatabase = getInstance(context);
         CategoryDAO categoryDAO = appDatabase.categoryDAO();
@@ -164,6 +208,24 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         ExpenseDAO expenseDAO = appDatabase.expenseDAO();
         expenseDAO.insert(expense);
+    }
+
+    public static void insertPayment(Context context, Payment payment) {
+        AppDatabase appDatabase = getInstance(context);
+        PaymentDAO paymentDAO = appDatabase.paymentDAO();
+        paymentDAO.insert(payment);
+    }
+
+    public static void mergeExpense(Context context, Expense expense) {
+        AppDatabase appDatabase = getInstance(context);
+        ExpenseDAO expenseDAO = appDatabase.expenseDAO();
+        expenseDAO.merge(expense);
+    }
+
+    public static void mergePayment(Context context, Payment payment) {
+        AppDatabase appDatabase = getInstance(context);
+        PaymentDAO paymentDAO = appDatabase.paymentDAO();
+        paymentDAO.merge(payment);
     }
 
     public static void setSubTaskDone(Context context, String done, int subTaskId) {

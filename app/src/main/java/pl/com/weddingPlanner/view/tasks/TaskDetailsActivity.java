@@ -150,7 +150,7 @@ public class TaskDetailsActivity extends BaseActivity {
         if (StringUtils.isNotBlank(taskDetails.getDescription())) {
             binding.description.setText(taskDetails.getDescription());
         } else {
-            binding.description.setText(getResources().getString(R.string.task_details_no_description));
+            binding.description.setText(getResources().getString(R.string.no_description));
         }
     }
 

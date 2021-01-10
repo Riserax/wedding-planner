@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import java.util.List;
 
 import pl.com.weddingPlanner.R;
+import pl.com.weddingPlanner.model.PickedDate;
 
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
 
@@ -151,12 +152,18 @@ public class BaseActivity extends AppCompatActivity {
                 TextView peopleTitle = findViewById(R.id.people_title);
                 peopleTitle.setVisibility(visible ? View.VISIBLE : View.GONE);
                 break;
+            case R.id.payer_name:
+                TextView payerTitle = findViewById(R.id.payer_title);
+                payerTitle.setVisibility(visible ? View.VISIBLE : View.GONE);
+                break;
         }
     }
 
     public void setDefaultFieldName(TextView view) {}
 
     public void setSelectedPeopleKeys(List<Integer> selectedPeopleKeys) {}
+
+    public void setPickedDate(PickedDate pickedDate) {}
 
     public void executeQuestionDialog() {}
 }

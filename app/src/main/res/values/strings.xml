@@ -1,11 +1,13 @@
 <resources>
+    <string name="amount_invalid_format">Nieprawidłowy format kwoty</string>
     <string name="app_name">WeddingPlanner</string>
 
-    <string name="budget_field_name">Nazwa</string>
-    <string name="budget_field_category">Kategoria</string>
-    <string name="budget_field_payer">Kto płaci</string>
-    <string name="budget_field_amount">Szacunkowa kwota</string>
-    <string name="budget_field_comment">Komentarz</string>
+    <string name="budget_estimated_expenses">Szacunkowe\nwydatki</string>
+    <string name="budget_initial_budget">Wstępny budżet</string>
+    <string name="budget_paid">Wydano</string>
+
+    <string name="button_add">Dodaj</string>
+    <string name="button_save">Zapisz</string>
 
     <string name="category_most_important">Najważniejsze</string>
     <string name="category_most_ceremony">Ceremonia</string>
@@ -26,20 +28,42 @@
     <string name="dialog_pick">Wybierz</string>
     <string name="dialog_yes">Tak</string>
     <string name="dialog_no">Nie</string>
+    <string name="dialog_category_choice">Wybierz kategorię</string>
+    <string name="dialog_person_choice">Wybierz osobę</string>
     <string name="dialog_task_bookmarks_title">Wybierz etykiety</string>
-    <string name="dialog_task_category_title">Wybierz kategorię</string>
     <string name="dialog_task_date_title">Wybierz datę</string>
     <string name="dialog_task_people_title">Wybierz osoby</string>
     <string name="dialog_task_time_title">Wybierz godzinę</string>
+
+    <string name="expense_field_category">Kategoria</string>
+    <string name="expense_field_initial_amount">Szacunkowa kwota</string>
+    <string name="expense_field_for_whom">Dla kogo</string>
+    <string name="expense_field_for_what">Za co</string>
+    <string name="expense_field_amount">Kwota</string>
+    <string name="expense_field_edit_date">Data edycji</string>
+    <string name="expense_field_real_expenses">Rzeczywiste wydatki</string>
+    <string name="expense_field_awaiting_payments">Oczekujące płatności</string>
+
+    <string name="expense_details_delete_question">Czy na pewno chcesz usunąć ten wydatek?</string>
+    <string name="expense_details_delete">Usuń wydatek</string>
+    <string name="expense_details_edit">Edytuj wydatek</string>
+
+    <string name="field_category">Kategoria</string>
+    <string name="field_name">Nazwa</string>
+    <string name="field_payer">Kto płaci</string>
+    <string name="field_title">Tytuł</string>
 
     <string name="header_title_budget">Budżet</string>
     <string name="header_title_budget_new">Nowy wydatek</string>
     <string name="header_title_category">Kategoria</string>
     <string name="header_title_category_new">Nowa kategoria</string>
+    <string name="header_title_expense_details">Wydatek</string>
     <string name="header_title_guests">Goście</string>
     <string name="header_title_guest_details">Gość</string>
     <string name="header_title_guest_new">Nowy gość</string>
     <string name="header_title_more">Więcej</string>
+    <string name="header_title_new_payment">Nowa płatność</string>
+    <string name="header_title_payment">Płatność</string>
     <string name="header_title_settings">Ustawienia</string>
     <string name="header_title_subcontractors">Podwykonawcy</string>
     <string name="header_title_tasks">Zadania</string>
@@ -61,16 +85,27 @@
     <string name="month_november">Listopad</string>
     <string name="month_december">Grudzień</string>
 
+    <string name="no_assignees">Nie przypisano osób</string>
+    <string name="no_description">Brak opisu</string>
+
+    <string name="payment_field_amount">Kwota</string>
+    <string name="payment_field_awaiting">Oczekująca</string>
+    <string name="payment_field_date">Data płatności</string>
+    <string name="payment_field_info">Dodatkowe informacje</string>
+    <string name="payment_field_paid">Opłacona</string>
+    <string name="payment_delete_question">Czy na pewno chcesz usunąć tę płatność?</string>
+
+
     <string name="tab_title_tasks_categories">Kategorie</string>
     <string name="tab_title_tasks_months">Miesiące</string>
     <string name="tab_title_budget_categories">Kategorie</string>
     <string name="tab_title_budget_descending">Chronologicznie</string>
+    <string name="tab_title_expense_details">Szczegóły</string>
+    <string name="tab_title_expense_payments">Płatności: %1$d</string>
     <string name="tab_title_guests_list">Lista</string>
     <string name="tab_title_guests_groups">Stoły</string>
 
     <string name="task_details_no_bookmarks">Brak etykiet</string>
-    <string name="task_details_no_description">Brak opisu</string>
-    <string name="task_details_no_assignees">Nie przypisano osób</string>
     <string name="task_details_sub_tasks">Podzadania:</string>
     <string name="task_details_no_sub_tasks">Brak elementów do wyświetlenia</string>
     <string name="task_details_delete">Usuń zadanie</string>
@@ -78,12 +113,9 @@
     <string name="task_details_add_sub_task">Dodaj podzadanie</string>
     <string name="task_details_edit">Edytuj zadanie</string>
 
-    <string name="task_field_name">Nazwa</string>
-    <string name="task_field_category">Kategoria</string>
     <string name="task_field_bookmarks">Etykiety</string>
     <string name="task_field_people">Przypisane osoby</string>
     <string name="task_field_description">Opis</string>
     <string name="task_field_date">Data</string>
     <string name="task_field_time">Godzina</string>
-    <string name="task_button">Dodaj</string>
 </resources>

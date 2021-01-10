@@ -8,11 +8,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
+import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.SubTask;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.view.enums.StateEnum;
+
+import static pl.com.weddingPlanner.view.util.ResourceUtil.CATEGORY_OTHER;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         insertTasks();
         insertSubTasks();
         insertExpenses();
+        insertPayments();
     }
 
     private void insertCategories() {
@@ -63,13 +68,13 @@ public class MainActivity extends AppCompatActivity {
         Category categoryTasks2 = Category.builder()
                 .name("Ceremonia")
                 .type(CategoryTypeEnum.TASKS.name())
-                .iconId("ic_dashboard")
+                .iconId("ic_favorite")
                 .build();
 
         Category categoryTasks3 = Category.builder()
-                .name("Sala weselna")
+                .name("Bankiet")
                 .type(CategoryTypeEnum.TASKS.name())
-                .iconId("ic_home")
+                .iconId("ic_local_bar")
                 .build();
 
         Category categoryTasks4 = Category.builder()
@@ -81,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         Category categoryTasks5 = Category.builder()
                 .name("Stylizacje P&P")
                 .type(CategoryTypeEnum.TASKS.name())
-                .iconId("ic_style")
+                .iconId("ic_checkroom")
                 .build();
 
         Category categoryTasks6 = Category.builder()
@@ -91,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         Category categoryTasks7 = Category.builder()
-                .name("Inne")
+                .name(CATEGORY_OTHER)
                 .type(CategoryTypeEnum.TASKS.name())
                 .iconId("ic_add_box")
                 .build();
@@ -109,13 +114,13 @@ public class MainActivity extends AppCompatActivity {
         Category categoryBudget1 = Category.builder()
                 .name("Ceremonia")
                 .type(CategoryTypeEnum.BUDGET.name())
-                .iconId("ic_dashboard")
+                .iconId("ic_favorite")
                 .build();
 
         Category categoryBudget2 = Category.builder()
-                .name("Sala weselna")
+                .name("Bankiet")
                 .type(CategoryTypeEnum.BUDGET.name())
-                .iconId("ic_home")
+                .iconId("ic_local_bar")
                 .build();
 
         Category categoryBudget3 = Category.builder()
@@ -127,17 +132,17 @@ public class MainActivity extends AppCompatActivity {
         Category categoryBudget4 = Category.builder()
                 .name("Stylizacje")
                 .type(CategoryTypeEnum.BUDGET.name())
-                .iconId("ic_style")
+                .iconId("ic_checkroom")
                 .build();
 
         Category categoryBudget5 = Category.builder()
                 .name("Dekoracje")
                 .type(CategoryTypeEnum.BUDGET.name())
-                .iconId("ic_dashboard")
+                .iconId("ic_style")
                 .build();
 
         Category categoryBudget6 = Category.builder()
-                .name("Inne")
+                .name(CATEGORY_OTHER)
                 .type(CategoryTypeEnum.BUDGET.name())
                 .iconId("ic_add_box")
                 .build();
@@ -154,13 +159,13 @@ public class MainActivity extends AppCompatActivity {
         Category categorySubcontractors1 = Category.builder()
                 .name("Ceremonia")
                 .type(CategoryTypeEnum.SUBCONTRACTORS.name())
-                .iconId("ic_dashboard")
+                .iconId("ic_favorite")
                 .build();
 
         Category categorySubcontractors2 = Category.builder()
                 .name("Bankiet")
                 .type(CategoryTypeEnum.SUBCONTRACTORS.name())
-                .iconId("ic_dashboard")
+                .iconId("ic_local_bar")
                 .build();
 
         Category categorySubcontractors3 = Category.builder()
@@ -178,13 +183,13 @@ public class MainActivity extends AppCompatActivity {
         Category categorySubcontractors5 = Category.builder()
                 .name("Dekoracje")
                 .type(CategoryTypeEnum.SUBCONTRACTORS.name())
-                .iconId("ic_dashboard")
+                .iconId("ic_style")
                 .build();
 
         Category categorySubcontractors6 = Category.builder()
                 .name("Stylizacje")
                 .type(CategoryTypeEnum.SUBCONTRACTORS.name())
-                .iconId("ic_style")
+                .iconId("ic_checkroom")
                 .build();
 
         Category categorySubcontractors7 = Category.builder()
@@ -202,11 +207,11 @@ public class MainActivity extends AppCompatActivity {
         Category categorySubcontractors9 = Category.builder()
                 .name("Akcesoria")
                 .type(CategoryTypeEnum.SUBCONTRACTORS.name())
-                .iconId("ic_dashboard")
+                .iconId("ic_loupe")
                 .build();
 
         Category categorySubcontractors10 = Category.builder()
-                .name("Inne")
+                .name(CATEGORY_OTHER)
                 .type(CategoryTypeEnum.SUBCONTRACTORS.name())
                 .iconId("ic_add_box")
                 .build();
@@ -293,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
         Task taskNotFilled = Task.builder()
                 .id(2)
                 .title("Nieuzupełnione zadanie")
-                .category("Inne")
+                .category(CATEGORY_OTHER)
                 .date("2021-01-31")
                 .build();
 
@@ -319,21 +324,48 @@ public class MainActivity extends AppCompatActivity {
     private void insertExpenses() {
         Expense expense1 = Expense.builder()
                 .title("Wypełniony wydatek")
-                .date("2021-01-03")
-                .amount("25000,00")
-                .category("Sala weselna")
-                .forWhomAndWhat("Sala weselna \"Zielone wzgórze\"\nSala weselna, goście")
-                .payer("1,2")
+                .initialAmount("25000.00")
+                .category("Bankiet")
+                .recipient("Sala weselna \"Zielone wzgórze\"")
+                .forWhat("Sala weselna, goście")
+                .payers("1,2")
                 .subExpenses("1,2,3")
+                .editDate("2021-01-03 21:40")
                 .build();
 
         Expense expense2 = Expense.builder()
                 .title("Niewypełniony wydatek")
-                .date("2020-12-30")
-                .category("Inne")
+                .initialAmount("0.00")
+                .category(CATEGORY_OTHER)
+                .editDate("2020-12-30 16:16")
                 .build();
 
         DAOUtil.insertExpense(this, expense1);
         DAOUtil.insertExpense(this, expense2);
+    }
+
+    private void insertPayments() {
+        Payment payment1 = Payment.builder()
+                .expenseId(1)
+                .title("Zaliczka")
+                .date("2021-01-31")
+                .amount("2000.00")
+                .payer("1")
+                .state(StateEnum.PAID.name())
+                .info("2000 zł")
+                .build();
+
+        Payment payment2 = Payment.builder()
+                .expenseId(1)
+                .title("Pierwsza rata")
+                .date("2023-03-31")
+                .amount("12500.00")
+                .payer("2")
+                .state(StateEnum.PENDING.name())
+                .info("Połowa całości (minus zaliczka)")
+                .build();
+
+        DAOUtil.insertPayment(this, payment1);
+        DAOUtil.insertPayment(this, payment2);
     }
 }

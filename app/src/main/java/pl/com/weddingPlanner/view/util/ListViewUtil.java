@@ -41,7 +41,7 @@ public class ListViewUtil {
         return selectedItems;
     }
 
-    private static String getSeparatedString(List<String> selectedItems) {
+    public static String getSeparatedString(List<String> selectedItems) {
         StringBuilder itemsBuilder = new StringBuilder();
 
         for (int i = 0; i < selectedItems.size(); i++) {

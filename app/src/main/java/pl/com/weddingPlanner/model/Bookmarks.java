@@ -68,7 +68,7 @@ public class Bookmarks {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        int marginBottom = Math.round(context.getResources().getDimension(R.dimen.field_margin_bottom));
+        int marginBottom = Math.round(context.getResources().getDimension(R.dimen.field_margin));
         layoutParams.setMargins(0, 0, 0, marginBottom);
 
         iconsLayout.setLayoutParams(layoutParams);
@@ -84,7 +84,7 @@ public class Bookmarks {
     }
 
     private ImageButton createImageButton(Bookmark bookmark) {
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(context.getResources().getDimensionPixelSize(R.dimen.image_button_size), context.getResources().getDimensionPixelSize(R.dimen.image_button_size));
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(context.getResources().getDimensionPixelSize(R.dimen.image_button_size_24), context.getResources().getDimensionPixelSize(R.dimen.image_button_size_24));
 
         int marginStart = Math.round(context.getResources().getDimension(R.dimen.image_button_margin_start));
         int marginEnd = Math.round(context.getResources().getDimension(R.dimen.image_button_margin_end));
