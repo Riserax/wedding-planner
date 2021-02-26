@@ -53,6 +53,19 @@
     <string name="field_payer">Kto płaci</string>
     <string name="field_title">Tytuł</string>
 
+    <string name="guest_field_accompany">Osoba towarzysząca</string>
+    <string name="guest_field_age">Wiek</string>
+    <string name="guest_field_contact">Kontakt</string>
+    <string name="guest_field_guest">Gość</string>
+    <string name="guest_field_invitation_status">Status zaproszenia</string>
+    <string name="guest_field_invitation_sent">Wysłano</string>
+    <string name="guest_field_invitation_accepted">Zgoda</string>
+    <string name="guest_field_invitation_rejected">Odmowa</string>
+    <string name="guest_field_invitation_awaiting">Oczekuje</string>
+    <string name="guest_field_name_surname">Imię i nazwisko</string>
+    <string name="guest_field_notes">Uwagi</string>
+    <string name="guest_field_table">Stolik</string>
+
     <string name="header_title_budget">Budżet</string>
     <string name="header_title_budget_new">Nowy wydatek</string>
     <string name="header_title_category">Kategoria</string>
