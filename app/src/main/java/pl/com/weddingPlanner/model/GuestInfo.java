@@ -16,9 +16,8 @@ import pl.com.weddingPlanner.view.enums.PresenceEnum;
 public class GuestInfo implements Serializable {
 
     private int itemId;
-    private GuestTypeEnum guestType;
-    private String name;
-    private String surname;
+    private GuestTypeEnum type;
+    private String nameSurname;
     private int tableNumber;
     private PresenceEnum presence;
 }

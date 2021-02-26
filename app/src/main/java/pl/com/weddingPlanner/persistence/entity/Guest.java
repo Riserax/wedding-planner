@@ -1,5 +1,6 @@
 package pl.com.weddingPlanner.persistence.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
@@ -26,13 +27,15 @@ public class Guest implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private Integer id;
-    private String guestType;
-    private String name;
-    private String surname;
-    private Integer age;
-    private String accompany;
+    @NonNull
+    private String type;
+    private Integer connectedWithId;
+    @NonNull
+    private String nameSurname;
+    private String age;
+    private String category;
     private Integer tableNumber;
     private String presence;
     private String contact;
-    private String comments;
+    private String notes;
 }

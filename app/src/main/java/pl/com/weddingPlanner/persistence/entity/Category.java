@@ -25,7 +25,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Category implements Serializable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private Integer id;
     @NonNull
     private String name;

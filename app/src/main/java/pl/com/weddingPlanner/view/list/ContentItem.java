@@ -48,9 +48,9 @@ public class ContentItem extends ListItem implements Serializable {
     public static ContentItem of(GuestInfo info) {
         return ContentItem.builder()
                 .itemId(info.getItemId())
-                .mainCaption(info.getName() + " " + info.getSurname())
+                .mainCaption(info.getNameSurname())
                 .mainCaptionColor(R.color.black)
-                .leftIconId(getLeftIconId(info.getGuestType()))
+                .leftIconId(getLeftIconId(info.getType()))
                 .leftIconColor(R.color.colorPrimaryDark)
                 .build();
     }
@@ -80,7 +80,7 @@ public class ContentItem extends ListItem implements Serializable {
 
     private static int getLeftIconId(GuestTypeEnum guestType) {
         switch (guestType) {
-            case ACCOMPANYING:
+            case ACCOMPANY:
                 return R.drawable.ic_person_add;
             case GUEST:
             default:

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
+import pl.com.weddingPlanner.persistence.entity.Guest;
 import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.SubTask;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         insertSubTasks();
         insertExpenses();
         insertPayments();
+        insertGuests();
     }
 
     private void insertCategories() {
@@ -367,5 +369,31 @@ public class MainActivity extends AppCompatActivity {
 
         DAOUtil.insertPayment(this, payment1);
         DAOUtil.insertPayment(this, payment2);
+    }
+
+    private void insertGuests() {
+        Guest guest1 = Guest.builder()
+                .type("GUEST")
+                .nameSurname("Jan Kowalski")
+                .tableNumber(1)
+                .build();
+
+        Guest guest2 = Guest.builder()
+                .type("GUEST")
+                .connectedWithId(3)
+                .nameSurname("Adam Nowak")
+                .tableNumber(1)
+                .build();
+
+        Guest accompany1 = Guest.builder()
+                .type("ACCOMPANY")
+                .connectedWithId(2)
+                .nameSurname("Krystyna Adamek")
+                .tableNumber(1)
+                .build();
+
+        DAOUtil.insertGuest(this, guest1);
+        DAOUtil.insertGuest(this, guest2);
+        DAOUtil.insertGuest(this, accompany1);
     }
 }
