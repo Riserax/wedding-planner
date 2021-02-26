@@ -23,7 +23,7 @@ import pl.com.weddingPlanner.databinding.FragmentGuestsListBinding;
 import pl.com.weddingPlanner.model.GuestInfo;
 import pl.com.weddingPlanner.persistence.entity.Guest;
 import pl.com.weddingPlanner.util.DAOUtil;
-import pl.com.weddingPlanner.view.enums.GuestTypeEnum;
+import pl.com.weddingPlanner.enums.GuestTypeEnum;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.ListItem;
 import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;

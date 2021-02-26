@@ -29,7 +29,7 @@ import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.dialog.DateDialog;
 import pl.com.weddingPlanner.view.dialog.QuestionDialog;
 import pl.com.weddingPlanner.view.dialog.SingleSelectionListDialog;
-import pl.com.weddingPlanner.view.enums.StateEnum;
+import pl.com.weddingPlanner.enums.StateEnum;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
 import pl.com.weddingPlanner.view.util.FormatUtil;
 import pl.com.weddingPlanner.view.util.PersonUtil;

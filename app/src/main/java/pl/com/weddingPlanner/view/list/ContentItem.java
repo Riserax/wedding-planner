@@ -13,8 +13,8 @@ import pl.com.weddingPlanner.model.ExpenseInfo;
 import pl.com.weddingPlanner.model.GuestInfo;
 import pl.com.weddingPlanner.model.PaymentInfo;
 import pl.com.weddingPlanner.model.TaskInfo;
-import pl.com.weddingPlanner.view.enums.GuestTypeEnum;
-import pl.com.weddingPlanner.view.enums.StateEnum;
+import pl.com.weddingPlanner.enums.GuestTypeEnum;
+import pl.com.weddingPlanner.enums.StateEnum;
 import pl.com.weddingPlanner.view.util.FormatUtil;
 import pl.com.weddingPlanner.view.util.ResourceUtil;
 

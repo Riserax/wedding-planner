@@ -6,8 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.com.weddingPlanner.view.enums.GuestTypeEnum;
-import pl.com.weddingPlanner.view.enums.PresenceEnum;
+import pl.com.weddingPlanner.enums.GuestTypeEnum;
+import pl.com.weddingPlanner.enums.PresenceEnum;
 
 @Data
 @Builder

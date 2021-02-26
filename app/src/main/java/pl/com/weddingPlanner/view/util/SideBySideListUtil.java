@@ -22,9 +22,9 @@ import pl.com.weddingPlanner.util.DebouncedOnClickListener;
 import pl.com.weddingPlanner.util.Logger;
 import pl.com.weddingPlanner.view.budget.BudgetCategoriesFragment;
 import pl.com.weddingPlanner.view.budget.BudgetCategoryActivity;
-import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
-import pl.com.weddingPlanner.view.enums.MoreEnum;
-import pl.com.weddingPlanner.view.enums.MoreResource;
+import pl.com.weddingPlanner.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.MoreEnum;
+import pl.com.weddingPlanner.enums.MoreResource;
 import pl.com.weddingPlanner.view.tasks.TasksCategoriesFragment;
 import pl.com.weddingPlanner.view.tasks.TasksCategoryActivity;
 

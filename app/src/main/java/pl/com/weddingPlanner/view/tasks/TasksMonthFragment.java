@@ -28,7 +28,7 @@ import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.util.DateUtil;
-import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.HeaderItem;
 import pl.com.weddingPlanner.view.list.ListItem;

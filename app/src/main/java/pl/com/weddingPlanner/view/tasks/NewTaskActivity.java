@@ -32,7 +32,7 @@ import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.dialog.DateDialog;
 import pl.com.weddingPlanner.view.dialog.PeopleDialog;
 import pl.com.weddingPlanner.view.dialog.SingleSelectionListDialog;
-import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskBookmarksDialog;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskTimeDialog;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;

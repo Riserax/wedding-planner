@@ -27,7 +27,7 @@ import pl.com.weddingPlanner.model.PaymentInfo;
 import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.util.DAOUtil;
-import pl.com.weddingPlanner.view.enums.StateEnum;
+import pl.com.weddingPlanner.enums.StateEnum;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.HeaderItem;
 import pl.com.weddingPlanner.view.list.ListItem;

@@ -14,8 +14,8 @@ import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.SubTask;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
-import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
-import pl.com.weddingPlanner.view.enums.StateEnum;
+import pl.com.weddingPlanner.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.StateEnum;
 
 import static pl.com.weddingPlanner.view.util.ResourceUtil.CATEGORY_OTHER;
 
