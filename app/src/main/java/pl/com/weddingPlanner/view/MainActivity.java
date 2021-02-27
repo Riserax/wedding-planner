@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import pl.com.weddingPlanner.persistence.entity.AgeRange;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
@@ -12,6 +13,7 @@ import pl.com.weddingPlanner.persistence.entity.Guest;
 import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.SubTask;
+import pl.com.weddingPlanner.persistence.entity.Table;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.enums.CategoryTypeEnum;
@@ -51,12 +53,15 @@ public class MainActivity extends AppCompatActivity {
         insertSubTasks();
         insertExpenses();
         insertPayments();
+        insertAgeRanges();
+        insertTables();
         insertGuests();
     }
 
     private void insertCategories() {
         insertTasksCategories();
         insertBudgetCategories();
+        insertGuestsCategories();
         insertSubcontractorsCategories();
     }
 
@@ -155,6 +160,37 @@ public class MainActivity extends AppCompatActivity {
         DAOUtil.insertCategory(this, categoryBudget4);
         DAOUtil.insertCategory(this, categoryBudget5);
         DAOUtil.insertCategory(this, categoryBudget6);
+    }
+
+    private void insertGuestsCategories() {
+        Category categoryGuests1 = Category.builder()
+                .name("Rodzina Młodej Pary")
+                .type(CategoryTypeEnum.GUESTS.name())
+                .iconId("ic_dashboard")
+                .build();
+
+        Category categoryGuests2 = Category.builder()
+                .name("Znajomi Młodej Pary")
+                .type(CategoryTypeEnum.GUESTS.name())
+                .iconId("ic_dashboard")
+                .build();
+
+        Category categoryGuests3 = Category.builder()
+                .name("Osoby towarzyszące")
+                .type(CategoryTypeEnum.GUESTS.name())
+                .iconId("ic_dashboard")
+                .build();
+
+        Category categoryGuests4 = Category.builder()
+                .name("Podwykonawcy")
+                .type(CategoryTypeEnum.GUESTS.name())
+                .iconId("ic_dashboard")
+                .build();
+
+        DAOUtil.insertCategory(this, categoryGuests1);
+        DAOUtil.insertCategory(this, categoryGuests2);
+        DAOUtil.insertCategory(this, categoryGuests3);
+        DAOUtil.insertCategory(this, categoryGuests4);
     }
 
     private void insertSubcontractorsCategories() {
@@ -371,9 +407,74 @@ public class MainActivity extends AppCompatActivity {
         DAOUtil.insertPayment(this, payment2);
     }
 
+    private void insertAgeRanges() {
+        AgeRange ageRange0 = AgeRange.builder()
+                .range("1-5")
+                .build();
+
+        AgeRange ageRange1 = AgeRange.builder()
+                .range("6-10")
+                .build();
+
+        AgeRange ageRange2 = AgeRange.builder()
+                .range("11-14")
+                .build();
+
+        AgeRange ageRange3 = AgeRange.builder()
+                .range("15-18")
+                .build();
+
+        AgeRange ageRange4 = AgeRange.builder()
+                .range("19-25")
+                .build();
+
+        AgeRange ageRange5 = AgeRange.builder()
+                .range("26-35")
+                .build();
+
+        AgeRange ageRange6 = AgeRange.builder()
+                .range("36-45")
+                .build();
+
+        AgeRange ageRange7 = AgeRange.builder()
+                .range("46-60")
+                .build();
+
+        AgeRange ageRange8 = AgeRange.builder()
+                .range("60+")
+                .build();
+
+        DAOUtil.insertAgeRange(this, ageRange0);
+        DAOUtil.insertAgeRange(this, ageRange1);
+        DAOUtil.insertAgeRange(this, ageRange2);
+        DAOUtil.insertAgeRange(this, ageRange3);
+        DAOUtil.insertAgeRange(this, ageRange4);
+        DAOUtil.insertAgeRange(this, ageRange5);
+        DAOUtil.insertAgeRange(this, ageRange6);
+        DAOUtil.insertAgeRange(this, ageRange7);
+        DAOUtil.insertAgeRange(this, ageRange8);
+    }
+
+    private void insertTables() {
+        Table table1 = Table.builder()
+                .number(1)
+                .name("Stół Młodej Pary")
+                .capacity(2)
+                .build();
+
+        Table table2 = Table.builder()
+                .number(2)
+                .capacity(10)
+                .build();
+
+        DAOUtil.insertTable(this, table1);
+        DAOUtil.insertTable(this, table2);
+    }
+
     private void insertGuests() {
         Guest guest1 = Guest.builder()
                 .type("GUEST")
+                .connectedWithId(0)
                 .nameSurname("Jan Kowalski")
                 .tableNumber(1)
                 .build();
@@ -388,8 +489,13 @@ public class MainActivity extends AppCompatActivity {
         Guest accompany1 = Guest.builder()
                 .type("ACCOMPANY")
                 .connectedWithId(2)
-                .nameSurname("Krystyna Adamek")
-                .tableNumber(1)
+                .nameSurname("Krystyna Uzupełniona")
+                .ageRange("19-25")
+                .category("Osoby towarzyszące")
+                .tableNumber(2)
+                .presence("AWAITING")
+                .contact("tel: 666 777 888, mail: krysia@poczta.pl")
+                .notes("Vege, no-gluten, uczulona na orzechy")
                 .build();
 
         DAOUtil.insertGuest(this, guest1);

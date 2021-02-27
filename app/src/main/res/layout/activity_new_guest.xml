@@ -26,7 +26,10 @@
                 android:id="@+id/components_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/components_layout_padding"
+                android:paddingTop="20dp"
+                android:paddingBottom="@dimen/components_layout_padding"
+                android:paddingStart="@dimen/components_layout_padding"
+                android:paddingEnd="@dimen/components_layout_padding"
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -112,6 +115,35 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/chosen_guest_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="-10dp"
+                    android:layout_marginBottom="@dimen/field_margin"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="2dp"
+                        android:paddingEnd="5dp"
+                        android:background="@color/gray_F2F2F2"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_info_outline" />
+
+                    <TextView
+                        android:id="@+id/chosen_guest_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/gray_949494"
+                        android:textSize="@dimen/_10sdp" />
+
+                </LinearLayout>
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/age_layout"
                     android:layout_width="match_parent"
@@ -127,7 +159,7 @@
                         android:layout_height="@dimen/image_button_size_24"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
-                        app:srcCompat="@drawable/ic_folder_shared"
+                        app:srcCompat="@drawable/ic_elevator"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/age_name_layout"
                         app:layout_constraintTop_toTopOf="parent"
@@ -333,144 +365,107 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginBottom="@dimen/field_margin"
                         android:text="@string/guest_field_invitation_status"
-                        android:textStyle="bold"
                         android:textColor="@color/gray_949494"
-                        android:textSize="@dimen/field_text_size"/>
+                        android:textSize="@dimen/field_text_size"
+                        android:textStyle="bold"/>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/task_datetime_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/field_margin"
                         android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:id="@+id/sent_layout"
+                        <Button
+                            android:id="@+id/sent_button"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="12dp"
-                            android:background="@drawable/bg_fields"
+                            android:layout_height="@dimen/button_height"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:paddingTop="@dimen/button_padding_top"
+                            android:paddingBottom="@dimen/button_padding_bottom"
+                            android:background="@drawable/button_shape_border_only"
                             android:gravity="center"
-                            android:orientation="vertical"
+                            android:maxLines="3"
+                            android:text="@string/guest_field_invitation_sent"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                            android:textColor="@color/colorPrimaryLight"
+                            android:drawableTop="@drawable/ic_email_read"
+                            android:drawableTint="@color/colorPrimaryLight"
+                            app:autoSizePresetSizes="@array/button_state_type_text_sizes"
+                            app:autoSizeTextType="uniform"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/accepted_layout"
+                            app:layout_constraintEnd_toStartOf="@id/accepted_button"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent">
+                            app:layout_constraintBottom_toBottomOf="parent"/>
 
-                            <ImageButton
-                                android:id="@+id/sent_icon"
-                                android:layout_width="@dimen/image_button_size_24"
-                                android:layout_height="@dimen/image_button_size_24"
-                                android:background="@color/gray_FDFDFD"
-                                android:tint="@color/gray_949494"
-                                app:srcCompat="@drawable/ic_email_read"/>
-
-                            <TextView
-                                android:id="@+id/sent_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/guest_field_invitation_sent"
-                                android:textColor="@color/gray_949494"
-                                android:textSize="@dimen/_12sdp"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/accepted_layout"
+                        <Button
+                            android:id="@+id/accepted_button"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="12dp"
-                            android:background="@drawable/bg_fields"
+                            android:layout_height="@dimen/button_height"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:paddingTop="@dimen/button_padding_top"
+                            android:paddingBottom="@dimen/button_padding_bottom"
+                            android:background="@drawable/button_shape_border_only"
                             android:gravity="center"
-                            android:orientation="vertical"
-                            app:layout_constraintStart_toEndOf="@id/sent_layout"
-                            app:layout_constraintEnd_toStartOf="@id/rejected_layout"
+                            android:maxLines="3"
+                            android:text="@string/guest_field_invitation_accepted"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                            android:textColor="@color/colorPrimaryLight"
+                            android:drawableTop="@drawable/ic_check_circle"
+                            android:drawableTint="@color/colorPrimaryLight"
+                            app:autoSizePresetSizes="@array/button_state_type_text_sizes"
+                            app:autoSizeTextType="uniform"
+                            app:layout_constraintStart_toEndOf="@id/sent_button"
+                            app:layout_constraintEnd_toStartOf="@id/rejected_button"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent">
+                            app:layout_constraintBottom_toBottomOf="parent"/>
 
-                            <ImageButton
-                                android:id="@+id/accepted_icon"
-                                android:layout_width="@dimen/image_button_size_24"
-                                android:layout_height="@dimen/image_button_size_24"
-                                android:background="@color/gray_FDFDFD"
-                                android:tint="@color/gray_949494"
-                                app:srcCompat="@drawable/ic_check_circle"/>
-
-                            <TextView
-                                android:id="@+id/accepted_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/guest_field_invitation_accepted"
-                                android:textColor="@color/gray_949494"
-                                android:textSize="@dimen/_12sdp"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/rejected_layout"
+                        <Button
+                            android:id="@+id/rejected_button"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="12dp"
-                            android:background="@drawable/bg_fields"
+                            android:layout_height="@dimen/button_height"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:paddingTop="@dimen/button_padding_top"
+                            android:paddingBottom="@dimen/button_padding_bottom"
+                            android:background="@drawable/button_shape_border_only"
                             android:gravity="center"
-                            android:orientation="vertical"
-                            app:layout_constraintStart_toEndOf="@id/accepted_layout"
-                            app:layout_constraintEnd_toStartOf="@id/awaiting_layout"
+                            android:maxLines="3"
+                            android:text="@string/guest_field_invitation_rejected"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                            android:textColor="@color/colorPrimaryLight"
+                            android:drawableTop="@drawable/ic_cancel_circle"
+                            android:drawableTint="@color/colorPrimaryLight"
+                            app:autoSizePresetSizes="@array/button_state_type_text_sizes"
+                            app:autoSizeTextType="uniform"
+                            app:layout_constraintStart_toEndOf="@id/accepted_button"
+                            app:layout_constraintEnd_toStartOf="@id/awaiting_button"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent">
+                            app:layout_constraintBottom_toBottomOf="parent"/>
 
-                            <ImageButton
-                                android:id="@+id/rejected_icon"
-                                android:layout_width="@dimen/image_button_size_24"
-                                android:layout_height="@dimen/image_button_size_24"
-                                android:background="@color/gray_FDFDFD"
-                                android:tint="@color/gray_949494"
-                                app:srcCompat="@drawable/ic_cancel_circle"/>
-
-                            <TextView
-                                android:id="@+id/rejected_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/guest_field_invitation_rejected"
-                                android:textColor="@color/gray_949494"
-                                android:textSize="@dimen/_12sdp"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/awaiting_layout"
+                        <Button
+                            android:id="@+id/awaiting_button"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="12dp"
-                            android:background="@drawable/bg_fields"
+                            android:layout_height="@dimen/button_height"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:paddingTop="@dimen/button_padding_top"
+                            android:paddingBottom="@dimen/button_padding_bottom"
+                            android:background="@drawable/button_shape_border_only"
                             android:gravity="center"
-                            android:orientation="vertical"
-                            app:layout_constraintStart_toEndOf="@id/rejected_layout"
+                            android:maxLines="3"
+                            android:text="@string/guest_field_invitation_awaiting"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                            android:textColor="@color/colorPrimaryLight"
+                            android:drawableTop="@drawable/ic_help_circle"
+                            android:drawableTint="@color/colorPrimaryLight"
+                            app:autoSizePresetSizes="@array/button_state_type_text_sizes"
+                            app:autoSizeTextType="uniform"
+                            app:layout_constraintStart_toEndOf="@id/rejected_button"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent">
-
-                            <ImageButton
-                                android:id="@+id/awaiting_icon"
-                                android:layout_width="@dimen/image_button_size_24"
-                                android:layout_height="@dimen/image_button_size_24"
-                                android:background="@color/gray_FDFDFD"
-                                android:tint="@color/gray_949494"
-                                app:srcCompat="@drawable/ic_help_circle"/>
-
-                            <TextView
-                                android:id="@+id/awaiting_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/guest_field_invitation_awaiting"
-                                android:textColor="@color/gray_949494"
-                                android:textSize="@dimen/_12sdp"/>
-
-                        </LinearLayout>
+                            app:layout_constraintBottom_toBottomOf="parent"/>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

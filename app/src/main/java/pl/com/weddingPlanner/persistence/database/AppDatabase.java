@@ -6,6 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import pl.com.weddingPlanner.persistence.dao.AgeRangeDAO;
 import pl.com.weddingPlanner.persistence.dao.BookmarkDAO;
 import pl.com.weddingPlanner.persistence.dao.CategoryDAO;
 import pl.com.weddingPlanner.persistence.dao.ExpenseDAO;
@@ -13,7 +14,9 @@ import pl.com.weddingPlanner.persistence.dao.GuestDAO;
 import pl.com.weddingPlanner.persistence.dao.PaymentDAO;
 import pl.com.weddingPlanner.persistence.dao.PersonDAO;
 import pl.com.weddingPlanner.persistence.dao.SubTaskDAO;
+import pl.com.weddingPlanner.persistence.dao.TableDAO;
 import pl.com.weddingPlanner.persistence.dao.TaskDAO;
+import pl.com.weddingPlanner.persistence.entity.AgeRange;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
@@ -21,10 +24,11 @@ import pl.com.weddingPlanner.persistence.entity.Guest;
 import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.SubTask;
+import pl.com.weddingPlanner.persistence.entity.Table;
 import pl.com.weddingPlanner.persistence.entity.Task;
 
 @Database(entities = {Task.class, Category.class, SubTask.class, Bookmark.class, Person.class, Expense.class,
-        Payment.class, Guest.class}, version = 1)
+        Payment.class, Guest.class, AgeRange.class, Table.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "weddingPlannerDB";
@@ -38,6 +42,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract ExpenseDAO expenseDAO();
     public abstract PaymentDAO paymentDAO();
     public abstract GuestDAO guestDAO();
+    public abstract AgeRangeDAO ageRangeDAO();
+    public abstract TableDAO tableDAO();
 
     public static AppDatabase getInstance(final Context context) {
 

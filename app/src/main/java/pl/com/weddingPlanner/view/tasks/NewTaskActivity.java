@@ -194,10 +194,10 @@ public class NewTaskActivity extends BaseActivity {
                 } else {
                     Toast toast;
                     if (newTask.getTitle().isEmpty()) {
-                        toast = Toast.makeText(NewTaskActivity.this, "Nazwa nie może być pusta!", Toast.LENGTH_LONG);
+                        toast = Toast.makeText(NewTaskActivity.this, "Nazwa nie może być pusta", Toast.LENGTH_LONG);
                         toast.show();
                     } else if (newTask.getDate().isEmpty()) {
-                        toast = Toast.makeText(NewTaskActivity.this, "Data nie może być pusta!", Toast.LENGTH_LONG);
+                        toast = Toast.makeText(NewTaskActivity.this, "Data nie może być pusta", Toast.LENGTH_LONG);
                         toast.show();
                     }
                 }

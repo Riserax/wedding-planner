@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.IdRes;
@@ -130,12 +131,24 @@ public class BaseActivity extends AppCompatActivity {
 
     public void setFieldText(String text, TextView textView) {
         if (!text.isEmpty()) {
-            textView.setText(text);
-            setTitleVisibility(textView, true);
+            if (R.id.chosen_guest_info == textView.getId()) {
+                setInfoForChosenGuest(text);
+            } else {
+                textView.setText(text);
+                setTitleVisibility(textView, true);
+            }
         } else {
             setDefaultFieldName(textView);
             setTitleVisibility(textView, false);
         }
+    }
+
+    private void setInfoForChosenGuest(String text) {
+        LinearLayout chosenGuestLayout = findViewById(R.id.chosen_guest_layout);
+        TextView chosenGuestInfo = findViewById(R.id.chosen_guest_info);
+
+        chosenGuestLayout.setVisibility(View.VISIBLE);
+        chosenGuestInfo.setText(getString(R.string.guest_field_accompany_info, text));
     }
 
     private void setTitleVisibility(TextView view, boolean visible) {
@@ -155,6 +168,14 @@ public class BaseActivity extends AppCompatActivity {
             case R.id.payer_name:
                 TextView payerTitle = findViewById(R.id.payer_title);
                 payerTitle.setVisibility(visible ? View.VISIBLE : View.GONE);
+                break;
+            case R.id.age_name:
+                TextView ageTitle = findViewById(R.id.age_title);
+                ageTitle.setVisibility(visible ? View.VISIBLE : View.GONE);
+                break;
+            case R.id.table_name:
+                TextView tableTitle = findViewById(R.id.table_title);
+                tableTitle.setVisibility(visible ? View.VISIBLE : View.GONE);
                 break;
         }
     }

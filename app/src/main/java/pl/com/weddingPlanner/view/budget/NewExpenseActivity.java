@@ -235,9 +235,8 @@ public class NewExpenseActivity extends BaseActivity {
                         startActivity(intent);
                     }
                 } else {
-                    Toast toast;
                     if (newExpense.getTitle().isEmpty()) {
-                        toast = Toast.makeText(NewExpenseActivity.this, "Nazwa nie może być pusta!", Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(NewExpenseActivity.this, "Nazwa nie może być pusta", Toast.LENGTH_LONG);
                         toast.show();
                     }
                 }

@@ -263,10 +263,10 @@ public class NewPaymentActivity extends BaseActivity {
                 } else {
                     Toast toast;
                     if (newPayment.getTitle().isEmpty()) {
-                        toast = Toast.makeText(NewPaymentActivity.this, "Tytuł nie może być pusty!", Toast.LENGTH_LONG);
+                        toast = Toast.makeText(NewPaymentActivity.this, "Tytuł nie może być pusty", Toast.LENGTH_LONG);
                         toast.show();
                     } else if (newPayment.getDate().isEmpty()) {
-                        toast = Toast.makeText(NewPaymentActivity.this, "Data nie może być pusta!", Toast.LENGTH_LONG);
+                        toast = Toast.makeText(NewPaymentActivity.this, "Data nie może być pusta", Toast.LENGTH_LONG);
                         toast.show();
                     }
                 }
