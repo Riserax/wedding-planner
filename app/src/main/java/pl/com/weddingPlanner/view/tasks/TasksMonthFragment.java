@@ -28,7 +28,7 @@ import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.util.DateUtil;
-import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.HeaderItem;
 import pl.com.weddingPlanner.view.list.ListItem;
@@ -143,11 +143,11 @@ public class TasksMonthFragment extends Fragment {
             }
         }
 
-        List<ListItem> listItems = prepareAccountsInfoList(toReturn, adapter.getItems());
+        List<ListItem> listItems = prepareTasksInfoList(toReturn, adapter.getItems());
         adapter.addItems(listItems);
     }
 
-    private List<ListItem> prepareAccountsInfoList(List<TaskInfo> taskInfoList, List<ListItem> list) {
+    private List<ListItem> prepareTasksInfoList(List<TaskInfo> taskInfoList, List<ListItem> list) {
         List<ListItem> toReturn = new ArrayList<>();
 
         for (TaskInfo taskInfo : taskInfoList) {

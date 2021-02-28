@@ -30,7 +30,7 @@ import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.dialog.PeopleDialog;
 import pl.com.weddingPlanner.view.dialog.SingleSelectionListDialog;
-import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
 import pl.com.weddingPlanner.view.util.FormatUtil;
 import pl.com.weddingPlanner.view.util.PersonUtil;
@@ -235,9 +235,8 @@ public class NewExpenseActivity extends BaseActivity {
                         startActivity(intent);
                     }
                 } else {
-                    Toast toast;
                     if (newExpense.getTitle().isEmpty()) {
-                        toast = Toast.makeText(NewExpenseActivity.this, "Nazwa nie może być pusta!", Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(NewExpenseActivity.this, "Nazwa nie może być pusta", Toast.LENGTH_LONG);
                         toast.show();
                     }
                 }

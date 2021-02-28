@@ -23,19 +23,13 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Guest implements Serializable {
+public class Table implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private Integer id;
     @NonNull
-    private String type;
-    private Integer connectedWithId;
+    private Integer number;
+    private String name;
     @NonNull
-    private String nameSurname;
-    private String ageRange;
-    private String category;
-    private Integer tableNumber;
-    private String presence;
-    private String contact;
-    private String notes;
+    private Integer capacity;
 }

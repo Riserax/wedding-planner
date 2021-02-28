@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.view.enums;
+package pl.com.weddingPlanner.enums;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -13,18 +15,21 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.DialogSingleSelectionListBinding;
+import pl.com.weddingPlanner.persistence.entity.AgeRange;
 import pl.com.weddingPlanner.persistence.entity.Category;
+import pl.com.weddingPlanner.persistence.entity.Guest;
 import pl.com.weddingPlanner.persistence.entity.Person;
+import pl.com.weddingPlanner.persistence.entity.Table;
 import pl.com.weddingPlanner.view.BaseActivity;
 
 public class SingleSelectionListDialog extends CustomAlertDialog {
 
-    private DialogSingleSelectionListBinding binding;
+    private final DialogSingleSelectionListBinding binding;
 
     private Object listObject;
     private Map<Integer, String> positions;
 
-    public SingleSelectionListDialog(BaseActivity activity, List positionsList, int headerCaptionId) {
+    public SingleSelectionListDialog(BaseActivity activity, List<?> positionsList, int headerCaptionId) {
         super(activity, R.layout.dialog_single_selection_list);
 
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_single_selection_list, null, false);
@@ -43,7 +48,7 @@ public class SingleSelectionListDialog extends CustomAlertDialog {
         binding.header.setText(headerCaptionId);
     }
 
-    private void setAllPositions(List positionsList) {
+    private void setAllPositions(List<?> positionsList) {
         Map<Integer, String> positions = new LinkedHashMap<>();
 
         int id = 0;
@@ -56,6 +61,18 @@ public class SingleSelectionListDialog extends CustomAlertDialog {
             } else if (object instanceof Person) {
                 Person category = (Person) object;
                 positions.put(id++, category.getName());
+            } else if (object instanceof AgeRange) {
+                AgeRange ageRange = (AgeRange) object;
+                positions.put(id++, ageRange.getRange());
+            } else if (object instanceof Table) {
+                Table table = (Table) object;
+                String tableName = StringUtils.isNotBlank(table.getName()) ? ", " + table.getName() : StringUtils.EMPTY;
+                String capacity = ", miejsca: " + table.getCapacity().toString();
+                String positionText = "Stół nr " + table.getNumber() + tableName + capacity;
+                positions.put(id++, positionText);
+            } else if (object instanceof Guest) {
+                Guest guest = (Guest) object;
+                positions.put(id++, guest.getNameSurname());
             }
         }
 
@@ -84,6 +101,12 @@ public class SingleSelectionListDialog extends CustomAlertDialog {
 
         if (listObject instanceof Category) {
             textView = activity.findViewById(R.id.category_name);
+        } else if (listObject instanceof AgeRange) {
+            textView = activity.findViewById(R.id.age_name);
+        } else if (listObject instanceof Table) {
+            textView = activity.findViewById(R.id.table_name);
+        } else if (listObject instanceof Guest) {
+            textView = activity.findViewById(R.id.chosen_guest_info);
         } else {
             textView = activity.findViewById(R.id.payer_name);
         }

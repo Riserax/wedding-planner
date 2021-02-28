@@ -2,24 +2,573 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray_F2F2F2">
+        android:background="@color/gray_F2F2F2"
+        android:orientation="vertical">
 
         <include android:id="@+id/toolbar_layout"
             layout="@layout/toolbar" />
 
-        <TextView
-            android:id="@+id/message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Dodaj gościa"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <ScrollView
+            android:id="@+id/guest_root_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:layout_marginTop="-8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:weightSum="2">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:id="@+id/components_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:paddingBottom="@dimen/components_layout_padding"
+                android:paddingStart="@dimen/components_layout_padding"
+                android:paddingEnd="@dimen/components_layout_padding"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/guest_name_surname_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
+                    android:background="@drawable/bg_fields">
+
+                    <ImageButton
+                        android:id="@+id/guest_name_surname_icon"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_edit"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/guest_name_surname"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <EditText
+                        android:id="@+id/guest_name_surname"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/edit_text_padding"
+                        android:maxLength="100"
+                        android:inputType="text"
+                        android:hint="@string/guest_field_name_surname"
+                        android:textSize="@dimen/field_text_size"
+                        android:textColorHint="@color/gray_949494"
+                        android:textColor="@color/gray_949494"
+                        android:background="@color/gray_FDFDFD"
+                        app:layout_constraintStart_toEndOf="@id/guest_name_surname_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/guest_type_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/field_margin">
+
+                    <Button
+                        android:id="@+id/guest_button"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/field_height"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/field_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_shape_light"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="@string/guest_field_guest"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                        android:textStyle="bold"
+                        android:textColor="@color/white_FFFFFF"
+                        app:autoSizePresetSizes="@array/button_state_type_text_sizes"
+                        app:autoSizeTextType="uniform" />
+
+                    <Button
+                        android:id="@+id/accompany_button"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/field_height"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/field_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_shape_border_only"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="@string/guest_field_accompany"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryLight"
+                        app:autoSizePresetSizes="@array/button_state_type_text_sizes"
+                        app:autoSizeTextType="uniform" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/chosen_guest_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="-10dp"
+                    android:layout_marginBottom="@dimen/field_margin"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="2dp"
+                        android:paddingEnd="5dp"
+                        android:background="@color/gray_F2F2F2"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_info_outline" />
+
+                    <TextView
+                        android:id="@+id/chosen_guest_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/gray_949494"
+                        android:textSize="@dimen/_10sdp" />
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/age_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
+                    android:background="@drawable/bg_fields">
+
+                    <ImageButton
+                        android:id="@+id/age_icon"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_elevator"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/age_name_layout"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/age_name_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toEndOf="@id/age_icon"
+                        app:layout_constraintEnd_toStartOf="@id/age_arrow_right"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" >
+
+                        <TextView
+                            android:id="@+id/age_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="@dimen/text_view_padding"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/guest_field_age"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size_small"
+                            android:visibility="gone"/>
+
+                        <TextView
+                            android:id="@+id/age_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="@dimen/text_view_padding"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/guest_field_age"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"
+                            android:singleLine="true"
+                            android:ellipsize="end"/>
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/age_arrow_right"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_arrow_right_keyboard"
+                        app:layout_constraintStart_toEndOf="@id/age_name_layout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/category_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
+                    android:background="@drawable/bg_fields">
+
+                    <ImageButton
+                        android:id="@+id/category_icon"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_dashboard"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/category_name_layout"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/category_name_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toEndOf="@id/category_icon"
+                        app:layout_constraintEnd_toStartOf="@id/category_arrow_right"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" >
+
+                        <TextView
+                            android:id="@+id/category_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="@dimen/text_view_padding"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/field_category"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size_small"
+                            android:visibility="gone"/>
+
+                        <TextView
+                            android:id="@+id/category_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="@dimen/text_view_padding"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/field_category"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"/>
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/category_arrow_right"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_arrow_right_keyboard"
+                        app:layout_constraintStart_toEndOf="@id/category_name_layout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/table_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
+                    android:background="@drawable/bg_fields">
+
+                    <ImageButton
+                        android:id="@+id/table_icon"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_event_seat"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/table_name_layout"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/table_name_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toEndOf="@id/table_icon"
+                        app:layout_constraintEnd_toStartOf="@id/table_arrow_right"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" >
+
+                        <TextView
+                            android:id="@+id/table_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="@dimen/text_view_padding"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/guest_field_table"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size_small"
+                            android:visibility="gone"/>
+
+                        <TextView
+                            android:id="@+id/table_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="@dimen/text_view_padding"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/guest_field_table"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"
+                            android:singleLine="true"
+                            android:ellipsize="end"/>
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/table_arrow_right"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_arrow_right_keyboard"
+                        app:layout_constraintStart_toEndOf="@id/table_name_layout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/invitation_status_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/status_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginBottom="@dimen/field_margin"
+                        android:text="@string/guest_field_invitation_status"
+                        android:textColor="@color/gray_949494"
+                        android:textSize="@dimen/field_text_size"
+                        android:textStyle="bold"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/field_margin"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/sent_button"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/button_height"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:paddingTop="@dimen/button_padding_top"
+                            android:paddingBottom="@dimen/button_padding_bottom"
+                            android:background="@drawable/button_shape_border_only"
+                            android:gravity="center"
+                            android:maxLines="3"
+                            android:text="@string/guest_field_invitation_sent"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                            android:textColor="@color/colorPrimaryLight"
+                            android:drawableTop="@drawable/ic_email_read"
+                            android:drawableTint="@color/colorPrimaryLight"
+                            app:autoSizePresetSizes="@array/button_state_type_text_sizes"
+                            app:autoSizeTextType="uniform"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/accepted_button"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                        <Button
+                            android:id="@+id/accepted_button"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/button_height"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:paddingTop="@dimen/button_padding_top"
+                            android:paddingBottom="@dimen/button_padding_bottom"
+                            android:background="@drawable/button_shape_border_only"
+                            android:gravity="center"
+                            android:maxLines="3"
+                            android:text="@string/guest_field_invitation_accepted"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                            android:textColor="@color/colorPrimaryLight"
+                            android:drawableTop="@drawable/ic_check_circle"
+                            android:drawableTint="@color/colorPrimaryLight"
+                            app:autoSizePresetSizes="@array/button_state_type_text_sizes"
+                            app:autoSizeTextType="uniform"
+                            app:layout_constraintStart_toEndOf="@id/sent_button"
+                            app:layout_constraintEnd_toStartOf="@id/rejected_button"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                        <Button
+                            android:id="@+id/rejected_button"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/button_height"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:paddingTop="@dimen/button_padding_top"
+                            android:paddingBottom="@dimen/button_padding_bottom"
+                            android:background="@drawable/button_shape_border_only"
+                            android:gravity="center"
+                            android:maxLines="3"
+                            android:text="@string/guest_field_invitation_rejected"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                            android:textColor="@color/colorPrimaryLight"
+                            android:drawableTop="@drawable/ic_cancel_circle"
+                            android:drawableTint="@color/colorPrimaryLight"
+                            app:autoSizePresetSizes="@array/button_state_type_text_sizes"
+                            app:autoSizeTextType="uniform"
+                            app:layout_constraintStart_toEndOf="@id/accepted_button"
+                            app:layout_constraintEnd_toStartOf="@id/awaiting_button"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                        <Button
+                            android:id="@+id/awaiting_button"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/button_height"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:paddingTop="@dimen/button_padding_top"
+                            android:paddingBottom="@dimen/button_padding_bottom"
+                            android:background="@drawable/button_shape_border_only"
+                            android:gravity="center"
+                            android:maxLines="3"
+                            android:text="@string/guest_field_invitation_awaiting"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                            android:textColor="@color/colorPrimaryLight"
+                            android:drawableTop="@drawable/ic_help_circle"
+                            android:drawableTint="@color/colorPrimaryLight"
+                            app:autoSizePresetSizes="@array/button_state_type_text_sizes"
+                            app:autoSizeTextType="uniform"
+                            app:layout_constraintStart_toEndOf="@id/rejected_button"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/guest_contact_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
+                    android:background="@drawable/bg_fields">
+
+                    <ImageButton
+                        android:id="@+id/guest_contact_icon"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_phone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/guest_contact"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <EditText
+                        android:id="@+id/guest_contact"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/edit_text_padding"
+                        android:maxLength="250"
+                        android:inputType="textMultiLine"
+                        android:hint="@string/guest_field_contact"
+                        android:textSize="@dimen/field_text_size"
+                        android:textColorHint="@color/gray_949494"
+                        android:textColor="@color/gray_949494"
+                        android:background="@color/gray_FDFDFD"
+                        app:layout_constraintStart_toEndOf="@id/guest_contact_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/guest_notes_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
+                    android:background="@drawable/bg_fields">
+
+                    <ImageButton
+                        android:id="@+id/guest_notes_icon"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_description"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/guest_notes"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <EditText
+                        android:id="@+id/guest_notes"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/edit_text_padding"
+                        android:maxLength="250"
+                        android:inputType="textMultiLine"
+                        android:hint="@string/guest_field_notes"
+                        android:textSize="@dimen/field_text_size"
+                        android:textColorHint="@color/gray_949494"
+                        android:textColor="@color/gray_949494"
+                        android:background="@color/gray_FDFDFD"
+                        app:layout_constraintStart_toEndOf="@id/guest_notes_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <Button
+                    android:id="@+id/add_button"
+                    android:layout_width="@dimen/add_button_width"
+                    android:layout_height="@dimen/add_button_height"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/add_button_margin_top"
+                    android:layout_marginBottom="@dimen/add_button_margin_bottom"
+                    android:background="@drawable/bg_button"
+                    android:letterSpacing="0.075"
+                    android:text="@string/button_add"
+                    android:textColor="@color/white_FFFFFF"
+                    android:textSize="@dimen/add_button_text_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
 
 </layout>

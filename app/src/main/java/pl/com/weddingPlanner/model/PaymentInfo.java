@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.com.weddingPlanner.view.enums.StateEnum;
+import pl.com.weddingPlanner.enums.StateEnum;
 
 @Data
 @Builder

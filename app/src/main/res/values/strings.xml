@@ -29,6 +29,9 @@
     <string name="dialog_yes">Tak</string>
     <string name="dialog_no">Nie</string>
     <string name="dialog_category_choice">Wybierz kategorię</string>
+    <string name="dialog_age_choice">Wybierz przedział wiekowy</string>
+    <string name="dialog_guest_choice">Wybierz gościa, dla którego będzie osobą towarzyszącą</string>
+    <string name="dialog_table_choice">Wybierz miejsce</string>
     <string name="dialog_person_choice">Wybierz osobę</string>
     <string name="dialog_task_bookmarks_title">Wybierz etykiety</string>
     <string name="dialog_task_date_title">Wybierz datę</string>
@@ -52,6 +55,20 @@
     <string name="field_name">Nazwa</string>
     <string name="field_payer">Kto płaci</string>
     <string name="field_title">Tytuł</string>
+
+    <string name="guest_field_accompany">Osoba towarzysząca</string>
+    <string name="guest_field_accompany_info">Osoba towarzysząca gościa %1$s</string>
+    <string name="guest_field_age">Przedział wiekowy</string>
+    <string name="guest_field_contact">Kontakt</string>
+    <string name="guest_field_guest">Gość</string>
+    <string name="guest_field_invitation_status">Status zaproszenia</string>
+    <string name="guest_field_invitation_sent">Wysłano</string>
+    <string name="guest_field_invitation_accepted">Zgoda</string>
+    <string name="guest_field_invitation_rejected">Odmowa</string>
+    <string name="guest_field_invitation_awaiting">Oczekuje</string>
+    <string name="guest_field_name_surname">Imię i nazwisko</string>
+    <string name="guest_field_notes">Uwagi</string>
+    <string name="guest_field_table">Miejsce</string>
 
     <string name="header_title_budget">Budżet</string>
     <string name="header_title_budget_new">Nowy wydatek</string>

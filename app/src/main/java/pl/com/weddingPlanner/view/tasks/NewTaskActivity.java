@@ -32,7 +32,7 @@ import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.dialog.DateDialog;
 import pl.com.weddingPlanner.view.dialog.PeopleDialog;
 import pl.com.weddingPlanner.view.dialog.SingleSelectionListDialog;
-import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskBookmarksDialog;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskTimeDialog;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
@@ -194,10 +194,10 @@ public class NewTaskActivity extends BaseActivity {
                 } else {
                     Toast toast;
                     if (newTask.getTitle().isEmpty()) {
-                        toast = Toast.makeText(NewTaskActivity.this, "Nazwa nie może być pusta!", Toast.LENGTH_LONG);
+                        toast = Toast.makeText(NewTaskActivity.this, "Nazwa nie może być pusta", Toast.LENGTH_LONG);
                         toast.show();
                     } else if (newTask.getDate().isEmpty()) {
-                        toast = Toast.makeText(NewTaskActivity.this, "Data nie może być pusta!", Toast.LENGTH_LONG);
+                        toast = Toast.makeText(NewTaskActivity.this, "Data nie może być pusta", Toast.LENGTH_LONG);
                         toast.show();
                     }
                 }

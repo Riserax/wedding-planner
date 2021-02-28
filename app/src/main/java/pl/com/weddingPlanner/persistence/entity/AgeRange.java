@@ -23,19 +23,10 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Guest implements Serializable {
+public class AgeRange implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private Integer id;
     @NonNull
-    private String type;
-    private Integer connectedWithId;
-    @NonNull
-    private String nameSurname;
-    private String ageRange;
-    private String category;
-    private Integer tableNumber;
-    private String presence;
-    private String contact;
-    private String notes;
+    private String range;
 }

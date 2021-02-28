@@ -21,7 +21,9 @@ import java.util.List;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentGuestsListBinding;
 import pl.com.weddingPlanner.model.GuestInfo;
-import pl.com.weddingPlanner.view.enums.GuestTypeEnum;
+import pl.com.weddingPlanner.persistence.entity.Guest;
+import pl.com.weddingPlanner.util.DAOUtil;
+import pl.com.weddingPlanner.enums.GuestTypeEnum;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.ListItem;
 import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
@@ -96,33 +98,25 @@ public class GuestsListFragment extends Fragment {
     }
 
     private void setGuestsList() {
-        List<GuestInfo> guests = new ArrayList<>();
+        List<GuestInfo> toReturn = new ArrayList<>();
+        List<Guest> allGuests = DAOUtil.getAllGuests(requireContext());
 
-        for (int i = 0; i < 3; i++) {
-            GuestInfo guest = GuestInfo.builder()
-                    .itemId(i)
-                    .guestType(GuestTypeEnum.GUEST)
-                    .name("Gość")
-                    .surname(String.valueOf(i))
+        for (Guest guest : allGuests) {
+            GuestInfo guestInfo = GuestInfo.builder()
+                    .itemId(guest.getId())
+                    .type(GuestTypeEnum.valueOf(guest.getType()))
+                    .nameSurname(guest.getNameSurname())
+                    .tableNumber(guest.getTableNumber())
                     .build();
-            guests.add(guest);
+
+            toReturn.add(guestInfo);
         }
 
-        for (int i = 0; i < 3; i++) {
-            GuestInfo guest = GuestInfo.builder()
-                    .itemId(i)
-                    .guestType(GuestTypeEnum.ACCOMPANYING)
-                    .name("Towarzysz")
-                    .surname(String.valueOf(i))
-                    .build();
-            guests.add(guest);
-        }
-
-        List<ListItem> listItems = prepareAccountsInfoList(guests);
+        List<ListItem> listItems = prepareGuestsInfoList(toReturn);
         adapter.addItems(listItems);
     }
 
-    private List<ListItem> prepareAccountsInfoList(List<GuestInfo> guestInfoList) {
+    private List<ListItem> prepareGuestsInfoList(List<GuestInfo> guestInfoList) {
         List<ListItem> toReturn = new ArrayList<>();
 
         for (GuestInfo guestInfo : guestInfoList) {

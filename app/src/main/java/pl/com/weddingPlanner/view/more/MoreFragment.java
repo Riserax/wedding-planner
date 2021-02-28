@@ -16,7 +16,7 @@ import java.util.List;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentMoreBinding;
 import pl.com.weddingPlanner.view.NavigationActivity;
-import pl.com.weddingPlanner.view.enums.MoreEnum;
+import pl.com.weddingPlanner.enums.MoreEnum;
 
 import static pl.com.weddingPlanner.view.util.SideBySideListUtil.renderCategoriesButtons;
 

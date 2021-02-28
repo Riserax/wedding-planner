@@ -20,7 +20,8 @@
             android:text="@string/dialog_category_choice"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textAlignment="center"/>
 
         <ListView
             android:id="@+id/list_view"

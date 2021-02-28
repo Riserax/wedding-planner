@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentTasksCategoriesBinding;
 import pl.com.weddingPlanner.util.DAOUtil;
-import pl.com.weddingPlanner.view.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.CategoryTypeEnum;
 
 import static pl.com.weddingPlanner.view.util.SideBySideListUtil.renderCategoriesButtons;
 
