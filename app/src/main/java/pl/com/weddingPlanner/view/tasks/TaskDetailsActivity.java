@@ -222,7 +222,7 @@ public class TaskDetailsActivity extends BaseActivity {
 
     private void setCategory() {
         binding.categoryIcon.setImageDrawable(getIcon(this, ResourceUtil.getResId(categoryDetails.getIconId(), R.drawable.class)));
-        binding.categoryName.setText(taskDetails.getCategory());
+        binding.categoryName.setText(categoryDetails.getName());
     }
 
     private void setListeners() {

@@ -54,6 +54,18 @@ public class DAOUtil {
         paymentDAO.deleteByExpenseId(expenseId);
     }
 
+    public static void deleteGuest(Context context, Guest guest) {
+        AppDatabase appDatabase = getInstance(context);
+        GuestDAO guestDAO = appDatabase.guestDAO();
+        guestDAO.delete(guest);
+    }
+
+    public static void deleteGuestById(Context context, Integer id) {
+        AppDatabase appDatabase = getInstance(context);
+        GuestDAO guestDAO = appDatabase.guestDAO();
+        guestDAO.deleteById(id);
+    }
+
     public static List<Category> getAllCategoriesByType(Context context, String type) {
         AppDatabase appDatabase = getInstance(context);
         CategoryDAO categoryDAO = appDatabase.categoryDAO();
@@ -190,6 +202,12 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         GuestDAO guestDAO = appDatabase.guestDAO();
         return guestDAO.getAllGuestsWithoutAccompany();
+    }
+
+    public static Guest getGuestById(Context context, Integer id) {
+        AppDatabase appDatabase = getInstance(context);
+        GuestDAO guestDAO = appDatabase.guestDAO();
+        return guestDAO.getById(id);
     }
 
     public static Guest getGuestByNameSurname(Context context, String nameSurname) {

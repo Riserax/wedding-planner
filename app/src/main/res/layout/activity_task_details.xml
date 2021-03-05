@@ -37,7 +37,7 @@
                         android:id="@+id/title_bookmarks_assignees"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/task_field_margin_bottom">
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
 
                         <TextView
                             android:id="@+id/title"
@@ -45,7 +45,6 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
-                            android:text="Troszkę przydługi tytuł zadania, który nie mieści się w jednej linii"
                             android:textColor="@color/gray_555555"
                             android:textSize="@dimen/task_title_text_size"
                             android:textStyle="bold"
@@ -123,23 +122,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/gray_949494"
-                        android:layout_marginBottom="@dimen/task_field_margin_bottom"/>
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom"/>
 
                     <TextView
                         android:id="@+id/description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/task_field_margin_bottom"
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom"
                         android:paddingStart="@dimen/text_view_padding"
                         android:paddingEnd="@dimen/text_view_padding"
-                        android:text="Wielolinijkowy opis zadania, który może mieć maksymalnie 250 znaków, ale ten tyle nie ma, więc muszę go troszkę przeciągnąć, lejąc wodę o niczym."
                         android:textColor="@color/gray_949494"
                         android:textSize="@dimen/task_description_text_size"/>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/task_field_margin_bottom">
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
 
                         <RelativeLayout
                             android:id="@+id/progress_layout"
@@ -194,7 +192,7 @@
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/text_view_padding"
                             android:paddingBottom="@dimen/text_view_padding"
-                            android:paddingStart="@dimen/task_field_margin_bottom"
+                            android:paddingStart="@dimen/details_field_margin_bottom"
                             android:orientation="vertical"
                             app:layout_constraintStart_toEndOf="@id/guideline_progress_info"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -283,7 +281,6 @@
                                         android:layout_height="wrap_content"
                                         android:paddingStart="@dimen/text_view_padding"
                                         android:paddingEnd="@dimen/text_view_padding"
-                                        android:text="2020-12-25"
                                         android:textColor="@color/gray_949494"
                                         android:textSize="@dimen/field_text_size"/>
 
@@ -346,7 +343,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/gray_949494"
-                        android:layout_marginBottom="@dimen/task_field_margin_bottom"/>
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom"/>
 
                     <LinearLayout
                         android:id="@+id/sub_tasks_layout"

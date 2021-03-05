@@ -21,6 +21,9 @@ public interface GuestDAO {
             "   AND connectedWithId = 0")
     List<Guest> getAllGuestsWithoutAccompany();
 
+    @Query("SELECT * FROM guest WHERE id = :id")
+    Guest getById(Integer id);
+
     @Query("SELECT * FROM guest WHERE nameSurname = :nameSurname")
     Guest getByNameSurname(String nameSurname);
 
@@ -29,6 +32,9 @@ public interface GuestDAO {
 
     @Delete
     void delete(Guest guest);
+
+    @Query("DELETE FROM guest WHERE id = :id")
+    void deleteById(Integer id);
 
     @Update
     void merge(Guest guest);

@@ -229,7 +229,7 @@ public class NewGuestActivity extends BaseActivity {
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
 
-                Guest newGuest = getNewTaskData();
+                Guest newGuest = getNewGuestData();
 
                 if (StringUtils.isNotBlank(newGuest.getNameSurname())) {
                     proceedWhenNameSurnameNotBlank(newGuest);
@@ -240,7 +240,7 @@ public class NewGuestActivity extends BaseActivity {
         });
     }
 
-    private Guest getNewTaskData() {
+    private Guest getNewGuestData() {
         String chosenGuestInfo = binding.chosenGuestInfo.getText().toString();
         String ageRange = binding.ageName.getText().toString();
         String category = binding.categoryName.getText().toString();
@@ -308,14 +308,6 @@ public class NewGuestActivity extends BaseActivity {
         return guest == null;
     }
 
-    private void updateGuestConnectedWithId(Integer connectedWIthId) {
-        List<Guest> allGuests = DAOUtil.getAllGuests(getApplicationContext());
-        allGuests.sort((guest1, guest2) -> guest1.getId().compareTo(guest2.getId()));
-
-        Integer lastGuestId = allGuests.get(allGuests.size() - 1).getId();
-        DAOUtil.updateGuestConnectedWithId(getApplicationContext(), lastGuestId, connectedWIthId);
-    }
-
     private void insertGuestAndStartActivity(Guest newGuest) {
         DAOUtil.insertGuest(getApplicationContext(), newGuest);
         updateGuestConnectedWithId(newGuest.getConnectedWithId());
@@ -323,6 +315,14 @@ public class NewGuestActivity extends BaseActivity {
         Intent intent = new Intent(NewGuestActivity.this, GuestsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    private void updateGuestConnectedWithId(Integer connectedWIthId) {
+        List<Guest> allGuests = DAOUtil.getAllGuests(getApplicationContext());
+        allGuests.sort((guest1, guest2) -> guest1.getId().compareTo(guest2.getId()));
+
+        Integer lastGuestId = allGuests.get(allGuests.size() - 1).getId();
+        DAOUtil.updateGuestConnectedWithId(getApplicationContext(), lastGuestId, connectedWIthId);
     }
 
     private void setGuestSelectedAccompanyNotSelected() {

@@ -23,6 +23,8 @@
     <dimen name="checkbox_margin_bottom">5dp</dimen>
     <dimen name="checkbox_margin_start">15dp</dimen>
 
+    <dimen name="details_field_margin_bottom">20dp</dimen>
+
     <dimen name="edit_text_padding">12dp</dimen>
 
     <dimen name="field_height">60dp</dimen>
@@ -71,5 +73,4 @@
     <dimen name="task_no_detail_text_size">13sp</dimen>
     <dimen name="task_assignee_text_size">15</dimen>
     <dimen name="text_view_padding">12dp</dimen>
-    <dimen name="task_field_margin_bottom">20dp</dimen>
 </resources>

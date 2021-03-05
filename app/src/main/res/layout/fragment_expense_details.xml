@@ -34,7 +34,7 @@
                         android:id="@+id/title_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/task_field_margin_bottom">
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
 
                         <TextView
                             android:id="@+id/title_header"
@@ -63,7 +63,6 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:paddingEnd="@dimen/text_view_padding"
-                            android:text="Przykładowa nazwa wydatku"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/task_description_text_size"
                             app:layout_constraintTop_toTopOf="parent"
@@ -77,7 +76,7 @@
                         android:id="@+id/recipient_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/task_field_margin_bottom">
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -114,7 +113,6 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:paddingEnd="@dimen/text_view_padding"
-                            android:text="Sala weselna 'Zielone Wzgórze'"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/task_description_text_size"
                             app:layout_constraintTop_toTopOf="parent"
@@ -128,7 +126,7 @@
                         android:id="@+id/for_what_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/task_field_margin_bottom">
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -165,7 +163,6 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:paddingEnd="@dimen/text_view_padding"
-                            android:text="Za wynajem sali, wyżywienie dla gości, obsługę wesela"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/task_description_text_size"
                             app:layout_constraintTop_toTopOf="parent"
@@ -179,13 +176,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/gray_BCBCBC"
-                        android:layout_marginBottom="@dimen/task_field_margin_bottom"/>
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom"/>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/amount_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/task_field_margin_bottom">
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
 
                         <TextView
                             android:id="@+id/amount_header"
@@ -269,7 +266,6 @@
                                     android:id="@+id/initial_amount"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="25 000,00"
                                     android:textColor="@color/gray_949494"
                                     android:textSize="@dimen/task_description_text_size"/>
 
@@ -294,7 +290,6 @@
                                     android:id="@+id/real_expenses"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="10 000,00"
                                     android:textColor="@color/gray_949494"
                                     android:textSize="@dimen/task_description_text_size"/>
 
@@ -318,7 +313,6 @@
                                     android:id="@+id/awaiting_payments"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="5 000,00"
                                     android:textColor="@color/gray_949494"
                                     android:textSize="@dimen/task_description_text_size"/>
 
@@ -332,12 +326,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/gray_BCBCBC"
-                        android:layout_marginBottom="@dimen/task_field_margin_bottom"/>
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom"/>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/task_field_margin_bottom">
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
 
                         <LinearLayout
                             android:id="@+id/payers_layout"
@@ -388,7 +382,7 @@
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/text_view_padding"
                             android:paddingBottom="@dimen/text_view_padding"
-                            android:paddingStart="@dimen/task_field_margin_bottom"
+                            android:paddingStart="@dimen/details_field_margin_bottom"
                             android:orientation="vertical"
                             app:layout_constraintStart_toEndOf="@id/guideline_info"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -471,7 +465,6 @@
                                         android:id="@+id/edit_date_text"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="2020-12-25 17:15"
                                         android:textColor="@color/gray_949494"
                                         android:textSize="@dimen/field_text_size"/>
 
