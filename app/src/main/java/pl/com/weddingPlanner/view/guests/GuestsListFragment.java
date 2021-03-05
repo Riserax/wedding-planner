@@ -29,6 +29,7 @@ import pl.com.weddingPlanner.view.list.ListItem;
 import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
 import pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView;
 
+import static pl.com.weddingPlanner.view.guests.GuestDetailsActivity.GUEST_ID_EXTRA;
 import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAGE_START;
 
 public class GuestsListFragment extends Fragment {
@@ -59,7 +60,7 @@ public class GuestsListFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(requireContext());
         adapter = new ListRecyclerAdapter(requireContext(), new LinkedList<>(), item -> {
             Intent intent = new Intent(requireContext(), GuestDetailsActivity.class);
-//            intent.putExtra(ACCOUNT_NUMBER, item.getDetailsId()); //TODO put id extra
+            intent.putExtra(GUEST_ID_EXTRA, item.getItemId());
             startActivity(intent);
         });
 

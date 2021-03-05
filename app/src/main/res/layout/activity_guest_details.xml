@@ -2,24 +2,541 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/gray_F2F2F2">
+        android:layout_height="match_parent">
 
-        <include android:id="@+id/toolbar_layout"
-            layout="@layout/toolbar" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/gray_F2F2F2">
 
-        <TextView
-            android:id="@+id/message"
+            <include android:id="@+id/toolbar_layout"
+                layout="@layout/toolbar"/>
+
+            <ScrollView
+                android:id="@+id/task_root_scroll_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="top"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:weightSum="2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar_layout">
+
+                <LinearLayout
+                    android:id="@+id/components_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:paddingTop="@dimen/components_layout_padding"
+                    android:paddingBottom="@dimen/recycler_list_bottom_padding"
+                    android:paddingStart="@dimen/components_layout_padding"
+                    android:paddingEnd="@dimen/components_layout_padding"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/name_surname_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
+
+                        <TextView
+                            android:id="@+id/name_surname_header"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/guest_field_name_surname"
+                            android:textColor="@color/gray_555555"
+                            android:textSize="@dimen/_13sdp"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_name_surname"/>
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_name_surname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.30" />
+
+                        <TextView
+                            android:id="@+id/name_surname"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Grzegorz Brzęczyszczykiewicz"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_name_surname"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/connected_with_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/connected_with_header"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/guest_field_connected_with"
+                            android:textColor="@color/gray_555555"
+                            android:textSize="@dimen/_13sdp"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_connected_with"/>
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_connected_with"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.30" />
+
+                        <TextView
+                            android:id="@+id/connected_with"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_connected_with"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/accompany_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/accompany_header"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/guest_field_accompany"
+                            android:textColor="@color/gray_555555"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            app:autoSizePresetSizes="@array/field_header_text_sizes"
+                            app:autoSizeTextType="uniform"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_accompany"/>
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_accompany"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.30" />
+
+                        <TextView
+                            android:id="@+id/accompany"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_accompany"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/age_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
+
+                        <TextView
+                            android:id="@+id/age_header"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/guest_field_age"
+                            android:textColor="@color/gray_555555"
+                            android:textSize="@dimen/_13sdp"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_age"/>
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_age"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.30" />
+
+                        <TextView
+                            android:id="@+id/age"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="19-25"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_age"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_BCBCBC"
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/category_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
+
+                        <TextView
+                            android:id="@+id/category_header"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/field_category"
+                            android:textColor="@color/gray_555555"
+                            android:textSize="@dimen/_13sdp"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_category"/>
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_category"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.30" />
+
+                        <TextView
+                            android:id="@+id/category"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Przyjaciele Młodej Pary"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_category"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/table_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
+
+                        <TextView
+                            android:id="@+id/table_header"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/guest_field_table"
+                            android:textColor="@color/gray_555555"
+                            android:textSize="@dimen/_13sdp"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_table"/>
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_table"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.30" />
+
+                        <TextView
+                            android:id="@+id/table"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Stół nr 3"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_table"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/invitation_status_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
+
+                        <TextView
+                            android:id="@+id/invitation_status_header"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/guest_field_invitation_status"
+                            android:textColor="@color/gray_555555"
+                            android:textSize="@dimen/_13sdp"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_invitation_status"/>
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_invitation_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.30" />
+
+                        <TextView
+                            android:id="@+id/invitation_status"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Oczekuje"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_invitation_status"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_BCBCBC"
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/contact_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
+
+                        <TextView
+                            android:id="@+id/contact_header"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/guest_field_contact"
+                            android:textColor="@color/gray_555555"
+                            android:textSize="@dimen/_13sdp"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_contact"/>
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_contact"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.30" />
+
+                        <TextView
+                            android:id="@+id/contact"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="tel. 666 777 888\nadres: ul. Długa 3/5, Kraków"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_contact"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/notes_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
+
+                        <TextView
+                            android:id="@+id/notes_header"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/guest_field_notes"
+                            android:textColor="@color/gray_555555"
+                            android:textSize="@dimen/_13sdp"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_notes"/>
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_notes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.30" />
+
+                        <TextView
+                            android:id="@+id/notes"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Vege, bez glutenu, bez laktozy"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_notes"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+            <LinearLayout
+                android:id="@+id/background_fade"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/white_FFFFFF_60"
+                android:translationZ="-1dp"
+                android:elevation="4dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/delete_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Szczegóły gościa"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="bottom|end"
+            android:gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="140dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/delete_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/floating_button_option_margin_top"
+                android:paddingStart="@dimen/floating_button_option_padding_start_end"
+                android:paddingEnd="@dimen/floating_button_option_padding_start_end"
+                android:paddingTop="@dimen/floating_button_option_padding_top"
+                android:paddingBottom="@dimen/floating_button_option_padding_bottom"
+                android:text="@string/guest_details_delete"
+                android:textColor="@color/gray_555555"
+                android:textSize="@dimen/field_text_size"
+                android:textStyle="bold"
+                android:background="@drawable/bg_fields"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/delete_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_delete"
+                android:tint="@color/white_FFFFFF"
+                app:fabSize="mini"
+                app:backgroundTint="@color/colorPrimary"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/edit_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="80dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/floating_button_option_margin_top"
+                android:paddingStart="@dimen/floating_button_option_padding_start_end"
+                android:paddingEnd="@dimen/floating_button_option_padding_start_end"
+                android:paddingTop="@dimen/floating_button_option_padding_top"
+                android:paddingBottom="@dimen/floating_button_option_padding_bottom"
+                android:text="@string/guest_details_edit"
+                android:textColor="@color/gray_555555"
+                android:textSize="@dimen/field_text_size"
+                android:textStyle="bold"
+                android:background="@drawable/bg_fields"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/edit_floating_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_edit"
+                android:tint="@color/white_FFFFFF"
+                app:fabSize="mini"
+                app:backgroundTint="@color/colorPrimary"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/guest_floating_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_menu"
+            android:tint="@color/white_FFFFFF"
+            app:backgroundTint="@color/colorPrimary"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

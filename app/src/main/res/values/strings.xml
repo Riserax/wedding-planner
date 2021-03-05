@@ -56,19 +56,29 @@
     <string name="field_payer">Kto płaci</string>
     <string name="field_title">Tytuł</string>
 
+    <string name="field_lack">Brak</string>
+    <string name="field_not_specified">Nie określono</string>
+
     <string name="guest_field_accompany">Osoba towarzysząca</string>
     <string name="guest_field_accompany_info">Osoba towarzysząca gościa %1$s</string>
     <string name="guest_field_age">Przedział wiekowy</string>
     <string name="guest_field_contact">Kontakt</string>
+    <string name="guest_field_connected_with">Powiązanie</string>
     <string name="guest_field_guest">Gość</string>
+    <string name="guest_field_guest_type">Rodzaj gościa</string>
     <string name="guest_field_invitation_status">Status zaproszenia</string>
     <string name="guest_field_invitation_sent">Wysłano</string>
     <string name="guest_field_invitation_accepted">Zgoda</string>
     <string name="guest_field_invitation_rejected">Odmowa</string>
     <string name="guest_field_invitation_awaiting">Oczekuje</string>
-    <string name="guest_field_name_surname">Imię i nazwisko</string>
+    <string name="guest_field_name_surname">Imię i\u00A0nazwisko</string>
     <string name="guest_field_notes">Uwagi</string>
     <string name="guest_field_table">Miejsce</string>
+
+    <string name="guest_details_delete">Usuń gościa</string>
+    <string name="guest_details_delete_question">Czy na pewno chcesz usunąć tego gościa?</string>
+    <string name="guest_details_delete_question_guest">Czy na pewno chcesz usunąć tego gościa? Wiąże się to z usunięciem osoby towarzyszącej</string>
+    <string name="guest_details_edit">Edytuj gościa</string>
 
     <string name="header_title_budget">Budżet</string>
     <string name="header_title_budget_new">Nowy wydatek</string>
@@ -111,7 +121,6 @@
     <string name="payment_field_info">Dodatkowe informacje</string>
     <string name="payment_field_paid">Opłacona</string>
     <string name="payment_delete_question">Czy na pewno chcesz usunąć tę płatność?</string>
-
 
     <string name="tab_title_tasks_categories">Kategorie</string>
     <string name="tab_title_tasks_months">Miesiące</string>
