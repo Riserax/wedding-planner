@@ -29,7 +29,7 @@ import pl.com.weddingPlanner.view.list.ListItem;
 import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
 import pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView;
 
-import static pl.com.weddingPlanner.view.guests.GuestDetailsActivity.GUEST_ID_EXTRA;
+import static pl.com.weddingPlanner.view.guests.GuestsActivity.GUEST_ID_EXTRA;
 import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAGE_START;
 
 public class GuestsListFragment extends Fragment {

@@ -3,7 +3,6 @@ package pl.com.weddingPlanner.view.guests;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import androidx.databinding.DataBindingUtil;
 
@@ -18,9 +17,10 @@ import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.dialog.QuestionDialog;
 
-public class GuestDetailsActivity extends BaseActivity {
+import static pl.com.weddingPlanner.view.guests.GuestsActivity.GUEST_ID_EXTRA;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
 
-    public static String GUEST_ID_EXTRA = "guestIdExtra";
+public class GuestDetailsActivity extends BaseActivity {
 
     private ActivityGuestDetailsBinding binding;
 
@@ -129,32 +129,49 @@ public class GuestDetailsActivity extends BaseActivity {
 
     private void setListeners() {
         setTaskFloatingButtonListener();
-        setDeleteTaskListener();
+        setDeleteGuestListener();
+        setEditGuestListener();
     }
 
     private void setTaskFloatingButtonListener() {
         binding.guestFloatingButton.setOnClickListener(v -> {
-            LinearLayout deleteLayout = binding.deleteLayout;
-            LinearLayout editLayout = binding.editLayout;
-            LinearLayout backgroundFade = binding.backgroundFade;
-
-            if (deleteLayout.getVisibility() == View.GONE && editLayout.getVisibility() == View.GONE) {
-                deleteLayout.setVisibility(View.VISIBLE);
-                editLayout.setVisibility(View.VISIBLE);
-                backgroundFade.setVisibility(View.VISIBLE);
+            if (binding.deleteLayout.getVisibility() == View.GONE && binding.editLayout.getVisibility() == View.GONE) {
+                showFloatingMenu();
             } else {
-                deleteLayout.setVisibility(View.GONE);
-                editLayout.setVisibility(View.GONE);
-                backgroundFade.setVisibility(View.GONE);
+                hideFloatingMenu();
             }
         });
     }
 
-    private void setDeleteTaskListener() {
+    private void setDeleteGuestListener() {
         binding.deleteLayout.setOnClickListener(v -> {
             int questionResId = isGuest() ? R.string.guest_details_delete_question_guest : R.string.guest_details_delete_question;
             new QuestionDialog(GuestDetailsActivity.this, getString(questionResId)).showDialog();
+            hideFloatingMenu();
         });
+    }
+
+    private void setEditGuestListener() {
+        binding.editLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), NewGuestActivity.class);
+            intent.putExtra(GUEST_ID_EXTRA, guestDetails.getId());
+            intent.putExtra(ACTIVITY_TITLE_EXTRA, R.string.header_title_guest_edit);
+            startActivity(intent);
+
+            hideFloatingMenu();
+        });
+    }
+
+    private void showFloatingMenu() {
+        binding.deleteLayout.setVisibility(View.VISIBLE);
+        binding.editLayout.setVisibility(View.VISIBLE);
+        binding.backgroundFade.setVisibility(View.VISIBLE);
+    }
+
+    private void hideFloatingMenu() {
+        binding.deleteLayout.setVisibility(View.GONE);
+        binding.editLayout.setVisibility(View.GONE);
+        binding.backgroundFade.setVisibility(View.GONE);
     }
 
     @Override

@@ -23,11 +23,11 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentExpensePaymentsBinding;
+import pl.com.weddingPlanner.enums.StateEnum;
 import pl.com.weddingPlanner.model.PaymentInfo;
 import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.util.DAOUtil;
-import pl.com.weddingPlanner.enums.StateEnum;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.HeaderItem;
 import pl.com.weddingPlanner.view.list.ListItem;
@@ -37,9 +37,9 @@ import pl.com.weddingPlanner.view.util.BudgetUtil;
 import pl.com.weddingPlanner.view.util.PersonUtil;
 
 import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA;
-import static pl.com.weddingPlanner.view.budget.NewExpenseActivity.ACTIVITY_TITLE_EXTRA;
 import static pl.com.weddingPlanner.view.list.HeaderItem.getHeaderItemWithDayOfWeek;
 import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAGE_START;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
 
 public class ExpensePaymentsFragment extends Fragment {
 

@@ -38,13 +38,12 @@ import pl.com.weddingPlanner.view.util.PersonUtil;
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
 import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA;
 import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
 import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
 import static pl.com.weddingPlanner.view.util.ResourceUtil.AMOUNT_ZERO;
 import static pl.com.weddingPlanner.view.util.ResourceUtil.CATEGORY_OTHER;
 
 public class NewExpenseActivity extends BaseActivity {
-
-    public static final String ACTIVITY_TITLE_EXTRA = "activityTitleExtra";
 
     private ActivityNewExpenseBinding binding;
 
@@ -70,7 +69,7 @@ public class NewExpenseActivity extends BaseActivity {
         fillFields();
         setValidator();
         setListeners();
-        setButtonEnability(binding.addButton, areFieldsValid());
+        setButtonEnability(binding.addSaveButton, areFieldsValid());
     }
 
     private void getAndSetExtras() {
@@ -82,7 +81,6 @@ public class NewExpenseActivity extends BaseActivity {
         if (expenseId > 0) {
             expenseDetails = DAOUtil.getExpenseById(this, expenseId);
             categoryDetails = DAOUtil.getCategoryByNameAndType(this, expenseDetails.getCategory(), CategoryTypeEnum.BUDGET.name());
-
         }
     }
 
@@ -109,7 +107,7 @@ public class NewExpenseActivity extends BaseActivity {
                 binding.peopleName.setText(payers);
             }
 
-            binding.addButton.setText(getResources().getString(R.string.button_save));
+            binding.addSaveButton.setText(getResources().getString(R.string.button_save));
         }
     }
 
@@ -123,12 +121,12 @@ public class NewExpenseActivity extends BaseActivity {
         setPeopleOnClickListener();
         initRootScrollViewListener();
         setOnFocusChangeListener();
-        setAddButtonClickListener();
+        setAddSaveButtonClickListener();
     }
 
     private void initAddButtonEnableStatusListener() {
         TextWatcher listener = getOnTextChangedTextWatcher((s, start, before, count) ->
-                setButtonEnability(binding.addButton, areFieldsValid())
+                setButtonEnability(binding.addSaveButton, areFieldsValid())
         );
 
         binding.expenseName.addTextChangedListener(listener);
@@ -207,8 +205,8 @@ public class NewExpenseActivity extends BaseActivity {
         binding.forWhatName.setOnFocusChangeListener(listener);
     }
 
-    private void setAddButtonClickListener() {
-        binding.addButton.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
+    private void setAddSaveButtonClickListener() {
+        binding.addSaveButton.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
             @Override
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();

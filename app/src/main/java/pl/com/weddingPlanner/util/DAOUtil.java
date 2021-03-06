@@ -228,6 +228,12 @@ public class DAOUtil {
         return tableDAO.getAll();
     }
 
+    public static Table getTableById(Context context, Integer id) {
+        AppDatabase appDatabase = getInstance(context);
+        TableDAO tableDAO = appDatabase.tableDAO();
+        return tableDAO.getById(id);
+    }
+
     public static void insertCategory(Context context, Category category) {
         AppDatabase appDatabase = getInstance(context);
         CategoryDAO categoryDAO = appDatabase.categoryDAO();
@@ -298,6 +304,12 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         PaymentDAO paymentDAO = appDatabase.paymentDAO();
         paymentDAO.merge(payment);
+    }
+
+    public static void mergeGuest(Context context, Guest guest) {
+        AppDatabase appDatabase = getInstance(context);
+        GuestDAO guestDAO = appDatabase.guestDAO();
+        guestDAO.merge(guest);
     }
 
     public static void setSubTaskDone(Context context, String done, int subTaskId) {

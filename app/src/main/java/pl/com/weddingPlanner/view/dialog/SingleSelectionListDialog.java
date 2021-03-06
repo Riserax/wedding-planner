@@ -6,8 +6,6 @@ import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -21,6 +19,7 @@ import pl.com.weddingPlanner.persistence.entity.Guest;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.Table;
 import pl.com.weddingPlanner.view.BaseActivity;
+import pl.com.weddingPlanner.view.util.GuestUtil;
 
 public class SingleSelectionListDialog extends CustomAlertDialog {
 
@@ -66,10 +65,7 @@ public class SingleSelectionListDialog extends CustomAlertDialog {
                 positions.put(id++, ageRange.getRange());
             } else if (object instanceof Table) {
                 Table table = (Table) object;
-                String tableName = StringUtils.isNotBlank(table.getName()) ? ", " + table.getName() : StringUtils.EMPTY;
-                String capacity = ", miejsca: " + table.getCapacity().toString();
-                String positionText = "Stół nr " + table.getNumber() + tableName + capacity;
-                positions.put(id++, positionText);
+                positions.put(id++, GuestUtil.getTableDescription(table));
             } else if (object instanceof Guest) {
                 Guest guest = (Guest) object;
                 positions.put(id++, guest.getNameSurname());
@@ -106,7 +102,7 @@ public class SingleSelectionListDialog extends CustomAlertDialog {
         } else if (listObject instanceof Table) {
             textView = activity.findViewById(R.id.table_name);
         } else if (listObject instanceof Guest) {
-            textView = activity.findViewById(R.id.chosen_guest_info);
+            textView = activity.findViewById(R.id.connected_with_info);
         } else {
             textView = activity.findViewById(R.id.payer_name);
         }

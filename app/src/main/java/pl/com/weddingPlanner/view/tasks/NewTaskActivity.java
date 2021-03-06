@@ -65,7 +65,7 @@ public class NewTaskActivity extends BaseActivity {
         setActivityToolbarContentWithBackIcon(R.string.header_title_tasks_new);
 
         setListeners();
-        setButtonEnability(binding.addButton, false);
+        setButtonEnability(binding.addSaveButton, false);
     }
 
     private void setListeners() {
@@ -82,7 +82,7 @@ public class NewTaskActivity extends BaseActivity {
 
     private void initAddButtonEnableStatusListener() {
         TextWatcher listener = getOnTextChangedTextWatcher((s, start, before, count) ->
-                setButtonEnability(binding.addButton, areFieldsValid())
+                setButtonEnability(binding.addSaveButton, areFieldsValid())
         );
 
         binding.taskName.addTextChangedListener(listener);
@@ -177,7 +177,7 @@ public class NewTaskActivity extends BaseActivity {
     }
 
     private void setAddButtonClickListener() {
-        binding.addButton.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
+        binding.addSaveButton.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
             @Override
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();

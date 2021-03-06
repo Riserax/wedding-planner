@@ -18,6 +18,7 @@ import java.util.List;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityNewPaymentBinding;
+import pl.com.weddingPlanner.enums.StateEnum;
 import pl.com.weddingPlanner.model.PickedDate;
 import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Person;
@@ -29,7 +30,6 @@ import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.dialog.DateDialog;
 import pl.com.weddingPlanner.view.dialog.QuestionDialog;
 import pl.com.weddingPlanner.view.dialog.SingleSelectionListDialog;
-import pl.com.weddingPlanner.enums.StateEnum;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
 import pl.com.weddingPlanner.view.util.FormatUtil;
 import pl.com.weddingPlanner.view.util.PersonUtil;
@@ -38,9 +38,9 @@ import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA
 import static pl.com.weddingPlanner.view.budget.ExpenseActivity.TAB_ID_EXTRA;
 import static pl.com.weddingPlanner.view.budget.ExpenseActivity.TAB_PAYMENTS_ID;
 import static pl.com.weddingPlanner.view.budget.ExpensePaymentsFragment.PAYMENT_ID_EXTRA;
-import static pl.com.weddingPlanner.view.budget.NewExpenseActivity.ACTIVITY_TITLE_EXTRA;
 import static pl.com.weddingPlanner.view.dialog.QuestionDialog.CLASS_EXTRA;
 import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
 import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
 import static pl.com.weddingPlanner.view.util.ResourceUtil.AMOUNT_ZERO;
 
@@ -76,7 +76,7 @@ public class NewPaymentActivity extends BaseActivity {
         setValidator();
         getAndSetExtra();
         setListeners();
-        setButtonEnability(binding.addButton, areFieldsValid());
+        setButtonEnability(binding.addSaveButton, areFieldsValid());
     }
 
     private void getAndSetExtras() {
@@ -115,7 +115,7 @@ public class NewPaymentActivity extends BaseActivity {
 
             binding.infoText.setText(paymentDetails.getInfo());
 
-            binding.addButton.setText(getResources().getString(R.string.button_save));
+            binding.addSaveButton.setText(getResources().getString(R.string.button_save));
         }
     }
 
@@ -141,7 +141,7 @@ public class NewPaymentActivity extends BaseActivity {
 
     private void initAddButtonEnableStatusListener() {
         TextWatcher listener = getOnTextChangedTextWatcher((s, start, before, count) ->
-                setButtonEnability(binding.addButton, areFieldsValid())
+                setButtonEnability(binding.addSaveButton, areFieldsValid())
         );
 
         binding.paymentTitle.addTextChangedListener(listener);
@@ -227,19 +227,19 @@ public class NewPaymentActivity extends BaseActivity {
     private void setPendingButtonListener() {
         binding.awaitingButton.setOnClickListener(v -> {
             setPendingSelectedPaidNotSelected();
-            setButtonEnability(binding.addButton, areFieldsValid());
+            setButtonEnability(binding.addSaveButton, areFieldsValid());
         });
     }
 
     private void setPaidButtonListener() {
         binding.paidButton.setOnClickListener(v -> {
             setPaidSelectedPendingNotSelected();
-            setButtonEnability(binding.addButton, areFieldsValid());
+            setButtonEnability(binding.addSaveButton, areFieldsValid());
         });
     }
 
     private void setAddButtonClickListener() {
-        binding.addButton.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
+        binding.addSaveButton.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
             @Override
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
