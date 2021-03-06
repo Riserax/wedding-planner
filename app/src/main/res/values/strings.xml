@@ -64,6 +64,7 @@
     <string name="guest_field_age">Przedział wiekowy</string>
     <string name="guest_field_contact">Kontakt</string>
     <string name="guest_field_connected_with">Powiązanie</string>
+    <string name="guest_field_connected_with_info">Powiązanie z %1$s</string>
     <string name="guest_field_guest">Gość</string>
     <string name="guest_field_guest_type">Rodzaj gościa</string>
     <string name="guest_field_invitation_status">Status zaproszenia</string>
@@ -87,6 +88,7 @@
     <string name="header_title_expense_details">Wydatek</string>
     <string name="header_title_guests">Goście</string>
     <string name="header_title_guest_details">Gość</string>
+    <string name="header_title_guest_edit">Edycja gościa</string>
     <string name="header_title_guest_new">Nowy gość</string>
     <string name="header_title_more">Więcej</string>
     <string name="header_title_new_payment">Nowa płatność</string>

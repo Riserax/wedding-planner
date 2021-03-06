@@ -16,6 +16,9 @@ public interface TableDAO {
     @Query("SELECT * FROM `table`")
     List<Table> getAll();
 
+    @Query("SELECT * FROM `table` WHERE id = :id")
+    Table getById(Integer id);
+
     @Insert
     Long insert(Table table);
 

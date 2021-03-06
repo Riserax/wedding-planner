@@ -131,7 +131,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public void setFieldText(String text, TextView textView) {
         if (!text.isEmpty()) {
-            if (R.id.chosen_guest_info == textView.getId()) {
+            if (R.id.connected_with_info == textView.getId()) {
                 setInfoForChosenGuest(text);
             } else {
                 textView.setText(text);
@@ -144,8 +144,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void setInfoForChosenGuest(String text) {
-        LinearLayout chosenGuestLayout = findViewById(R.id.chosen_guest_layout);
-        TextView chosenGuestInfo = findViewById(R.id.chosen_guest_info);
+        LinearLayout chosenGuestLayout = findViewById(R.id.connected_with_layout);
+        TextView chosenGuestInfo = findViewById(R.id.connected_with_info);
 
         chosenGuestLayout.setVisibility(View.VISIBLE);
         chosenGuestInfo.setText(getString(R.string.guest_field_accompany_info, text));

@@ -33,30 +33,95 @@ import pl.com.weddingPlanner.view.dialog.SingleSelectionListDialog;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
 import pl.com.weddingPlanner.view.util.GuestUtil;
 
+import static pl.com.weddingPlanner.view.guests.GuestsActivity.GUEST_ID_EXTRA;
 import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
 import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
 
 public class NewGuestActivity extends BaseActivity {
 
     private ActivityNewGuestBinding binding;
 
-    private GuestTypeEnum guestType = GuestTypeEnum.GUEST;
-    private PresenceEnum presenceEnum = PresenceEnum.NONE;
+    private int guestId;
+    private int headerTitle;
 
-    private boolean isGuestChosen;
-    private boolean isAgeChosen;
-    private boolean isCategoryChosen;
-    private boolean isTableChosen;
+    private Guest guestDetails;
+
+    private GuestTypeEnum guestType = GuestTypeEnum.GUEST;
+    private PresenceEnum selectedPresenceStatus = PresenceEnum.NONE;
+
+    private boolean isConnectedWithChosen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_new_guest);
 
-        setActivityToolbarContentWithBackIcon(R.string.header_title_guest_new);
+        getAndSetExtras();
+        setActivityToolbarContentWithBackIcon(headerTitle);
 
+        getAndSetData();
+        fillFields();
         setListeners();
-        setButtonEnability(binding.addButton, false);
+        setButtonEnability(binding.addSaveButton, areFieldsValid());
+    }
+
+    private void getAndSetExtras() {
+        guestId = getIntent().getIntExtra(GUEST_ID_EXTRA, 0);
+        headerTitle = getIntent().getIntExtra(ACTIVITY_TITLE_EXTRA, R.string.header_title_guest_new);
+    }
+
+    private void getAndSetData() {
+        if (guestId > 0) {
+            guestDetails = DAOUtil.getGuestById(this, guestId);
+            selectedPresenceStatus = PresenceEnum.valueOf(guestDetails.getPresence());
+        }
+    }
+
+    private void fillFields() {
+        if (guestDetails != null) {
+            binding.guestNameSurname.setText(guestDetails.getNameSurname());
+
+            if (isGuest()) {
+                setGuestSelectedAccompanyNotSelected();
+            } else {
+                setAccompanySelectedGuestNotSelected();
+            }
+
+            if (!isGuest() && guestDetails.getConnectedWithId() > 0) {
+                Guest connectedGuest = DAOUtil.getGuestById(this, guestDetails.getConnectedWithId());
+                binding.connectedWithLayout.setVisibility(View.VISIBLE);
+                binding.connectedWithInfo.setText(getString(R.string.guest_field_connected_with_info, connectedGuest.getNameSurname()));
+            }
+
+            if (StringUtils.isNotBlank(guestDetails.getAgeRange())) {
+                binding.ageTitle.setVisibility(View.VISIBLE);
+                binding.ageName.setText(guestDetails.getAgeRange());
+            }
+
+            if (StringUtils.isNotBlank(guestDetails.getCategory())) {
+                binding.categoryTitle.setVisibility(View.VISIBLE);
+                binding.categoryName.setText(guestDetails.getCategory());
+            }
+
+            if (guestDetails.getTableNumber() > 0) {
+                Table table = DAOUtil.getTableById(this, guestDetails.getTableNumber());
+                binding.tableTitle.setVisibility(View.VISIBLE);
+                binding.tableName.setText(GuestUtil.getTableDescription(table));
+            }
+
+            GuestUtil.setSelectedInvitationStatus(selectedPresenceStatus, binding, this);
+
+            if (StringUtils.isNotBlank(guestDetails.getContact())) {
+                binding.guestContact.setText(guestDetails.getContact());
+            }
+
+            if (StringUtils.isNotBlank(guestDetails.getNotes())) {
+                binding.guestNotes.setText(guestDetails.getNotes());
+            }
+
+            binding.addSaveButton.setText(getResources().getString(R.string.button_save));
+        }
     }
 
     private void setListeners() {
@@ -72,12 +137,12 @@ public class NewGuestActivity extends BaseActivity {
         setInvitationAcceptedButtonListener();
         setInvitationRejectedButtonListener();
         setInvitationAwaitingButtonListener();
-        setAddButtonClickListener();
+        setAddSaveButtonClickListener();
     }
 
     private void setAddButtonEnableStatusListener() {
         TextWatcher listener = getOnTextChangedTextWatcher((s, start, before, count) ->
-                setButtonEnability(binding.addButton, areFieldsValid())
+                setButtonEnability(binding.addSaveButton, areFieldsValid())
         );
 
         binding.guestNameSurname.addTextChangedListener(listener);
@@ -91,7 +156,7 @@ public class NewGuestActivity extends BaseActivity {
         binding.guestButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
             setGuestSelectedAccompanyNotSelected();
-            binding.chosenGuestLayout.setVisibility(View.GONE);
+            binding.connectedWithLayout.setVisibility(View.GONE);
         });
     }
 
@@ -169,62 +234,58 @@ public class NewGuestActivity extends BaseActivity {
 
     private void setInvitationSentButtonListener() {
         binding.sentButton.setOnClickListener(v -> {
-            if (PresenceEnum.INVITATION_SENT.equals(presenceEnum)) {
-                clearFocusAndHideKeyboard();
+            clearFocusAndHideKeyboard();
+            if (PresenceEnum.INVITATION_SENT.equals(selectedPresenceStatus)) {
                 GuestUtil.setButtonSelection(binding.sentButton, this, false);
-                presenceEnum = PresenceEnum.NONE;
+                selectedPresenceStatus = PresenceEnum.NONE;
             } else {
-                clearFocusAndHideKeyboard();
                 GuestUtil.setInvitationSentButtonsSelection(binding, getApplicationContext());
-                presenceEnum = PresenceEnum.INVITATION_SENT;
+                selectedPresenceStatus = PresenceEnum.INVITATION_SENT;
             }
         });
     }
 
     private void setInvitationAcceptedButtonListener() {
         binding.acceptedButton.setOnClickListener(v -> {
-            if (PresenceEnum.CONFIRMED_PRESENCE.equals(presenceEnum)) {
-                clearFocusAndHideKeyboard();
+            clearFocusAndHideKeyboard();
+            if (PresenceEnum.CONFIRMED_PRESENCE.equals(selectedPresenceStatus)) {
                 GuestUtil.setButtonSelection(binding.acceptedButton, this, false);
-                presenceEnum = PresenceEnum.NONE;
+                selectedPresenceStatus = PresenceEnum.NONE;
             } else {
-                clearFocusAndHideKeyboard();
                 GuestUtil.setInvitationAcceptedButtonsSelection(binding, getApplicationContext());
-                presenceEnum = PresenceEnum.CONFIRMED_PRESENCE;
+                selectedPresenceStatus = PresenceEnum.CONFIRMED_PRESENCE;
             }
         });
     }
 
     private void setInvitationRejectedButtonListener() {
         binding.rejectedButton.setOnClickListener(v -> {
-            if (PresenceEnum.CONFIRMED_ABSENCE.equals(presenceEnum)) {
-                clearFocusAndHideKeyboard();
+            clearFocusAndHideKeyboard();
+            if (PresenceEnum.CONFIRMED_ABSENCE.equals(selectedPresenceStatus)) {
                 GuestUtil.setButtonSelection(binding.rejectedButton, this, false);
-                presenceEnum = PresenceEnum.NONE;
+                selectedPresenceStatus = PresenceEnum.NONE;
             } else {
-                clearFocusAndHideKeyboard();
                 GuestUtil.setInvitationRejectedButtonsSelection(binding, getApplicationContext());
-                presenceEnum = PresenceEnum.CONFIRMED_ABSENCE;
+                selectedPresenceStatus = PresenceEnum.CONFIRMED_ABSENCE;
             }
         });
     }
 
     private void setInvitationAwaitingButtonListener() {
         binding.awaitingButton.setOnClickListener(v -> {
-            if (PresenceEnum.AWAITING.equals(presenceEnum)) {
-                clearFocusAndHideKeyboard();
+            clearFocusAndHideKeyboard();
+            if (PresenceEnum.AWAITING.equals(selectedPresenceStatus)) {
                 GuestUtil.setButtonSelection(binding.awaitingButton, this, false);
-                presenceEnum = PresenceEnum.NONE;
+                selectedPresenceStatus = PresenceEnum.NONE;
             } else {
-                clearFocusAndHideKeyboard();
                 GuestUtil.setInvitationAwaitingButtonsSelection(binding, getApplicationContext());
-                presenceEnum = PresenceEnum.AWAITING;
+                selectedPresenceStatus = PresenceEnum.AWAITING;
             }
         });
     }
 
-    private void setAddButtonClickListener() {
-        binding.addButton.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
+    private void setAddSaveButtonClickListener() {
+        binding.addSaveButton.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
             @Override
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
@@ -232,7 +293,11 @@ public class NewGuestActivity extends BaseActivity {
                 Guest newGuest = getNewGuestData();
 
                 if (StringUtils.isNotBlank(newGuest.getNameSurname())) {
-                    proceedWhenNameSurnameNotBlank(newGuest);
+                    if (guestDetails != null && guestId > 0) {
+                        proceedWhenEditingGuest(newGuest);
+                    } else {
+                        proceedWhenNewGuest(newGuest);
+                    }
                 } else {
                     Toast.makeText(NewGuestActivity.this, "Imię i nazwisko nie może być puste", Toast.LENGTH_LONG).show();
                 }
@@ -241,42 +306,46 @@ public class NewGuestActivity extends BaseActivity {
     }
 
     private Guest getNewGuestData() {
-        String chosenGuestInfo = binding.chosenGuestInfo.getText().toString();
+        String connectedWithInfo = binding.connectedWithInfo.getText().toString();
         String ageRange = binding.ageName.getText().toString();
         String category = binding.categoryName.getText().toString();
         String tableInfo = binding.tableName.getText().toString();
 
-        isGuestChosen = StringUtils.isNotBlank(chosenGuestInfo);
-        isAgeChosen = !ageRange.equals(getResources().getString(R.string.guest_field_age));
-        isCategoryChosen = !category.equals(getResources().getString(R.string.field_category));
-        isTableChosen = !tableInfo.equals(getResources().getString(R.string.guest_field_table));
+        isConnectedWithChosen = StringUtils.isNotBlank(connectedWithInfo);
+        boolean isAgeChosen = !ageRange.equals(getResources().getString(R.string.guest_field_age));
+        boolean isCategoryChosen = !category.equals(getResources().getString(R.string.field_category));
+        boolean isTableChosen = !tableInfo.equals(getResources().getString(R.string.guest_field_table));
 
-        String chosenGuestNameSurname = getChosenGuestNameSurname(chosenGuestInfo);
+        String connectedWithNameSurname = getConnectedWithNameSurname(connectedWithInfo);
 
         return Guest.builder()
                 .nameSurname(binding.guestNameSurname.getText().toString())
                 .type(guestType.name())
-                .connectedWithId(GuestTypeEnum.ACCOMPANY.equals(guestType) ? getChosenGuestId(chosenGuestNameSurname) : 0)
+                .connectedWithId(GuestTypeEnum.ACCOMPANY.equals(guestType) ? getConnectedWithId(connectedWithNameSurname) : 0)
                 .ageRange(isAgeChosen ? ageRange : StringUtils.EMPTY)
                 .category(isCategoryChosen ? category : StringUtils.EMPTY)
                 .tableNumber(isTableChosen ? getTableNumber(tableInfo) : 0)
-                .presence(presenceEnum.name())
+                .presence(selectedPresenceStatus.name())
                 .contact(binding.guestContact.getText().toString())
                 .notes(binding.guestNotes.getText().toString())
                 .build();
     }
 
-    private int getChosenGuestId(String chosenGuestNameSurname) {
-        if (StringUtils.isNotBlank(chosenGuestNameSurname)) {
-            return DAOUtil.getGuestByNameSurname(this, chosenGuestNameSurname).getId();
+    private int getConnectedWithId(String connectedWithNameSurname) {
+        if (StringUtils.isNotBlank(connectedWithNameSurname)) {
+            return DAOUtil.getGuestByNameSurname(this, connectedWithNameSurname).getId();
         } else {
             return 0;
         }
     }
 
-    private String getChosenGuestNameSurname(String chosenGuestInfo) {
-        if (isGuestChosen) {
-            return chosenGuestInfo.substring(26);
+    private String getConnectedWithNameSurname(String connectedWithInfo) {
+        if (isConnectedWithChosen) {
+            if (guestId > 0) {
+                return connectedWithInfo.substring(13);
+            } else {
+                return connectedWithInfo.substring(26);
+            }
         } else {
             return StringUtils.EMPTY;
         }
@@ -293,7 +362,16 @@ public class NewGuestActivity extends BaseActivity {
         return 0;
     }
 
-    private void proceedWhenNameSurnameNotBlank(Guest newGuest) {
+    private void proceedWhenEditingGuest(Guest newGuest) {
+        newGuest.setId(guestId);
+
+        DAOUtil.mergeGuest(getApplicationContext(), newGuest);
+
+        Intent intent = new Intent(NewGuestActivity.this, GuestsActivity.class);
+        startActivity(intent);
+    }
+
+    private void proceedWhenNewGuest(Guest newGuest) {
         if (!isNameSurnameUnique(newGuest.getNameSurname())) {
             Toast.makeText(this, "Istnieje już gość o podanym imieniu i nazwisku", Toast.LENGTH_LONG).show();
         } else if (GuestTypeEnum.ACCOMPANY.name().equals(newGuest.getType()) && newGuest.getConnectedWithId() == 0) {
@@ -350,5 +428,9 @@ public class NewGuestActivity extends BaseActivity {
                 view.setText(getResources().getString(R.string.guest_field_table));
                 break;
         }
+    }
+
+    private boolean isGuest() {
+        return GuestTypeEnum.GUEST.name().equals(guestDetails.getType());
     }
 }

@@ -5,10 +5,30 @@ import android.widget.Button;
 
 import androidx.core.content.ContextCompat;
 
+import org.apache.commons.lang3.StringUtils;
+
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityNewGuestBinding;
+import pl.com.weddingPlanner.enums.PresenceEnum;
+import pl.com.weddingPlanner.persistence.entity.Table;
 
 public class GuestUtil {
+
+    public static void setSelectedInvitationStatus(PresenceEnum selectedPresenceStatus, ActivityNewGuestBinding binding, Context context) {
+        switch (selectedPresenceStatus) {
+            case INVITATION_SENT:
+                GuestUtil.setInvitationSentButtonsSelection(binding, context);
+                break;
+            case CONFIRMED_PRESENCE:
+                GuestUtil.setInvitationAcceptedButtonsSelection(binding, context);
+                break;
+            case CONFIRMED_ABSENCE:
+                GuestUtil.setInvitationRejectedButtonsSelection(binding, context);
+                break;
+            case AWAITING:
+                GuestUtil.setInvitationAwaitingButtonsSelection(binding, context);
+        }
+    }
 
     public static void setInvitationSentButtonsSelection(ActivityNewGuestBinding binding, Context context) {
         GuestUtil.setButtonSelection(binding.sentButton, context, true);
@@ -51,5 +71,12 @@ public class GuestUtil {
 
         button.setPadding(0, context.getResources().getDimensionPixelSize(R.dimen.button_padding_top),
                 0, context.getResources().getDimensionPixelSize(R.dimen.button_padding_bottom));
+    }
+
+    public static String getTableDescription(Table table) {
+        String tableName = StringUtils.isNotBlank(table.getName()) ? ", " + table.getName() : StringUtils.EMPTY;
+        String capacity = ", miejsca: " + table.getCapacity().toString();
+
+        return "Stół nr " + table.getNumber() + tableName + capacity;
     }
 }
