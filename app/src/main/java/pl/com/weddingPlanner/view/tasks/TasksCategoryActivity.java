@@ -17,7 +17,7 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityCategoryTasksBinding;
-import pl.com.weddingPlanner.model.TaskInfo;
+import pl.com.weddingPlanner.model.info.TaskInfo;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;

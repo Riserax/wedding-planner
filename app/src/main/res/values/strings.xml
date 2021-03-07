@@ -132,7 +132,9 @@
     <string name="tab_title_expense_details">Szczegóły</string>
     <string name="tab_title_expense_payments">Płatności: %1$d</string>
     <string name="tab_title_guests_list">Lista</string>
-    <string name="tab_title_guests_groups">Stoły</string>
+    <string name="tab_title_guests_groups">Grupy</string>
+    <string name="tab_title_subcontractors_list">Lista</string>
+    <string name="tab_title_subcontractors_categories">Kategorie</string>
 
     <string name="task_details_no_bookmarks">Brak etykiet</string>
     <string name="task_details_sub_tasks">Podzadania:</string>

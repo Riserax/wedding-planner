@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.view.guests;
+package pl.com.weddingPlanner.view.subcontractors;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,13 +11,13 @@ import androidx.fragment.app.Fragment;
 
 import pl.com.weddingPlanner.R;
 
-public class GuestsGroupsFragment extends Fragment {
+public class SubcontractorsCategoriesFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_guests_groups, container, false);
+        return inflater.inflate(R.layout.fragment_subcontractors_categories, container, false);
     }
 
 }

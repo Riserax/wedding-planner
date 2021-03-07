@@ -12,6 +12,7 @@ import pl.com.weddingPlanner.persistence.dao.GuestDAO;
 import pl.com.weddingPlanner.persistence.dao.PaymentDAO;
 import pl.com.weddingPlanner.persistence.dao.PersonDAO;
 import pl.com.weddingPlanner.persistence.dao.SubTaskDAO;
+import pl.com.weddingPlanner.persistence.dao.SubcontractorDAO;
 import pl.com.weddingPlanner.persistence.dao.TableDAO;
 import pl.com.weddingPlanner.persistence.dao.TaskDAO;
 import pl.com.weddingPlanner.persistence.database.AppDatabase;
@@ -23,6 +24,7 @@ import pl.com.weddingPlanner.persistence.entity.Guest;
 import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.SubTask;
+import pl.com.weddingPlanner.persistence.entity.Subcontractor;
 import pl.com.weddingPlanner.persistence.entity.Table;
 import pl.com.weddingPlanner.persistence.entity.Task;
 
@@ -234,6 +236,12 @@ public class DAOUtil {
         return tableDAO.getById(id);
     }
 
+    public static List<Subcontractor> getAllSubcontractors(Context context) {
+        AppDatabase appDatabase = getInstance(context);
+        SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
+        return subcontractorDAO.getAll();
+    }
+
     public static void insertCategory(Context context, Category category) {
         AppDatabase appDatabase = getInstance(context);
         CategoryDAO categoryDAO = appDatabase.categoryDAO();
@@ -292,6 +300,12 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         TableDAO tableDAO = appDatabase.tableDAO();
         tableDAO.insert(table);
+    }
+
+    public static void insertSubcontractor(Context context, Subcontractor subcontractor) {
+        AppDatabase appDatabase = getInstance(context);
+        SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
+        subcontractorDAO.insert(subcontractor);
     }
 
     public static void mergeExpense(Context context, Expense expense) {

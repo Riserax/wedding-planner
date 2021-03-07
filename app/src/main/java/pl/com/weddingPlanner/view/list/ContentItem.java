@@ -9,10 +9,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import pl.com.weddingPlanner.R;
-import pl.com.weddingPlanner.model.ExpenseInfo;
-import pl.com.weddingPlanner.model.GuestInfo;
-import pl.com.weddingPlanner.model.PaymentInfo;
-import pl.com.weddingPlanner.model.TaskInfo;
+import pl.com.weddingPlanner.model.info.ExpenseInfo;
+import pl.com.weddingPlanner.model.info.GuestInfo;
+import pl.com.weddingPlanner.model.info.PaymentInfo;
+import pl.com.weddingPlanner.model.info.SubcontractorInfo;
+import pl.com.weddingPlanner.model.info.TaskInfo;
 import pl.com.weddingPlanner.enums.GuestTypeEnum;
 import pl.com.weddingPlanner.enums.StateEnum;
 import pl.com.weddingPlanner.view.util.FormatUtil;
@@ -75,6 +76,16 @@ public class ContentItem extends ListItem implements Serializable {
                 .leftIconId(ResourceUtil.getResId(info.getState().getIconCode(), R.drawable.class))
                 .leftIconColor(getLeftIconColor(info.getState()))
                 .rightIconCaption(info.getPayer())
+                .build();
+    }
+
+    public static ContentItem of(SubcontractorInfo info) {
+        return ContentItem.builder()
+                .itemId(info.getItemId())
+                .mainCaption(info.getName())
+                .mainCaptionColor(R.color.black)
+                .leftIconId(ResourceUtil.getResId(info.getCategoryIconId(), R.drawable.class))
+                .leftIconColor(R.color.colorPrimaryDark)
                 .build();
     }
 
