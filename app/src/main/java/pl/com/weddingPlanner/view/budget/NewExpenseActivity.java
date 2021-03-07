@@ -113,7 +113,7 @@ public class NewExpenseActivity extends BaseActivity {
     }
 
     private void setValidator() {
-        amountValidator = new AmountValidator(this,true);
+        amountValidator = new AmountValidator(this, true);
     }
 
     private void setListeners() {
@@ -236,6 +236,9 @@ public class NewExpenseActivity extends BaseActivity {
                 } else {
                     if (newExpense.getTitle().isEmpty()) {
                         Toast toast = Toast.makeText(NewExpenseActivity.this, "Nazwa nie może być pusta", Toast.LENGTH_LONG);
+                        toast.show();
+                    } else if (!isAmountValid(newExpense.getInitialAmount())) {
+                        Toast toast = Toast.makeText(NewExpenseActivity.this, "Niepoprawna kwota", Toast.LENGTH_LONG);
                         toast.show();
                     }
                 }

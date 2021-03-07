@@ -12,7 +12,7 @@
             layout="@layout/toolbar" />
 
         <ScrollView
-            android:id="@+id/guest_root_scroll_view"
+            android:id="@+id/root_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="top"
@@ -33,7 +33,7 @@
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/guest_name_surname_layout"
+                    android:id="@+id/name_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/field_height"
@@ -43,171 +43,30 @@
                     android:background="@drawable/bg_fields">
 
                     <ImageButton
-                        android:id="@+id/guest_name_surname_icon"
+                        android:id="@+id/name_icon"
                         android:layout_width="@dimen/image_button_size_24"
                         android:layout_height="@dimen/image_button_size_24"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_edit"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/guest_name_surname"
+                        app:layout_constraintEnd_toStartOf="@id/name"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" />
 
                     <EditText
-                        android:id="@+id/guest_name_surname"
+                        android:id="@+id/name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/edit_text_padding"
                         android:maxLength="100"
                         android:inputType="text"
-                        android:hint="@string/guest_field_name_surname"
+                        android:hint="Nazwa"
                         android:textSize="@dimen/field_text_size"
                         android:textColorHint="@color/gray_949494"
                         android:textColor="@color/gray_949494"
                         android:background="@color/gray_FDFDFD"
-                        app:layout_constraintStart_toEndOf="@id/guest_name_surname_icon"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <LinearLayout
-                    android:id="@+id/guest_type_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/field_margin">
-
-                    <Button
-                        android:id="@+id/guest_button"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/field_height"
-                        android:layout_gravity="center"
-                        android:layout_marginEnd="@dimen/field_margin"
-                        android:layout_weight="1"
-                        android:background="@drawable/button_shape_light"
-                        android:gravity="center"
-                        android:maxLines="2"
-                        android:text="@string/guest_field_guest"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                        android:textStyle="bold"
-                        android:textColor="@color/white_FFFFFF"
-                        app:autoSizePresetSizes="@array/button_state_type_text_sizes"
-                        app:autoSizeTextType="uniform" />
-
-                    <Button
-                        android:id="@+id/accompany_button"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/field_height"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/field_margin"
-                        android:layout_weight="1"
-                        android:background="@drawable/button_shape_border_only"
-                        android:gravity="center"
-                        android:maxLines="2"
-                        android:text="@string/guest_field_accompany"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimaryLight"
-                        app:autoSizePresetSizes="@array/button_state_type_text_sizes"
-                        app:autoSizeTextType="uniform" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/connected_with_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="-10dp"
-                    android:layout_marginBottom="@dimen/field_margin"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="2dp"
-                        android:paddingEnd="5dp"
-                        android:background="@color/gray_F2F2F2"
-                        android:tint="@color/gray_949494"
-                        app:srcCompat="@drawable/ic_info_outline" />
-
-                    <TextView
-                        android:id="@+id/connected_with_info"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:textColor="@color/gray_949494"
-                        android:textSize="@dimen/_10sdp" />
-
-                </LinearLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/age_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/field_height"
-                    android:layout_marginBottom="@dimen/field_margin"
-                    android:paddingStart="@dimen/field_padding_start"
-                    android:paddingEnd="@dimen/field_padding_end"
-                    android:background="@drawable/bg_fields">
-
-                    <ImageButton
-                        android:id="@+id/age_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
-                        android:background="@color/gray_FDFDFD"
-                        android:tint="@color/gray_949494"
-                        app:srcCompat="@drawable/ic_elevator"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/age_name_layout"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" />
-
-                    <LinearLayout
-                        android:id="@+id/age_name_layout"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintStart_toEndOf="@id/age_icon"
-                        app:layout_constraintEnd_toStartOf="@id/age_arrow_right"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" >
-
-                        <TextView
-                            android:id="@+id/age_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingStart="@dimen/text_view_padding"
-                            android:paddingEnd="@dimen/text_view_padding"
-                            android:text="@string/guest_field_age"
-                            android:textColor="@color/gray_949494"
-                            android:textSize="@dimen/field_text_size_small"
-                            android:visibility="gone"/>
-
-                        <TextView
-                            android:id="@+id/age_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingStart="@dimen/text_view_padding"
-                            android:paddingEnd="@dimen/text_view_padding"
-                            android:text="@string/guest_field_age"
-                            android:textColor="@color/gray_949494"
-                            android:textSize="@dimen/field_text_size"
-                            android:singleLine="true"
-                            android:ellipsize="end"/>
-
-                    </LinearLayout>
-
-                    <ImageButton
-                        android:id="@+id/age_arrow_right"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
-                        android:background="@color/gray_FDFDFD"
-                        android:tint="@color/gray_949494"
-                        app:srcCompat="@drawable/ic_arrow_right_keyboard"
-                        app:layout_constraintStart_toEndOf="@id/age_name_layout"
+                        app:layout_constraintStart_toEndOf="@id/name_icon"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -283,69 +142,122 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/table_layout"
+                    android:id="@+id/contact_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/field_height"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/field_height"
                     android:layout_marginBottom="@dimen/field_margin"
                     android:paddingStart="@dimen/field_padding_start"
                     android:paddingEnd="@dimen/field_padding_end"
                     android:background="@drawable/bg_fields">
 
                     <ImageButton
-                        android:id="@+id/table_icon"
+                        android:id="@+id/contact_icon"
                         android:layout_width="@dimen/image_button_size_24"
                         android:layout_height="@dimen/image_button_size_24"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
-                        app:srcCompat="@drawable/ic_event_seat"
+                        app:srcCompat="@drawable/ic_phone"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/table_name_layout"
+                        app:layout_constraintEnd_toStartOf="@id/contact"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" />
 
-                    <LinearLayout
-                        android:id="@+id/table_name_layout"
+                    <EditText
+                        android:id="@+id/contact"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintStart_toEndOf="@id/table_icon"
-                        app:layout_constraintEnd_toStartOf="@id/table_arrow_right"
+                        android:padding="@dimen/edit_text_padding"
+                        android:maxLength="250"
+                        android:inputType="textMultiLine"
+                        android:hint="@string/guest_field_contact"
+                        android:textSize="@dimen/field_text_size"
+                        android:textColorHint="@color/gray_949494"
+                        android:textColor="@color/gray_949494"
+                        android:background="@color/gray_FDFDFD"
+                        app:layout_constraintStart_toEndOf="@id/contact_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" >
+                        app:layout_constraintBottom_toBottomOf="parent"/>
 
-                        <TextView
-                            android:id="@+id/table_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingStart="@dimen/text_view_padding"
-                            android:paddingEnd="@dimen/text_view_padding"
-                            android:text="@string/guest_field_table"
-                            android:textColor="@color/gray_949494"
-                            android:textSize="@dimen/field_text_size_small"
-                            android:visibility="gone"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <TextView
-                            android:id="@+id/table_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingStart="@dimen/text_view_padding"
-                            android:paddingEnd="@dimen/text_view_padding"
-                            android:text="@string/guest_field_table"
-                            android:textColor="@color/gray_949494"
-                            android:textSize="@dimen/field_text_size"
-                            android:singleLine="true"
-                            android:ellipsize="end"/>
-
-                    </LinearLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/website_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
+                    android:background="@drawable/bg_fields">
 
                     <ImageButton
-                        android:id="@+id/table_arrow_right"
+                        android:id="@+id/website_icon"
                         android:layout_width="@dimen/image_button_size_24"
                         android:layout_height="@dimen/image_button_size_24"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
-                        app:srcCompat="@drawable/ic_arrow_right_keyboard"
-                        app:layout_constraintStart_toEndOf="@id/table_name_layout"
+                        app:srcCompat="@drawable/ic_website"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/website"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <EditText
+                        android:id="@+id/website"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/edit_text_padding"
+                        android:maxLength="250"
+                        android:inputType="textMultiLine"
+                        android:hint="Strona WWW"
+                        android:textSize="@dimen/field_text_size"
+                        android:textColorHint="@color/gray_949494"
+                        android:textColor="@color/gray_949494"
+                        android:background="@color/gray_FDFDFD"
+                        app:layout_constraintStart_toEndOf="@id/website_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/address_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
+                    android:background="@drawable/bg_fields">
+
+                    <ImageButton
+                        android:id="@+id/address_icon"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_place"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/address"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <EditText
+                        android:id="@+id/address"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/edit_text_padding"
+                        android:maxLength="250"
+                        android:inputType="textMultiLine"
+                        android:hint="Adres"
+                        android:textSize="@dimen/field_text_size"
+                        android:textColorHint="@color/gray_949494"
+                        android:textColor="@color/gray_949494"
+                        android:background="@color/gray_FDFDFD"
+                        app:layout_constraintStart_toEndOf="@id/address_icon"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -353,18 +265,18 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
-                    android:id="@+id/invitation_status_layout"
+                    android:id="@+id/cooperation_stage_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/status_title"
+                        android:id="@+id/stage_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_marginBottom="@dimen/field_margin"
-                        android:text="@string/guest_field_invitation_status"
+                        android:text="Etap współpracy"
                         android:textColor="@color/gray_949494"
                         android:textSize="@dimen/field_text_size"
                         android:textStyle="bold"/>
@@ -376,7 +288,7 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/sent_button"
+                            android:id="@+id/considering_button"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/button_height"
                             android:layout_gravity="center"
@@ -386,83 +298,83 @@
                             android:background="@drawable/button_shape_border_only"
                             android:gravity="center"
                             android:maxLines="3"
-                            android:text="@string/guest_field_invitation_sent"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                            android:textColor="@color/colorPrimaryLight"
-                            android:drawableTop="@drawable/ic_email_read"
-                            android:drawableTint="@color/colorPrimaryLight"
-                            app:autoSizePresetSizes="@array/button_state_type_text_sizes"
-                            app:autoSizeTextType="uniform"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/accepted_button"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-
-                        <Button
-                            android:id="@+id/accepted_button"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/button_height"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:paddingTop="@dimen/button_padding_top"
-                            android:paddingBottom="@dimen/button_padding_bottom"
-                            android:background="@drawable/button_shape_border_only"
-                            android:gravity="center"
-                            android:maxLines="3"
-                            android:text="@string/guest_field_invitation_accepted"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                            android:textColor="@color/colorPrimaryLight"
-                            android:drawableTop="@drawable/ic_check_circle"
-                            android:drawableTint="@color/colorPrimaryLight"
-                            app:autoSizePresetSizes="@array/button_state_type_text_sizes"
-                            app:autoSizeTextType="uniform"
-                            app:layout_constraintStart_toEndOf="@id/sent_button"
-                            app:layout_constraintEnd_toStartOf="@id/rejected_button"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-
-                        <Button
-                            android:id="@+id/rejected_button"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/button_height"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:paddingTop="@dimen/button_padding_top"
-                            android:paddingBottom="@dimen/button_padding_bottom"
-                            android:background="@drawable/button_shape_border_only"
-                            android:gravity="center"
-                            android:maxLines="3"
-                            android:text="@string/guest_field_invitation_rejected"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                            android:textColor="@color/colorPrimaryLight"
-                            android:drawableTop="@drawable/ic_cancel_circle"
-                            android:drawableTint="@color/colorPrimaryLight"
-                            app:autoSizePresetSizes="@array/button_state_type_text_sizes"
-                            app:autoSizeTextType="uniform"
-                            app:layout_constraintStart_toEndOf="@id/accepted_button"
-                            app:layout_constraintEnd_toStartOf="@id/awaiting_button"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-
-                        <Button
-                            android:id="@+id/awaiting_button"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/button_height"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:paddingTop="@dimen/button_padding_top"
-                            android:paddingBottom="@dimen/button_padding_bottom"
-                            android:background="@drawable/button_shape_border_only"
-                            android:gravity="center"
-                            android:maxLines="3"
-                            android:text="@string/guest_field_invitation_awaiting"
+                            android:text="Rozważam"
                             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                             android:textColor="@color/colorPrimaryLight"
                             android:drawableTop="@drawable/ic_help_circle"
                             android:drawableTint="@color/colorPrimaryLight"
                             app:autoSizePresetSizes="@array/button_state_type_text_sizes"
                             app:autoSizeTextType="uniform"
-                            app:layout_constraintStart_toEndOf="@id/rejected_button"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/in_contact_button"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                        <Button
+                            android:id="@+id/in_contact_button"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/button_height"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:paddingTop="@dimen/button_padding_top"
+                            android:paddingBottom="@dimen/button_padding_bottom"
+                            android:background="@drawable/button_shape_border_only"
+                            android:gravity="center"
+                            android:maxLines="3"
+                            android:text="Kontakt"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                            android:textColor="@color/colorPrimaryLight"
+                            android:drawableTop="@drawable/ic_conversation"
+                            android:drawableTint="@color/colorPrimaryLight"
+                            app:autoSizePresetSizes="@array/button_state_type_text_sizes"
+                            app:autoSizeTextType="uniform"
+                            app:layout_constraintStart_toEndOf="@id/considering_button"
+                            app:layout_constraintEnd_toStartOf="@id/confirmed_button"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                        <Button
+                            android:id="@+id/confirmed_button"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/button_height"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:paddingTop="@dimen/button_padding_top"
+                            android:paddingBottom="@dimen/button_padding_bottom"
+                            android:background="@drawable/button_shape_border_only"
+                            android:gravity="center"
+                            android:maxLines="3"
+                            android:text="Potwierdzone"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                            android:textColor="@color/colorPrimaryLight"
+                            android:drawableTop="@drawable/ic_check_circle"
+                            android:drawableTint="@color/colorPrimaryLight"
+                            app:autoSizePresetSizes="@array/button_state_type_text_sizes"
+                            app:autoSizeTextType="uniform"
+                            app:layout_constraintStart_toEndOf="@id/in_contact_button"
+                            app:layout_constraintEnd_toStartOf="@id/paid_button"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                        <Button
+                            android:id="@+id/paid_button"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/button_height"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:paddingTop="@dimen/button_padding_top"
+                            android:paddingBottom="@dimen/button_padding_bottom"
+                            android:background="@drawable/button_shape_border_only"
+                            android:gravity="center"
+                            android:maxLines="3"
+                            android:text="Opłacone"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                            android:textColor="@color/colorPrimaryLight"
+                            android:drawableTop="@drawable/ic_dollar_small"
+                            android:drawableTint="@color/colorPrimaryLight"
+                            app:autoSizePresetSizes="@array/button_state_type_text_sizes"
+                            app:autoSizeTextType="uniform"
+                            app:layout_constraintStart_toEndOf="@id/confirmed_button"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"/>
@@ -472,40 +384,41 @@
                 </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/guest_contact_layout"
+                    android:id="@+id/cost_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="@dimen/field_height"
+                    android:layout_height="@dimen/field_height"
                     android:layout_marginBottom="@dimen/field_margin"
                     android:paddingStart="@dimen/field_padding_start"
                     android:paddingEnd="@dimen/field_padding_end"
                     android:background="@drawable/bg_fields">
 
                     <ImageButton
-                        android:id="@+id/guest_contact_icon"
+                        android:id="@+id/cost_icon"
                         android:layout_width="@dimen/image_button_size_24"
                         android:layout_height="@dimen/image_button_size_24"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
-                        app:srcCompat="@drawable/ic_phone"
+                        app:srcCompat="@drawable/ic_dollar"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/guest_contact"
+                        app:layout_constraintEnd_toStartOf="@id/cost"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" />
 
                     <EditText
-                        android:id="@+id/guest_contact"
+                        android:id="@+id/cost"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/edit_text_padding"
-                        android:maxLength="250"
-                        android:inputType="textMultiLine"
-                        android:hint="@string/guest_field_contact"
+                        android:maxLines="1"
+                        android:maxLength="10"
+                        android:inputType="number"
+                        android:digits="0123456789"
+                        android:hint="Kwota do zapłaty"
                         android:textSize="@dimen/field_text_size"
                         android:textColorHint="@color/gray_949494"
                         android:textColor="@color/gray_949494"
                         android:background="@color/gray_FDFDFD"
-                        app:layout_constraintStart_toEndOf="@id/guest_contact_icon"
+                        app:layout_constraintStart_toEndOf="@id/cost_icon"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -513,7 +426,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/guest_notes_layout"
+                    android:id="@+id/notes_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/field_height"
@@ -523,19 +436,19 @@
                     android:background="@drawable/bg_fields">
 
                     <ImageButton
-                        android:id="@+id/guest_notes_icon"
+                        android:id="@+id/notes_icon"
                         android:layout_width="@dimen/image_button_size_24"
                         android:layout_height="@dimen/image_button_size_24"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_description"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/guest_notes"
+                        app:layout_constraintEnd_toStartOf="@id/notes"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" />
 
                     <EditText
-                        android:id="@+id/guest_notes"
+                        android:id="@+id/notes"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/edit_text_padding"
@@ -546,7 +459,7 @@
                         android:textColorHint="@color/gray_949494"
                         android:textColor="@color/gray_949494"
                         android:background="@color/gray_FDFDFD"
-                        app:layout_constraintStart_toEndOf="@id/guest_notes_icon"
+                        app:layout_constraintStart_toEndOf="@id/notes_icon"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>

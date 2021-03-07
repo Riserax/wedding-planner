@@ -30,6 +30,7 @@ import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.util.DebouncedOnClickListener;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.dialog.SingleSelectionListDialog;
+import pl.com.weddingPlanner.view.util.ButtonsUtil;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
 import pl.com.weddingPlanner.view.util.GuestUtil;
 
@@ -74,7 +75,10 @@ public class NewGuestActivity extends BaseActivity {
     private void getAndSetData() {
         if (guestId > 0) {
             guestDetails = DAOUtil.getGuestById(this, guestId);
-            selectedPresenceStatus = PresenceEnum.valueOf(guestDetails.getPresence());
+
+            if (StringUtils.isNotBlank(guestDetails.getPresence())) {
+                selectedPresenceStatus = PresenceEnum.valueOf(guestDetails.getPresence());
+            }
         }
     }
 
@@ -236,7 +240,7 @@ public class NewGuestActivity extends BaseActivity {
         binding.sentButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
             if (PresenceEnum.INVITATION_SENT.equals(selectedPresenceStatus)) {
-                GuestUtil.setButtonSelection(binding.sentButton, this, false);
+                ButtonsUtil.setButtonSelection(binding.sentButton, this, false);
                 selectedPresenceStatus = PresenceEnum.NONE;
             } else {
                 GuestUtil.setInvitationSentButtonsSelection(binding, getApplicationContext());
@@ -249,7 +253,7 @@ public class NewGuestActivity extends BaseActivity {
         binding.acceptedButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
             if (PresenceEnum.CONFIRMED_PRESENCE.equals(selectedPresenceStatus)) {
-                GuestUtil.setButtonSelection(binding.acceptedButton, this, false);
+                ButtonsUtil.setButtonSelection(binding.acceptedButton, this, false);
                 selectedPresenceStatus = PresenceEnum.NONE;
             } else {
                 GuestUtil.setInvitationAcceptedButtonsSelection(binding, getApplicationContext());
@@ -262,7 +266,7 @@ public class NewGuestActivity extends BaseActivity {
         binding.rejectedButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
             if (PresenceEnum.CONFIRMED_ABSENCE.equals(selectedPresenceStatus)) {
-                GuestUtil.setButtonSelection(binding.rejectedButton, this, false);
+                ButtonsUtil.setButtonSelection(binding.rejectedButton, this, false);
                 selectedPresenceStatus = PresenceEnum.NONE;
             } else {
                 GuestUtil.setInvitationRejectedButtonsSelection(binding, getApplicationContext());
@@ -275,7 +279,7 @@ public class NewGuestActivity extends BaseActivity {
         binding.awaitingButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
             if (PresenceEnum.AWAITING.equals(selectedPresenceStatus)) {
-                GuestUtil.setButtonSelection(binding.awaitingButton, this, false);
+                ButtonsUtil.setButtonSelection(binding.awaitingButton, this, false);
                 selectedPresenceStatus = PresenceEnum.NONE;
             } else {
                 GuestUtil.setInvitationAwaitingButtonsSelection(binding, getApplicationContext());
@@ -404,14 +408,14 @@ public class NewGuestActivity extends BaseActivity {
     }
 
     private void setGuestSelectedAccompanyNotSelected() {
-        GuestUtil.setButtonSelection(binding.guestButton, this, true);
-        GuestUtil.setButtonSelection(binding.accompanyButton, this, false);
+        ButtonsUtil.setButtonSelection(binding.guestButton, this, true);
+        ButtonsUtil.setButtonSelection(binding.accompanyButton, this, false);
         guestType = GuestTypeEnum.GUEST;
     }
 
     private void setAccompanySelectedGuestNotSelected() {
-        GuestUtil.setButtonSelection(binding.guestButton, this, false);
-        GuestUtil.setButtonSelection(binding.accompanyButton, this, true);
+        ButtonsUtil.setButtonSelection(binding.guestButton, this, false);
+        ButtonsUtil.setButtonSelection(binding.accompanyButton, this, true);
         guestType = GuestTypeEnum.ACCOMPANY;
     }
 

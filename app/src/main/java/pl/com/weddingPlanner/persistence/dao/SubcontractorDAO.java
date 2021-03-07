@@ -20,7 +20,7 @@ public interface SubcontractorDAO {
     Subcontractor getById(Integer id);
 
     @Query("SELECT * FROM subcontractor WHERE name = :name")
-    Subcontractor getByNameSurname(String name);
+    Subcontractor getByName(String name);
 
     @Insert
     Long insert(Subcontractor subcontractor);

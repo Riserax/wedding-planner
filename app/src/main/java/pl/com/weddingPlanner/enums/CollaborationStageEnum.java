@@ -1,7 +1,8 @@
 package pl.com.weddingPlanner.enums;
 
-public enum SubcontractorStageEnum {
+public enum CollaborationStageEnum {
 
+    NONE,
     CONSIDERING,
     IN_CONTACT_AWAITING,
     CONFIRMED,

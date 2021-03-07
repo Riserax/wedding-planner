@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.com.weddingPlanner.enums.SubcontractorStageEnum;
+import pl.com.weddingPlanner.enums.CollaborationStageEnum;
 
 @Data
 @Builder
@@ -17,6 +17,6 @@ public class SubcontractorInfo implements Serializable {
     private int itemId;
     private String name;
     private String categoryIconId;
-    private SubcontractorStageEnum subcontractorStage;
+    private CollaborationStageEnum subcontractorStage;
     private String paymentPercentage;
 }

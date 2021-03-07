@@ -62,9 +62,9 @@ public class SubcontractorsActivity extends BaseActivity {
             Intent intent;
             switch (viewPager.getCurrentItem()) {
                 case 0:
-//                    intent = new Intent(this, NewGuestActivity.class);
-//                    startActivity(intent);
-//                    break;
+                    intent = new Intent(this, NewSubcontractorActivity.class);
+                    startActivity(intent);
+                    break;
                 case 1:
 //                    intent = new Intent(this, NewTableActivity.class);
 //                    startActivity(intent);
