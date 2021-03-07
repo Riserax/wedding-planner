@@ -29,8 +29,8 @@ import pl.com.weddingPlanner.view.list.ListItem;
 import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
 import pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView;
 
-import static pl.com.weddingPlanner.view.guests.GuestsActivity.GUEST_ID_EXTRA;
 import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAGE_START;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.GUEST_ID_EXTRA;
 
 public class GuestsListFragment extends Fragment {
 

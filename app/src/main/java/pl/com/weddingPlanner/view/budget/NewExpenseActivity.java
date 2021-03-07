@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityNewExpenseBinding;
@@ -269,23 +270,19 @@ public class NewExpenseActivity extends BaseActivity {
     }
 
     private String getPayersIds(String payers) {
-        StringBuilder payersIdsSB = new StringBuilder();
         String[] payersNames = payers.split("\\|", -1);
+        StringJoiner payersIdsJoiner = new StringJoiner(",");
 
         List<Person> payerList = new ArrayList<>();
         for (String payerName : payersNames) {
             payerList.add(DAOUtil.getPersonByName(this, payerName.trim()));
         }
 
-        for (int i = 0; i < payerList.size(); i++) {
-            if (i != payerList.size() - 1) {
-                payersIdsSB.append(payerList.get(i).getId()).append(",");
-            } else {
-                payersIdsSB.append(payerList.get(i).getId());
-            }
+        for (Person payer : payerList) {
+            payersIdsJoiner.add(payer.getId().toString());
         }
 
-        return payersIdsSB.toString();
+        return payersIdsJoiner.toString();
     }
 
     private boolean isAmountValid(String amount) {

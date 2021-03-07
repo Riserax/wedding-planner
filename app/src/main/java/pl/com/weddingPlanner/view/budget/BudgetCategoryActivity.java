@@ -66,8 +66,7 @@ public class BudgetCategoryActivity extends BaseActivity {
         StringBuilder categoryNameSB = new StringBuilder();
         String categoryName = getIntent().getExtras().getString(CATEGORY_NAME_EXTRA, getResources().getString(R.string.header_title_category));
 
-        categoryNameSB.append(getResources().getString(R.string.header_title_budget)).append(" - ");
-        categoryNameSB.append(categoryName);
+        categoryNameSB.append(getResources().getString(R.string.header_title_budget)).append(" - ").append(categoryName);
 
         this.categoryName = categoryName;
 

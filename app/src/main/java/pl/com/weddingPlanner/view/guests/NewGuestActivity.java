@@ -33,9 +33,9 @@ import pl.com.weddingPlanner.view.dialog.SingleSelectionListDialog;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
 import pl.com.weddingPlanner.view.util.GuestUtil;
 
-import static pl.com.weddingPlanner.view.guests.GuestsActivity.GUEST_ID_EXTRA;
 import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
 import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.GUEST_ID_EXTRA;
 import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
 
 public class NewGuestActivity extends BaseActivity {
@@ -57,7 +57,7 @@ public class NewGuestActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_new_guest);
 
-        getAndSetExtras();
+        getExtrasAndSetVariables();
         setActivityToolbarContentWithBackIcon(headerTitle);
 
         getAndSetData();
@@ -66,7 +66,7 @@ public class NewGuestActivity extends BaseActivity {
         setButtonEnability(binding.addSaveButton, areFieldsValid());
     }
 
-    private void getAndSetExtras() {
+    private void getExtrasAndSetVariables() {
         guestId = getIntent().getIntExtra(GUEST_ID_EXTRA, 0);
         headerTitle = getIntent().getIntExtra(ACTIVITY_TITLE_EXTRA, R.string.header_title_guest_new);
     }

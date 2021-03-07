@@ -17,8 +17,8 @@ import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.dialog.QuestionDialog;
 
-import static pl.com.weddingPlanner.view.guests.GuestsActivity.GUEST_ID_EXTRA;
 import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.GUEST_ID_EXTRA;
 
 public class GuestDetailsActivity extends BaseActivity {
 

@@ -18,6 +18,7 @@ import java.util.List;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityTaskDetailsBinding;
+import pl.com.weddingPlanner.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.model.Assignees;
 import pl.com.weddingPlanner.model.Bookmarks;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
@@ -29,15 +30,14 @@ import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.dialog.QuestionDialog;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.util.ResourceUtil;
 
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
 import static pl.com.weddingPlanner.view.util.ComponentsUtil.getIcon;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.TASK_ID_EXTRA;
 
 public class TaskDetailsActivity extends BaseActivity {
-
-    public static String TASK_ID_EXTRA = "taskIdExtra";
 
     private ActivityTaskDetailsBinding binding;
 
@@ -53,7 +53,7 @@ public class TaskDetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_task_details);
 
-        setActivityToolbarContentWithBackIcon(R.string.header_title_tasks_details);
+        setActivityToolbarContentWithBackIcon(R.string.header_title_task_details);
 
         getTaskAndCategory();
         getAndSetData();
@@ -229,26 +229,17 @@ public class TaskDetailsActivity extends BaseActivity {
         setTaskFloatingButtonListener();
         setCheckBoxesListener();
         setDeleteTaskListener();
+        setEditTaskListener();
     }
 
     private void setTaskFloatingButtonListener() {
         binding.tasksFloatingButton.setOnClickListener(v -> {
-            LinearLayout deleteLayout = binding.deleteLayout;
-            LinearLayout addSubTasksLayout = binding.addSubTasksLayout;
-            LinearLayout editLayout = binding.editLayout;
-            LinearLayout backgroundFade = binding.backgroundFade;
-
-            if (deleteLayout.getVisibility() == View.GONE && addSubTasksLayout.getVisibility() == View.GONE
-                    && editLayout.getVisibility() == View.GONE) {
-                deleteLayout.setVisibility(View.VISIBLE);
-                addSubTasksLayout.setVisibility(View.VISIBLE);
-                editLayout.setVisibility(View.VISIBLE);
-                backgroundFade.setVisibility(View.VISIBLE);
+            if (binding.deleteLayout.getVisibility() == View.GONE
+                    && binding.addSubTasksLayout.getVisibility() == View.GONE
+                    && binding.editLayout.getVisibility() == View.GONE) {
+                showFloatingMenu();
             } else {
-                deleteLayout.setVisibility(View.GONE);
-                addSubTasksLayout.setVisibility(View.GONE);
-                editLayout.setVisibility(View.GONE);
-                backgroundFade.setVisibility(View.GONE);
+                hideFloatingMenu();
             }
         });
     }
@@ -276,7 +267,33 @@ public class TaskDetailsActivity extends BaseActivity {
     private void setDeleteTaskListener() {
         binding.deleteLayout.setOnClickListener(v -> {
             new QuestionDialog(TaskDetailsActivity.this, getResources().getString(R.string.task_details_delete_question)).showDialog();
+            hideFloatingMenu();
         });
+    }
+
+    private void setEditTaskListener() {
+        binding.editLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), NewTaskActivity.class);
+            intent.putExtra(TASK_ID_EXTRA, taskDetails.getId());
+            intent.putExtra(ACTIVITY_TITLE_EXTRA, R.string.header_title_task_edit);
+            startActivity(intent);
+
+            hideFloatingMenu();
+        });
+    }
+
+    private void showFloatingMenu() {
+        binding.deleteLayout.setVisibility(View.VISIBLE);
+        binding.addSubTasksLayout.setVisibility(View.VISIBLE);
+        binding.editLayout.setVisibility(View.VISIBLE);
+        binding.backgroundFade.setVisibility(View.VISIBLE);
+    }
+
+    private void hideFloatingMenu() {
+        binding.deleteLayout.setVisibility(View.GONE);
+        binding.addSubTasksLayout.setVisibility(View.GONE);
+        binding.editLayout.setVisibility(View.GONE);
+        binding.backgroundFade.setVisibility(View.GONE);
     }
 
     @Override
