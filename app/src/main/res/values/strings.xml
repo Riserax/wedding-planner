@@ -96,8 +96,9 @@
     <string name="header_title_settings">Ustawienia</string>
     <string name="header_title_subcontractors">Podwykonawcy</string>
     <string name="header_title_tasks">Zadania</string>
-    <string name="header_title_tasks_details">Szczegóły zadania</string>
-    <string name="header_title_tasks_new">Nowe zadanie</string>
+    <string name="header_title_task_details">Szczegóły zadania</string>
+    <string name="header_title_task_edit">Edycja zadania</string>
+    <string name="header_title_task_new">Nowe zadanie</string>
 
     <string name="list_standard_caption_empty">Brak danych do wyświetlenia</string>
 

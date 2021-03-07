@@ -15,8 +15,6 @@ import pl.com.weddingPlanner.view.BaseActivity;
 
 public class GuestsActivity extends BaseActivity {
 
-    public static String GUEST_ID_EXTRA = "guestIdExtra";
-
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
 

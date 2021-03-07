@@ -285,7 +285,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/task_description_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/field_height"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/field_height"
                     android:layout_marginBottom="@dimen/field_margin"
                     android:paddingStart="@dimen/field_padding_start"
                     android:paddingEnd="@dimen/field_padding_end"

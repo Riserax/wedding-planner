@@ -38,7 +38,7 @@ import pl.com.weddingPlanner.view.util.TasksUtil;
 
 import static pl.com.weddingPlanner.view.list.HeaderItem.getHeaderItemWithDayOfWeek;
 import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAGE_START;
-import static pl.com.weddingPlanner.view.tasks.TaskDetailsActivity.TASK_ID_EXTRA;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.TASK_ID_EXTRA;
 
 public class TasksMonthFragment extends Fragment {
 

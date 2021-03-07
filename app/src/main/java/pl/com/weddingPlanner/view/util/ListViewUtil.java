@@ -6,6 +6,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 
 public class ListViewUtil {
 
@@ -42,16 +43,12 @@ public class ListViewUtil {
     }
 
     public static String getSeparatedString(List<String> selectedItems) {
-        StringBuilder itemsBuilder = new StringBuilder();
+        StringJoiner itemsJoiner = new StringJoiner(" | ");
 
-        for (int i = 0; i < selectedItems.size(); i++) {
-            if (i == selectedItems.size() - 1) {
-                itemsBuilder.append(selectedItems.get(i));
-            } else {
-                itemsBuilder.append(selectedItems.get(i)).append(" | ");
-            }
+        for (String selectedItem : selectedItems) {
+            itemsJoiner.add(selectedItem);
         }
 
-        return itemsBuilder.toString();
+        return itemsJoiner.toString();
     }
 }

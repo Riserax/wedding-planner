@@ -19,11 +19,10 @@ import java.util.List;
 import lombok.Setter;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityNewTaskBinding;
+import pl.com.weddingPlanner.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.model.PickedDate;
 import pl.com.weddingPlanner.model.PickedTime;
-import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
-import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.util.DebouncedOnClickListener;
@@ -32,19 +31,27 @@ import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.dialog.DateDialog;
 import pl.com.weddingPlanner.view.dialog.PeopleDialog;
 import pl.com.weddingPlanner.view.dialog.SingleSelectionListDialog;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskBookmarksDialog;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskTimeDialog;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
+import pl.com.weddingPlanner.view.util.TasksUtil;
 
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
 import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.TASK_ID_EXTRA;
 import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
 import static pl.com.weddingPlanner.view.util.ResourceUtil.CATEGORY_OTHER;
 
 public class NewTaskActivity extends BaseActivity {
 
     private ActivityNewTaskBinding binding;
+
+    private int taskId;
+    private int headerTitle;
+
+    private Task taskDetails;
+    private Category categoryDetails;
 
     @Setter
     private List<Integer> selectedBookmarksKeys = new ArrayList<>();
@@ -53,19 +60,105 @@ public class NewTaskActivity extends BaseActivity {
     @Setter
     private PickedTime pickedTime;
 
-    private boolean isCategoryChosen;
-    private boolean areBookmarksSet;
-    private boolean areAssigneesSet;
-    private boolean isTimeSet;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_new_task);
-        setActivityToolbarContentWithBackIcon(R.string.header_title_tasks_new);
 
+        getExtrasAndSetVariables();
+        setActivityToolbarContentWithBackIcon(headerTitle);
+
+        prepareForEditing();
         setListeners();
         setButtonEnability(binding.addSaveButton, false);
+    }
+
+    private void getExtrasAndSetVariables() {
+        taskId = getIntent().getIntExtra(TASK_ID_EXTRA, 0);
+        headerTitle = getIntent().getIntExtra(ACTIVITY_TITLE_EXTRA, R.string.header_title_task_new);
+    }
+
+    private void prepareForEditing() {
+        getDataAndSetVariables();
+        fillFields();
+        setPositionsSelectedInDialogs();
+    }
+
+    private void getDataAndSetVariables() {
+        if (taskId > 0) {
+            taskDetails = DAOUtil.getTaskById(this, taskId);
+            categoryDetails = DAOUtil.getCategoryByNameAndType(this, taskDetails.getCategory(), CategoryTypeEnum.TASKS.name());
+        }
+    }
+
+    private void fillFields() {
+        if (taskDetails != null) {
+            binding.taskName.setText(taskDetails.getTitle());
+
+            fillCategory();
+            fillBookmarks();
+            fillAssignees();
+            fillDescription();
+
+            binding.taskDate.setText(taskDetails.getDate());
+
+            fillTime();
+
+            binding.addSaveButton.setText(getResources().getString(R.string.button_save));
+        }
+    }
+
+    private void fillCategory() {
+        binding.categoryTitle.setVisibility(View.VISIBLE);
+        binding.categoryName.setText(categoryDetails.getName());
+    }
+
+    private void fillBookmarks() {
+        if (StringUtils.isNotBlank(taskDetails.getBookmarks())) {
+            binding.bookmarksTitle.setVisibility(View.VISIBLE);
+
+            String bookmarksNamesSeparated = TasksUtil.getBookmarksNamesSeparated(taskDetails.getBookmarks(), this);
+            binding.bookmarksName.setText(bookmarksNamesSeparated);
+        }
+    }
+
+    private void fillAssignees() {
+        if (StringUtils.isNotBlank(taskDetails.getAssignees())) {
+            binding.peopleTitle.setVisibility(View.VISIBLE);
+
+            String assigneeNamesSeparated = TasksUtil.getAssigneeNamesSeparated(taskDetails.getAssignees(), this);
+            binding.peopleName.setText(assigneeNamesSeparated);
+        }
+    }
+
+    private void fillDescription() {
+        if (StringUtils.isNotBlank(taskDetails.getDescription())) {
+            binding.taskDescriptionName.setText(taskDetails.getDescription());
+        }
+    }
+
+    private void fillTime() {
+        if (StringUtils.isNotBlank(taskDetails.getTime())) {
+            binding.taskTime.setText(taskDetails.getTime());
+        }
+    }
+
+    private void setPositionsSelectedInDialogs() {
+        if (taskDetails != null) {
+            if (StringUtils.isNotBlank(taskDetails.getBookmarks())) {
+                selectedBookmarksKeys = TasksUtil.getListOfBookmarksIds(taskDetails.getBookmarks(), this);
+            }
+
+            if (StringUtils.isNotBlank(taskDetails.getAssignees())) {
+                selectedPeopleKeys = TasksUtil.getListOfAssigneesIds(taskDetails.getAssignees(), this);
+            }
+
+            pickedDate = TasksUtil.getPickedDateFromString(taskDetails.getDate());
+
+            if (StringUtils.isNotBlank(taskDetails.getTime())) {
+                pickedTime = TasksUtil.getPickedTimeFromString(taskDetails.getTime());
+            }
+        }
     }
 
     private void setListeners() {
@@ -211,13 +304,13 @@ public class NewTaskActivity extends BaseActivity {
         String assignees = binding.peopleName.getText().toString();
         String time = binding.taskTime.getText().toString();
 
-        isCategoryChosen = !category.equals(getResources().getString(R.string.field_category));
-        areBookmarksSet = !bookmarks.equals(getResources().getString(R.string.task_field_bookmarks));
-        areAssigneesSet = !assignees.equals(getResources().getString(R.string.task_field_people));
-        isTimeSet = !time.equals(getResources().getString(R.string.task_field_time));
+        boolean isCategoryChosen = !category.equals(getResources().getString(R.string.field_category));
+        boolean areBookmarksSet = !bookmarks.equals(getResources().getString(R.string.task_field_bookmarks));
+        boolean areAssigneesSet = !assignees.equals(getResources().getString(R.string.task_field_people));
+        boolean isTimeSet = !time.equals(getResources().getString(R.string.task_field_time));
 
-        String bookmarksIdsString = areBookmarksSet ? getBookmarksIds(bookmarks) : StringUtils.EMPTY;
-        String assigneesIdsString = areAssigneesSet ? getAssigneesIds(assignees) : StringUtils.EMPTY;
+        String bookmarksIdsString = areBookmarksSet ? TasksUtil.getBookmarksIds(bookmarks, this) : StringUtils.EMPTY;
+        String assigneesIdsString = areAssigneesSet ? TasksUtil.getAssigneesIds(assignees, this) : StringUtils.EMPTY;
 
         return Task.builder()
                 .category(isCategoryChosen ? category : CATEGORY_OTHER)
@@ -228,46 +321,6 @@ public class NewTaskActivity extends BaseActivity {
                 .date(binding.taskDate.getText().toString())
                 .time(isTimeSet ? time : StringUtils.EMPTY)
                 .build();
-    }
-
-    private String getBookmarksIds(String bookmarks) {
-        StringBuilder bookmarksIdsSB = new StringBuilder();
-        String[] bookmarksNames = bookmarks.split("\\|", -1);
-
-        List<Bookmark> bookmarkList = new ArrayList<>();
-        for (String bookmarkName : bookmarksNames) {
-            bookmarkList.add(DAOUtil.getBookmarkByName(this, bookmarkName.trim()));
-        }
-
-        for (int i = 0; i < bookmarkList.size(); i++) {
-            if (i != bookmarkList.size() - 1) {
-                bookmarksIdsSB.append(bookmarkList.get(i).getId()).append(",");
-            } else {
-                bookmarksIdsSB.append(bookmarkList.get(i).getId());
-            }
-        }
-
-        return bookmarksIdsSB.toString();
-    }
-
-    private String getAssigneesIds(String assignees) {
-        StringBuilder assigneesIdsSB = new StringBuilder();
-        String[] assigneesNames = assignees.split("\\|", -1);
-
-        List<Person> assigneeList = new ArrayList<>();
-        for (String assigneeName : assigneesNames) {
-            assigneeList.add(DAOUtil.getPersonByName(this, assigneeName.trim()));
-        }
-
-        for (int i = 0; i < assigneeList.size(); i++) {
-            if (i != assigneeList.size() - 1) {
-                assigneesIdsSB.append(assigneeList.get(i).getId()).append(",");
-            } else {
-                assigneesIdsSB.append(assigneeList.get(i).getId());
-            }
-        }
-
-        return assigneesIdsSB.toString();
     }
 
     @Override

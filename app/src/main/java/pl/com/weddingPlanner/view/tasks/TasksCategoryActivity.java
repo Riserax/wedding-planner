@@ -32,7 +32,7 @@ import pl.com.weddingPlanner.view.util.TasksUtil;
 
 import static pl.com.weddingPlanner.view.list.HeaderItem.getHeaderItemWithDayOfWeek;
 import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAGE_START;
-import static pl.com.weddingPlanner.view.tasks.TaskDetailsActivity.TASK_ID_EXTRA;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.TASK_ID_EXTRA;
 import static pl.com.weddingPlanner.view.util.SideBySideListUtil.CATEGORY_NAME_EXTRA;
 
 public class TasksCategoryActivity extends BaseActivity {
@@ -65,8 +65,7 @@ public class TasksCategoryActivity extends BaseActivity {
         StringBuilder categoryNameSB = new StringBuilder();
         String categoryName = getIntent().getExtras().getString(CATEGORY_NAME_EXTRA, getResources().getString(R.string.header_title_category));
 
-        categoryNameSB.append(getResources().getString(R.string.header_title_tasks)).append(" - ");
-        categoryNameSB.append(categoryName);
+        categoryNameSB.append(getResources().getString(R.string.header_title_tasks)).append(" - ").append(categoryName);
 
         this.categoryName = categoryName;
 
