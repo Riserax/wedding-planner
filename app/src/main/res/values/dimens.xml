@@ -45,10 +45,10 @@
     <dimen name="image_button_margin_end">5dp</dimen>
 
     <dimen name="left_column_menu_fragment_margin_start">15dp</dimen>
-    <dimen name="left_column_menu_fragment_margin_top">30dp</dimen>
+    <dimen name="left_column_menu_fragment_margin_top">15dp</dimen>
     <dimen name="left_column_menu_fragment_margin_end">3dp</dimen>
     <dimen name="right_column_menu_fragment_margin_start">3dp</dimen>
-    <dimen name="right_column_menu_fragment_margin_top">30dp</dimen>
+    <dimen name="right_column_menu_fragment_margin_top">15dp</dimen>
     <dimen name="right_column_menu_fragment_margin_end">15dp</dimen>
 
     <dimen name="recycler_list_bottom_padding">70dp</dimen>

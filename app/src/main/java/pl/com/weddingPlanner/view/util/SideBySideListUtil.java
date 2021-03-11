@@ -16,15 +16,17 @@ import java.util.List;
 import java.util.Objects;
 
 import pl.com.weddingPlanner.R;
+import pl.com.weddingPlanner.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.MoreEnum;
+import pl.com.weddingPlanner.enums.MoreResource;
 import pl.com.weddingPlanner.exception.EnumValueNotFoundException;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.util.DebouncedOnClickListener;
 import pl.com.weddingPlanner.util.Logger;
 import pl.com.weddingPlanner.view.budget.BudgetCategoriesFragment;
 import pl.com.weddingPlanner.view.budget.BudgetCategoryActivity;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
-import pl.com.weddingPlanner.enums.MoreEnum;
-import pl.com.weddingPlanner.enums.MoreResource;
+import pl.com.weddingPlanner.view.subcontractors.SubcontractorsCategoriesFragment;
+import pl.com.weddingPlanner.view.subcontractors.SubcontractorsCategoryActivity;
 import pl.com.weddingPlanner.view.tasks.TasksCategoriesFragment;
 import pl.com.weddingPlanner.view.tasks.TasksCategoryActivity;
 
@@ -165,6 +167,8 @@ public class SideBySideListUtil {
                 return TasksCategoryActivity.class;
             } else if (CategoryTypeEnum.BUDGET == CategoryTypeEnum.valueOf(category.getType())) {
                 return BudgetCategoryActivity.class;
+            } else if (CategoryTypeEnum.SUBCONTRACTORS == CategoryTypeEnum.valueOf(category.getType())) {
+                return SubcontractorsCategoryActivity.class;
             } else {
                 return null;
             }
@@ -181,7 +185,9 @@ public class SideBySideListUtil {
     }
 
     private static void setExtras(Fragment fragment, Intent intent, Object entity) {
-        if (fragment instanceof TasksCategoriesFragment || fragment instanceof BudgetCategoriesFragment) {
+        if (fragment instanceof TasksCategoriesFragment
+                || fragment instanceof BudgetCategoriesFragment
+                || fragment instanceof SubcontractorsCategoriesFragment) {
             intent.putExtra(CATEGORY_NAME_EXTRA, getCategoryName(entity));
             intent.putExtra(FRAGMENT_SOURCE_EXTRA, fragment.getClass().toString());
         }

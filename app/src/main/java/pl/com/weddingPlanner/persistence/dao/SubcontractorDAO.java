@@ -16,6 +16,9 @@ public interface SubcontractorDAO {
     @Query("SELECT * FROM subcontractor ORDER BY name COLLATE NOCASE ASC")
     List<Subcontractor> getAll();
 
+    @Query("SELECT * FROM subcontractor WHERE category = :category")
+    List<Subcontractor> getAllByCategory(String category);
+
     @Query("SELECT * FROM subcontractor WHERE id = :id")
     Subcontractor getById(Integer id);
 

@@ -248,6 +248,12 @@ public class DAOUtil {
         return subcontractorDAO.getAll();
     }
 
+    public static List<Subcontractor> getAllSubcontractorsByCategory(Context context, String category) {
+        AppDatabase appDatabase = getInstance(context);
+        SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
+        return subcontractorDAO.getAllByCategory(category);
+    }
+
     public static Subcontractor getSubcontractorById(Context context, Integer id) {
         AppDatabase appDatabase = getInstance(context);
         SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
