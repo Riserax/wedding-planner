@@ -1,5 +1,6 @@
 package pl.com.weddingPlanner.view.subcontractors;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
 import pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView;
 
 import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAGE_START;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.SUBCONTRACTOR_ID_EXTRA;
 
 public class SubcontractorsListFragment extends Fragment {
 
@@ -58,10 +60,9 @@ public class SubcontractorsListFragment extends Fragment {
     private void setRecyclerView() {
         linearLayoutManager = new LinearLayoutManager(requireContext());
         adapter = new ListRecyclerAdapter(requireContext(), new LinkedList<>(), item -> {
-            //TODO
-//            Intent intent = new Intent(requireContext(), GuestDetailsActivity.class);
-//            intent.putExtra(GUEST_ID_EXTRA, item.getItemId());
-//            startActivity(intent);
+            Intent intent = new Intent(requireContext(), SubcontractorDetailsActivity.class);
+            intent.putExtra(SUBCONTRACTOR_ID_EXTRA, item.getItemId());
+            startActivity(intent);
         });
 
         RecyclerView recyclerView = binding.recyclerView;
@@ -116,11 +117,11 @@ public class SubcontractorsListFragment extends Fragment {
             toReturn.add(subcontractorInfo);
         }
 
-        List<ListItem> listItems = prepareGuestsInfoList(toReturn);
+        List<ListItem> listItems = prepareSubcontractorsInfoList(toReturn);
         adapter.addItems(listItems);
     }
 
-    private List<ListItem> prepareGuestsInfoList(List<SubcontractorInfo> subcontractorInfoList) {
+    private List<ListItem> prepareSubcontractorsInfoList(List<SubcontractorInfo> subcontractorInfoList) {
         List<ListItem> toReturn = new ArrayList<>();
 
         for (SubcontractorInfo subcontractorInfo : subcontractorInfoList) {

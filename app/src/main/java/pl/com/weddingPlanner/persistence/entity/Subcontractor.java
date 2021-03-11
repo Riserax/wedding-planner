@@ -34,7 +34,7 @@ public class Subcontractor implements Serializable {
     private String contact;
     private String website;
     private String address;
-    private String stage;
+    private String collaborationStage;
     private String cost;
     private String notes;
 }

@@ -68,6 +68,12 @@ public class DAOUtil {
         guestDAO.deleteById(id);
     }
 
+    public static void deleteSubcontractor(Context context, Subcontractor subcontractor) {
+        AppDatabase appDatabase = getInstance(context);
+        SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
+        subcontractorDAO.delete(subcontractor);
+    }
+
     public static List<Category> getAllCategoriesByType(Context context, String type) {
         AppDatabase appDatabase = getInstance(context);
         CategoryDAO categoryDAO = appDatabase.categoryDAO();
@@ -240,6 +246,12 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
         return subcontractorDAO.getAll();
+    }
+
+    public static Subcontractor getSubcontractorById(Context context, Integer id) {
+        AppDatabase appDatabase = getInstance(context);
+        SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
+        return subcontractorDAO.getById(id);
     }
 
     public static Subcontractor getSubcontractorByName(Context context, String name) {

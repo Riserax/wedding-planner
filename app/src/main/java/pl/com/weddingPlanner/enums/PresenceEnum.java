@@ -15,5 +15,5 @@ public enum PresenceEnum {
     AWAITING(R.string.guest_field_invitation_awaiting),
     ;
 
-    private final int nameResId;
+    private final int resourceId;
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -15,7 +16,7 @@
                 layout="@layout/toolbar"/>
 
             <ScrollView
-                android:id="@+id/root_scroll_view"
+                android:id="@+id/task_root_scroll_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_gravity="top"
@@ -24,56 +25,59 @@
                 android:focusableInTouchMode="true"
                 android:weightSum="2"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/toolbar_layout">
+                app:layout_constraintTop_toBottomOf="@id/toolbar_layout"
+                app:layout_constraintVertical_bias="0.0"
+                tools:layout_editor_absoluteX="0dp">
 
                 <LinearLayout
                     android:id="@+id/components_layout"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:paddingTop="@dimen/components_layout_padding"
-                    android:paddingBottom="@dimen/recycler_list_bottom_padding"
+                    android:orientation="vertical"
                     android:paddingStart="@dimen/components_layout_padding"
+                    android:paddingTop="@dimen/components_layout_padding"
                     android:paddingEnd="@dimen/components_layout_padding"
-                    android:orientation="vertical">
+                    android:paddingBottom="@dimen/recycler_list_bottom_padding">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/name_surname_layout"
+                        android:id="@+id/name_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/details_field_margin_bottom">
 
                         <TextView
-                            android:id="@+id/name_surname_header"
+                            android:id="@+id/name_header"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:paddingEnd="@dimen/text_view_padding"
-                            android:text="@string/guest_field_name_surname"
+                            android:text="@string/subcontractor_field_name"
+                            android:textAlignment="center"
                             android:textColor="@color/gray_555555"
                             android:textSize="@dimen/_13sdp"
                             android:textStyle="bold"
-                            android:textAlignment="center"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_name"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/guideline_name_surname"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.constraintlayout.widget.Guideline
-                            android:id="@+id/guideline_name_surname"
+                            android:id="@+id/guideline_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             app:layout_constraintGuide_percent="0.30" />
 
                         <TextView
-                            android:id="@+id/name_surname"
+                            android:id="@+id/name"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:text="Grzegorz Brzęczyszczykiewicz Photography"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/guideline_name_surname"
-                            app:layout_constraintEnd_toEndOf="parent"/>
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_name"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -90,14 +94,14 @@
                             android:layout_height="wrap_content"
                             android:paddingEnd="@dimen/text_view_padding"
                             android:text="@string/guest_field_connected_with"
+                            android:textAlignment="center"
                             android:textColor="@color/gray_555555"
                             android:textSize="@dimen/_13sdp"
                             android:textStyle="bold"
-                            android:textAlignment="center"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_connected_with"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/guideline_connected_with"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.constraintlayout.widget.Guideline
                             android:id="@+id/guideline_connected_with"
@@ -112,10 +116,10 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/guideline_connected_with"
-                            app:layout_constraintEnd_toEndOf="parent"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -132,15 +136,15 @@
                             android:layout_height="wrap_content"
                             android:paddingEnd="@dimen/text_view_padding"
                             android:text="@string/guest_field_accompany"
+                            android:textAlignment="center"
                             android:textColor="@color/gray_555555"
                             android:textStyle="bold"
-                            android:textAlignment="center"
                             app:autoSizePresetSizes="@array/field_header_text_sizes"
                             app:autoSizeTextType="uniform"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_accompany"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/guideline_accompany"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.constraintlayout.widget.Guideline
                             android:id="@+id/guideline_accompany"
@@ -155,59 +159,12 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/guideline_accompany"
-                            app:layout_constraintEnd_toEndOf="parent"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/age_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
-
-                        <TextView
-                            android:id="@+id/age_header"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:paddingEnd="@dimen/text_view_padding"
-                            android:text="@string/guest_field_age"
-                            android:textColor="@color/gray_555555"
-                            android:textSize="@dimen/_13sdp"
-                            android:textStyle="bold"
-                            android:textAlignment="center"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/guideline_age"/>
-
-                        <androidx.constraintlayout.widget.Guideline
-                            android:id="@+id/guideline_age"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            app:layout_constraintGuide_percent="0.30" />
-
-                        <TextView
-                            android:id="@+id/age"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/gray_949494"
-                            android:textSize="@dimen/field_text_size"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/guideline_age"
-                            app:layout_constraintEnd_toEndOf="parent"/>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/gray_BCBCBC"
-                        android:layout_marginBottom="@dimen/details_field_margin_bottom"/>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/category_layout"
@@ -221,14 +178,14 @@
                             android:layout_height="wrap_content"
                             android:paddingEnd="@dimen/text_view_padding"
                             android:text="@string/field_category"
+                            android:textAlignment="center"
                             android:textColor="@color/gray_555555"
                             android:textSize="@dimen/_13sdp"
                             android:textStyle="bold"
-                            android:textAlignment="center"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_category"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/guideline_category"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.constraintlayout.widget.Guideline
                             android:id="@+id/guideline_category"
@@ -241,102 +198,21 @@
                             android:id="@+id/category"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:text="Foto Wideo"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/guideline_category"
-                            app:layout_constraintEnd_toEndOf="parent"/>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/table_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
-
-                        <TextView
-                            android:id="@+id/table_header"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:paddingEnd="@dimen/text_view_padding"
-                            android:text="@string/guest_field_table"
-                            android:textColor="@color/gray_555555"
-                            android:textSize="@dimen/_13sdp"
-                            android:textStyle="bold"
-                            android:textAlignment="center"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/guideline_table"/>
-
-                        <androidx.constraintlayout.widget.Guideline
-                            android:id="@+id/guideline_table"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            app:layout_constraintGuide_percent="0.30" />
-
-                        <TextView
-                            android:id="@+id/table"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/gray_949494"
-                            android:textSize="@dimen/field_text_size"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/guideline_table"
-                            app:layout_constraintEnd_toEndOf="parent"/>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/invitation_status_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
-
-                        <TextView
-                            android:id="@+id/invitation_status_header"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:paddingEnd="@dimen/text_view_padding"
-                            android:text="@string/guest_field_invitation_status"
-                            android:textColor="@color/gray_555555"
-                            android:textSize="@dimen/_13sdp"
-                            android:textStyle="bold"
-                            android:textAlignment="center"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/guideline_invitation_status"/>
-
-                        <androidx.constraintlayout.widget.Guideline
-                            android:id="@+id/guideline_invitation_status"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            app:layout_constraintGuide_percent="0.30" />
-
-                        <TextView
-                            android:id="@+id/invitation_status"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/gray_949494"
-                            android:textSize="@dimen/field_text_size"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/guideline_invitation_status"
-                            app:layout_constraintEnd_toEndOf="parent"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/gray_BCBCBC"
-                        android:layout_marginBottom="@dimen/details_field_margin_bottom"/>
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom"
+                        android:background="@color/gray_BCBCBC" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/contact_layout"
@@ -350,14 +226,14 @@
                             android:layout_height="wrap_content"
                             android:paddingEnd="@dimen/text_view_padding"
                             android:text="@string/guest_field_contact"
+                            android:textAlignment="center"
                             android:textColor="@color/gray_555555"
                             android:textSize="@dimen/_13sdp"
                             android:textStyle="bold"
-                            android:textAlignment="center"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_contact"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/guideline_contact"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.constraintlayout.widget.Guideline
                             android:id="@+id/guideline_contact"
@@ -370,12 +246,187 @@
                             android:id="@+id/contact"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:text="tel. 666 777 888\nadres: ul. Długa 3/5, Kraków"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/guideline_contact"
-                            app:layout_constraintEnd_toEndOf="parent"/>
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/www_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
+
+                        <TextView
+                            android:id="@+id/www_header"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/subcontractor_field_www"
+                            android:textAlignment="center"
+                            android:textColor="@color/gray_555555"
+                            android:textSize="@dimen/_13sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_www"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_www"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.30" />
+
+                        <TextView
+                            android:id="@+id/www"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="janusz-photography.pl"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_www"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/address_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
+
+                        <TextView
+                            android:id="@+id/address_header"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/subcontractor_field_address"
+                            android:textAlignment="center"
+                            android:textColor="@color/gray_555555"
+                            android:textSize="@dimen/_13sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_address"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.30" />
+
+                        <TextView
+                            android:id="@+id/address"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="ul. Polna 6"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_address"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom"
+                        android:background="@color/gray_BCBCBC" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/collaboration_stage_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
+
+                        <TextView
+                            android:id="@+id/collaboration_stage_header"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/subcontractor_field_collaboration_stage"
+                            android:textAlignment="center"
+                            android:textColor="@color/gray_555555"
+                            android:textSize="@dimen/_13sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_collaboration_stage"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_collaboration_stage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.30" />
+
+                        <TextView
+                            android:id="@+id/collaboration_stage"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Opłacone"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_collaboration_stage"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cost_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
+
+                        <TextView
+                            android:id="@+id/cost_header"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/subcontractor_field_cost"
+                            android:textAlignment="center"
+                            android:textColor="@color/gray_555555"
+                            android:textSize="@dimen/_13sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_cost"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_cost"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.30" />
+
+                        <TextView
+                            android:id="@+id/cost"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="25 000,00"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_cost"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -391,14 +442,14 @@
                             android:layout_height="wrap_content"
                             android:paddingEnd="@dimen/text_view_padding"
                             android:text="@string/guest_field_notes"
+                            android:textAlignment="center"
                             android:textColor="@color/gray_555555"
                             android:textSize="@dimen/_13sdp"
                             android:textStyle="bold"
-                            android:textAlignment="center"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_notes"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/guideline_notes"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.constraintlayout.widget.Guideline
                             android:id="@+id/guideline_notes"
@@ -411,12 +462,13 @@
                             android:id="@+id/notes"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:text="Fajny ziomek, profeska"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/guideline_notes"
-                            app:layout_constraintEnd_toEndOf="parent"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -461,7 +513,7 @@
                 android:paddingEnd="@dimen/floating_button_option_padding_start_end"
                 android:paddingTop="@dimen/floating_button_option_padding_top"
                 android:paddingBottom="@dimen/floating_button_option_padding_bottom"
-                android:text="@string/guest_details_delete"
+                android:text="@string/subcontractor_details_delete"
                 android:textColor="@color/gray_555555"
                 android:textSize="@dimen/field_text_size"
                 android:textStyle="bold"
@@ -501,7 +553,7 @@
                 android:paddingEnd="@dimen/floating_button_option_padding_start_end"
                 android:paddingTop="@dimen/floating_button_option_padding_top"
                 android:paddingBottom="@dimen/floating_button_option_padding_bottom"
-                android:text="@string/guest_details_edit"
+                android:text="@string/subcontractor_details_edit"
                 android:textColor="@color/gray_555555"
                 android:textSize="@dimen/field_text_size"
                 android:textStyle="bold"
@@ -521,7 +573,7 @@
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/guest_floating_button"
+            android:id="@+id/floating_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

@@ -104,7 +104,7 @@ public class GuestDetailsActivity extends BaseActivity {
 
     private void setInvitationStatus() {
         if (StringUtils.isNotBlank(guestDetails.getPresence())) {
-            int presenceResId = PresenceEnum.valueOf(guestDetails.getPresence()).getNameResId();
+            int presenceResId = PresenceEnum.valueOf(guestDetails.getPresence()).getResourceId();
             binding.invitationStatus.setText(getString(presenceResId));
         } else {
             binding.invitationStatus.setText(getString(R.string.field_not_specified));
@@ -128,12 +128,12 @@ public class GuestDetailsActivity extends BaseActivity {
     }
 
     private void setListeners() {
-        setTaskFloatingButtonListener();
+        setGuestFloatingButtonListener();
         setDeleteGuestListener();
         setEditGuestListener();
     }
 
-    private void setTaskFloatingButtonListener() {
+    private void setGuestFloatingButtonListener() {
         binding.guestFloatingButton.setOnClickListener(v -> {
             if (binding.deleteLayout.getVisibility() == View.GONE && binding.editLayout.getVisibility() == View.GONE) {
                 showFloatingMenu();
@@ -145,10 +145,14 @@ public class GuestDetailsActivity extends BaseActivity {
 
     private void setDeleteGuestListener() {
         binding.deleteLayout.setOnClickListener(v -> {
-            int questionResId = isGuest() ? R.string.guest_details_delete_question_guest : R.string.guest_details_delete_question;
+            int questionResId = isGuestAndHasConnection() ? R.string.guest_details_delete_question_guest : R.string.guest_details_delete_question;
             new QuestionDialog(GuestDetailsActivity.this, getString(questionResId)).showDialog();
             hideFloatingMenu();
         });
+    }
+
+    private boolean isGuestAndHasConnection() {
+        return isGuest() && guestDetails.getConnectedWithId() > 0;
     }
 
     private void setEditGuestListener() {

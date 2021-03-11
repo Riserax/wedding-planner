@@ -46,8 +46,6 @@ public class NewSubcontractorActivity extends BaseActivity {
 
     private AmountValidator amountValidator;
 
-    boolean isCategoryChosen;
-
     private CollaborationStageEnum collaborationStage = CollaborationStageEnum.NONE;
 
     @Override
@@ -171,12 +169,12 @@ public class NewSubcontractorActivity extends BaseActivity {
     private void setInContactButtonListener() {
         binding.inContactButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
-            if (CollaborationStageEnum.IN_CONTACT_AWAITING.equals(collaborationStage)) {
+            if (CollaborationStageEnum.IN_CONTACT.equals(collaborationStage)) {
                 ButtonsUtil.setButtonSelection(binding.inContactButton, this, false);
                 collaborationStage = CollaborationStageEnum.NONE;
             } else {
                 SubcontractorUtil.setInContactButtonsSelection(binding, getApplicationContext());
-                collaborationStage = CollaborationStageEnum.IN_CONTACT_AWAITING;
+                collaborationStage = CollaborationStageEnum.IN_CONTACT;
             }
         });
     }
@@ -216,6 +214,7 @@ public class NewSubcontractorActivity extends BaseActivity {
                 Subcontractor newSubcontractor = getNewSubcontractorData();
 
                 if (StringUtils.isNotBlank(newSubcontractor.getName()) && isCostValid(newSubcontractor.getCost())) {
+                    prepareAmount(newSubcontractor);
 //                    if (guestDetails != null && guestId > 0) {
 //                        proceedWhenEditingGuest(newGuest);
 //                    } else {
@@ -236,7 +235,9 @@ public class NewSubcontractorActivity extends BaseActivity {
 
     private Subcontractor getNewSubcontractorData() {
         String category = binding.categoryName.getText().toString();
-        isCategoryChosen = !category.equals(getResources().getString(R.string.field_category));
+
+        boolean isCategoryChosen = !category.equals(getResources().getString(R.string.field_category));
+        boolean isCollaborationStageChosen = !CollaborationStageEnum.NONE.equals(collaborationStage);
 
         return Subcontractor.builder()
                 .name(binding.name.getText().toString())
@@ -244,7 +245,7 @@ public class NewSubcontractorActivity extends BaseActivity {
                 .contact(binding.contact.getText().toString())
                 .website(binding.website.getText().toString())
                 .address(binding.address.getText().toString())
-                .stage(collaborationStage.name())
+                .collaborationStage(isCollaborationStageChosen ? collaborationStage.name() : StringUtils.EMPTY)
                 .cost(binding.cost.getText().toString())
                 .notes(binding.notes.getText().toString())
                 .build();
@@ -261,6 +262,10 @@ public class NewSubcontractorActivity extends BaseActivity {
 
     private boolean isCostValid(String cost) {
         return ValidationUtil.isValid(cost, true, NewSubcontractorActivity.this, amountValidator);
+    }
+
+    private void prepareAmount(Subcontractor newSubcontractor) {
+        newSubcontractor.setCost(newSubcontractor.getCost().replace(",", ".").replaceAll("\\s", ""));
     }
 
     private void proceedWhenNewSubcontractor(Subcontractor newSubcontractor) {

@@ -512,8 +512,8 @@ public class MainActivity extends AppCompatActivity {
                 .contact("tel.: 785 134 822\ne-mail:zielona43@gmail.com")
                 .website("https://salazielonewzgorze.pl")
                 .address("Zielona 43, Koniusza, Kraków")
-                .stage("CONFIRMED")
-                .cost("20000")
+                .collaborationStage("CONFIRMED")
+                .cost("20000.00")
                 .notes("Zapłacona zaliczka")
                 .build();
 
@@ -522,8 +522,8 @@ public class MainActivity extends AppCompatActivity {
                 .category("Foto & Wideo")
                 .contact("tel.: 604 052 252\ne-mail: kontakt@mateuszgumula.pl")
                 .website("http://www.mateuszgumula.pl")
-                .stage("CONFIRMED")
-                .cost("3000")
+                .collaborationStage("CONFIRMED")
+                .cost("3000.00")
                 .build();
 
         DAOUtil.insertSubcontractor(this, subcontractor1);

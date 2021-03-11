@@ -94,6 +94,8 @@
     <string name="header_title_new_payment">Nowa płatność</string>
     <string name="header_title_payment">Płatność</string>
     <string name="header_title_settings">Ustawienia</string>
+    <string name="header_title_subcontractor">Podwykonawca</string>
+    <string name="header_title_subcontractor_edit">Edycja podwykonawcy</string>
     <string name="header_title_subcontractors">Podwykonawcy</string>
     <string name="header_title_subcontractor_new">Nowy podwykonawca</string>
     <string name="header_title_tasks">Zadania</string>
@@ -125,6 +127,20 @@
     <string name="payment_field_info">Dodatkowe informacje</string>
     <string name="payment_field_paid">Opłacona</string>
     <string name="payment_delete_question">Czy na pewno chcesz usunąć tę płatność?</string>
+
+    <string name="subcontractor_field_address">Adres</string>
+    <string name="subcontractor_field_collaboration_stage">Etap współpracy</string>
+    <string name="subcontractor_field_considering">Rozważam</string>
+    <string name="subcontractor_field_in_contact">Kontakt</string>
+    <string name="subcontractor_field_confirmed">Potwierdzone</string>
+    <string name="subcontractor_field_paid">Opłacone</string>
+    <string name="subcontractor_field_cost">Kwota do zapłaty</string>
+    <string name="subcontractor_field_name">Nazwa</string>
+    <string name="subcontractor_field_www">Strona WWW</string>
+
+    <string name="subcontractor_details_delete">Usuń</string>
+    <string name="subcontractor_details_delete_question">Czy na pewno chcesz usunąć tego podwykonawcę?</string>
+    <string name="subcontractor_details_edit">Edytuj</string>
 
     <string name="tab_title_tasks_categories">Kategorie</string>
     <string name="tab_title_tasks_months">Miesiące</string>
