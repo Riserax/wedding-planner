@@ -13,16 +13,16 @@ public class GuestUtil {
     public static void setSelectedInvitationStatus(PresenceEnum selectedPresenceStatus, ActivityNewGuestBinding binding, Context context) {
         switch (selectedPresenceStatus) {
             case INVITATION_SENT:
-                GuestUtil.setInvitationSentButtonsSelection(binding, context);
+                setInvitationSentButtonsSelection(binding, context);
                 break;
             case CONFIRMED_PRESENCE:
-                GuestUtil.setInvitationAcceptedButtonsSelection(binding, context);
+                setInvitationAcceptedButtonsSelection(binding, context);
                 break;
             case CONFIRMED_ABSENCE:
-                GuestUtil.setInvitationRejectedButtonsSelection(binding, context);
+                setInvitationRejectedButtonsSelection(binding, context);
                 break;
             case AWAITING:
-                GuestUtil.setInvitationAwaitingButtonsSelection(binding, context);
+                setInvitationAwaitingButtonsSelection(binding, context);
         }
     }
 

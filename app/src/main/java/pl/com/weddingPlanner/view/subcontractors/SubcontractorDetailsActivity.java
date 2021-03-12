@@ -2,6 +2,8 @@ package pl.com.weddingPlanner.view.subcontractors;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
@@ -66,7 +68,8 @@ public class SubcontractorDetailsActivity extends BaseActivity {
 
     private void setWebsite() {
         if (StringUtils.isNotBlank(subcontractorDetails.getWebsite())) {
-            binding.www.setText(subcontractorDetails.getWebsite());
+            binding.www.setMovementMethod(LinkMovementMethod.getInstance());
+            binding.www.setText(Html.fromHtml(subcontractorDetails.getWebsite()));
         } else {
             binding.www.setText(getString(R.string.field_not_specified));
         }

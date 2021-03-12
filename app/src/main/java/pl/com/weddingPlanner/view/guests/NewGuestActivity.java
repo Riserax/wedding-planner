@@ -49,7 +49,7 @@ public class NewGuestActivity extends BaseActivity {
     private Guest guestDetails;
 
     private GuestTypeEnum guestType = GuestTypeEnum.GUEST;
-    private PresenceEnum selectedPresenceStatus = PresenceEnum.NONE;
+    private PresenceEnum presenceStatus = PresenceEnum.NONE;
 
     private boolean isConnectedWithChosen;
 
@@ -77,7 +77,7 @@ public class NewGuestActivity extends BaseActivity {
             guestDetails = DAOUtil.getGuestById(this, guestId);
 
             if (StringUtils.isNotBlank(guestDetails.getPresence())) {
-                selectedPresenceStatus = PresenceEnum.valueOf(guestDetails.getPresence());
+                presenceStatus = PresenceEnum.valueOf(guestDetails.getPresence());
             }
         }
     }
@@ -114,7 +114,7 @@ public class NewGuestActivity extends BaseActivity {
                 binding.tableName.setText(GuestUtil.getTableDescription(table));
             }
 
-            GuestUtil.setSelectedInvitationStatus(selectedPresenceStatus, binding, this);
+            GuestUtil.setSelectedInvitationStatus(presenceStatus, binding, this);
 
             if (StringUtils.isNotBlank(guestDetails.getContact())) {
                 binding.guestContact.setText(guestDetails.getContact());
@@ -239,12 +239,12 @@ public class NewGuestActivity extends BaseActivity {
     private void setInvitationSentButtonListener() {
         binding.sentButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
-            if (PresenceEnum.INVITATION_SENT.equals(selectedPresenceStatus)) {
+            if (PresenceEnum.INVITATION_SENT.equals(presenceStatus)) {
                 ButtonsUtil.setButtonSelection(binding.sentButton, this, false);
-                selectedPresenceStatus = PresenceEnum.NONE;
+                presenceStatus = PresenceEnum.NONE;
             } else {
                 GuestUtil.setInvitationSentButtonsSelection(binding, getApplicationContext());
-                selectedPresenceStatus = PresenceEnum.INVITATION_SENT;
+                presenceStatus = PresenceEnum.INVITATION_SENT;
             }
         });
     }
@@ -252,12 +252,12 @@ public class NewGuestActivity extends BaseActivity {
     private void setInvitationAcceptedButtonListener() {
         binding.acceptedButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
-            if (PresenceEnum.CONFIRMED_PRESENCE.equals(selectedPresenceStatus)) {
+            if (PresenceEnum.CONFIRMED_PRESENCE.equals(presenceStatus)) {
                 ButtonsUtil.setButtonSelection(binding.acceptedButton, this, false);
-                selectedPresenceStatus = PresenceEnum.NONE;
+                presenceStatus = PresenceEnum.NONE;
             } else {
                 GuestUtil.setInvitationAcceptedButtonsSelection(binding, getApplicationContext());
-                selectedPresenceStatus = PresenceEnum.CONFIRMED_PRESENCE;
+                presenceStatus = PresenceEnum.CONFIRMED_PRESENCE;
             }
         });
     }
@@ -265,12 +265,12 @@ public class NewGuestActivity extends BaseActivity {
     private void setInvitationRejectedButtonListener() {
         binding.rejectedButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
-            if (PresenceEnum.CONFIRMED_ABSENCE.equals(selectedPresenceStatus)) {
+            if (PresenceEnum.CONFIRMED_ABSENCE.equals(presenceStatus)) {
                 ButtonsUtil.setButtonSelection(binding.rejectedButton, this, false);
-                selectedPresenceStatus = PresenceEnum.NONE;
+                presenceStatus = PresenceEnum.NONE;
             } else {
                 GuestUtil.setInvitationRejectedButtonsSelection(binding, getApplicationContext());
-                selectedPresenceStatus = PresenceEnum.CONFIRMED_ABSENCE;
+                presenceStatus = PresenceEnum.CONFIRMED_ABSENCE;
             }
         });
     }
@@ -278,12 +278,12 @@ public class NewGuestActivity extends BaseActivity {
     private void setInvitationAwaitingButtonListener() {
         binding.awaitingButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
-            if (PresenceEnum.AWAITING.equals(selectedPresenceStatus)) {
+            if (PresenceEnum.AWAITING.equals(presenceStatus)) {
                 ButtonsUtil.setButtonSelection(binding.awaitingButton, this, false);
-                selectedPresenceStatus = PresenceEnum.NONE;
+                presenceStatus = PresenceEnum.NONE;
             } else {
                 GuestUtil.setInvitationAwaitingButtonsSelection(binding, getApplicationContext());
-                selectedPresenceStatus = PresenceEnum.AWAITING;
+                presenceStatus = PresenceEnum.AWAITING;
             }
         });
     }
@@ -319,7 +319,7 @@ public class NewGuestActivity extends BaseActivity {
         boolean isAgeChosen = !ageRange.equals(getResources().getString(R.string.guest_field_age));
         boolean isCategoryChosen = !category.equals(getResources().getString(R.string.field_category));
         boolean isTableChosen = !tableInfo.equals(getResources().getString(R.string.guest_field_table));
-        boolean isPresenceChosen = !PresenceEnum.NONE.equals(selectedPresenceStatus);
+        boolean isPresenceChosen = !PresenceEnum.NONE.equals(presenceStatus);
 
         String connectedWithNameSurname = getConnectedWithNameSurname(connectedWithInfo);
 
@@ -330,7 +330,7 @@ public class NewGuestActivity extends BaseActivity {
                 .ageRange(isAgeChosen ? ageRange : StringUtils.EMPTY)
                 .category(isCategoryChosen ? category : StringUtils.EMPTY)
                 .tableNumber(isTableChosen ? getTableNumber(tableInfo) : 0)
-                .presence(isPresenceChosen ? selectedPresenceStatus.name() : StringUtils.EMPTY)
+                .presence(isPresenceChosen ? presenceStatus.name() : StringUtils.EMPTY)
                 .contact(binding.guestContact.getText().toString())
                 .notes(binding.guestNotes.getText().toString())
                 .build();

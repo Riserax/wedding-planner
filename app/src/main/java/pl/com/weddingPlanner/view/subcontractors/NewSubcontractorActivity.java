@@ -34,6 +34,7 @@ import pl.com.weddingPlanner.view.util.SubcontractorUtil;
 
 import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
 import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.SUBCONTRACTOR_ID_EXTRA;
 import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
 import static pl.com.weddingPlanner.view.util.ResourceUtil.CATEGORY_OTHER;
 
@@ -43,6 +44,8 @@ public class NewSubcontractorActivity extends BaseActivity {
 
     private int subcontractorId;
     private int headerTitle;
+
+    private Subcontractor subcontractor;
 
     private AmountValidator amountValidator;
 
@@ -56,16 +59,59 @@ public class NewSubcontractorActivity extends BaseActivity {
         getExtrasAndSetVariables();
         setActivityToolbarContentWithBackIcon(headerTitle);
 
-//        getAndSetData();
-//        fillFields();
+        getAndSetData();
+        fillFields();
         setValidator();
         setListeners();
         setButtonEnability(binding.addSaveButton, areFieldsValid());
     }
 
     private void getExtrasAndSetVariables() {
-//        subcontractorId = getIntent().getIntExtra(GUEST_ID_EXTRA, 0);
+        subcontractorId = getIntent().getIntExtra(SUBCONTRACTOR_ID_EXTRA, 0);
         headerTitle = getIntent().getIntExtra(ACTIVITY_TITLE_EXTRA, R.string.header_title_subcontractor_new);
+    }
+
+    private void getAndSetData() {
+        if (subcontractorId > 0) {
+            subcontractor = DAOUtil.getSubcontractorById(this, subcontractorId);
+
+            if (StringUtils.isNotBlank(subcontractor.getCollaborationStage())) {
+                collaborationStage = CollaborationStageEnum.valueOf(subcontractor.getCollaborationStage());
+            }
+        }
+    }
+
+    private void fillFields() {
+        if (subcontractor != null) {
+            binding.name.setText(subcontractor.getName());
+
+            if (StringUtils.isNotBlank(subcontractor.getCategory())) {
+                binding.categoryTitle.setVisibility(View.VISIBLE);
+                binding.categoryName.setText(subcontractor.getCategory());
+            }
+
+            if (StringUtils.isNotBlank(subcontractor.getContact())) {
+                binding.contact.setText(subcontractor.getContact());
+            }
+
+            SubcontractorUtil.setWebsiteField(subcontractor, binding);
+
+            if (StringUtils.isNotBlank(subcontractor.getAddress())) {
+                binding.address.setText(subcontractor.getAddress());
+            }
+
+            SubcontractorUtil.setSelectedCollaborationStage(collaborationStage, binding, this);
+
+            if (StringUtils.isNotBlank(subcontractor.getCost())) {
+                binding.cost.setText(FormatUtil.convertToAmount(subcontractor.getCost()));
+            }
+
+            if (StringUtils.isNotBlank(subcontractor.getNotes())) {
+                binding.notes.setText(subcontractor.getNotes());
+            }
+
+            binding.addSaveButton.setText(getResources().getString(R.string.button_save));
+        }
     }
 
     private void setValidator() {
@@ -215,11 +261,12 @@ public class NewSubcontractorActivity extends BaseActivity {
 
                 if (StringUtils.isNotBlank(newSubcontractor.getName()) && isCostValid(newSubcontractor.getCost())) {
                     prepareAmount(newSubcontractor);
-//                    if (guestDetails != null && guestId > 0) {
-//                        proceedWhenEditingGuest(newGuest);
-//                    } else {
+
+                    if (subcontractor != null && subcontractorId > 0) {
+                        proceedWhenEditingSubcontractor(newSubcontractor);
+                    } else {
                         proceedWhenNewSubcontractor(newSubcontractor);
-//                    }
+                    }
                 } else {
                     if (newSubcontractor.getName().isEmpty()) {
                         Toast toast = Toast.makeText(NewSubcontractorActivity.this, "Nazwa nie może być pusta", Toast.LENGTH_LONG);
@@ -243,7 +290,7 @@ public class NewSubcontractorActivity extends BaseActivity {
                 .name(binding.name.getText().toString())
                 .category(isCategoryChosen ? category : CATEGORY_OTHER)
                 .contact(binding.contact.getText().toString())
-                .website(binding.website.getText().toString())
+                .website(getWebsiteLink())
                 .address(binding.address.getText().toString())
                 .collaborationStage(isCollaborationStageChosen ? collaborationStage.name() : StringUtils.EMPTY)
                 .cost(binding.cost.getText().toString())
@@ -251,14 +298,22 @@ public class NewSubcontractorActivity extends BaseActivity {
                 .build();
     }
 
-//    private void proceedWhenEditingGuest(Guest newGuest) {
-//        newGuest.setId(guestId);
-//
-//        DAOUtil.mergeGuest(getApplicationContext(), newGuest);
-//
-//        Intent intent = new Intent(NewSubcontractorActivity.this, GuestsActivity.class);
-//        startActivity(intent);
-//    }
+    private String getWebsiteLink() {
+        String website = binding.website.getText().toString();
+        StringBuilder websiteBuilder = new StringBuilder();
+
+        if (StringUtils.isNotBlank(website)) {
+            websiteBuilder.append("<a href=\"");
+
+            if (!website.startsWith("http://") && !website.startsWith("https://")) {
+                websiteBuilder.append("http://");
+            }
+
+            websiteBuilder.append(website).append("\">").append(website).append("</a>");
+        }
+
+        return websiteBuilder.toString();
+    }
 
     private boolean isCostValid(String cost) {
         return ValidationUtil.isValid(cost, true, NewSubcontractorActivity.this, amountValidator);
@@ -266,6 +321,15 @@ public class NewSubcontractorActivity extends BaseActivity {
 
     private void prepareAmount(Subcontractor newSubcontractor) {
         newSubcontractor.setCost(newSubcontractor.getCost().replace(",", ".").replaceAll("\\s", ""));
+    }
+
+    private void proceedWhenEditingSubcontractor(Subcontractor newSubcontractor) {
+        newSubcontractor.setId(subcontractorId);
+
+        DAOUtil.mergeSubcontractor(getApplicationContext(), newSubcontractor);
+
+        Intent intent = new Intent(NewSubcontractorActivity.this, SubcontractorsActivity.class);
+        startActivity(intent);
     }
 
     private void proceedWhenNewSubcontractor(Subcontractor newSubcontractor) {

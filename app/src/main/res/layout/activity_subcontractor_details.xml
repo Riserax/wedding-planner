@@ -291,6 +291,8 @@
                             android:text="janusz-photography.pl"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"
+                            android:clickable="true"
+                            android:linksClickable="true"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/guideline_www"
