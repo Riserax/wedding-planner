@@ -90,8 +90,12 @@ public class NewSubcontractorActivity extends BaseActivity {
                 binding.categoryName.setText(subcontractor.getCategory());
             }
 
-            if (StringUtils.isNotBlank(subcontractor.getContact())) {
-                binding.contact.setText(subcontractor.getContact());
+            if (StringUtils.isNotBlank(subcontractor.getEmail())) {
+                binding.email.setText(subcontractor.getEmail());
+            }
+
+            if (StringUtils.isNotBlank(subcontractor.getPhone())) {
+                binding.phone.setText(subcontractor.getPhone());
             }
 
             SubcontractorUtil.setWebsiteField(subcontractor, binding);
@@ -192,7 +196,8 @@ public class NewSubcontractorActivity extends BaseActivity {
         };
 
         binding.name.setOnFocusChangeListener(listener);
-        binding.contact.setOnFocusChangeListener(listener);
+        binding.email.setOnFocusChangeListener(listener);
+        binding.phone.setOnFocusChangeListener(listener);
         binding.website.setOnFocusChangeListener(listener);
         binding.address.setOnFocusChangeListener(listener);
         binding.cost.setOnFocusChangeListener(listener);
@@ -289,30 +294,14 @@ public class NewSubcontractorActivity extends BaseActivity {
         return Subcontractor.builder()
                 .name(binding.name.getText().toString())
                 .category(isCategoryChosen ? category : CATEGORY_OTHER)
-                .contact(binding.contact.getText().toString())
-                .website(getWebsiteLink())
+                .email(binding.email.getText().toString())
+                .phone(binding.phone.getText().toString())
+                .website(SubcontractorUtil.getWebsiteLink(binding.website))
                 .address(binding.address.getText().toString())
                 .collaborationStage(isCollaborationStageChosen ? collaborationStage.name() : StringUtils.EMPTY)
                 .cost(binding.cost.getText().toString())
                 .notes(binding.notes.getText().toString())
                 .build();
-    }
-
-    private String getWebsiteLink() {
-        String website = binding.website.getText().toString();
-        StringBuilder websiteBuilder = new StringBuilder();
-
-        if (StringUtils.isNotBlank(website)) {
-            websiteBuilder.append("<a href=\"");
-
-            if (!website.startsWith("http://") && !website.startsWith("https://")) {
-                websiteBuilder.append("http://");
-            }
-
-            websiteBuilder.append(website).append("\">").append(website).append("</a>");
-        }
-
-        return websiteBuilder.toString();
     }
 
     private boolean isCostValid(String cost) {

@@ -142,40 +142,81 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/contact_layout"
+                    android:id="@+id/email_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="@dimen/field_height"
+                    android:layout_height="@dimen/field_height"
                     android:layout_marginBottom="@dimen/field_margin"
                     android:paddingStart="@dimen/field_padding_start"
                     android:paddingEnd="@dimen/field_padding_end"
                     android:background="@drawable/bg_fields">
 
                     <ImageButton
-                        android:id="@+id/contact_icon"
+                        android:id="@+id/email_icon"
+                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_height="@dimen/image_button_size_24"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_email"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/email"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <EditText
+                        android:id="@+id/email"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/edit_text_padding"
+                        android:maxLength="100"
+                        android:inputType="textEmailAddress"
+                        android:singleLine="true"
+                        android:hint="@string/guest_field_email"
+                        android:textSize="@dimen/field_text_size"
+                        android:textColorHint="@color/gray_949494"
+                        android:textColor="@color/gray_949494"
+                        android:background="@color/gray_FDFDFD"
+                        app:layout_constraintStart_toEndOf="@id/email_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/phone_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
+                    android:background="@drawable/bg_fields">
+
+                    <ImageButton
+                        android:id="@+id/phone_icon"
                         android:layout_width="@dimen/image_button_size_24"
                         android:layout_height="@dimen/image_button_size_24"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_phone"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/contact"
+                        app:layout_constraintEnd_toStartOf="@id/phone"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" />
 
                     <EditText
-                        android:id="@+id/contact"
+                        android:id="@+id/phone"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/edit_text_padding"
-                        android:maxLength="250"
-                        android:inputType="textMultiLine"
-                        android:hint="@string/guest_field_contact"
+                        android:maxLength="15"
+                        android:inputType="phone"
+                        android:singleLine="true"
+                        android:hint="@string/guest_field_phone"
                         android:textSize="@dimen/field_text_size"
                         android:textColorHint="@color/gray_949494"
                         android:textColor="@color/gray_949494"
                         android:background="@color/gray_FDFDFD"
-                        app:layout_constraintStart_toEndOf="@id/contact_icon"
+                        app:layout_constraintStart_toEndOf="@id/phone_icon"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -185,8 +226,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/website_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="@dimen/field_height"
+                    android:layout_height="@dimen/field_height"
                     android:layout_marginBottom="@dimen/field_margin"
                     android:paddingStart="@dimen/field_padding_start"
                     android:paddingEnd="@dimen/field_padding_end"
@@ -209,8 +249,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/edit_text_padding"
-                        android:maxLength="250"
-                        android:inputType="textMultiLine"
+                        android:maxLength="100"
+                        android:inputType="textWebEditText"
+                        android:singleLine="true"
                         android:hint="@string/subcontractor_field_www"
                         android:textSize="@dimen/field_text_size"
                         android:textColorHint="@color/gray_949494"

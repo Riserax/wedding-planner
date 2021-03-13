@@ -215,43 +215,85 @@
                         android:background="@color/gray_BCBCBC" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/contact_layout"
+                        android:id="@+id/email_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/details_field_margin_bottom">
 
                         <TextView
-                            android:id="@+id/contact_header"
+                            android:id="@+id/email_header"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:paddingEnd="@dimen/text_view_padding"
-                            android:text="@string/guest_field_contact"
+                            android:text="@string/guest_field_email"
                             android:textAlignment="center"
                             android:textColor="@color/gray_555555"
                             android:textSize="@dimen/_13sdp"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/guideline_contact"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_email"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.constraintlayout.widget.Guideline
-                            android:id="@+id/guideline_contact"
+                            android:id="@+id/guideline_email"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             app:layout_constraintGuide_percent="0.30" />
 
                         <TextView
-                            android:id="@+id/contact"
+                            android:id="@+id/email"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="tel. 666 777 888\nadres: ul. Długa 3/5, Kraków"
+                            android:text="email@poczta.pl"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/guideline_contact"
+                            app:layout_constraintStart_toEndOf="@id/guideline_email"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/phone_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
+
+                        <TextView
+                            android:id="@+id/phone_header"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/guest_field_phone"
+                            android:textAlignment="center"
+                            android:textColor="@color/gray_555555"
+                            android:textSize="@dimen/_13sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_phone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.30" />
+
+                        <TextView
+                            android:id="@+id/phone"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="666 777 888"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_phone"
                             app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -291,8 +333,6 @@
                             android:text="janusz-photography.pl"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"
-                            android:clickable="true"
-                            android:linksClickable="true"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/guideline_www"

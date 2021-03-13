@@ -1,6 +1,7 @@
 package pl.com.weddingPlanner.view.subcontractors;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -18,6 +19,7 @@ import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.dialog.QuestionDialog;
 import pl.com.weddingPlanner.view.util.FormatUtil;
+import pl.com.weddingPlanner.view.util.SubcontractorUtil;
 
 import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
 import static pl.com.weddingPlanner.view.util.ExtraUtil.SUBCONTRACTOR_ID_EXTRA;
@@ -50,7 +52,8 @@ public class SubcontractorDetailsActivity extends BaseActivity {
         binding.name.setText(subcontractorDetails.getName());
         binding.category.setText(subcontractorDetails.getCategory());
 
-        setContact();
+        setEmail();
+        setPhone();
         setWebsite();
         setAddress();
         setCollaborationStage();
@@ -58,18 +61,26 @@ public class SubcontractorDetailsActivity extends BaseActivity {
         setNotes();
     }
 
-    private void setContact() {
-        if (StringUtils.isNotBlank(subcontractorDetails.getContact())) {
-            binding.contact.setText(subcontractorDetails.getContact());
+    private void setEmail() {
+        if (StringUtils.isNotBlank(subcontractorDetails.getEmail())) {
+            SubcontractorUtil.makeLinkAlike(binding.email, this, subcontractorDetails.getEmail());
         } else {
-            binding.contact.setText(getString(R.string.field_not_specified));
+            binding.email.setText(getString(R.string.field_not_specified));
+        }
+    }
+
+    private void setPhone() {
+        if (StringUtils.isNotBlank(subcontractorDetails.getPhone())) {
+            SubcontractorUtil.makeLinkAlike(binding.phone, this, subcontractorDetails.getPhone());
+        } else {
+            binding.phone.setText(getString(R.string.field_not_specified));
         }
     }
 
     private void setWebsite() {
         if (StringUtils.isNotBlank(subcontractorDetails.getWebsite())) {
             binding.www.setMovementMethod(LinkMovementMethod.getInstance());
-            binding.www.setText(Html.fromHtml(subcontractorDetails.getWebsite()));
+            binding.www.setText(Html.fromHtml(subcontractorDetails.getWebsite(), 0));
         } else {
             binding.www.setText(getString(R.string.field_not_specified));
         }
@@ -109,9 +120,35 @@ public class SubcontractorDetailsActivity extends BaseActivity {
     }
 
     private void setListeners() {
+        setEmailOnClickListener();
+        setPhoneOnClickListener();
         setFloatingButtonListener();
         setDeleteSubcontractorListener();
         setEditSubcontractorListener();
+    }
+
+    private void setEmailOnClickListener() {
+        binding.email.setOnClickListener(v -> {
+            if (StringUtils.isNotBlank(subcontractorDetails.getEmail())) {
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("text/plain");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{subcontractorDetails.getEmail()});
+                emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                startActivity(emailIntent);
+            }
+        });
+    }
+
+    private void setPhoneOnClickListener() {
+        binding.phone.setOnClickListener(v -> {
+            if (StringUtils.isNotBlank(subcontractorDetails.getPhone())) {
+                Uri number = Uri.parse("tel:" + subcontractorDetails.getPhone());
+                Intent phoneIntent = new Intent(Intent.ACTION_DIAL, number);
+
+                startActivity(phoneIntent);
+            }
+        });
     }
 
     private void setFloatingButtonListener() {

@@ -65,6 +65,7 @@
     <string name="guest_field_contact">Kontakt</string>
     <string name="guest_field_connected_with">Powiązanie</string>
     <string name="guest_field_connected_with_info">Powiązanie z %1$s</string>
+    <string name="guest_field_email">E-mail</string>
     <string name="guest_field_guest">Gość</string>
     <string name="guest_field_guest_type">Rodzaj gościa</string>
     <string name="guest_field_invitation_status">Status zaproszenia</string>
@@ -74,6 +75,7 @@
     <string name="guest_field_invitation_awaiting">Oczekuje</string>
     <string name="guest_field_name_surname">Imię i\u00A0nazwisko</string>
     <string name="guest_field_notes">Uwagi</string>
+    <string name="guest_field_phone">Telefon</string>
     <string name="guest_field_table">Miejsce</string>
 
     <string name="guest_details_delete">Usuń gościa</string>
