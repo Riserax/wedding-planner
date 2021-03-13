@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.view.guests;
+package pl.com.weddingPlanner.view.subcontractors;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,22 +19,23 @@ import java.util.LinkedList;
 import java.util.List;
 
 import pl.com.weddingPlanner.R;
-import pl.com.weddingPlanner.databinding.FragmentGuestsListBinding;
-import pl.com.weddingPlanner.model.info.GuestInfo;
-import pl.com.weddingPlanner.persistence.entity.Guest;
+import pl.com.weddingPlanner.databinding.FragmentSubcontractorsListBinding;
+import pl.com.weddingPlanner.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.model.info.SubcontractorInfo;
+import pl.com.weddingPlanner.persistence.entity.Category;
+import pl.com.weddingPlanner.persistence.entity.Subcontractor;
 import pl.com.weddingPlanner.util.DAOUtil;
-import pl.com.weddingPlanner.enums.GuestTypeEnum;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.ListItem;
 import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
 import pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView;
 
 import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAGE_START;
-import static pl.com.weddingPlanner.view.util.ExtraUtil.GUEST_ID_EXTRA;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.SUBCONTRACTOR_ID_EXTRA;
 
-public class GuestsListFragment extends Fragment {
+public class SubcontractorsListFragment extends Fragment {
 
-    private FragmentGuestsListBinding binding;
+    private FragmentSubcontractorsListBinding binding;
 
     private int currentPage = PAGE_START;
     private boolean isLastPage = false;
@@ -46,12 +47,12 @@ public class GuestsListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_guests_list, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_subcontractors_list, container, false);
 
         setRecyclerView();
         setSwipeRefresh();
 
-        setGuestsList();
+        setSubcontractorsList();
 
         return binding.getRoot();
     }
@@ -59,8 +60,8 @@ public class GuestsListFragment extends Fragment {
     private void setRecyclerView() {
         linearLayoutManager = new LinearLayoutManager(requireContext());
         adapter = new ListRecyclerAdapter(requireContext(), new LinkedList<>(), item -> {
-            Intent intent = new Intent(requireContext(), GuestDetailsActivity.class);
-            intent.putExtra(GUEST_ID_EXTRA, item.getItemId());
+            Intent intent = new Intent(requireContext(), SubcontractorDetailsActivity.class);
+            intent.putExtra(SUBCONTRACTOR_ID_EXTRA, item.getItemId());
             startActivity(intent);
         });
 
@@ -94,34 +95,37 @@ public class GuestsListFragment extends Fragment {
             swipeRefresh.setRefreshing(false);
             adapter.clear();
             currentPage = PAGE_START;
-            setGuestsList();
+            setSubcontractorsList();
         });
     }
 
-    private void setGuestsList() {
-        List<GuestInfo> toReturn = new ArrayList<>();
-        List<Guest> allGuests = DAOUtil.getAllGuests(requireContext());
+    private void setSubcontractorsList() {
+        List<SubcontractorInfo> toReturn = new ArrayList<>();
+        List<Subcontractor> allSubcontractors = DAOUtil.getAllSubcontractors(requireContext());
 
-        for (Guest guest : allGuests) {
-            GuestInfo guestInfo = GuestInfo.builder()
-                    .itemId(guest.getId())
-                    .type(GuestTypeEnum.valueOf(guest.getType()))
-                    .nameSurname(guest.getNameSurname())
-                    .tableNumber(guest.getTableNumber())
+        for (Subcontractor subcontractor : allSubcontractors) {
+            Category category = DAOUtil.getCategoryByNameAndType(requireContext(), subcontractor.getCategory(), CategoryTypeEnum.SUBCONTRACTORS.name());
+
+            SubcontractorInfo subcontractorInfo = SubcontractorInfo.builder()
+                    .itemId(subcontractor.getId())
+                    .name(subcontractor.getName())
+                    .categoryIconId(category.getIconId())
+//                    .subcontractorStage(SubcontractorStageEnum.valueOf(subcontractor.getStage()))
+//                    .paymentPercentage()
                     .build();
 
-            toReturn.add(guestInfo);
+            toReturn.add(subcontractorInfo);
         }
 
-        List<ListItem> listItems = prepareGuestsInfoList(toReturn);
+        List<ListItem> listItems = prepareSubcontractorsInfoList(toReturn);
         adapter.addItems(listItems);
     }
 
-    private List<ListItem> prepareGuestsInfoList(List<GuestInfo> guestInfoList) {
+    private List<ListItem> prepareSubcontractorsInfoList(List<SubcontractorInfo> subcontractorInfoList) {
         List<ListItem> toReturn = new ArrayList<>();
 
-        for (GuestInfo guestInfo : guestInfoList) {
-            toReturn.add(ContentItem.of(guestInfo));
+        for (SubcontractorInfo subcontractorInfo : subcontractorInfoList) {
+            toReturn.add(ContentItem.of(subcontractorInfo));
         }
 
         return toReturn;

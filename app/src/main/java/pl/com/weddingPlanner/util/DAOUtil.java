@@ -12,6 +12,7 @@ import pl.com.weddingPlanner.persistence.dao.GuestDAO;
 import pl.com.weddingPlanner.persistence.dao.PaymentDAO;
 import pl.com.weddingPlanner.persistence.dao.PersonDAO;
 import pl.com.weddingPlanner.persistence.dao.SubTaskDAO;
+import pl.com.weddingPlanner.persistence.dao.SubcontractorDAO;
 import pl.com.weddingPlanner.persistence.dao.TableDAO;
 import pl.com.weddingPlanner.persistence.dao.TaskDAO;
 import pl.com.weddingPlanner.persistence.database.AppDatabase;
@@ -23,6 +24,7 @@ import pl.com.weddingPlanner.persistence.entity.Guest;
 import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.SubTask;
+import pl.com.weddingPlanner.persistence.entity.Subcontractor;
 import pl.com.weddingPlanner.persistence.entity.Table;
 import pl.com.weddingPlanner.persistence.entity.Task;
 
@@ -64,6 +66,12 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         GuestDAO guestDAO = appDatabase.guestDAO();
         guestDAO.deleteById(id);
+    }
+
+    public static void deleteSubcontractor(Context context, Subcontractor subcontractor) {
+        AppDatabase appDatabase = getInstance(context);
+        SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
+        subcontractorDAO.delete(subcontractor);
     }
 
     public static List<Category> getAllCategoriesByType(Context context, String type) {
@@ -234,6 +242,30 @@ public class DAOUtil {
         return tableDAO.getById(id);
     }
 
+    public static List<Subcontractor> getAllSubcontractors(Context context) {
+        AppDatabase appDatabase = getInstance(context);
+        SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
+        return subcontractorDAO.getAll();
+    }
+
+    public static List<Subcontractor> getAllSubcontractorsByCategory(Context context, String category) {
+        AppDatabase appDatabase = getInstance(context);
+        SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
+        return subcontractorDAO.getAllByCategory(category);
+    }
+
+    public static Subcontractor getSubcontractorById(Context context, Integer id) {
+        AppDatabase appDatabase = getInstance(context);
+        SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
+        return subcontractorDAO.getById(id);
+    }
+
+    public static Subcontractor getSubcontractorByName(Context context, String name) {
+        AppDatabase appDatabase = getInstance(context);
+        SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
+        return subcontractorDAO.getByName(name);
+    }
+
     public static void insertCategory(Context context, Category category) {
         AppDatabase appDatabase = getInstance(context);
         CategoryDAO categoryDAO = appDatabase.categoryDAO();
@@ -294,6 +326,12 @@ public class DAOUtil {
         tableDAO.insert(table);
     }
 
+    public static void insertSubcontractor(Context context, Subcontractor subcontractor) {
+        AppDatabase appDatabase = getInstance(context);
+        SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
+        subcontractorDAO.insert(subcontractor);
+    }
+
     public static void mergeExpense(Context context, Expense expense) {
         AppDatabase appDatabase = getInstance(context);
         ExpenseDAO expenseDAO = appDatabase.expenseDAO();
@@ -310,6 +348,12 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         GuestDAO guestDAO = appDatabase.guestDAO();
         guestDAO.merge(guest);
+    }
+
+    public static void mergeSubcontractor(Context context, Subcontractor subcontractor) {
+        AppDatabase appDatabase = getInstance(context);
+        SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
+        subcontractorDAO.merge(subcontractor);
     }
 
     public static void setSubTaskDone(Context context, String done, int subTaskId) {

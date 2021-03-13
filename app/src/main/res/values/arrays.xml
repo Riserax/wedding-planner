@@ -11,6 +11,12 @@
         <item>12sp</item>
     </array>
 
+    <array name="button_state_type_text_int_sizes">
+        <item>16</item>
+        <item>14</item>
+        <item>12</item>
+    </array>
+
     <array name="field_header_text_sizes">
         <item>18sp</item>
         <item>16sp</item>

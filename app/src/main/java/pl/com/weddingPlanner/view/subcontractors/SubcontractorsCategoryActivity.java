@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.view.budget;
+package pl.com.weddingPlanner.view.subcontractors;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,37 +8,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import org.threeten.bp.LocalDate;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import pl.com.weddingPlanner.R;
-import pl.com.weddingPlanner.databinding.ActivityCategoryBudgetBinding;
-import pl.com.weddingPlanner.model.info.ExpenseInfo;
-import pl.com.weddingPlanner.persistence.entity.Category;
-import pl.com.weddingPlanner.persistence.entity.Expense;
-import pl.com.weddingPlanner.util.DAOUtil;
-import pl.com.weddingPlanner.util.DateUtil;
-import pl.com.weddingPlanner.view.BaseActivity;
+import pl.com.weddingPlanner.databinding.ActivityCategorySubcontractorsBinding;
 import pl.com.weddingPlanner.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.model.info.SubcontractorInfo;
+import pl.com.weddingPlanner.persistence.entity.Category;
+import pl.com.weddingPlanner.persistence.entity.Subcontractor;
+import pl.com.weddingPlanner.util.DAOUtil;
+import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.list.ContentItem;
-import pl.com.weddingPlanner.view.list.HeaderItem;
 import pl.com.weddingPlanner.view.list.ListItem;
 import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
 import pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView;
-import pl.com.weddingPlanner.view.util.BudgetUtil;
 
-import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA;
-import static pl.com.weddingPlanner.view.list.HeaderItem.getHeaderItemWithDayOfWeek;
 import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAGE_START;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.SUBCONTRACTOR_ID_EXTRA;
 import static pl.com.weddingPlanner.view.util.SideBySideListUtil.CATEGORY_NAME_EXTRA;
 
-public class BudgetCategoryActivity extends BaseActivity {
+public class SubcontractorsCategoryActivity extends BaseActivity {
 
-    private ActivityCategoryBudgetBinding binding;
+    private ActivityCategorySubcontractorsBinding binding;
 
     private String categoryName;
 
@@ -51,7 +44,7 @@ public class BudgetCategoryActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_category_budget);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_category_subcontractors);
 
         setActivityToolbarContentWithBackIcon(getCategoryNameAndSetVariable());
 
@@ -63,21 +56,21 @@ public class BudgetCategoryActivity extends BaseActivity {
     }
 
     private String getCategoryNameAndSetVariable() {
-        StringBuilder categoryNameSB = new StringBuilder();
+        StringBuilder categoryNameBuilder = new StringBuilder();
         String categoryName = getIntent().getExtras().getString(CATEGORY_NAME_EXTRA, getResources().getString(R.string.header_title_category));
 
-        categoryNameSB.append(getResources().getString(R.string.header_title_budget)).append(" - ").append(categoryName);
+        categoryNameBuilder.append(getResources().getString(R.string.header_title_subcontractors)).append(" - ").append(categoryName);
 
         this.categoryName = categoryName;
 
-        return categoryNameSB.toString();
+        return categoryNameBuilder.toString();
     }
 
     private void setRecyclerView() {
         linearLayoutManager = new LinearLayoutManager(this);
         adapter = new ListRecyclerAdapter(this, new LinkedList<>(), item -> {
-            Intent intent = new Intent(this, ExpenseActivity.class);
-            intent.putExtra(EXPENSE_ID_EXTRA, item.getItemId());
+            Intent intent = new Intent(this, SubcontractorDetailsActivity.class);
+            intent.putExtra(SUBCONTRACTOR_ID_EXTRA, item.getItemId());
             startActivity(intent);
         });
 
@@ -116,54 +109,40 @@ public class BudgetCategoryActivity extends BaseActivity {
     }
 
     private void getList() {
-        List<ExpenseInfo> toReturn = new ArrayList<>();
-        List<Expense> allExpenses = DAOUtil.getAllExpensesByCategory(this, categoryName);
+        List<SubcontractorInfo> toReturn = new ArrayList<>();
+        List<Subcontractor> allSubcontractors = DAOUtil.getAllSubcontractorsByCategory(this, categoryName);
 
-        if (!allExpenses.isEmpty()) {
-            Map<Integer, LocalDate> sortedIdDateMap = BudgetUtil.getSortedIdDateMap(allExpenses);
-            Map<Integer, Object> expensesMap = BudgetUtil.getObjectsMap(allExpenses);
+        for (Subcontractor subcontractor : allSubcontractors) {
+            Category category = DAOUtil.getCategoryByNameAndType(this, subcontractor.getCategory(), CategoryTypeEnum.SUBCONTRACTORS.name());
 
-            for (Map.Entry<Integer, LocalDate> sortedIdDate : sortedIdDateMap.entrySet()) {
-                Expense expense = (Expense) expensesMap.get(sortedIdDate.getKey());
+            SubcontractorInfo subcontractorInfo = SubcontractorInfo.builder()
+                    .itemId(subcontractor.getId())
+                    .name(subcontractor.getName())
+                    .categoryIconId(category.getIconId())
+//                    .subcontractorStage(SubcontractorStageEnum.valueOf(subcontractor.getStage()))
+//                    .paymentPercentage()
+                    .build();
 
-                Category category = DAOUtil.getCategoryByNameAndType(this, expense.getCategory(), CategoryTypeEnum.BUDGET.name());
-
-                ExpenseInfo expenseInfo = ExpenseInfo.builder()
-                        .itemId(expense.getId())
-                        .title(expense.getTitle())
-                        .categoryIconId(category.getIconId())
-                        .amount(expense.getInitialAmount())
-                        .payer(expense.getPayers())
-                        .date(expense.getEditDate())
-                        .build();
-
-                toReturn.add(expenseInfo);
-            }
+            toReturn.add(subcontractorInfo);
         }
 
-        List<ListItem> listItems = prepareItemsInfoList(toReturn, adapter.getItems());
+        List<ListItem> listItems = prepareSubcontractorsInfoList(toReturn);
         adapter.addItems(listItems);
     }
 
-    private List<ListItem> prepareItemsInfoList(List<ExpenseInfo> expenseInfoList, List<ListItem> list) {
+    private List<ListItem> prepareSubcontractorsInfoList(List<SubcontractorInfo> subcontractorInfoList) {
         List<ListItem> toReturn = new ArrayList<>();
 
-        for (ExpenseInfo expenseInfo : expenseInfoList) {
-            String date = DateUtil.getDateFromDateTime(expenseInfo.getDate());
-            HeaderItem headerItem = getHeaderItemWithDayOfWeek(this, date);
-
-            if (!toReturn.contains(headerItem) && !list.contains(headerItem)) {
-                toReturn.add(headerItem);
-            }
-            toReturn.add(ContentItem.of(expenseInfo));
+        for (SubcontractorInfo subcontractorInfo : subcontractorInfoList) {
+            toReturn.add(ContentItem.of(subcontractorInfo));
         }
 
         return toReturn;
     }
 
     private void setListeners() {
-        binding.categoryBudgetFloatingButton.setOnClickListener(view -> {
-            Intent intent = new Intent(this, NewExpenseActivity.class);
+        binding.categoryFloatingButton.setOnClickListener(view -> {
+            Intent intent = new Intent(this, NewSubcontractorActivity.class);
             startActivity(intent);
         });
     }

@@ -23,7 +23,7 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentBudgetDescendingBinding;
-import pl.com.weddingPlanner.model.ExpenseInfo;
+import pl.com.weddingPlanner.model.info.ExpenseInfo;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
 import pl.com.weddingPlanner.persistence.entity.Payment;

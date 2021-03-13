@@ -24,7 +24,7 @@ import java.util.Map;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentExpensePaymentsBinding;
 import pl.com.weddingPlanner.enums.StateEnum;
-import pl.com.weddingPlanner.model.PaymentInfo;
+import pl.com.weddingPlanner.model.info.PaymentInfo;
 import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.util.DAOUtil;

@@ -13,6 +13,7 @@ import pl.com.weddingPlanner.persistence.entity.Guest;
 import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.SubTask;
+import pl.com.weddingPlanner.persistence.entity.Subcontractor;
 import pl.com.weddingPlanner.persistence.entity.Table;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         insertAgeRanges();
         insertTables();
         insertGuests();
+        insertSubcontractors();
     }
 
     private void insertCategories() {
@@ -501,5 +503,32 @@ public class MainActivity extends AppCompatActivity {
         DAOUtil.insertGuest(this, guest1);
         DAOUtil.insertGuest(this, guest2);
         DAOUtil.insertGuest(this, accompany1);
+    }
+
+    private void insertSubcontractors() {
+        Subcontractor subcontractor1 = Subcontractor.builder()
+                .name("Sala Zielone Wzgórze")
+                .category("Bankiet")
+                .email("zielona43@gmail.com")
+                .phone("785 134 822")
+                .website("<a href=\"https://salazielonewzgorze.pl\">https://salazielonewzgorze.pl</a>")
+                .address("Zielona 43, Koniusza, Kraków")
+                .collaborationStage("CONFIRMED")
+                .cost("20000.00")
+                .notes("Zapłacona zaliczka")
+                .build();
+
+        Subcontractor subcontractor2 = Subcontractor.builder()
+                .name("Mateusz Gumula Photography")
+                .category("Foto & Wideo")
+                .email("kontakt@mateuszgumula.pl")
+                .phone("604 052 252")
+                .website("<a href=\"http://www.mateuszgumula.pl\">http://www.mateuszgumula.pl</a>")
+                .collaborationStage("CONFIRMED")
+                .cost("3000.00")
+                .build();
+
+        DAOUtil.insertSubcontractor(this, subcontractor1);
+        DAOUtil.insertSubcontractor(this, subcontractor2);
     }
 }

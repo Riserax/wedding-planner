@@ -14,6 +14,7 @@ import pl.com.weddingPlanner.persistence.dao.GuestDAO;
 import pl.com.weddingPlanner.persistence.dao.PaymentDAO;
 import pl.com.weddingPlanner.persistence.dao.PersonDAO;
 import pl.com.weddingPlanner.persistence.dao.SubTaskDAO;
+import pl.com.weddingPlanner.persistence.dao.SubcontractorDAO;
 import pl.com.weddingPlanner.persistence.dao.TableDAO;
 import pl.com.weddingPlanner.persistence.dao.TaskDAO;
 import pl.com.weddingPlanner.persistence.entity.AgeRange;
@@ -24,11 +25,12 @@ import pl.com.weddingPlanner.persistence.entity.Guest;
 import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.SubTask;
+import pl.com.weddingPlanner.persistence.entity.Subcontractor;
 import pl.com.weddingPlanner.persistence.entity.Table;
 import pl.com.weddingPlanner.persistence.entity.Task;
 
 @Database(entities = {Task.class, Category.class, SubTask.class, Bookmark.class, Person.class, Expense.class,
-        Payment.class, Guest.class, AgeRange.class, Table.class}, version = 1)
+        Payment.class, Guest.class, AgeRange.class, Table.class, Subcontractor.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "weddingPlannerDB";
@@ -44,6 +46,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract GuestDAO guestDAO();
     public abstract AgeRangeDAO ageRangeDAO();
     public abstract TableDAO tableDAO();
+    public abstract SubcontractorDAO subcontractorDAO();
 
     public static AppDatabase getInstance(final Context context) {
 

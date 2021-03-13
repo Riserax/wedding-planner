@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.model;
+package pl.com.weddingPlanner.model.info;
 
 import java.io.Serializable;
 
