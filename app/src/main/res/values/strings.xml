@@ -130,6 +130,24 @@
     <string name="payment_field_paid">Opłacona</string>
     <string name="payment_delete_question">Czy na pewno chcesz usunąć tę płatność?</string>
 
+    <string name="period_year_1">rok</string>
+    <string name="period_year_2">lata</string>
+    <string name="period_year_3">lat</string>
+    <string name="period_month_1">miesiąc</string>
+    <string name="period_month_2">miesiące</string>
+    <string name="period_month_3">miesięcy</string>
+    <string name="period_day_1">dzień</string>
+    <string name="period_day_2">dni</string>
+    <string name="period_hour_1">godzina</string>
+    <string name="period_hour_2">godziny</string>
+    <string name="period_hour_3">godzin</string>
+    <string name="period_minute_1">minuta</string>
+    <string name="period_minute_2">minuty</string>
+    <string name="period_minute_3">minut</string>
+    <string name="period_second_1">sekunda</string>
+    <string name="period_second_2">sekundy</string>
+    <string name="period_second_3">sekund</string>
+
     <string name="subcontractor_field_address">Adres</string>
     <string name="subcontractor_field_collaboration_stage">Etap współpracy</string>
     <string name="subcontractor_field_considering">Rozważam</string>

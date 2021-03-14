@@ -40,6 +40,8 @@
     <dimen name="floating_button_option_padding_bottom">15dp</dimen>
     <dimen name="floating_button_option_padding_start_end">20dp</dimen>
 
+    <dimen name="description_text_size">16sp</dimen>
+
     <dimen name="image_button_size_24">24dp</dimen>
     <dimen name="image_button_margin_start">5dp</dimen>
     <dimen name="image_button_margin_end">5dp</dimen>
@@ -69,7 +71,6 @@
 
     <dimen name="task_title_text_size">20sp</dimen>
     <dimen name="task_subtitle_text_size">18sp</dimen>
-    <dimen name="task_description_text_size">16sp</dimen>
     <dimen name="task_no_detail_text_size">13sp</dimen>
     <dimen name="task_assignee_text_size">15</dimen>
     <dimen name="text_view_padding">12dp</dimen>
