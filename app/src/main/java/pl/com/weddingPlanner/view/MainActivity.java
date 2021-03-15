@@ -5,6 +5,9 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import pl.com.weddingPlanner.R;
+import pl.com.weddingPlanner.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.StateEnum;
 import pl.com.weddingPlanner.persistence.entity.AgeRange;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
@@ -18,8 +21,6 @@ import pl.com.weddingPlanner.persistence.entity.Table;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.persistence.entity.Wedding;
 import pl.com.weddingPlanner.util.DAOUtil;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
-import pl.com.weddingPlanner.enums.StateEnum;
 
 import static pl.com.weddingPlanner.view.util.ResourceUtil.CATEGORY_OTHER;
 
@@ -27,10 +28,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme_NoActionBar_Launcher);
         super.onCreate(savedInstanceState);
 
         fillDatabaseIfEmpty();
-        goToActivity();
+        forwardToAppropriateActivity();
     }
 
     private void fillDatabaseIfEmpty() {
@@ -42,8 +44,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void goToActivity() {
-        Intent intent = new Intent(this, NavigationActivity.class);
+    private void forwardToAppropriateActivity() {
+        startApplication();
+    }
+
+    private void startApplication() {
+        Intent intent = IntroActivity.createIntent(this);
         startActivity(intent);
     }
 
