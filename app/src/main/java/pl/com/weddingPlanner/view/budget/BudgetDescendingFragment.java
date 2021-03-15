@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import org.apache.commons.lang3.StringUtils;
 import org.threeten.bp.LocalDate;
 
 import java.util.ArrayList;
@@ -23,14 +22,12 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentBudgetDescendingBinding;
+import pl.com.weddingPlanner.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.model.info.ExpenseInfo;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
-import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.util.DateUtil;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
-import pl.com.weddingPlanner.enums.StateEnum;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.HeaderItem;
 import pl.com.weddingPlanner.view.list.ListItem;
@@ -45,11 +42,10 @@ import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAG
 
 public class BudgetDescendingFragment extends Fragment {
 
-    private final double TOTAL_AMOUNT = 40000.00;
-
     private FragmentBudgetDescendingBinding binding;
 
     private double initialAmountsSum = 0.00;
+    private double initialTotalAmount = 0.00;
     private double paidPaymentsSum = 0.00;
 
     private int currentPage = PAGE_START;
@@ -82,29 +78,16 @@ public class BudgetDescendingFragment extends Fragment {
     }
 
     private void getAndSetInitialAmounts() {
-        List<Expense> allExpenses = DAOUtil.getAllExpenses(getContext());
-        initialAmountsSum = 0.00;
-
-        for (Expense expense : allExpenses) {
-            if (StringUtils.isNotBlank(expense.getInitialAmount())) {
-                initialAmountsSum += Double.parseDouble(expense.getInitialAmount());
-            }
-        }
+        initialAmountsSum = BudgetUtil.getInitialAmountsSum(getContext());
+        initialTotalAmount = Double.parseDouble(DAOUtil.getWeddingById(getContext(), 1).getInitialTotalAmount()); //TODO rozróżniać w którym weselu się znajdujemy
     }
 
     private void getAndSetPayments() {
-        List<Payment> allPayments = DAOUtil.getAllPayments(getContext());
-        paidPaymentsSum = 0.00;
-
-        for (Payment payment : allPayments) {
-            if (StateEnum.PAID == StateEnum.valueOf(payment.getState())) {
-                paidPaymentsSum += Double.parseDouble(payment.getAmount());
-            }
-        }
+        paidPaymentsSum = BudgetUtil.getPaymentsSum(getContext());
     }
 
     private void setProgressAndText() {
-        int percentage = (int) (initialAmountsSum / TOTAL_AMOUNT * 100);
+        int percentage = (int) (initialAmountsSum / initialTotalAmount * 100);
         String progress = percentage + "%";
 
         binding.progressBar.setProgress(percentage, true);
@@ -114,7 +97,7 @@ public class BudgetDescendingFragment extends Fragment {
     private void setAmounts() {
         String initialSpentAmount = FormatUtil.convertToAmount(initialAmountsSum);
         String spentAmount = FormatUtil.convertToAmount(paidPaymentsSum);
-        String totalAmount = FormatUtil.convertToAmount(TOTAL_AMOUNT);
+        String totalAmount = FormatUtil.convertToAmount(initialTotalAmount);
 
         binding.amountInitialSpent.setText(initialSpentAmount);
         binding.amountSpent.setText(spentAmount);

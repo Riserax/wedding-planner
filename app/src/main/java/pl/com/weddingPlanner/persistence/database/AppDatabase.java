@@ -17,6 +17,7 @@ import pl.com.weddingPlanner.persistence.dao.SubTaskDAO;
 import pl.com.weddingPlanner.persistence.dao.SubcontractorDAO;
 import pl.com.weddingPlanner.persistence.dao.TableDAO;
 import pl.com.weddingPlanner.persistence.dao.TaskDAO;
+import pl.com.weddingPlanner.persistence.dao.WeddingDAO;
 import pl.com.weddingPlanner.persistence.entity.AgeRange;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
@@ -28,9 +29,10 @@ import pl.com.weddingPlanner.persistence.entity.SubTask;
 import pl.com.weddingPlanner.persistence.entity.Subcontractor;
 import pl.com.weddingPlanner.persistence.entity.Table;
 import pl.com.weddingPlanner.persistence.entity.Task;
+import pl.com.weddingPlanner.persistence.entity.Wedding;
 
 @Database(entities = {Task.class, Category.class, SubTask.class, Bookmark.class, Person.class, Expense.class,
-        Payment.class, Guest.class, AgeRange.class, Table.class, Subcontractor.class}, version = 1)
+        Payment.class, Guest.class, AgeRange.class, Table.class, Subcontractor.class, Wedding.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "weddingPlannerDB";
@@ -47,6 +49,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract AgeRangeDAO ageRangeDAO();
     public abstract TableDAO tableDAO();
     public abstract SubcontractorDAO subcontractorDAO();
+    public abstract WeddingDAO weddingDAO();
 
     public static AppDatabase getInstance(final Context context) {
 

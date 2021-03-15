@@ -132,7 +132,7 @@
                         android:paddingStart="@dimen/text_view_padding"
                         android:paddingEnd="@dimen/text_view_padding"
                         android:textColor="@color/gray_949494"
-                        android:textSize="@dimen/task_description_text_size"/>
+                        android:textSize="@dimen/description_text_size"/>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -370,7 +370,7 @@
                             android:paddingEnd="@dimen/text_view_padding"
                             android:text="@string/task_details_no_sub_tasks"
                             android:textColor="@color/gray_949494"
-                            android:textSize="@dimen/task_description_text_size"
+                            android:textSize="@dimen/description_text_size"
                             android:visibility="gone"/>
 
                     </LinearLayout>

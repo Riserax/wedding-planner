@@ -1,5 +1,8 @@
 package pl.com.weddingPlanner.view.util;
 
+import android.content.Context;
+
+import org.apache.commons.lang3.StringUtils;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
 
@@ -9,8 +12,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import pl.com.weddingPlanner.enums.StateEnum;
 import pl.com.weddingPlanner.persistence.entity.Expense;
 import pl.com.weddingPlanner.persistence.entity.Payment;
+import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.util.DateUtil;
 
 public class BudgetUtil {
@@ -63,5 +68,31 @@ public class BudgetUtil {
             unsortedIdDateMap.put(idDate.getKey(), LocalDate.parse(idDate.getValue(), DateTimeFormatter.ISO_DATE));
         }
         return unsortedIdDateMap;
+    }
+
+    public static double getInitialAmountsSum(Context context) {
+        List<Expense> allExpenses = DAOUtil.getAllExpenses(context);
+        double initialAmountsSum = 0.00;
+
+        for (Expense expense : allExpenses) {
+            if (StringUtils.isNotBlank(expense.getInitialAmount())) {
+                initialAmountsSum += Double.parseDouble(expense.getInitialAmount());
+            }
+        }
+
+        return initialAmountsSum;
+    }
+
+    public static double getPaymentsSum(Context context) {
+        List<Payment> allPayments = DAOUtil.getAllPayments(context);
+        double paidPaymentsSum = 0.00;
+
+        for (Payment payment : allPayments) {
+            if (StateEnum.PAID == StateEnum.valueOf(payment.getState())) {
+                paidPaymentsSum += Double.parseDouble(payment.getAmount());
+            }
+        }
+
+        return paidPaymentsSum;
     }
 }

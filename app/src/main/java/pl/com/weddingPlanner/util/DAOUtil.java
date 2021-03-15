@@ -15,6 +15,7 @@ import pl.com.weddingPlanner.persistence.dao.SubTaskDAO;
 import pl.com.weddingPlanner.persistence.dao.SubcontractorDAO;
 import pl.com.weddingPlanner.persistence.dao.TableDAO;
 import pl.com.weddingPlanner.persistence.dao.TaskDAO;
+import pl.com.weddingPlanner.persistence.dao.WeddingDAO;
 import pl.com.weddingPlanner.persistence.database.AppDatabase;
 import pl.com.weddingPlanner.persistence.entity.AgeRange;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
@@ -27,6 +28,7 @@ import pl.com.weddingPlanner.persistence.entity.SubTask;
 import pl.com.weddingPlanner.persistence.entity.Subcontractor;
 import pl.com.weddingPlanner.persistence.entity.Table;
 import pl.com.weddingPlanner.persistence.entity.Task;
+import pl.com.weddingPlanner.persistence.entity.Wedding;
 
 import static pl.com.weddingPlanner.persistence.database.AppDatabase.getInstance;
 
@@ -108,6 +110,18 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         TaskDAO taskDAO = appDatabase.taskDAO();
         return taskDAO.get(taskId);
+    }
+
+    public static int getAllTasksCount(Context context) {
+        AppDatabase appDatabase = getInstance(context);
+        TaskDAO taskDAO = appDatabase.taskDAO();
+        return taskDAO.count();
+    }
+
+    public static int getTasksByStatusCount(Context context, String status) {
+        AppDatabase appDatabase = getInstance(context);
+        TaskDAO taskDAO = appDatabase.taskDAO();
+        return taskDAO.countByStatus(status);
     }
 
     public static SubTask getSubTaskById(Context context, int subTaskId) {
@@ -224,6 +238,18 @@ public class DAOUtil {
         return guestDAO.getByNameSurname(nameSurname);
     }
 
+    public static int getAllGuestsCount(Context context) {
+        AppDatabase appDatabase = getInstance(context);
+        GuestDAO guestDAO = appDatabase.guestDAO();
+        return guestDAO.count();
+    }
+
+    public static int getGuestsCountByPresence(Context context, String presence) {
+        AppDatabase appDatabase = getInstance(context);
+        GuestDAO guestDAO = appDatabase.guestDAO();
+        return guestDAO.countByPresence(presence);
+    }
+
     public static List<AgeRange> getAllAgeRanges(Context context) {
         AppDatabase appDatabase = getInstance(context);
         AgeRangeDAO ageRangeDAO = appDatabase.ageRangeDAO();
@@ -264,6 +290,24 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
         return subcontractorDAO.getByName(name);
+    }
+
+    public static int getAllSubcontractorsCount(Context context) {
+        AppDatabase appDatabase = getInstance(context);
+        SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
+        return subcontractorDAO.count();
+    }
+
+    public static int getSubcontractorsByStageCount(Context context, String collaborationStage) {
+        AppDatabase appDatabase = getInstance(context);
+        SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
+        return subcontractorDAO.countByStage(collaborationStage);
+    }
+
+    public static Wedding getWeddingById(Context context, Integer id) {
+        AppDatabase appDatabase = getInstance(context);
+        WeddingDAO weddingDAO = appDatabase.weddingDAO();
+        return weddingDAO.getById(id);
     }
 
     public static void insertCategory(Context context, Category category) {
@@ -330,6 +374,12 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
         subcontractorDAO.insert(subcontractor);
+    }
+
+    public static void insertWedding(Context context, Wedding wedding) {
+        AppDatabase appDatabase = getInstance(context);
+        WeddingDAO weddingDAO = appDatabase.weddingDAO();
+        weddingDAO.insert(wedding);
     }
 
     public static void mergeExpense(Context context, Expense expense) {

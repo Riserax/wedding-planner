@@ -16,6 +16,7 @@ import pl.com.weddingPlanner.persistence.entity.SubTask;
 import pl.com.weddingPlanner.persistence.entity.Subcontractor;
 import pl.com.weddingPlanner.persistence.entity.Table;
 import pl.com.weddingPlanner.persistence.entity.Task;
+import pl.com.weddingPlanner.persistence.entity.Wedding;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.enums.StateEnum;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fillDatabase() {
+        insertWedding();
         insertCategories();
         insertBookmarks();
         insertPeople();
@@ -58,6 +60,21 @@ public class MainActivity extends AppCompatActivity {
         insertTables();
         insertGuests();
         insertSubcontractors();
+    }
+
+    private void insertWedding() {
+        Wedding wedding = Wedding.builder()
+                .id(1)
+                .name("Cały Ten Ślub")
+                .date("26.08.2023")
+                .time("13:00:00")
+                .ceremonyVenue("Kościółek w starym stylu, gdzieś niedaleko sali")
+                .banquetVenue("Sala Zielone Wzgórze")
+                .people("1,2")
+                .initialTotalAmount("40000.00")
+                .build();
+
+        DAOUtil.insertWedding(this, wedding);
     }
 
     private void insertCategories() {

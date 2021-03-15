@@ -36,4 +36,7 @@ public interface TaskDAO {
 
     @Query("SELECT COUNT(*) FROM task")
     int count();
+
+    @Query("SELECT COUNT(*) FROM task WHERE status = :status")
+    int countByStatus(String status);
 }

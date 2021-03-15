@@ -44,4 +44,7 @@ public interface GuestDAO {
 
     @Query("SELECT COUNT(*) FROM guest")
     int count();
+
+    @Query("SELECT COUNT(*) FROM guest WHERE presence = :presence")
+    int countByPresence(String presence);
 }
