@@ -16,6 +16,9 @@
     <string name="category_most_subcontractors">Podwykonawcy</string>
     <string name="category_most_stylization">Stylizacje</string>
 
+    <string name="dashboard_guests_title">Liczba gości: %1$d</string>
+    <string name="dashboard_subcontractors_title">Liczba podwykonawców: %1$d</string>
+
     <string name="day_monday">Poniedziałek</string>
     <string name="day_tuesday">Wtorek</string>
     <string name="day_wednesday">Środa</string>

@@ -7,8 +7,16 @@ import pl.com.weddingPlanner.enums.PeriodTypeEnum;
 public class DashboardUtil {
 
     public static void setValueAndTitleForPeriod(TextView valueTextView, TextView titleTextView, int value, PeriodTypeEnum periodType) {
-        valueTextView.setText(String.valueOf(value));
+        String preparedValue = prepareValue(value);
+        valueTextView.setText(preparedValue);
         setTitleForPeriod(titleTextView, periodType, value);
+    }
+
+    private static String prepareValue(int value) {
+        if (value < 10) {
+            return "0" + value;
+        }
+        return String.valueOf(value);
     }
 
     private static void setTitleForPeriod(TextView titleTextView, PeriodTypeEnum periodType, int value) {

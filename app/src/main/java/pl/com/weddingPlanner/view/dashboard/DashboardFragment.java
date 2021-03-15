@@ -1,15 +1,14 @@
 package pl.com.weddingPlanner.view.dashboard;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import org.joda.time.Interval;
 import org.joda.time.Period;
@@ -25,10 +24,14 @@ import java.util.TimerTask;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentDashboardBinding;
+import pl.com.weddingPlanner.enums.CollaborationStageEnum;
 import pl.com.weddingPlanner.enums.PeriodTypeEnum;
+import pl.com.weddingPlanner.enums.PresenceEnum;
+import pl.com.weddingPlanner.enums.TaskStatusEnum;
 import pl.com.weddingPlanner.persistence.entity.Wedding;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.NavigationActivity;
+import pl.com.weddingPlanner.view.util.BudgetUtil;
 import pl.com.weddingPlanner.view.util.DashboardUtil;
 
 public class DashboardFragment extends Fragment {
@@ -41,39 +44,116 @@ public class DashboardFragment extends Fragment {
 
     private Wedding weddingDetails;
 
+    private int guestsCount;
+    private int guestsInvitedCount;
+    private int guestsAcceptedCount;
+    private int guestsRejectedCount;
+    private int guestsAwaitingCount;
+
+    private int tasksCount;
+    private int tasksDoneCount;
+
+    private int subcontractorsCount;
+    private int subcontractorsConsideringCount;
+    private int subcontractorsInContactCount;
+    private int subcontractorsConfirmedCount;
+    private int subcontractorsPaidCount;
+
+    private double initialAmountsSum = 0.00;
+    private double initialTotalAmount = 0.00;
+
     private Timer timer;
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ((NavigationActivity) requireActivity()).setFragmentWithoutToolbar();
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container, false);
 
-        getAndSetWeddingDetails();
+        getAndSetDetails();
         setComponents();
+        setSwipeRefresh();
 
         return binding.getRoot();
     }
 
     @Override
-    public void onAttach(@Nullable Context context) {
-        super.onAttach(context);
+    public void onStart() {
+        super.onStart();
         updateCountdown();
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onStop() {
+        super.onStop();
         timer.cancel();
     }
 
-    private void getAndSetWeddingDetails() {
+    private void setSwipeRefresh() {
+        SwipeRefreshLayout swipeRefresh = binding.swipeRefresh;
+        swipeRefresh.setOnRefreshListener(() -> {
+            swipeRefresh.setRefreshing(false);
+            getAndSetDetails();
+            setComponents();
+        });
+    }
+
+    private void getAndSetDetails() {
         weddingDetails = DAOUtil.getWeddingById(getContext(), 1); //TODO rozróżniać w którym weselu się znajdujemy
+
+        guestsCount = DAOUtil.getAllGuestsCount(getContext());
+        guestsInvitedCount = DAOUtil.getGuestsCountByPresence(getContext(), PresenceEnum.INVITATION_SENT.name());
+        guestsAcceptedCount = DAOUtil.getGuestsCountByPresence(getContext(), PresenceEnum.CONFIRMED_PRESENCE.name());
+        guestsRejectedCount = DAOUtil.getGuestsCountByPresence(getContext(), PresenceEnum.CONFIRMED_ABSENCE.name());
+        guestsAwaitingCount = DAOUtil.getGuestsCountByPresence(getContext(), PresenceEnum.AWAITING.name());
+
+        tasksCount = DAOUtil.getAllTasksCount(getContext());
+        tasksDoneCount = DAOUtil.getTasksByStatusCount(getContext(), TaskStatusEnum.DONE.name());
+
+        initialAmountsSum = BudgetUtil.getInitialAmountsSum(getContext());
+        initialTotalAmount = Double.parseDouble(weddingDetails.getInitialTotalAmount());
+
+        subcontractorsCount = DAOUtil.getAllSubcontractorsCount(getContext());
+        subcontractorsConsideringCount = DAOUtil.getSubcontractorsByStageCount(getContext(), CollaborationStageEnum.CONSIDERING.name());
+        subcontractorsInContactCount = DAOUtil.getSubcontractorsByStageCount(getContext(), CollaborationStageEnum.IN_CONTACT.name());
+        subcontractorsConfirmedCount = DAOUtil.getSubcontractorsByStageCount(getContext(), CollaborationStageEnum.CONFIRMED.name());
+        subcontractorsPaidCount = DAOUtil.getSubcontractorsByStageCount(getContext(), CollaborationStageEnum.PAID.name());
     }
 
     private void setComponents() {
         binding.weddingName.setText(weddingDetails.getName());
-        binding.weddingDate.setText(weddingDetails.getDate());
+
+        String weddingDateTime = weddingDetails.getDate() + " | " + weddingDetails.getTime().substring(0, weddingDetails.getTime().length() - 3);
+        binding.weddingDate.setText(weddingDateTime);
+
+        binding.guestsTitle.setText(getString(R.string.dashboard_guests_title, guestsCount));
+        binding.invitationsSent.setText(String.valueOf(guestsInvitedCount));
+        binding.invitationsAccepted.setText(String.valueOf(guestsAcceptedCount));
+        binding.invitationsRejected.setText(String.valueOf(guestsRejectedCount));
+        binding.invitationsAwaiting.setText(String.valueOf(guestsAwaitingCount));
+
+        binding.ceremonyVenue.setText(weddingDetails.getCeremonyVenue());
+        binding.banquetVenue.setText(weddingDetails.getBanquetVenue());
+
+        binding.tasksDone.setText(String.valueOf(tasksDoneCount));
+        binding.tasksCount.setText(String.valueOf(tasksCount));
+
+        setBudgetProgressAndText();
+
+        binding.subcontractorsTitle.setText(getString(R.string.dashboard_subcontractors_title, subcontractorsCount));
+        binding.collaborationConsidering.setText(String.valueOf(subcontractorsConsideringCount));
+        binding.collaborationInTouch.setText(String.valueOf(subcontractorsInContactCount));
+        binding.collaborationConfirmed.setText(String.valueOf(subcontractorsConfirmedCount));
+        binding.collaborationPaid.setText(String.valueOf(subcontractorsPaidCount));
+    }
+
+    private void setBudgetProgressAndText() {
+        int percentage = (int) (initialAmountsSum / initialTotalAmount * 100);
+        String progress = percentage + "%";
+
+        binding.progressBar.setProgress(percentage, true);
+        binding.txtProgress.setText(progress);
     }
 
     private void updateCountdown() {
@@ -131,7 +211,7 @@ public class DashboardFragment extends Fragment {
 
     private Interval getRemainingInterval() {
         Locale locale = new Locale("PL");
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss", locale);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.M.yyyy hh:mm:ss", locale);
 
         Wedding wedding = DAOUtil.getWeddingById(getContext(), 1);
 

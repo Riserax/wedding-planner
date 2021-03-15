@@ -36,4 +36,5 @@ public class Task implements Serializable {
     private String date;
     private String time;
     private String subTasks;
+    private String status;
 }

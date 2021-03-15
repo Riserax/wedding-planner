@@ -66,9 +66,12 @@ public class MainActivity extends AppCompatActivity {
         Wedding wedding = Wedding.builder()
                 .id(1)
                 .name("Cały Ten Ślub")
-                .date("26/08/2023")
+                .date("26.08.2023")
                 .time("13:00:00")
+                .ceremonyVenue("Kościółek w starym stylu, gdzieś niedaleko sali")
+                .banquetVenue("Sala Zielone Wzgórze")
                 .people("1,2")
+                .initialTotalAmount("40000.00")
                 .build();
 
         DAOUtil.insertWedding(this, wedding);

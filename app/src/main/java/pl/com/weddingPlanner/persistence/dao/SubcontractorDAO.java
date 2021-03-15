@@ -39,4 +39,7 @@ public interface SubcontractorDAO {
 
     @Query("SELECT COUNT(*) FROM subcontractor")
     int count();
+
+    @Query("SELECT COUNT(*) FROM subcontractor WHERE collaborationStage = :collaborationStage")
+    int countByStage(String collaborationStage);
 }

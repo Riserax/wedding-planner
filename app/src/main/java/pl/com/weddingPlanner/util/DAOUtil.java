@@ -112,6 +112,18 @@ public class DAOUtil {
         return taskDAO.get(taskId);
     }
 
+    public static int getAllTasksCount(Context context) {
+        AppDatabase appDatabase = getInstance(context);
+        TaskDAO taskDAO = appDatabase.taskDAO();
+        return taskDAO.count();
+    }
+
+    public static int getTasksByStatusCount(Context context, String status) {
+        AppDatabase appDatabase = getInstance(context);
+        TaskDAO taskDAO = appDatabase.taskDAO();
+        return taskDAO.countByStatus(status);
+    }
+
     public static SubTask getSubTaskById(Context context, int subTaskId) {
         AppDatabase appDatabase = getInstance(context);
         SubTaskDAO subTaskDAO = appDatabase.subTaskDAO();
@@ -226,6 +238,18 @@ public class DAOUtil {
         return guestDAO.getByNameSurname(nameSurname);
     }
 
+    public static int getAllGuestsCount(Context context) {
+        AppDatabase appDatabase = getInstance(context);
+        GuestDAO guestDAO = appDatabase.guestDAO();
+        return guestDAO.count();
+    }
+
+    public static int getGuestsCountByPresence(Context context, String presence) {
+        AppDatabase appDatabase = getInstance(context);
+        GuestDAO guestDAO = appDatabase.guestDAO();
+        return guestDAO.countByPresence(presence);
+    }
+
     public static List<AgeRange> getAllAgeRanges(Context context) {
         AppDatabase appDatabase = getInstance(context);
         AgeRangeDAO ageRangeDAO = appDatabase.ageRangeDAO();
@@ -266,6 +290,18 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
         return subcontractorDAO.getByName(name);
+    }
+
+    public static int getAllSubcontractorsCount(Context context) {
+        AppDatabase appDatabase = getInstance(context);
+        SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
+        return subcontractorDAO.count();
+    }
+
+    public static int getSubcontractorsByStageCount(Context context, String collaborationStage) {
+        AppDatabase appDatabase = getInstance(context);
+        SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
+        return subcontractorDAO.countByStage(collaborationStage);
     }
 
     public static Wedding getWeddingById(Context context, Integer id) {
