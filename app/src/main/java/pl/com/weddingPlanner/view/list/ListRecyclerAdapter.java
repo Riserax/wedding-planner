@@ -1,6 +1,7 @@
 package pl.com.weddingPlanner.view.list;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import java.util.List;
 
 import lombok.Getter;
 import pl.com.weddingPlanner.R;
+import pl.com.weddingPlanner.enums.ContentItemState;
 
 public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 //        implements SwipeAndDragHelper.ActionCompletionContract
@@ -101,47 +103,47 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         } else if (holder instanceof VHItem) {
             ContentItem currentItem = (ContentItem) items.get(holder.getAdapterPosition());
             VHItem VHitem = (VHItem) holder;
-//            if (currentItem.isDisabled()) {
-//                int colorGray = ContextCompat.getColor(context, R.color.gray_B4B4B4);
-//                VHitem.disableClick();
-//                VHitem.caption.setText(currentItem.getMainCaption());
-//                VHitem.caption.setTextColor(colorGray);
-////                VHitem.amountCaption.setText(currentItem.getSubCaption());
-////                VHitem.amountCaption.setTextColor(colorGray);
-//                VHitem.leftIcon.setImageDrawable(getIcon(currentItem));
-//                VHitem.leftIcon.setColorFilter(colorGray, PorterDuff.Mode.SRC_IN);
-////                if (isIconEnabled()) {
-////                    VHitem.rightIcon.setVisibility(View.VISIBLE);
-////                    VHitem.rightIcon.setImageDrawable(ContextCompat.getDrawable(context, iconDrawable));
-////                    VHitem.rightIcon.setColorFilter(colorGray, PorterDuff.Mode.SRC_IN);
-////                }
-//            } else {
-                VHitem.bind(currentItem, itemClickListener);
-                VHitem.caption.setText(currentItem.getMainCaption());
-                VHitem.caption.setTextColor(getColor(currentItem.getMainCaptionColor()));
-                if (StringUtils.isNotBlank(currentItem.getSubCaption())) {
-                    VHitem.amountCaption.setVisibility(View.VISIBLE);
-                    VHitem.amountCaption.setText(currentItem.getSubCaption());
-                    VHitem.amountCaption.setTextColor(getColor(currentItem.getSubCaptionColor()));
-                }
-                VHitem.leftIcon.setImageDrawable(getIcon(currentItem));
-                if (StringUtils.isNotBlank(currentItem.getRightIconCaption())) {
-                    VHitem.rightIconLayout.setVisibility(View.VISIBLE);
-                    VHitem.rightIconCaption.setText(currentItem.getRightIconCaption());
-                }
-//                if (isIconEnabled()) {
-//                    VHitem.rightIcon.setImageDrawable(ContextCompat.getDrawable(context, iconDrawable));
-//                    VHitem.rightIcon.setColorFilter(ContextCompat.getColor(context, R.color.purple_500), PorterDuff.Mode.SRC_IN);
-//                    ButtonHitArea.increaseHitArea(VHitem.itemView, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, context.getResources().getDisplayMetrics()), VHitem.rightIcon);
-//                    VHitem.bindRightIcon(currentItem, rightIconClickListener);
-//                    VHitem.rightIcon.setVisibility(iconVisibility);
-//                }
-//            }
+            VHitem.bind(currentItem, itemClickListener);
+
+            VHitem.caption.setText(currentItem.getMainCaption());
+            VHitem.caption.setTextColor(getColor(currentItem.getMainCaptionColor()));
+
+            setCaptionPaintFlags(currentItem, VHitem);
+            setAmountCaption(currentItem, VHitem);
+
+            VHitem.leftIcon.setImageDrawable(getIcon(currentItem));
+
+            setRightIcon(currentItem, VHitem);
         }
     }
 
     private int getColor(@ColorRes int colorId) {
         return ContextCompat.getColor(context, colorId);
+    }
+
+    private void setCaptionPaintFlags(ContentItem currentItem, VHItem VHitem) {
+        if (currentItem.getState() != null && currentItem.getState() == ContentItemState.DONE) {
+            VHitem.caption.setPaintFlags(VHitem.caption.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        } else {
+            if ((VHitem.caption.getPaintFlags() & Paint.STRIKE_THRU_TEXT_FLAG) > 0) {
+                VHitem.caption.setPaintFlags(VHitem.caption.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+            }
+        }
+    }
+
+    private void setAmountCaption(ContentItem currentItem, VHItem VHitem) {
+        if (StringUtils.isNotBlank(currentItem.getSubCaption())) {
+            VHitem.amountCaption.setVisibility(View.VISIBLE);
+            VHitem.amountCaption.setText(currentItem.getSubCaption());
+            VHitem.amountCaption.setTextColor(getColor(currentItem.getSubCaptionColor()));
+        }
+    }
+
+    private void setRightIcon(ContentItem currentItem, VHItem VHitem) {
+        if (StringUtils.isNotBlank(currentItem.getRightIconCaption())) {
+            VHitem.rightIconLayout.setVisibility(View.VISIBLE);
+            VHitem.rightIconCaption.setText(currentItem.getRightIconCaption());
+        }
     }
 
     private Drawable getIcon(ContentItem contentItem) {

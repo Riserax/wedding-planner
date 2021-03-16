@@ -19,7 +19,7 @@ import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.persistence.entity.Wedding;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.enums.CategoryTypeEnum;
-import pl.com.weddingPlanner.enums.StateEnum;
+import pl.com.weddingPlanner.enums.PaymentStateEnum;
 
 import static pl.com.weddingPlanner.view.util.ResourceUtil.CATEGORY_OTHER;
 
@@ -347,6 +347,7 @@ public class MainActivity extends AppCompatActivity {
                 .description("Wielolinijkowy opis zadania, który może mieć maksymalnie 250 znaków, ale ten tyle nie ma, więc muszę go troszkę przeciągnąć, lejąc wodę o niczym")
                 .bookmarks("1,2,3,4")
                 .assignees("1,2,3")
+                .status("NEW")
                 .date("2021-01-23")
                 .time("16:30")
                 .subTasks("1,2")
@@ -356,6 +357,7 @@ public class MainActivity extends AppCompatActivity {
                 .id(2)
                 .title("Nieuzupełnione zadanie")
                 .category(CATEGORY_OTHER)
+                .status("NEW")
                 .date("2021-01-31")
                 .build();
 
@@ -408,7 +410,7 @@ public class MainActivity extends AppCompatActivity {
                 .date("2021-01-31")
                 .amount("2000.00")
                 .payer("1")
-                .state(StateEnum.PAID.name())
+                .state(PaymentStateEnum.PAID.name())
                 .info("2000 zł")
                 .build();
 
@@ -418,7 +420,7 @@ public class MainActivity extends AppCompatActivity {
                 .date("2023-03-31")
                 .amount("12500.00")
                 .payer("2")
-                .state(StateEnum.PENDING.name())
+                .state(PaymentStateEnum.PENDING.name())
                 .info("Połowa całości (minus zaliczka)")
                 .build();
 

@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
+import pl.com.weddingPlanner.databinding.ActivityNewTaskBinding;
+import pl.com.weddingPlanner.enums.TaskStatusEnum;
 import pl.com.weddingPlanner.model.PickedDate;
 import pl.com.weddingPlanner.model.PickedTime;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
@@ -163,5 +165,36 @@ public class TasksUtil {
                 .hour(Integer.parseInt(timeComponents[0]))
                 .minute(Integer.parseInt(timeComponents[1]))
                 .build();
+    }
+
+    public static void setSelectedTaskStatus(TaskStatusEnum taskStatus, ActivityNewTaskBinding binding, Context context) {
+        switch (taskStatus) {
+            case NEW:
+                setTaskNewButtonsSelection(binding, context);
+                break;
+            case IN_PROGRESS:
+                setTaskInProgressButtonsSelection(binding, context);
+                break;
+            case DONE:
+                setTaskDoneButtonsSelection(binding, context);
+        }
+    }
+
+    public static void setTaskNewButtonsSelection(ActivityNewTaskBinding binding, Context context) {
+        ButtonsUtil.setButtonSelection(binding.newButton, context, true);
+        ButtonsUtil.setButtonSelection(binding.inProgressButton, context, false);
+        ButtonsUtil.setButtonSelection(binding.doneButton, context, false);
+    }
+
+    public static void setTaskInProgressButtonsSelection(ActivityNewTaskBinding binding, Context context) {
+        ButtonsUtil.setButtonSelection(binding.newButton, context, false);
+        ButtonsUtil.setButtonSelection(binding.inProgressButton, context, true);
+        ButtonsUtil.setButtonSelection(binding.doneButton, context, false);
+    }
+
+    public static void setTaskDoneButtonsSelection(ActivityNewTaskBinding binding, Context context) {
+        ButtonsUtil.setButtonSelection(binding.newButton, context, false);
+        ButtonsUtil.setButtonSelection(binding.inProgressButton, context, false);
+        ButtonsUtil.setButtonSelection(binding.doneButton, context, true);
     }
 }

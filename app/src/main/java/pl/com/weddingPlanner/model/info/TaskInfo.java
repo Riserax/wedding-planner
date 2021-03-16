@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.com.weddingPlanner.enums.TaskStatusEnum;
 
 @Data
 @Builder
@@ -19,4 +20,5 @@ public class TaskInfo implements Serializable {
     private String bookmarks;
     private String assignees;
     private String date;
+    private TaskStatusEnum status;
 }
