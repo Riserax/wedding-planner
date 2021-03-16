@@ -19,6 +19,7 @@ import java.util.List;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityTaskDetailsBinding;
 import pl.com.weddingPlanner.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.TaskStatusEnum;
 import pl.com.weddingPlanner.model.Assignees;
 import pl.com.weddingPlanner.model.Bookmarks;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
@@ -123,9 +124,11 @@ public class TaskDetailsActivity extends BaseActivity {
         setAssignees();
         setDescription();
         setCategory();
+        setStatus();
         setSubTasks();
         setProgressBar();
         setDateTime();
+        setMarkAsOption();
     }
 
     private void setBookmarks() {
@@ -165,6 +168,14 @@ public class TaskDetailsActivity extends BaseActivity {
                 ? taskDetails.getDate() + ", " + taskDetails.getTime()
                 : taskDetails.getDate();
         binding.dateText.setText(dateTime);
+    }
+
+    private void setMarkAsOption() {
+        if (TaskStatusEnum.DONE.name().equals(taskDetails.getStatus())) {
+            binding.markAsText.setText(getString(R.string.task_details_mark_in_progress));
+        } else {
+            binding.markAsText.setText(getString(R.string.task_details_mark_done));
+        }
     }
 
     private void setSubTasks() {
@@ -225,16 +236,22 @@ public class TaskDetailsActivity extends BaseActivity {
         binding.categoryName.setText(categoryDetails.getName());
     }
 
+    private void setStatus() {
+        binding.status.setText(getString(TaskStatusEnum.valueOf(taskDetails.getStatus()).getNameResId()));
+    }
+
     private void setListeners() {
         setTaskFloatingButtonListener();
         setCheckBoxesListener();
+        setMarkAsListener();
         setDeleteTaskListener();
         setEditTaskListener();
     }
 
     private void setTaskFloatingButtonListener() {
         binding.tasksFloatingButton.setOnClickListener(v -> {
-            if (binding.deleteLayout.getVisibility() == View.GONE
+            if (binding.markAsLayout.getVisibility() == View.GONE
+                    &&binding.deleteLayout.getVisibility() == View.GONE
                     && binding.addSubTasksLayout.getVisibility() == View.GONE
                     && binding.editLayout.getVisibility() == View.GONE) {
                 showFloatingMenu();
@@ -264,6 +281,27 @@ public class TaskDetailsActivity extends BaseActivity {
         }
     }
 
+    private void setMarkAsListener() {
+        binding.markAsLayout.setOnClickListener(v -> {
+            setTaskNewStatus();
+            DAOUtil.mergeTask(getApplicationContext(), taskDetails);
+            setStatus();
+            hideFloatingMenu();
+            setMarkAsOption();
+        });
+    }
+
+    private void setTaskNewStatus() {
+        switch (TaskStatusEnum.valueOf(taskDetails.getStatus())) {
+            case NEW:
+            case IN_PROGRESS:
+                taskDetails.setStatus(TaskStatusEnum.DONE.name());
+                break;
+            case DONE:
+                taskDetails.setStatus(TaskStatusEnum.IN_PROGRESS.name());
+        }
+    }
+
     private void setDeleteTaskListener() {
         binding.deleteLayout.setOnClickListener(v -> {
             new QuestionDialog(TaskDetailsActivity.this, getResources().getString(R.string.task_details_delete_question)).showDialog();
@@ -283,6 +321,7 @@ public class TaskDetailsActivity extends BaseActivity {
     }
 
     private void showFloatingMenu() {
+        binding.markAsLayout.setVisibility(View.VISIBLE);
         binding.deleteLayout.setVisibility(View.VISIBLE);
         binding.addSubTasksLayout.setVisibility(View.VISIBLE);
         binding.editLayout.setVisibility(View.VISIBLE);
@@ -290,6 +329,7 @@ public class TaskDetailsActivity extends BaseActivity {
     }
 
     private void hideFloatingMenu() {
+        binding.markAsLayout.setVisibility(View.GONE);
         binding.deleteLayout.setVisibility(View.GONE);
         binding.addSubTasksLayout.setVisibility(View.GONE);
         binding.editLayout.setVisibility(View.GONE);

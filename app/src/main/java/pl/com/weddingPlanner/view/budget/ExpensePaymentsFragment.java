@@ -23,7 +23,7 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentExpensePaymentsBinding;
-import pl.com.weddingPlanner.enums.StateEnum;
+import pl.com.weddingPlanner.enums.PaymentStateEnum;
 import pl.com.weddingPlanner.model.info.PaymentInfo;
 import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Person;
@@ -139,7 +139,7 @@ public class ExpensePaymentsFragment extends Fragment {
                 PaymentInfo paymentInfo = PaymentInfo.builder()
                         .itemId(payment.getId())
                         .title(payment.getTitle())
-                        .state(StateEnum.valueOf(payment.getState()))
+                        .state(PaymentStateEnum.valueOf(payment.getState()))
                         .amount(payment.getAmount())
                         .payer(payerInitials)
                         .date(payment.getDate())

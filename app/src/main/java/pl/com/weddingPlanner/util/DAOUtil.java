@@ -406,6 +406,12 @@ public class DAOUtil {
         subcontractorDAO.merge(subcontractor);
     }
 
+    public static void mergeTask(Context context, Task task) {
+        AppDatabase appDatabase = getInstance(context);
+        TaskDAO taskDAO = appDatabase.taskDAO();
+        taskDAO.merge(task);
+    }
+
     public static void setSubTaskDone(Context context, String done, int subTaskId) {
         AppDatabase appDatabase = getInstance(context);
         SubTaskDAO subTaskDAO = appDatabase.subTaskDAO();

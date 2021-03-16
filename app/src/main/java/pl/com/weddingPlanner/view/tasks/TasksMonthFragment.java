@@ -23,6 +23,7 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentTasksMonthBinding;
+import pl.com.weddingPlanner.enums.TaskStatusEnum;
 import pl.com.weddingPlanner.model.info.TaskInfo;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Task;
@@ -128,7 +129,7 @@ public class TasksMonthFragment extends Fragment {
             Map<Integer, Task> tasksMap = TasksUtil.getTasksMap(tasksByMonth);
 
             for (Map.Entry<Integer, LocalDate> sortedIdDate : sortedIdDateMap.entrySet()) {
-                Task task = (Task) tasksMap.get(sortedIdDate.getKey());
+                Task task = tasksMap.get(sortedIdDate.getKey());
 
                 Category category = DAOUtil.getCategoryByNameAndType(requireContext(), task.getCategory(), CategoryTypeEnum.TASKS.name());
 
@@ -137,6 +138,7 @@ public class TasksMonthFragment extends Fragment {
                         .title(task.getTitle())
                         .categoryIconId(category.getIconId())
                         .date(task.getDate())
+                        .status(TaskStatusEnum.valueOf(task.getStatus()))
                         .build();
 
                 toReturn.add(taskInfo);

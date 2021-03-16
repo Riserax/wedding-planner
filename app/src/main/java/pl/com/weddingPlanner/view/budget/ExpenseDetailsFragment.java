@@ -20,7 +20,7 @@ import java.util.List;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentExpenseDetailsBinding;
 import pl.com.weddingPlanner.enums.CategoryTypeEnum;
-import pl.com.weddingPlanner.enums.StateEnum;
+import pl.com.weddingPlanner.enums.PaymentStateEnum;
 import pl.com.weddingPlanner.model.Assignees;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
@@ -83,9 +83,9 @@ public class ExpenseDetailsFragment extends Fragment {
         List<Payment> allPayments = DAOUtil.getAllPaymentsByExpenseId(getContext(), expenseId);
 
         for (Payment payment : allPayments) {
-            if (StateEnum.PENDING == StateEnum.valueOf(payment.getState())) {
+            if (PaymentStateEnum.PENDING == PaymentStateEnum.valueOf(payment.getState())) {
                 awaitingPaymentsSum += Double.parseDouble(payment.getAmount());
-            } else if (StateEnum.PAID == StateEnum.valueOf(payment.getState())) {
+            } else if (PaymentStateEnum.PAID == PaymentStateEnum.valueOf(payment.getState())) {
                 paidPaymentsSum += Double.parseDouble(payment.getAmount());
             }
         }

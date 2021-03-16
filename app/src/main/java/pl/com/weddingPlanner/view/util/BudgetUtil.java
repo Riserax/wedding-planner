@@ -12,7 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import pl.com.weddingPlanner.enums.StateEnum;
+import pl.com.weddingPlanner.enums.PaymentStateEnum;
 import pl.com.weddingPlanner.persistence.entity.Expense;
 import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.util.DAOUtil;
@@ -88,7 +88,7 @@ public class BudgetUtil {
         double paidPaymentsSum = 0.00;
 
         for (Payment payment : allPayments) {
-            if (StateEnum.PAID == StateEnum.valueOf(payment.getState())) {
+            if (PaymentStateEnum.PAID == PaymentStateEnum.valueOf(payment.getState())) {
                 paidPaymentsSum += Double.parseDouble(payment.getAmount());
             }
         }

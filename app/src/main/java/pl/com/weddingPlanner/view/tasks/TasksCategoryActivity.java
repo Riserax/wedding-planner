@@ -17,6 +17,7 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityCategoryTasksBinding;
+import pl.com.weddingPlanner.enums.TaskStatusEnum;
 import pl.com.weddingPlanner.model.info.TaskInfo;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Task;
@@ -123,7 +124,7 @@ public class TasksCategoryActivity extends BaseActivity {
             Map<Integer, Task> tasksMap = TasksUtil.getTasksMap(allTasksByCategory);
 
             for (Map.Entry<Integer, LocalDate> sortedIdDate : sortedIdDateMap.entrySet()) {
-                Task task = (Task) tasksMap.get(sortedIdDate.getKey());
+                Task task = tasksMap.get(sortedIdDate.getKey());
 
                 Category category = DAOUtil.getCategoryByNameAndType(this, task.getCategory(), CategoryTypeEnum.TASKS.name());
 
@@ -132,6 +133,7 @@ public class TasksCategoryActivity extends BaseActivity {
                         .title(task.getTitle())
                         .categoryIconId(category.getIconId())
                         .date(task.getDate())
+                        .status(TaskStatusEnum.valueOf(task.getStatus()))
                         .build();
 
                 toReturn.add(taskInfo);

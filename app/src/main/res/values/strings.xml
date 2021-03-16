@@ -165,28 +165,34 @@
     <string name="subcontractor_details_delete_question">Czy na pewno chcesz usunąć tego podwykonawcę?</string>
     <string name="subcontractor_details_edit">Edytuj</string>
 
-    <string name="tab_title_tasks_categories">Kategorie</string>
-    <string name="tab_title_tasks_months">Miesiące</string>
     <string name="tab_title_budget_categories">Kategorie</string>
     <string name="tab_title_budget_descending">Chronologicznie</string>
     <string name="tab_title_expense_details">Szczegóły</string>
     <string name="tab_title_expense_payments">Płatności: %1$d</string>
-    <string name="tab_title_guests_list">Lista</string>
     <string name="tab_title_guests_groups">Grupy</string>
-    <string name="tab_title_subcontractors_list">Lista</string>
+    <string name="tab_title_guests_list">Lista</string>
     <string name="tab_title_subcontractors_categories">Kategorie</string>
+    <string name="tab_title_subcontractors_list">Lista</string>
+    <string name="tab_title_tasks_categories">Kategorie</string>
+    <string name="tab_title_tasks_months">Miesiące</string>
 
-    <string name="task_details_no_bookmarks">Brak etykiet</string>
-    <string name="task_details_sub_tasks">Podzadania:</string>
-    <string name="task_details_no_sub_tasks">Brak elementów do wyświetlenia</string>
+    <string name="task_details_add_sub_task">Dodaj podzadanie</string>
     <string name="task_details_delete">Usuń zadanie</string>
     <string name="task_details_delete_question">Czy na pewno chcesz usunąć to zadanie?</string>
-    <string name="task_details_add_sub_task">Dodaj podzadanie</string>
     <string name="task_details_edit">Edytuj zadanie</string>
+    <string name="task_details_mark_done">Oznacz jako wykonane</string>
+    <string name="task_details_mark_in_progress">Oznacz jako w toku</string>
+    <string name="task_details_no_bookmarks">Brak etykiet</string>
+    <string name="task_details_no_sub_tasks">Brak elementów do wyświetlenia</string>
+    <string name="task_details_status">Status</string>
+    <string name="task_details_sub_tasks">Podzadania:</string>
 
     <string name="task_field_bookmarks">Etykiety</string>
     <string name="task_field_people">Przypisane osoby</string>
     <string name="task_field_description">Opis</string>
+    <string name="task_field_status_new">Nowe</string>
+    <string name="task_field_status_in_progress">W toku</string>
+    <string name="task_field_status_done">Wykonane</string>
     <string name="task_field_date">Data</string>
     <string name="task_field_time">Godzina</string>
 </resources>
