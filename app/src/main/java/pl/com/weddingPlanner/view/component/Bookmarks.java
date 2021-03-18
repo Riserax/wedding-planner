@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.model;
+package pl.com.weddingPlanner.view.component;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -12,7 +12,7 @@ import java.util.List;
 
 import lombok.Getter;
 import pl.com.weddingPlanner.R;
-import pl.com.weddingPlanner.enums.BookmarksLocationEnum;
+import pl.com.weddingPlanner.enums.LocationEnum;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 
 
@@ -24,13 +24,13 @@ public class Bookmarks {
     private final List<Bookmark> bookmarkList;
     @Getter
     private final LinearLayout bookmarksContainer;
-    BookmarksLocationEnum bookmarksLocation;
+    private final LocationEnum location;
 
-    public Bookmarks(Context context, List<Bookmark> bookmarkList, BookmarksLocationEnum bookmarksLocation) {
+    public Bookmarks(Context context, List<Bookmark> bookmarkList, LocationEnum location) {
         this.context = context;
         this.bookmarkList = bookmarkList;
         this.bookmarksContainer = new LinearLayout(context);
-        this.bookmarksLocation = bookmarksLocation;
+        this.location = location;
         buildBookmarks();
     }
 
@@ -45,7 +45,7 @@ public class Bookmarks {
     private int getRowsNumber() {
         int rowsNumber = 1;
 
-        if (BookmarksLocationEnum.DETAILS == bookmarksLocation) {
+        if (LocationEnum.DETAILS == location) {
             rowsNumber = (int) Math.ceil((double) bookmarkList.size() / BOOKMARKS_DETAILS_PER_ROW);
         }
 
@@ -55,13 +55,13 @@ public class Bookmarks {
     private void createAndAddOneRowBookmarksLayout(int row) {
         LinearLayout bookmarksSingleRowLayout = null;
 
-        if (BookmarksLocationEnum.LIST_ITEM == bookmarksLocation) {
+        if (LocationEnum.LIST_ITEM == location) {
             bookmarksSingleRowLayout = setListBookmarksRowLayout();
 
             for (Bookmark bookmark : bookmarkList) {
                 prepareAndAddListBookmark(bookmark, bookmarksSingleRowLayout);
             }
-        } else if (BookmarksLocationEnum.DETAILS == bookmarksLocation) {
+        } else if (LocationEnum.DETAILS == location) {
             bookmarksSingleRowLayout = setDetailsBookmarksRowLayout();
 
             for (int i = 0; i < bookmarkList.size(); i++) {
@@ -148,7 +148,7 @@ public class Bookmarks {
         imageButton.setLayoutParams(layoutParams);
         imageButton.setClickable(true);
         imageButton.setFocusable(true);
-        imageButton.setBackgroundColor(ContextCompat.getColor(context, R.color.gray_F2F2F2));
+        imageButton.setBackgroundColor(ContextCompat.getColor(context, R.color.transparent));
         imageButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_bookmark));
         imageButton.setColorFilter(Color.parseColor(bookmark.getColorId()));
 

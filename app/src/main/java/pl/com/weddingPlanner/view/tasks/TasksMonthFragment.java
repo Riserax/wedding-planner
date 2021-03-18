@@ -23,10 +23,10 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentTasksMonthBinding;
-import pl.com.weddingPlanner.enums.BookmarksLocationEnum;
+import pl.com.weddingPlanner.enums.LocationEnum;
 import pl.com.weddingPlanner.enums.TaskStatusEnum;
-import pl.com.weddingPlanner.model.Assignees;
-import pl.com.weddingPlanner.model.Bookmarks;
+import pl.com.weddingPlanner.view.component.Assignees;
+import pl.com.weddingPlanner.view.component.Bookmarks;
 import pl.com.weddingPlanner.model.info.TaskInfo;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
@@ -140,10 +140,10 @@ public class TasksMonthFragment extends Fragment {
                 Category category = DAOUtil.getCategoryByNameAndType(requireContext(), task.getCategory(), CategoryTypeEnum.TASKS.name());
 
                 List<Bookmark> bookmarkList = TasksUtil.getBookmarks(task, requireContext());
-                Bookmarks bookmarks = new Bookmarks(requireContext(), bookmarkList, BookmarksLocationEnum.LIST_ITEM);
+                Bookmarks bookmarks = new Bookmarks(requireContext(), bookmarkList, LocationEnum.LIST_ITEM);
 
                 List<Person> assigneeList = PersonUtil.getPersonsList(requireContext(), task.getAssignees());
-                Assignees assignees = new Assignees(requireContext(), assigneeList, 2);
+                Assignees assignees = new Assignees(requireContext(), assigneeList, LocationEnum.LIST_ITEM);
 
                 TaskInfo taskInfo = TaskInfo.builder()
                         .itemId(task.getId())

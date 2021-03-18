@@ -17,11 +17,11 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityCategoryTasksBinding;
-import pl.com.weddingPlanner.enums.BookmarksLocationEnum;
+import pl.com.weddingPlanner.enums.LocationEnum;
 import pl.com.weddingPlanner.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.enums.TaskStatusEnum;
-import pl.com.weddingPlanner.model.Assignees;
-import pl.com.weddingPlanner.model.Bookmarks;
+import pl.com.weddingPlanner.view.component.Assignees;
+import pl.com.weddingPlanner.view.component.Bookmarks;
 import pl.com.weddingPlanner.model.info.TaskInfo;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
@@ -135,10 +135,10 @@ public class TasksCategoryActivity extends BaseActivity {
                 Category category = DAOUtil.getCategoryByNameAndType(this, task.getCategory(), CategoryTypeEnum.TASKS.name());
 
                 List<Bookmark> bookmarkList = TasksUtil.getBookmarks(task, this);
-                Bookmarks bookmarks = new Bookmarks(this, bookmarkList, BookmarksLocationEnum.LIST_ITEM);
+                Bookmarks bookmarks = new Bookmarks(this, bookmarkList, LocationEnum.LIST_ITEM);
 
                 List<Person> assigneeList = PersonUtil.getPersonsList(this, task.getAssignees());
-                Assignees assignees = new Assignees(this, assigneeList, 2);
+                Assignees assignees = new Assignees(this, assigneeList, LocationEnum.LIST_ITEM);
 
                 TaskInfo taskInfo = TaskInfo.builder()
                         .itemId(task.getId())

@@ -1,6 +1,6 @@
 package pl.com.weddingPlanner.enums;
 
-public enum BookmarksLocationEnum {
+public enum LocationEnum {
     DETAILS,
     LIST_ITEM
 }

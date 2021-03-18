@@ -17,7 +17,8 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityCategoryBudgetBinding;
-import pl.com.weddingPlanner.model.Assignees;
+import pl.com.weddingPlanner.enums.LocationEnum;
+import pl.com.weddingPlanner.view.component.Assignees;
 import pl.com.weddingPlanner.model.info.ExpenseInfo;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
@@ -132,7 +133,7 @@ public class BudgetCategoryActivity extends BaseActivity {
                 Category category = DAOUtil.getCategoryByNameAndType(this, expense.getCategory(), CategoryTypeEnum.BUDGET.name());
 
                 List<Person> payersList = PersonUtil.getPersonsList(this, expense.getPayers());
-                Assignees assignees = new Assignees(this, payersList, 2);
+                Assignees assignees = new Assignees(this, payersList, LocationEnum.LIST_ITEM);
 
                 ExpenseInfo expenseInfo = ExpenseInfo.builder()
                         .itemId(expense.getId())

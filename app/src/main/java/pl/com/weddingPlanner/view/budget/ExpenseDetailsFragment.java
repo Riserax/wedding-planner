@@ -20,8 +20,9 @@ import java.util.List;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentExpenseDetailsBinding;
 import pl.com.weddingPlanner.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.LocationEnum;
 import pl.com.weddingPlanner.enums.PaymentStateEnum;
-import pl.com.weddingPlanner.model.Assignees;
+import pl.com.weddingPlanner.view.component.Assignees;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
 import pl.com.weddingPlanner.persistence.entity.Payment;
@@ -164,7 +165,7 @@ public class ExpenseDetailsFragment extends Fragment {
 
     private void setPayers() {
         if (StringUtils.isNotBlank(expenseDetails.getPayers())) {
-            Assignees assignees = new Assignees(getContext(), payersList);
+            Assignees assignees = new Assignees(getContext(), payersList, LocationEnum.DETAILS);
             binding.payersLayout.addView(assignees.getAssigneesContainer());
         } else {
             binding.noPayers.setVisibility(View.VISIBLE);

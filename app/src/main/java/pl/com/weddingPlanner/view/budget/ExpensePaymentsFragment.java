@@ -25,8 +25,9 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentExpensePaymentsBinding;
+import pl.com.weddingPlanner.enums.LocationEnum;
 import pl.com.weddingPlanner.enums.PaymentStateEnum;
-import pl.com.weddingPlanner.model.Assignees;
+import pl.com.weddingPlanner.view.component.Assignees;
 import pl.com.weddingPlanner.model.info.PaymentInfo;
 import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Person;
@@ -154,7 +155,7 @@ public class ExpensePaymentsFragment extends Fragment {
 
         if (StringUtils.isNotBlank(payment.getPayer())) {
             Person payer = DAOUtil.getPersonById(getContext(), Integer.parseInt(payment.getPayer()));
-            assignees = new Assignees(getContext(), Collections.singletonList(payer), 2);
+            assignees = new Assignees(getContext(), Collections.singletonList(payer), LocationEnum.LIST_ITEM);
         }
 
         return assignees != null ? assignees.getAssigneesContainer() : new LinearLayout(getContext());

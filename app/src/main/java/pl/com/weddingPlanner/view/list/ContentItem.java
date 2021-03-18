@@ -63,6 +63,7 @@ public class ContentItem extends ListItem implements Serializable {
                 .mainCaptionColor(R.color.black)
                 .leftIconId(getLeftIconId(info.getType()))
                 .leftIconColor(R.color.colorPrimaryDark)
+                .rightLayout(info.getTablePresenceLayout())
                 .build();
     }
 

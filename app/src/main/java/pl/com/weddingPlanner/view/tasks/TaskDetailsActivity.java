@@ -18,11 +18,11 @@ import java.util.List;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityTaskDetailsBinding;
-import pl.com.weddingPlanner.enums.BookmarksLocationEnum;
+import pl.com.weddingPlanner.enums.LocationEnum;
 import pl.com.weddingPlanner.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.enums.TaskStatusEnum;
-import pl.com.weddingPlanner.model.Assignees;
-import pl.com.weddingPlanner.model.Bookmarks;
+import pl.com.weddingPlanner.view.component.Assignees;
+import pl.com.weddingPlanner.view.component.Bookmarks;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Person;
@@ -90,7 +90,7 @@ public class TaskDetailsActivity extends BaseActivity {
 
     private void setBookmarks() {
         if (StringUtils.isNotBlank(taskDetails.getBookmarks())) {
-            Bookmarks bookmarks = new Bookmarks(this, bookmarksList, BookmarksLocationEnum.DETAILS);
+            Bookmarks bookmarks = new Bookmarks(this, bookmarksList, LocationEnum.DETAILS);
             binding.bookmarksLayout.addView(bookmarks.getBookmarksContainer());
         } else {
             binding.noBookmarks.setVisibility(View.VISIBLE);
@@ -99,7 +99,7 @@ public class TaskDetailsActivity extends BaseActivity {
 
     private void setAssignees() {
         if (StringUtils.isNotBlank(taskDetails.getAssignees())) {
-            Assignees assignees = new Assignees(this, assigneesList);
+            Assignees assignees = new Assignees(this, assigneesList, LocationEnum.DETAILS);
             binding.assigneesLayout.addView(assignees.getAssigneesContainer());
         } else {
             binding.noAssignees.setVisibility(View.VISIBLE);
