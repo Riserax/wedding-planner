@@ -196,10 +196,22 @@ public class DAOUtil {
         return paymentDAO.getAll();
     }
 
+    public static List<Payment> getAllPaidPayments(Context context) {
+        AppDatabase appDatabase = getInstance(context);
+        PaymentDAO paymentDAO = appDatabase.paymentDAO();
+        return paymentDAO.getAllPaid();
+    }
+
     public static List<Payment> getAllPaymentsByExpenseId(Context context, int expenseId) {
         AppDatabase appDatabase = getInstance(context);
         PaymentDAO paymentDAO = appDatabase.paymentDAO();
         return paymentDAO.getAllByExpenseId(expenseId);
+    }
+
+    public static List<Payment> getAllPaidPaymentsByExpenseId(Context context, int expenseId) {
+        AppDatabase appDatabase = getInstance(context);
+        PaymentDAO paymentDAO = appDatabase.paymentDAO();
+        return paymentDAO.getAllPaidByExpenseId(expenseId);
     }
 
     public static Payment getPaymentById(Context context, int id) {

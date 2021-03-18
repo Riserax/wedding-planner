@@ -42,9 +42,11 @@
 
     <dimen name="description_text_size">16sp</dimen>
 
-    <dimen name="image_button_size_24">24dp</dimen>
+    <dimen name="image_button_size_20">@dimen/_17sdp</dimen>
+    <dimen name="image_button_size_24">@dimen/_20sdp</dimen>
     <dimen name="image_button_margin_start">5dp</dimen>
-    <dimen name="image_button_margin_end">5dp</dimen>
+    <dimen name="image_button_margin_end_1">1dp</dimen>
+    <dimen name="image_button_margin_end_5">5dp</dimen>
 
     <dimen name="left_column_menu_fragment_margin_start">15dp</dimen>
     <dimen name="left_column_menu_fragment_margin_top">15dp</dimen>
@@ -65,8 +67,8 @@
     <dimen name="row_item_row_margin_end">10dp</dimen>
     <dimen name="row_item_row_margin_top_bottom">5dp</dimen>
     <dimen name="row_item_row_caption_margin_end">5dp</dimen>
-    <dimen name="row_item_row_caption_text_size">16sp</dimen>
-    <dimen name="row_item_row_subcaption_text_size">18sp</dimen>
+    <dimen name="row_item_main_caption_text_size">16sp</dimen>
+    <dimen name="row_item_sub_caption_text_size">18sp</dimen>
     <dimen name="row_item_row_subcaption_margin_bottom">10dp</dimen>
 
     <dimen name="task_title_text_size">20sp</dimen>

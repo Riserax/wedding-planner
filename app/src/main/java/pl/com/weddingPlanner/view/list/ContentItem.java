@@ -1,5 +1,7 @@
 package pl.com.weddingPlanner.view.list;
 
+import android.widget.LinearLayout;
+
 import androidx.annotation.Nullable;
 
 import java.io.Serializable;
@@ -27,18 +29,19 @@ import pl.com.weddingPlanner.view.util.ResourceUtil;
 @AllArgsConstructor
 public class ContentItem extends ListItem implements Serializable {
 
-    private int itemId;
-
     private String mainCaption;
     private String subCaption;
-    private String rightIconCaption;
 
+    private int itemId;
     private int mainCaptionColor;
     private int subCaptionColor;
     private int leftIconId;
     private int leftIconColor;
 
     private ContentItemState state;
+
+    private LinearLayout topLayout;
+    private LinearLayout rightLayout;
 
     public static ContentItem of(TaskInfo info) {
         return ContentItem.builder()
@@ -48,6 +51,8 @@ public class ContentItem extends ListItem implements Serializable {
                 .leftIconId(ResourceUtil.getResId(info.getCategoryIconId(), R.drawable.class))
                 .leftIconColor(getLeftIconColor(info.getStatus()))
                 .state(getItemState(info.getStatus()))
+                .topLayout(info.getBookmarksLayout())
+                .rightLayout(info.getAssigneesLayout())
                 .build();
     }
 
@@ -66,8 +71,11 @@ public class ContentItem extends ListItem implements Serializable {
                 .itemId(info.getItemId())
                 .mainCaption(info.getTitle())
                 .mainCaptionColor(R.color.black)
+                .subCaption(FormatUtil.convertToAmount(info.getAmount()))
+                .subCaptionColor(R.color.colorPrimaryDark)
                 .leftIconId(ResourceUtil.getResId(info.getCategoryIconId(), R.drawable.class))
                 .leftIconColor(R.color.colorPrimaryDark)
+                .rightLayout(info.getPayersLayout())
                 .build();
     }
 
@@ -80,7 +88,7 @@ public class ContentItem extends ListItem implements Serializable {
                 .subCaptionColor(getSubCaptionColor(info.getState()))
                 .leftIconId(ResourceUtil.getResId(info.getState().getIconCode(), R.drawable.class))
                 .leftIconColor(getLeftIconColor(info.getState()))
-                .rightIconCaption(info.getPayer())
+                .rightLayout(info.getPayerLayout())
                 .state(getItemState(info.getState()))
                 .build();
     }

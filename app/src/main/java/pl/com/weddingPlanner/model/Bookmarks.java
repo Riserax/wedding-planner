@@ -1,6 +1,5 @@
 package pl.com.weddingPlanner.model;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
@@ -13,57 +12,92 @@ import java.util.List;
 
 import lombok.Getter;
 import pl.com.weddingPlanner.R;
+import pl.com.weddingPlanner.enums.BookmarksLocationEnum;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 
-@Getter
+
 public class Bookmarks {
 
-    private final int BOOKMARK_PER_ROW = 4;
+    private final int BOOKMARKS_DETAILS_PER_ROW = 4;
 
     private final Context context;
     private final List<Bookmark> bookmarkList;
+    @Getter
     private final LinearLayout bookmarksContainer;
+    BookmarksLocationEnum bookmarksLocation;
 
-    public Bookmarks(Activity activity, List<Bookmark> bookmarkList) {
-        this.context = activity.getApplicationContext();
+    public Bookmarks(Context context, List<Bookmark> bookmarkList, BookmarksLocationEnum bookmarksLocation) {
+        this.context = context;
         this.bookmarkList = bookmarkList;
         this.bookmarksContainer = new LinearLayout(context);
+        this.bookmarksLocation = bookmarksLocation;
         buildBookmarks();
     }
 
     private void buildBookmarks() {
         bookmarksContainer.setOrientation(LinearLayout.VERTICAL);
 
-        int rowsNumber = (int) Math.ceil((double) bookmarkList.size() / BOOKMARK_PER_ROW);
-
-        for (int i = 0; i < rowsNumber; i++) {
+        for (int i = 0; i < getRowsNumber(); i++) {
             createAndAddOneRowBookmarksLayout(i);
         }
     }
 
-    private void createAndAddOneRowBookmarksLayout(int row) {
-        LinearLayout bookmarksSingleRowLayout = setBookmarksRowLayout();
+    private int getRowsNumber() {
+        int rowsNumber = 1;
 
-        for (int i = 0; i < bookmarkList.size(); i++) {
-            if (isOneRow(row, i)) {
-                prepareAndAddBookmark(bookmarkList.get(i), bookmarksSingleRowLayout);
-            } else if (isMoreThanOneRow(row, i)) {
-                prepareAndAddBookmark(bookmarkList.get(i), bookmarksSingleRowLayout);
+        if (BookmarksLocationEnum.DETAILS == bookmarksLocation) {
+            rowsNumber = (int) Math.ceil((double) bookmarkList.size() / BOOKMARKS_DETAILS_PER_ROW);
+        }
+
+        return rowsNumber;
+    }
+
+    private void createAndAddOneRowBookmarksLayout(int row) {
+        LinearLayout bookmarksSingleRowLayout = null;
+
+        if (BookmarksLocationEnum.LIST_ITEM == bookmarksLocation) {
+            bookmarksSingleRowLayout = setListBookmarksRowLayout();
+
+            for (Bookmark bookmark : bookmarkList) {
+                prepareAndAddListBookmark(bookmark, bookmarksSingleRowLayout);
+            }
+        } else if (BookmarksLocationEnum.DETAILS == bookmarksLocation) {
+            bookmarksSingleRowLayout = setDetailsBookmarksRowLayout();
+
+            for (int i = 0; i < bookmarkList.size(); i++) {
+                if (isOneRow(row, i)) {
+                    prepareAndAddDetailsBookmark(bookmarkList.get(i), bookmarksSingleRowLayout);
+                } else if (isMoreThanOneRow(row, i)) {
+                    prepareAndAddDetailsBookmark(bookmarkList.get(i), bookmarksSingleRowLayout);
+                }
             }
         }
 
-        bookmarksContainer.addView(bookmarksSingleRowLayout);
+        if (bookmarksSingleRowLayout != null) {
+            bookmarksContainer.addView(bookmarksSingleRowLayout);
+        }
     }
 
     private boolean isOneRow(int row, int i) {
-        return row == 0 && i < BOOKMARK_PER_ROW;
+        return row == 0 && i < BOOKMARKS_DETAILS_PER_ROW;
     }
 
     private boolean isMoreThanOneRow(int row, int i) {
-        return row > 0 && (i >= (row * BOOKMARK_PER_ROW) && i < (row * BOOKMARK_PER_ROW + BOOKMARK_PER_ROW));
+        return row > 0 && (i >= (row * BOOKMARKS_DETAILS_PER_ROW) && i < (row * BOOKMARKS_DETAILS_PER_ROW + BOOKMARKS_DETAILS_PER_ROW));
     }
 
-    private LinearLayout setBookmarksRowLayout() {
+    private LinearLayout setListBookmarksRowLayout() {
+        LinearLayout iconsLayout = new LinearLayout(context);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        iconsLayout.setLayoutParams(layoutParams);
+        iconsLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        return iconsLayout;
+    }
+
+    private LinearLayout setDetailsBookmarksRowLayout() {
         LinearLayout iconsLayout = new LinearLayout(context);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -78,16 +112,36 @@ public class Bookmarks {
         return iconsLayout;
     }
 
-    private void prepareAndAddBookmark(Bookmark bookmark, LinearLayout bookmarksRowLayout) {
-        ImageButton imageButton = createImageButton(bookmark);
+    private void prepareAndAddListBookmark(Bookmark bookmark, LinearLayout bookmarksRowLayout) {
+        ImageButton imageButton = createListImageButton(bookmark);
         bookmarksRowLayout.addView(imageButton);
     }
 
-    private ImageButton createImageButton(Bookmark bookmark) {
+    private void prepareAndAddDetailsBookmark(Bookmark bookmark, LinearLayout bookmarksRowLayout) {
+        ImageButton imageButton = createDetailsImageButton(bookmark);
+        bookmarksRowLayout.addView(imageButton);
+    }
+
+    private ImageButton createListImageButton(Bookmark bookmark) {
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(context.getResources().getDimensionPixelSize(R.dimen.image_button_size_20), context.getResources().getDimensionPixelSize(R.dimen.image_button_size_20));
+
+        int marginEnd = Math.round(context.getResources().getDimension(R.dimen.image_button_margin_end_1));
+        layoutParams.setMargins(-12, -10, marginEnd, 0);
+
+        ImageButton imageButton = new ImageButton(context);
+        imageButton.setLayoutParams(layoutParams);
+        imageButton.setBackgroundColor(ContextCompat.getColor(context, R.color.transparent));
+        imageButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_bookmark_small));
+        imageButton.setColorFilter(Color.parseColor(bookmark.getColorId()));
+
+        return imageButton;
+    }
+
+    private ImageButton createDetailsImageButton(Bookmark bookmark) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(context.getResources().getDimensionPixelSize(R.dimen.image_button_size_24), context.getResources().getDimensionPixelSize(R.dimen.image_button_size_24));
 
         int marginStart = Math.round(context.getResources().getDimension(R.dimen.image_button_margin_start));
-        int marginEnd = Math.round(context.getResources().getDimension(R.dimen.image_button_margin_end));
+        int marginEnd = Math.round(context.getResources().getDimension(R.dimen.image_button_margin_end_5));
         layoutParams.setMargins(marginStart, 0, marginEnd, 0);
 
         ImageButton imageButton = new ImageButton(context);
