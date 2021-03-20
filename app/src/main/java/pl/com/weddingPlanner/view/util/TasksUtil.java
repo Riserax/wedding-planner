@@ -2,6 +2,7 @@ package pl.com.weddingPlanner.view.util;
 
 import android.content.Context;
 
+import org.apache.commons.lang3.StringUtils;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
 
@@ -18,6 +19,7 @@ import pl.com.weddingPlanner.model.PickedDate;
 import pl.com.weddingPlanner.model.PickedTime;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Person;
+import pl.com.weddingPlanner.persistence.entity.SubTask;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
 
@@ -196,5 +198,50 @@ public class TasksUtil {
         ButtonsUtil.setButtonSelection(binding.newButton, context, false);
         ButtonsUtil.setButtonSelection(binding.inProgressButton, context, false);
         ButtonsUtil.setButtonSelection(binding.doneButton, context, true);
+    }
+
+    public static List<Bookmark> getBookmarks(Task taskDetails, Context context) {
+        List<Bookmark> bookmarks = new ArrayList<>();
+
+        if (StringUtils.isNotBlank(taskDetails.getBookmarks())) {
+            String[] bookmarksIds = taskDetails.getBookmarks().split(",", -1);
+
+            for (String bookmarksIdString : bookmarksIds) {
+                int bookmarkId = Integer.parseInt(bookmarksIdString);
+                bookmarks.add(DAOUtil.getBookmarkById(context, bookmarkId));
+            }
+        }
+
+        return bookmarks;
+    }
+
+    public static List<Person> getAssignees(Task taskDetails, Context context) {
+        List<Person> assignees = new ArrayList<>();
+
+        if (StringUtils.isNotBlank(taskDetails.getAssignees())) {
+            String[] assigneesIds = taskDetails.getAssignees().split(",", -1);
+
+            for (String assigneeIdString : assigneesIds) {
+                int assigneeId = Integer.parseInt(assigneeIdString);
+                assignees.add(DAOUtil.getPersonById(context, assigneeId));
+            }
+        }
+
+        return assignees;
+    }
+
+    public static List<SubTask> getSubTasks(Task taskDetails, Context context) {
+        List<SubTask> subTasks = new ArrayList<>();
+
+        if (StringUtils.isNotBlank(taskDetails.getSubTasks())) {
+            String[] subTasksIds = taskDetails.getSubTasks().split(",", -1);
+
+            for (String subTaskIdString : subTasksIds) {
+                int subTaskId = Integer.parseInt(subTaskIdString);
+                subTasks.add(DAOUtil.getSubTaskById(context, subTaskId));
+            }
+        }
+
+        return subTasks;
     }
 }

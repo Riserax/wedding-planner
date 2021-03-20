@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -17,13 +18,16 @@ import org.apache.commons.lang3.StringUtils;
 import org.threeten.bp.LocalDate;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentExpensePaymentsBinding;
+import pl.com.weddingPlanner.enums.LocationEnum;
 import pl.com.weddingPlanner.enums.PaymentStateEnum;
+import pl.com.weddingPlanner.view.component.Assignees;
 import pl.com.weddingPlanner.model.info.PaymentInfo;
 import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Person;
@@ -34,7 +38,6 @@ import pl.com.weddingPlanner.view.list.ListItem;
 import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
 import pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView;
 import pl.com.weddingPlanner.view.util.BudgetUtil;
-import pl.com.weddingPlanner.view.util.PersonUtil;
 
 import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA;
 import static pl.com.weddingPlanner.view.list.HeaderItem.getHeaderItemWithDayOfWeek;
@@ -130,19 +133,13 @@ public class ExpensePaymentsFragment extends Fragment {
             for (Map.Entry<Integer, LocalDate> sortedIdDate : sortedIdDateMap.entrySet()) {
                 Payment payment = (Payment) paymentsMap.get(sortedIdDate.getKey());
 
-                String payerInitials = StringUtils.EMPTY;
-                if (StringUtils.isNotBlank(payment.getPayer())) {
-                    Person payer = DAOUtil.getPersonById(getContext(), Integer.parseInt(payment.getPayer()));
-                    payerInitials = PersonUtil.getInitials(payer.getName());
-                }
-
                 PaymentInfo paymentInfo = PaymentInfo.builder()
                         .itemId(payment.getId())
                         .title(payment.getTitle())
                         .state(PaymentStateEnum.valueOf(payment.getState()))
                         .amount(payment.getAmount())
-                        .payer(payerInitials)
                         .date(payment.getDate())
+                        .payerLayout(getPayerLayout(payment))
                         .build();
 
                 toReturn.add(paymentInfo);
@@ -151,6 +148,17 @@ public class ExpensePaymentsFragment extends Fragment {
 
         List<ListItem> listItems = preparePaymentsInfoList(toReturn, adapter.getItems());
         adapter.addItems(listItems);
+    }
+
+    private LinearLayout getPayerLayout(Payment payment) {
+        Assignees assignees = null;
+
+        if (StringUtils.isNotBlank(payment.getPayer())) {
+            Person payer = DAOUtil.getPersonById(getContext(), Integer.parseInt(payment.getPayer()));
+            assignees = new Assignees(getContext(), Collections.singletonList(payer), LocationEnum.LIST_ITEM);
+        }
+
+        return assignees != null ? assignees.getAssigneesContainer() : new LinearLayout(getContext());
     }
 
     private List<ListItem> preparePaymentsInfoList(List<PaymentInfo> paymentsInfoList, List<ListItem> list) {

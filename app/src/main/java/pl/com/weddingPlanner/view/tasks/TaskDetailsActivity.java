@@ -18,10 +18,11 @@ import java.util.List;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityTaskDetailsBinding;
+import pl.com.weddingPlanner.enums.LocationEnum;
 import pl.com.weddingPlanner.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.enums.TaskStatusEnum;
-import pl.com.weddingPlanner.model.Assignees;
-import pl.com.weddingPlanner.model.Bookmarks;
+import pl.com.weddingPlanner.view.component.Assignees;
+import pl.com.weddingPlanner.view.component.Bookmarks;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Person;
@@ -32,6 +33,7 @@ import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.dialog.QuestionDialog;
 import pl.com.weddingPlanner.view.util.ResourceUtil;
+import pl.com.weddingPlanner.view.util.TasksUtil;
 
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
 import static pl.com.weddingPlanner.view.util.ComponentsUtil.getIcon;
@@ -56,65 +58,20 @@ public class TaskDetailsActivity extends BaseActivity {
 
         setActivityToolbarContentWithBackIcon(R.string.header_title_task_details);
 
-        getTaskAndCategory();
         getAndSetData();
         setComponents();
         setListeners();
     }
 
-    private void getTaskAndCategory() {
+    private void getAndSetData() {
         int taskId = getIntent().getExtras().getInt(TASK_ID_EXTRA, 0);
 
         taskDetails = DAOUtil.getTaskById(this, taskId);
         categoryDetails = DAOUtil.getCategoryByNameAndType(this, taskDetails.getCategory(), CategoryTypeEnum.TASKS.name());
-    }
 
-    private void getAndSetData() {
-        getBookmarks();
-        getAssignees();
-        getSubTasks();
-    }
-
-    private void getBookmarks() {
-        if (StringUtils.isNotBlank(taskDetails.getBookmarks())) {
-            String[] bookmarksIds = taskDetails.getBookmarks().split(",", -1);
-
-            List<Bookmark> bookmarks = new ArrayList<>();
-            for (String bookmarksIdString : bookmarksIds) {
-                int bookmarkId = Integer.parseInt(bookmarksIdString);
-                bookmarks.add(DAOUtil.getBookmarkById(this, bookmarkId));
-            }
-
-            this.bookmarksList = bookmarks;
-        }
-    }
-
-    private void getAssignees() {
-        if (StringUtils.isNotBlank(taskDetails.getAssignees())) {
-            String[] assigneesIds = taskDetails.getAssignees().split(",", -1);
-
-            List<Person> assignees = new ArrayList<>();
-            for (String assigneeIdString : assigneesIds) {
-                int assigneeId = Integer.parseInt(assigneeIdString);
-                assignees.add(DAOUtil.getPersonById(this, assigneeId));
-            }
-
-            this.assigneesList = assignees;
-        }
-    }
-
-    private void getSubTasks() {
-        if (StringUtils.isNotBlank(taskDetails.getSubTasks())) {
-            String[] subTasksIds = taskDetails.getSubTasks().split(",", -1);
-
-            List<SubTask> subTasks = new ArrayList<>();
-            for (String subTaskIdString : subTasksIds) {
-                int subTaskId = Integer.parseInt(subTaskIdString);
-                subTasks.add(DAOUtil.getSubTaskById(this, subTaskId));
-            }
-
-            this.subTasksList = subTasks;
-        }
+        bookmarksList = TasksUtil.getBookmarks(taskDetails, this);
+        assigneesList = TasksUtil.getAssignees(taskDetails, this);
+        subTasksList = TasksUtil.getSubTasks(taskDetails, this);
     }
 
     private void setComponents() {
@@ -133,7 +90,7 @@ public class TaskDetailsActivity extends BaseActivity {
 
     private void setBookmarks() {
         if (StringUtils.isNotBlank(taskDetails.getBookmarks())) {
-            Bookmarks bookmarks = new Bookmarks(this, bookmarksList);
+            Bookmarks bookmarks = new Bookmarks(this, bookmarksList, LocationEnum.DETAILS);
             binding.bookmarksLayout.addView(bookmarks.getBookmarksContainer());
         } else {
             binding.noBookmarks.setVisibility(View.VISIBLE);
@@ -142,7 +99,7 @@ public class TaskDetailsActivity extends BaseActivity {
 
     private void setAssignees() {
         if (StringUtils.isNotBlank(taskDetails.getAssignees())) {
-            Assignees assignees = new Assignees(this, assigneesList);
+            Assignees assignees = new Assignees(this, assigneesList, LocationEnum.DETAILS);
             binding.assigneesLayout.addView(assignees.getAssigneesContainer());
         } else {
             binding.noAssignees.setVisibility(View.VISIBLE);

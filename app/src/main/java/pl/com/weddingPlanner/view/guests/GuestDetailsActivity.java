@@ -104,7 +104,7 @@ public class GuestDetailsActivity extends BaseActivity {
 
     private void setInvitationStatus() {
         if (StringUtils.isNotBlank(guestDetails.getPresence())) {
-            int presenceResId = PresenceEnum.valueOf(guestDetails.getPresence()).getResourceId();
+            int presenceResId = PresenceEnum.valueOf(guestDetails.getPresence()).getTextResourceId();
             binding.invitationStatus.setText(getString(presenceResId));
         } else {
             binding.invitationStatus.setText(getString(R.string.field_not_specified));

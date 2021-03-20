@@ -1,5 +1,7 @@
 package pl.com.weddingPlanner.model.info;
 
+import android.widget.LinearLayout;
+
 import java.io.Serializable;
 
 import lombok.AllArgsConstructor;
@@ -21,4 +23,6 @@ public class TaskInfo implements Serializable {
     private String assignees;
     private String date;
     private TaskStatusEnum status;
+    private LinearLayout bookmarksLayout;
+    private LinearLayout assigneesLayout;
 }

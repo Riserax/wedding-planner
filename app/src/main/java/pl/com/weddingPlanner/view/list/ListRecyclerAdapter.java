@@ -105,15 +105,26 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             VHItem VHitem = (VHItem) holder;
             VHitem.bind(currentItem, itemClickListener);
 
+            VHitem.leftIcon.setImageDrawable(getIcon(currentItem));
+
+            setTopLayout(currentItem, VHitem);
+
             VHitem.caption.setText(currentItem.getMainCaption());
             VHitem.caption.setTextColor(getColor(currentItem.getMainCaptionColor()));
 
             setCaptionPaintFlags(currentItem, VHitem);
             setAmountCaption(currentItem, VHitem);
+            setRightLayout(currentItem, VHitem);
+        }
+    }
 
-            VHitem.leftIcon.setImageDrawable(getIcon(currentItem));
-
-            setRightIcon(currentItem, VHitem);
+    private void setTopLayout(ContentItem currentItem, VHItem VHitem) {
+        if (currentItem.getTopLayout() != null) {
+            if (VHitem.topLayout.getChildCount() > 0) {
+                VHitem.topLayout.removeViewAt(0);
+            }
+            VHitem.topLayout.setVisibility(View.VISIBLE);
+            VHitem.topLayout.addView(currentItem.getTopLayout());
         }
     }
 
@@ -139,10 +150,13 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    private void setRightIcon(ContentItem currentItem, VHItem VHitem) {
-        if (StringUtils.isNotBlank(currentItem.getRightIconCaption())) {
-            VHitem.rightIconLayout.setVisibility(View.VISIBLE);
-            VHitem.rightIconCaption.setText(currentItem.getRightIconCaption());
+    private void setRightLayout(ContentItem currentItem, VHItem VHitem) {
+        if (currentItem.getRightLayout() != null) {
+            if (VHitem.rightLayout.getChildCount() > 0) {
+                VHitem.rightLayout.removeViewAt(0);
+            }
+            VHitem.rightLayout.setVisibility(View.VISIBLE);
+            VHitem.rightLayout.addView(currentItem.getRightLayout());
         }
     }
 
@@ -338,16 +352,16 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ImageView leftIcon;
         TextView caption;
         TextView amountCaption;
-        LinearLayout rightIconLayout;
-        TextView rightIconCaption;
+        LinearLayout topLayout;
+        LinearLayout rightLayout;
 
         VHItem(View itemView) {
             super(itemView);
             this.leftIcon = itemView.findViewById(R.id.row_icon);
-            this.caption = itemView.findViewById(R.id.row_caption);
+            this.caption = itemView.findViewById(R.id.main_caption);
             this.amountCaption = itemView.findViewById(R.id.amount_caption);
-            this.rightIconLayout = itemView.findViewById(R.id.right_icon_layout);
-            this.rightIconCaption = itemView.findViewById(R.id.right_icon_caption);
+            this.topLayout = itemView.findViewById(R.id.top_layout);
+            this.rightLayout = itemView.findViewById(R.id.right_layout);
         }
 
         void bind(final ContentItem item, final OnClickListener listener) {

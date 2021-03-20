@@ -17,7 +17,7 @@
         app:tint="@color/colorPrimaryDark" />
 
     <TextView
-        android:id="@+id/row_caption"
+        android:id="@+id/main_caption"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_menu_fragment_height"
         android:layout_toEndOf="@+id/row_icon"

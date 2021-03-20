@@ -17,18 +17,24 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityCategoryTasksBinding;
+import pl.com.weddingPlanner.enums.LocationEnum;
+import pl.com.weddingPlanner.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.enums.TaskStatusEnum;
+import pl.com.weddingPlanner.view.component.Assignees;
+import pl.com.weddingPlanner.view.component.Bookmarks;
 import pl.com.weddingPlanner.model.info.TaskInfo;
+import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
+import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.HeaderItem;
 import pl.com.weddingPlanner.view.list.ListItem;
 import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
 import pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView;
+import pl.com.weddingPlanner.view.util.PersonUtil;
 import pl.com.weddingPlanner.view.util.TasksUtil;
 
 import static pl.com.weddingPlanner.view.list.HeaderItem.getHeaderItemWithDayOfWeek;
@@ -128,12 +134,20 @@ public class TasksCategoryActivity extends BaseActivity {
 
                 Category category = DAOUtil.getCategoryByNameAndType(this, task.getCategory(), CategoryTypeEnum.TASKS.name());
 
+                List<Bookmark> bookmarkList = TasksUtil.getBookmarks(task, this);
+                Bookmarks bookmarks = new Bookmarks(this, bookmarkList, LocationEnum.LIST_ITEM);
+
+                List<Person> assigneeList = PersonUtil.getPersonsList(this, task.getAssignees());
+                Assignees assignees = new Assignees(this, assigneeList, LocationEnum.LIST_ITEM);
+
                 TaskInfo taskInfo = TaskInfo.builder()
                         .itemId(task.getId())
                         .title(task.getTitle())
                         .categoryIconId(category.getIconId())
                         .date(task.getDate())
                         .status(TaskStatusEnum.valueOf(task.getStatus()))
+                        .bookmarksLayout(bookmarks.getBookmarksContainer())
+                        .assigneesLayout(assignees.getAssigneesContainer())
                         .build();
 
                 toReturn.add(taskInfo);

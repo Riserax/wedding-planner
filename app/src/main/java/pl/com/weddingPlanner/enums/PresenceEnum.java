@@ -8,12 +8,13 @@ import pl.com.weddingPlanner.R;
 @AllArgsConstructor
 public enum PresenceEnum {
 
-    NONE(0),
-    INVITATION_SENT(R.string.guest_field_invitation_sent),
-    CONFIRMED_PRESENCE(R.string.guest_field_invitation_accepted),
-    CONFIRMED_ABSENCE(R.string.guest_field_invitation_rejected),
-    AWAITING(R.string.guest_field_invitation_awaiting),
+    NONE(0, 0),
+    INVITATION_SENT(R.string.guest_field_invitation_sent, R.drawable.ic_email),
+    CONFIRMED_PRESENCE(R.string.guest_field_invitation_accepted, R.drawable.ic_check_circle),
+    CONFIRMED_ABSENCE(R.string.guest_field_invitation_rejected, R.drawable.ic_cancel_circle),
+    AWAITING(R.string.guest_field_invitation_awaiting, R.drawable.ic_help_circle),
     ;
 
-    private final int resourceId;
+    private final int textResourceId;
+    private final int drawableResourceId;
 }

@@ -1,6 +1,7 @@
 <resources>
     <string name="amount_invalid_format">Nieprawidłowy format kwoty</string>
     <string name="app_name">WeddingPlanner</string>
+    <string name="assignees_2_plus">2+</string>
 
     <string name="budget_estimated_expenses">Szacunkowe\nwydatki</string>
     <string name="budget_initial_budget">Wstępny budżet</string>

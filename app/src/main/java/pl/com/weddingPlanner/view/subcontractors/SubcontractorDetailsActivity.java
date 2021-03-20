@@ -95,8 +95,8 @@ public class SubcontractorDetailsActivity extends BaseActivity {
     }
 
     private void setCollaborationStage() {
-        if (StringUtils.isNotBlank(subcontractorDetails.getCollaborationStage())) {
-            int resourceId = CollaborationStageEnum.valueOf(subcontractorDetails.getCollaborationStage()).getResourceId();
+        if (!CollaborationStageEnum.NONE.name().equals(subcontractorDetails.getCollaborationStage())) {
+            int resourceId = CollaborationStageEnum.valueOf(subcontractorDetails.getCollaborationStage()).getTextResourceId();
             binding.collaborationStage.setText(getString(resourceId));
         } else {
             binding.collaborationStage.setText(getString(R.string.field_not_specified));

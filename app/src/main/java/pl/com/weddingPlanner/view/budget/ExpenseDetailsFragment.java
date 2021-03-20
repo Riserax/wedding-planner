@@ -20,8 +20,9 @@ import java.util.List;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentExpenseDetailsBinding;
 import pl.com.weddingPlanner.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.LocationEnum;
 import pl.com.weddingPlanner.enums.PaymentStateEnum;
-import pl.com.weddingPlanner.model.Assignees;
+import pl.com.weddingPlanner.view.component.Assignees;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
 import pl.com.weddingPlanner.persistence.entity.Payment;
@@ -102,7 +103,7 @@ public class ExpenseDetailsFragment extends Fragment {
 
         setRecipient();
         setForWhat();
-        setProgressBarAndText(paidPaymentsSum);
+        setProgressBarAndText();
         setInitialAmount();
         setRealExpenses();
         setAwaitingPayments();
@@ -126,18 +127,18 @@ public class ExpenseDetailsFragment extends Fragment {
         }
     }
 
-    private void setProgressBarAndText(double realExpensesSum) {
+    private void setProgressBarAndText() {
         double initialAmount = Double.parseDouble(expenseDetails.getInitialAmount());
         int percentage;
 
         if (initialAmount == 0) {
-            if (realExpensesSum > 0) {
+            if (paidPaymentsSum > 0) {
                 percentage = 100;
             } else {
                 percentage = 0;
             }
         } else {
-            percentage = (int) (realExpensesSum / initialAmount * 100);
+            percentage = (int) (paidPaymentsSum / initialAmount * 100);
         }
 
         String progress = percentage + "%";
@@ -164,7 +165,7 @@ public class ExpenseDetailsFragment extends Fragment {
 
     private void setPayers() {
         if (StringUtils.isNotBlank(expenseDetails.getPayers())) {
-            Assignees assignees = new Assignees(getContext(), payersList);
+            Assignees assignees = new Assignees(getContext(), payersList, LocationEnum.DETAILS);
             binding.payersLayout.addView(assignees.getAssigneesContainer());
         } else {
             binding.noPayers.setVisibility(View.VISIBLE);

@@ -23,9 +23,12 @@ import java.util.Map;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentBudgetDescendingBinding;
 import pl.com.weddingPlanner.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.LocationEnum;
+import pl.com.weddingPlanner.view.component.Assignees;
 import pl.com.weddingPlanner.model.info.ExpenseInfo;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
+import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.util.DateUtil;
 import pl.com.weddingPlanner.view.list.ContentItem;
@@ -35,6 +38,7 @@ import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
 import pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView;
 import pl.com.weddingPlanner.view.util.BudgetUtil;
 import pl.com.weddingPlanner.view.util.FormatUtil;
+import pl.com.weddingPlanner.view.util.PersonUtil;
 
 import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA;
 import static pl.com.weddingPlanner.view.list.HeaderItem.getHeaderItemWithDayOfWeek;
@@ -83,7 +87,7 @@ public class BudgetDescendingFragment extends Fragment {
     }
 
     private void getAndSetPayments() {
-        paidPaymentsSum = BudgetUtil.getPaymentsSum(getContext());
+        paidPaymentsSum = BudgetUtil.getPaidPaymentsSum(getContext());
     }
 
     private void setProgressAndText() {
@@ -161,13 +165,16 @@ public class BudgetDescendingFragment extends Fragment {
 
                 Category category = DAOUtil.getCategoryByNameAndType(requireContext(), expense.getCategory(), CategoryTypeEnum.BUDGET.name());
 
+                List<Person> payersList = PersonUtil.getPersonsList(getContext(), expense.getPayers());
+                Assignees assignees = new Assignees(getContext(), payersList, LocationEnum.LIST_ITEM);
+
                 ExpenseInfo expenseInfo = ExpenseInfo.builder()
                         .itemId(expense.getId())
                         .title(expense.getTitle())
                         .categoryIconId(category.getIconId())
                         .amount(expense.getInitialAmount())
-                        .payer(expense.getPayers())
                         .date(expense.getEditDate())
+                        .payersLayout(assignees.getAssigneesContainer())
                         .build();
 
                 toReturn.add(expenseInfo);

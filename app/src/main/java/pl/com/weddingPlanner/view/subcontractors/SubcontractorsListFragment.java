@@ -21,10 +21,15 @@ import java.util.List;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentSubcontractorsListBinding;
 import pl.com.weddingPlanner.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.CollaborationStageEnum;
+import pl.com.weddingPlanner.enums.PaymentStateEnum;
 import pl.com.weddingPlanner.model.info.SubcontractorInfo;
 import pl.com.weddingPlanner.persistence.entity.Category;
+import pl.com.weddingPlanner.persistence.entity.Expense;
+import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Subcontractor;
 import pl.com.weddingPlanner.util.DAOUtil;
+import pl.com.weddingPlanner.view.component.StageAndPayments;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.ListItem;
 import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
@@ -110,15 +115,51 @@ public class SubcontractorsListFragment extends Fragment {
                     .itemId(subcontractor.getId())
                     .name(subcontractor.getName())
                     .categoryIconId(category.getIconId())
-//                    .subcontractorStage(SubcontractorStageEnum.valueOf(subcontractor.getStage()))
-//                    .paymentPercentage()
+                    .collaborationStage(CollaborationStageEnum.valueOf(subcontractor.getCollaborationStage()))
+                    .paymentsPercentage(getPaymentsPercentage(subcontractor))
                     .build();
+
+            StageAndPayments stageAndPayments = new StageAndPayments(getContext(), subcontractorInfo);
+            subcontractorInfo.setStagePaymentsLayout(stageAndPayments.getLayoutContainer());
 
             toReturn.add(subcontractorInfo);
         }
 
         List<ListItem> listItems = prepareSubcontractorsInfoList(toReturn);
         adapter.addItems(listItems);
+    }
+
+    private int getPaymentsPercentage(Subcontractor subcontractor) {
+        Expense expense = DAOUtil.getExpenseById(getContext(), subcontractor.getExpenseId());
+        int percentage = 0;
+
+        if (expense != null) {
+            double initialAmount = Double.parseDouble(expense.getInitialAmount());
+            double paidPaymentsSum = getPaidPaymentsSum(subcontractor);
+
+            if (initialAmount == 0) {
+                if (paidPaymentsSum > 0) {
+                    percentage = 100;
+                }
+            } else {
+                percentage = (int) (paidPaymentsSum / initialAmount * 100);
+            }
+        }
+
+        return percentage;
+    }
+
+    private double getPaidPaymentsSum(Subcontractor subcontractor) {
+        List<Payment> allPayments = DAOUtil.getAllPaymentsByExpenseId(getContext(), subcontractor.getExpenseId());
+        double paidPaymentsSum = 0.00;
+
+        for (Payment payment : allPayments) {
+            if (PaymentStateEnum.PAID == PaymentStateEnum.valueOf(payment.getState())) {
+                paidPaymentsSum += Double.parseDouble(payment.getAmount());
+            }
+        }
+
+        return paidPaymentsSum;
     }
 
     private List<ListItem> prepareSubcontractorsInfoList(List<SubcontractorInfo> subcontractorInfoList) {
