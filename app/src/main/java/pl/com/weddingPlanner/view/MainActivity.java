@@ -388,6 +388,7 @@ public class MainActivity extends AppCompatActivity {
                 .recipient("Sala weselna \"Zielone wzgórze\"")
                 .forWhat("Sala weselna, goście")
                 .payers("1,2")
+                .subcontractorId(1)
                 .subExpenses("1,2,3")
                 .editDate("2021-01-03 21:40")
                 .build();
@@ -533,7 +534,8 @@ public class MainActivity extends AppCompatActivity {
                 .website("<a href=\"https://salazielonewzgorze.pl\">https://salazielonewzgorze.pl</a>")
                 .address("Zielona 43, Koniusza, Kraków")
                 .collaborationStage("CONFIRMED")
-                .cost("20000.00")
+                .expenseId(1)
+                .cost("25000.00")
                 .notes("Zapłacona zaliczka")
                 .build();
 
@@ -544,6 +546,7 @@ public class MainActivity extends AppCompatActivity {
                 .phone("604 052 252")
                 .website("<a href=\"http://www.mateuszgumula.pl\">http://www.mateuszgumula.pl</a>")
                 .collaborationStage("CONFIRMED")
+                .expenseId(0)
                 .cost("3000.00")
                 .build();
 

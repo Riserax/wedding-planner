@@ -45,8 +45,8 @@
 
                     <ImageButton
                         android:id="@+id/payment_title_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_edit"
@@ -85,8 +85,8 @@
 
                     <ImageButton
                         android:id="@+id/amount_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_dollar"
@@ -127,8 +127,8 @@
 
                     <ImageButton
                         android:id="@+id/payer_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_person"
@@ -174,8 +174,8 @@
 
                     <ImageButton
                         android:id="@+id/people_arrow_right"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_arrow_right_keyboard"
@@ -197,7 +197,7 @@
 
                     <ImageButton
                         android:id="@+id/payment_date_icon"
-                        android:layout_width="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
                         android:layout_height="28dp"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
@@ -222,8 +222,8 @@
 
                     <ImageButton
                         android:id="@+id/date_arrow_right"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_arrow_right_keyboard"
@@ -287,8 +287,8 @@
 
                     <ImageButton
                         android:id="@+id/info_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_description"

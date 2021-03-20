@@ -44,8 +44,8 @@
 
                     <ImageButton
                         android:id="@+id/guest_name_surname_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_edit"
@@ -155,8 +155,8 @@
 
                     <ImageButton
                         android:id="@+id/age_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_elevator"
@@ -202,8 +202,8 @@
 
                     <ImageButton
                         android:id="@+id/age_arrow_right"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_arrow_right_keyboard"
@@ -225,8 +225,8 @@
 
                     <ImageButton
                         android:id="@+id/category_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_dashboard"
@@ -270,8 +270,8 @@
 
                     <ImageButton
                         android:id="@+id/category_arrow_right"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_arrow_right_keyboard"
@@ -293,8 +293,8 @@
 
                     <ImageButton
                         android:id="@+id/table_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_event_seat"
@@ -340,8 +340,8 @@
 
                     <ImageButton
                         android:id="@+id/table_arrow_right"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_arrow_right_keyboard"
@@ -483,8 +483,8 @@
 
                     <ImageButton
                         android:id="@+id/guest_contact_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_phone"
@@ -524,8 +524,8 @@
 
                     <ImageButton
                         android:id="@+id/guest_notes_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_description"

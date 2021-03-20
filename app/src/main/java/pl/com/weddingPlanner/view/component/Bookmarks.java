@@ -123,7 +123,7 @@ public class Bookmarks {
     }
 
     private ImageButton createListImageButton(Bookmark bookmark) {
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(context.getResources().getDimensionPixelSize(R.dimen.image_button_size_20), context.getResources().getDimensionPixelSize(R.dimen.image_button_size_20));
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(context.getResources().getDimensionPixelSize(R.dimen.image_button_size_17), context.getResources().getDimensionPixelSize(R.dimen.image_button_size_17));
 
         int marginEnd = Math.round(context.getResources().getDimension(R.dimen.image_button_margin_end_1));
         layoutParams.setMargins(-12, -10, marginEnd, 0);
@@ -138,7 +138,7 @@ public class Bookmarks {
     }
 
     private ImageButton createDetailsImageButton(Bookmark bookmark) {
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(context.getResources().getDimensionPixelSize(R.dimen.image_button_size_24), context.getResources().getDimensionPixelSize(R.dimen.image_button_size_24));
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(context.getResources().getDimensionPixelSize(R.dimen.image_button_size_20), context.getResources().getDimensionPixelSize(R.dimen.image_button_size_20));
 
         int marginStart = Math.round(context.getResources().getDimension(R.dimen.image_button_margin_start));
         int marginEnd = Math.round(context.getResources().getDimension(R.dimen.image_button_margin_end_5));

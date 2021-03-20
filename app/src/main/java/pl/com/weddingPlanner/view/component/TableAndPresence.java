@@ -65,7 +65,7 @@ public class TableAndPresence {
 
     private LinearLayout createBackgroundLayout() {
         LinearLayout backgroundLayout = new LinearLayout(context);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(context.getResources().getDimensionPixelSize(R.dimen.assignee_circle_size), context.getResources().getDimensionPixelSize(R.dimen.assignee_circle_size));
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(context.getResources().getDimensionPixelSize(R.dimen.circle_background_size), context.getResources().getDimensionPixelSize(R.dimen.circle_background_size));
 
         backgroundLayout.setLayoutParams(layoutParams);
         backgroundLayout.setGravity(Gravity.CENTER);
@@ -92,7 +92,7 @@ public class TableAndPresence {
     }
 
     private ImageButton createImageButton() {
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(context.getResources().getDimensionPixelSize(R.dimen.image_button_size_20), context.getResources().getDimensionPixelSize(R.dimen.image_button_size_20));
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(context.getResources().getDimensionPixelSize(R.dimen.image_button_size_17), context.getResources().getDimensionPixelSize(R.dimen.image_button_size_17));
 
         ImageButton imageButton = new ImageButton(context);
         imageButton.setLayoutParams(layoutParams);

@@ -101,6 +101,7 @@ public class ContentItem extends ListItem implements Serializable {
                 .mainCaptionColor(R.color.black)
                 .leftIconId(ResourceUtil.getResId(info.getCategoryIconId(), R.drawable.class))
                 .leftIconColor(R.color.colorPrimaryDark)
+                .rightLayout(info.getStagePaymentsLayout())
                 .build();
     }
 

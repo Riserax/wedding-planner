@@ -398,8 +398,8 @@
 
                                 <ImageButton
                                     android:id="@+id/category_icon"
-                                    android:layout_width="@dimen/image_button_size_24"
-                                    android:layout_height="@dimen/image_button_size_24"
+                                    android:layout_width="@dimen/image_button_size_20"
+                                    android:layout_height="@dimen/image_button_size_20"
                                     android:background="@color/gray_F2F2F2"
                                     android:tint="@color/gray_949494"
                                     app:srcCompat="@drawable/ic_dashboard"/>
@@ -440,8 +440,8 @@
 
                                 <ImageButton
                                     android:id="@+id/edit_date_icon"
-                                    android:layout_width="@dimen/image_button_size_24"
-                                    android:layout_height="@dimen/image_button_size_24"
+                                    android:layout_width="@dimen/image_button_size_20"
+                                    android:layout_height="@dimen/image_button_size_20"
                                     android:background="@color/gray_F2F2F2"
                                     android:tint="@color/gray_949494"
                                     app:srcCompat="@drawable/ic_clock"/>

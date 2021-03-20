@@ -44,8 +44,8 @@
 
                     <ImageButton
                         android:id="@+id/name_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_edit"
@@ -84,8 +84,8 @@
 
                     <ImageButton
                         android:id="@+id/category_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_dashboard"
@@ -129,8 +129,8 @@
 
                     <ImageButton
                         android:id="@+id/category_arrow_right"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_arrow_right_keyboard"
@@ -152,8 +152,8 @@
 
                     <ImageButton
                         android:id="@+id/email_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_email"
@@ -193,8 +193,8 @@
 
                     <ImageButton
                         android:id="@+id/phone_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_phone"
@@ -234,8 +234,8 @@
 
                     <ImageButton
                         android:id="@+id/website_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_website"
@@ -276,8 +276,8 @@
 
                     <ImageButton
                         android:id="@+id/address_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_place"
@@ -411,7 +411,7 @@
                             android:text="@string/subcontractor_field_paid"
                             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                             android:textColor="@color/colorPrimaryLight"
-                            android:drawableTop="@drawable/ic_dollar_small"
+                            android:drawableTop="@drawable/ic_dollar_midium"
                             android:drawableTint="@color/colorPrimaryLight"
                             app:autoSizePresetSizes="@array/button_state_type_text_sizes"
                             app:autoSizeTextType="uniform"
@@ -435,8 +435,8 @@
 
                     <ImageButton
                         android:id="@+id/cost_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_dollar"
@@ -478,8 +478,8 @@
 
                     <ImageButton
                         android:id="@+id/notes_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_description"

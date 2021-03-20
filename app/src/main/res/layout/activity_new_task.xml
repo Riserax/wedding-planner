@@ -44,8 +44,8 @@
 
                     <ImageButton
                         android:id="@+id/task_name_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_edit"
@@ -85,8 +85,8 @@
 
                     <ImageButton
                         android:id="@+id/category_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_dashboard"
@@ -130,8 +130,8 @@
 
                     <ImageButton
                         android:id="@+id/category_arrow_right"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_arrow_right_keyboard"
@@ -153,8 +153,8 @@
 
                     <ImageButton
                         android:id="@+id/bookmarks_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_bookmarks"
@@ -200,8 +200,8 @@
 
                     <ImageButton
                         android:id="@+id/bookmarks_arrow_right"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_arrow_right_keyboard"
@@ -223,8 +223,8 @@
 
                     <ImageButton
                         android:id="@+id/people_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_people"
@@ -270,8 +270,8 @@
 
                     <ImageButton
                         android:id="@+id/people_arrow_right"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_arrow_right_keyboard"
@@ -389,8 +389,8 @@
 
                     <ImageButton
                         android:id="@+id/task_description_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_description"
@@ -440,7 +440,7 @@
 
                         <ImageButton
                             android:id="@+id/task_date_icon"
-                            android:layout_width="@dimen/image_button_size_24"
+                            android:layout_width="@dimen/image_button_size_20"
                             android:layout_height="28dp"
                             android:background="@color/gray_FDFDFD"
                             android:tint="@color/gray_949494"
@@ -480,8 +480,8 @@
 
                         <ImageButton
                             android:id="@+id/task_time_icon"
-                            android:layout_width="@dimen/image_button_size_24"
-                            android:layout_height="@dimen/image_button_size_24"
+                            android:layout_width="@dimen/image_button_size_20"
+                            android:layout_height="@dimen/image_button_size_20"
                             android:background="@color/gray_FDFDFD"
                             android:tint="@color/gray_949494"
                             app:srcCompat="@drawable/ic_clock"

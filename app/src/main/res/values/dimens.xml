@@ -6,7 +6,6 @@
     <dimen name="add_button_margin_bottom">15dp</dimen>
     <dimen name="add_button_text_size">18sp</dimen>
     <dimen name="add_button_width">250dp</dimen>
-    <dimen name="assignee_circle_size">40dp</dimen>
 
     <dimen name="button_height">65dp</dimen>
     <dimen name="button_padding_top">5dp</dimen>
@@ -19,9 +18,11 @@
     <dimen name="button_menu_fragment_caption_padding_end">9dp</dimen>
     <dimen name="button_radius_big">20dp</dimen>
 
-    <dimen name="components_layout_padding">12dp</dimen>
     <dimen name="checkbox_margin_bottom">5dp</dimen>
     <dimen name="checkbox_margin_start">15dp</dimen>
+    <dimen name="circle_background_size">40dp</dimen>
+    <dimen name="circle_background_small_size">@dimen/_25sdp</dimen>
+    <dimen name="components_layout_padding">12dp</dimen>
 
     <dimen name="details_field_margin_bottom">20dp</dimen>
 
@@ -42,8 +43,9 @@
 
     <dimen name="description_text_size">16sp</dimen>
 
-    <dimen name="image_button_size_20">@dimen/_17sdp</dimen>
-    <dimen name="image_button_size_24">@dimen/_20sdp</dimen>
+    <dimen name="image_button_size_12">@dimen/_12sdp</dimen>
+    <dimen name="image_button_size_17">@dimen/_17sdp</dimen>
+    <dimen name="image_button_size_20">@dimen/_20sdp</dimen>
     <dimen name="image_button_margin_start">5dp</dimen>
     <dimen name="image_button_margin_end_1">1dp</dimen>
     <dimen name="image_button_margin_end_5">5dp</dimen>
@@ -54,6 +56,8 @@
     <dimen name="right_column_menu_fragment_margin_start">3dp</dimen>
     <dimen name="right_column_menu_fragment_margin_top">15dp</dimen>
     <dimen name="right_column_menu_fragment_margin_end">15dp</dimen>
+
+    <dimen name="progress_bar_height">@dimen/_11sdp</dimen>
 
     <dimen name="recycler_list_bottom_padding">70dp</dimen>
     <dimen name="row_item_height">60dp</dimen>

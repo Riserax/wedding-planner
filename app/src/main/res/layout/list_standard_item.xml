@@ -95,7 +95,7 @@
             android:layout_marginBottom="@dimen/_4sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:layout_gravity="center_vertical"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:orientation="horizontal"
             android:visibility="gone"/>
 

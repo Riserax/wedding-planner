@@ -103,7 +103,7 @@ public class ExpenseDetailsFragment extends Fragment {
 
         setRecipient();
         setForWhat();
-        setProgressBarAndText(paidPaymentsSum);
+        setProgressBarAndText();
         setInitialAmount();
         setRealExpenses();
         setAwaitingPayments();
@@ -127,18 +127,18 @@ public class ExpenseDetailsFragment extends Fragment {
         }
     }
 
-    private void setProgressBarAndText(double realExpensesSum) {
+    private void setProgressBarAndText() {
         double initialAmount = Double.parseDouble(expenseDetails.getInitialAmount());
         int percentage;
 
         if (initialAmount == 0) {
-            if (realExpensesSum > 0) {
+            if (paidPaymentsSum > 0) {
                 percentage = 100;
             } else {
                 percentage = 0;
             }
         } else {
-            percentage = (int) (realExpensesSum / initialAmount * 100);
+            percentage = (int) (paidPaymentsSum / initialAmount * 100);
         }
 
         String progress = percentage + "%";
