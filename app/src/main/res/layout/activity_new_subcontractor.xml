@@ -495,7 +495,7 @@
                         android:padding="@dimen/edit_text_padding"
                         android:maxLength="250"
                         android:inputType="textMultiLine"
-                        android:hint="@string/guest_field_notes"
+                        android:hint="@string/field_notes"
                         android:textSize="@dimen/field_text_size"
                         android:textColorHint="@color/gray_949494"
                         android:textColor="@color/gray_949494"
@@ -506,6 +506,35 @@
                         app:layout_constraintBottom_toBottomOf="parent"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/info_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/field_margin"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="2dp"
+                        android:paddingEnd="5dp"
+                        android:background="@color/gray_F2F2F2"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_info_outline" />
+
+                    <TextView
+                        android:id="@+id/info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/subcontractor_info"
+                        android:textColor="@color/gray_949494"
+                        android:textSize="@dimen/_10sdp"/>
+
+                </LinearLayout>
 
                 <Button
                     android:id="@+id/add_save_button"

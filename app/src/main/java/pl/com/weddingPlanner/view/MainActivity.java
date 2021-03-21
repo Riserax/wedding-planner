@@ -357,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
                 .id(2)
                 .title("Nieuzupełnione zadanie")
                 .category(CATEGORY_OTHER)
-                .status("NEW")
+                .status("DONE")
                 .date("2021-01-31")
                 .build();
 
@@ -397,6 +397,7 @@ public class MainActivity extends AppCompatActivity {
                 .title("Niewypełniony wydatek")
                 .initialAmount("0.00")
                 .category(CATEGORY_OTHER)
+                .subcontractorId(0)
                 .editDate("2020-12-30 16:16")
                 .build();
 

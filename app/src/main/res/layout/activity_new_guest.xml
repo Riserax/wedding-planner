@@ -541,7 +541,7 @@
                         android:padding="@dimen/edit_text_padding"
                         android:maxLength="250"
                         android:inputType="textMultiLine"
-                        android:hint="@string/guest_field_notes"
+                        android:hint="@string/field_notes"
                         android:textSize="@dimen/field_text_size"
                         android:textColorHint="@color/gray_949494"
                         android:textColor="@color/gray_949494"

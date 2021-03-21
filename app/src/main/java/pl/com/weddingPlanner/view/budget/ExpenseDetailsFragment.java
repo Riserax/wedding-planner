@@ -22,6 +22,7 @@ import pl.com.weddingPlanner.databinding.FragmentExpenseDetailsBinding;
 import pl.com.weddingPlanner.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.enums.LocationEnum;
 import pl.com.weddingPlanner.enums.PaymentStateEnum;
+import pl.com.weddingPlanner.persistence.entity.Subcontractor;
 import pl.com.weddingPlanner.view.component.Assignees;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
@@ -30,7 +31,9 @@ import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.dialog.QuestionDialog;
+import pl.com.weddingPlanner.view.subcontractors.SubcontractorDetailsActivity;
 import pl.com.weddingPlanner.view.util.FormatUtil;
+import pl.com.weddingPlanner.view.util.LinksUtil;
 import pl.com.weddingPlanner.view.util.PersonUtil;
 import pl.com.weddingPlanner.view.util.ResourceUtil;
 
@@ -39,6 +42,7 @@ import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA
 import static pl.com.weddingPlanner.view.dialog.QuestionDialog.CLASS_EXTRA;
 import static pl.com.weddingPlanner.view.util.ComponentsUtil.getIcon;
 import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.SUBCONTRACTOR_ID_EXTRA;
 import static pl.com.weddingPlanner.view.util.ResourceUtil.AMOUNT_ZERO;
 
 public class ExpenseDetailsFragment extends Fragment {
@@ -103,6 +107,7 @@ public class ExpenseDetailsFragment extends Fragment {
 
         setRecipient();
         setForWhat();
+        setConnectedSubcontractor();
         setProgressBarAndText();
         setInitialAmount();
         setRealExpenses();
@@ -124,6 +129,15 @@ public class ExpenseDetailsFragment extends Fragment {
             binding.forWhat.setText(expenseDetails.getForWhat());
         } else {
             binding.forWhat.setText(getResources().getString(R.string.no_description));
+        }
+    }
+
+    private void setConnectedSubcontractor() {
+        if (expenseDetails.getSubcontractorId() > 0) {
+            Subcontractor subcontractor = DAOUtil.getSubcontractorById(getContext(), expenseDetails.getSubcontractorId());
+            LinksUtil.makeLinkAlike(binding.connectedSubcontractor, getContext(), subcontractor.getName());
+        } else {
+            binding.connectedSubcontractorLayout.setVisibility(View.GONE);
         }
     }
 
@@ -178,9 +192,18 @@ public class ExpenseDetailsFragment extends Fragment {
     }
 
     private void setListeners() {
+        setConnectedSubcontractorOnClickListener();
         setExpenseFloatingButtonListener();
         setDeleteExpenseListener();
         setEditExpenseListener();
+    }
+
+    private void setConnectedSubcontractorOnClickListener() {
+        binding.connectedSubcontractor.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), SubcontractorDetailsActivity.class);
+            intent.putExtra(SUBCONTRACTOR_ID_EXTRA, expenseDetails.getSubcontractorId());
+            startActivity(intent);
+        });
     }
 
     private void setExpenseFloatingButtonListener() {
@@ -230,6 +253,7 @@ public class ExpenseDetailsFragment extends Fragment {
         Intent intent = new Intent(getContext(), NavigationActivity.class);
         intent.putExtra(FRAGMENT_TO_LOAD_ID, R.id.navigation_budget);
         intent.putExtra(EXPENSE_ID_EXTRA, expenseId);
+        intent.putExtra(SUBCONTRACTOR_ID_EXTRA, expenseDetails.getSubcontractorId());
         intent.putExtra(CLASS_EXTRA, ExpenseDetailsFragment.class.toString());
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         return intent;

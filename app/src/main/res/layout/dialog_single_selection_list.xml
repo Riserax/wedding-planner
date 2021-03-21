@@ -29,6 +29,17 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"/>
 
+        <TextView
+            android:id="@+id/no_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/list_standard_caption_empty"
+            android:textColor="@color/gray_949494"
+            android:textSize="@dimen/_12sdp"
+            android:textAlignment="center"
+            android:visibility="gone"/>
+
     </LinearLayout>
 
 </layout>

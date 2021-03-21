@@ -390,7 +390,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:paddingEnd="@dimen/text_view_padding"
-                            android:text="@string/guest_field_notes"
+                            android:text="@string/field_notes"
                             android:textColor="@color/gray_555555"
                             android:textSize="@dimen/_13sdp"
                             android:textStyle="bold"

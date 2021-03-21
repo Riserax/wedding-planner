@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -58,8 +59,19 @@ public class CustomAlertDialog extends AlertDialog.Builder {
         if (dialog.getWindow() == null) return;
 
         float dialogWidthPercentage = 0.95f;
+        float dialogHeightPercentage = 0.80f;
         int width = (int) (context.getResources().getDisplayMetrics().widthPixels * dialogWidthPercentage);
-        dialog.getWindow().setLayout(width, WRAP_CONTENT);
+        int maxHeight = (int) (context.getResources().getDisplayMetrics().heightPixels * dialogHeightPercentage);
+
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.copyFrom(dialog.getWindow().getAttributes());
+        int height = layoutParams.height;
+
+        if (height > maxHeight) {
+            dialog.getWindow().setLayout(width, maxHeight);
+        } else {
+            dialog.getWindow().setLayout(width, WRAP_CONTENT);
+        }
     }
 
     private void setOneButtonDialogLayout() {

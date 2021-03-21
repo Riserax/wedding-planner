@@ -14,13 +14,16 @@ import org.apache.commons.lang3.StringUtils;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivitySubcontractorDetailsBinding;
 import pl.com.weddingPlanner.enums.CollaborationStageEnum;
+import pl.com.weddingPlanner.persistence.entity.Expense;
 import pl.com.weddingPlanner.persistence.entity.Subcontractor;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
+import pl.com.weddingPlanner.view.budget.ExpenseActivity;
 import pl.com.weddingPlanner.view.dialog.QuestionDialog;
 import pl.com.weddingPlanner.view.util.FormatUtil;
-import pl.com.weddingPlanner.view.util.SubcontractorUtil;
+import pl.com.weddingPlanner.view.util.LinksUtil;
 
+import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA;
 import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
 import static pl.com.weddingPlanner.view.util.ExtraUtil.SUBCONTRACTOR_ID_EXTRA;
 
@@ -59,11 +62,12 @@ public class SubcontractorDetailsActivity extends BaseActivity {
         setCollaborationStage();
         setCost();
         setNotes();
+        setConnectedExpense();
     }
 
     private void setEmail() {
         if (StringUtils.isNotBlank(subcontractorDetails.getEmail())) {
-            SubcontractorUtil.makeLinkAlike(binding.email, this, subcontractorDetails.getEmail());
+            LinksUtil.makeLinkAlike(binding.email, this, subcontractorDetails.getEmail());
         } else {
             binding.email.setText(getString(R.string.field_not_specified));
         }
@@ -71,7 +75,7 @@ public class SubcontractorDetailsActivity extends BaseActivity {
 
     private void setPhone() {
         if (StringUtils.isNotBlank(subcontractorDetails.getPhone())) {
-            SubcontractorUtil.makeLinkAlike(binding.phone, this, subcontractorDetails.getPhone());
+            LinksUtil.makeLinkAlike(binding.phone, this, subcontractorDetails.getPhone());
         } else {
             binding.phone.setText(getString(R.string.field_not_specified));
         }
@@ -119,9 +123,19 @@ public class SubcontractorDetailsActivity extends BaseActivity {
         }
     }
 
+    private void setConnectedExpense() {
+        if (subcontractorDetails.getExpenseId() > 0) {
+            Expense expense = DAOUtil.getExpenseById(this, subcontractorDetails.getExpenseId());
+            LinksUtil.makeLinkAlike(binding.connectedExpense, this, expense.getTitle());
+        } else {
+            binding.connectedExpenseLayout.setVisibility(View.GONE);
+        }
+    }
+
     private void setListeners() {
         setEmailOnClickListener();
         setPhoneOnClickListener();
+        setConnectedExpenseOnClickListener();
         setFloatingButtonListener();
         setDeleteSubcontractorListener();
         setEditSubcontractorListener();
@@ -148,6 +162,14 @@ public class SubcontractorDetailsActivity extends BaseActivity {
 
                 startActivity(phoneIntent);
             }
+        });
+    }
+
+    private void setConnectedExpenseOnClickListener() {
+        binding.connectedExpense.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ExpenseActivity.class);
+            intent.putExtra(EXPENSE_ID_EXTRA, subcontractorDetails.getExpenseId());
+            startActivity(intent);
         });
     }
 
@@ -194,10 +216,16 @@ public class SubcontractorDetailsActivity extends BaseActivity {
     @Override
     public void executeQuestionDialog() {
         DAOUtil.deleteSubcontractor(this, subcontractorDetails);
+        deleteConnectedExpenseAndPayments();
 
         Intent intent = new Intent(this, SubcontractorsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    private void deleteConnectedExpenseAndPayments() {
+        DAOUtil.deleteExpenseById(this, subcontractorDetails.getExpenseId());
+        DAOUtil.deleteAllPaymentsByExpenseId(this, subcontractorDetails.getExpenseId());
     }
 }
 
