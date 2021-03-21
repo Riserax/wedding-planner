@@ -292,6 +292,12 @@ public class DAOUtil {
         return subcontractorDAO.getAllByCategory(category);
     }
 
+    public static List<Subcontractor> getAllNotConnectedSubcontractors(Context context) {
+        AppDatabase appDatabase = getInstance(context);
+        SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
+        return subcontractorDAO.getAllNotConnected();
+    }
+
     public static Subcontractor getSubcontractorById(Context context, Integer id) {
         AppDatabase appDatabase = getInstance(context);
         SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
@@ -434,5 +440,23 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         GuestDAO guestDAO = appDatabase.guestDAO();
         guestDAO.updateGuest(guestId, connectedWithId);
+    }
+
+    public static void updateExpenseSubcontractorId(Context context, Integer subcontractorId, Integer expenseId) {
+        AppDatabase appDatabase = getInstance(context);
+        ExpenseDAO expenseDAO = appDatabase.expenseDAO();
+        expenseDAO.updateSubcontractorId(subcontractorId, expenseId);
+    }
+
+    public static void updateSubcontractorExpenseId(Context context, Integer expenseId, Integer subcontractorId) {
+        AppDatabase appDatabase = getInstance(context);
+        SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
+        subcontractorDAO.updateExpenseId(expenseId, subcontractorId);
+    }
+
+    public static void clearSubcontractorExpenseId(Context context, Integer subcontractorId) {
+        AppDatabase appDatabase = getInstance(context);
+        SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
+        subcontractorDAO.clearExpenseId(subcontractorId);
     }
 }

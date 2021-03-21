@@ -13,6 +13,7 @@ import pl.com.weddingPlanner.view.BaseActivity;
 
 import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA;
 import static pl.com.weddingPlanner.view.budget.ExpensePaymentsFragment.PAYMENT_ID_EXTRA;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.SUBCONTRACTOR_ID_EXTRA;
 
 public class QuestionDialog extends CustomAlertDialog {
 
@@ -56,11 +57,13 @@ public class QuestionDialog extends CustomAlertDialog {
     private void deleteItem(Intent intent) {
         int expenseId = getExpenseId(intent);
         int paymentId = getPaymentId(intent);
+        int subcontractorId = getSubcontractorId(intent);
         String classExtra = getClassExtra(intent);
 
         if (classExpenseDetailsFragment.equals(classExtra)) {
             DAOUtil.deleteExpenseById(getContext(), expenseId);
             DAOUtil.deleteAllPaymentsByExpenseId(getContext(), expenseId);
+            DAOUtil.clearSubcontractorExpenseId(getContext(), subcontractorId);
         } else if (classNewPaymentActivity.equals(classExtra)) {
             DAOUtil.deletePaymentById(getContext(), paymentId);
         }
@@ -72,6 +75,10 @@ public class QuestionDialog extends CustomAlertDialog {
 
     private int getPaymentId(Intent intent) {
         return intent.getIntExtra(PAYMENT_ID_EXTRA, 0);
+    }
+
+    private int getSubcontractorId(Intent intent) {
+        return intent.getIntExtra(SUBCONTRACTOR_ID_EXTRA, 0);
     }
 
     private String getClassExtra(Intent intent) {

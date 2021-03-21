@@ -16,6 +16,7 @@ import pl.com.weddingPlanner.persistence.entity.Guest;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.dialog.QuestionDialog;
+import pl.com.weddingPlanner.view.util.LinksUtil;
 
 import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
 import static pl.com.weddingPlanner.view.util.ExtraUtil.GUEST_ID_EXTRA;
@@ -64,12 +65,14 @@ public class GuestDetailsActivity extends BaseActivity {
     }
 
     private void setConnectedOrAccompanyLayout() {
-        if (isGuest() && guestDetails.getConnectedWithId() != 0) {
-            binding.accompanyLayout.setVisibility(View.VISIBLE);
-            binding.accompany.setText(getConnectedGuestNameSurname());
-        } else if (!isGuest() && guestDetails.getConnectedWithId() != 0) {
-            binding.connectedWithLayout.setVisibility(View.VISIBLE);
-            binding.connectedWith.setText(getConnectedGuestNameSurname());
+        if (guestDetails.getConnectedWithId() > 0) {
+            if (isGuest()) {
+                binding.accompanyLayout.setVisibility(View.VISIBLE);
+                LinksUtil.makeLinkAlike(binding.accompany, this, getConnectedGuestNameSurname());
+            } else if (!isGuest()) {
+                binding.connectedWithLayout.setVisibility(View.VISIBLE);
+                LinksUtil.makeLinkAlike(binding.connectedWith, this, getConnectedGuestNameSurname());
+            }
         }
     }
 
@@ -128,9 +131,27 @@ public class GuestDetailsActivity extends BaseActivity {
     }
 
     private void setListeners() {
+        setConnectedAccompanyOnClickListener();
+        setConnectedGuestOnClickListener();
         setGuestFloatingButtonListener();
         setDeleteGuestListener();
         setEditGuestListener();
+    }
+
+    private void setConnectedAccompanyOnClickListener() {
+        binding.accompany.setOnClickListener(v -> {
+            Intent intent = new Intent(this, GuestDetailsActivity.class);
+            intent.putExtra(GUEST_ID_EXTRA, guestDetails.getConnectedWithId());
+            startActivity(intent);
+        });
+    }
+
+    private void setConnectedGuestOnClickListener() {
+        binding.connectedWith.setOnClickListener(v -> {
+            Intent intent = new Intent(this, GuestDetailsActivity.class);
+            intent.putExtra(GUEST_ID_EXTRA, guestDetails.getConnectedWithId());
+            startActivity(intent);
+        });
     }
 
     private void setGuestFloatingButtonListener() {

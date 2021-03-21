@@ -22,6 +22,7 @@ import pl.com.weddingPlanner.databinding.ActivityNewExpenseBinding;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
 import pl.com.weddingPlanner.persistence.entity.Person;
+import pl.com.weddingPlanner.persistence.entity.Subcontractor;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.util.DateUtil;
 import pl.com.weddingPlanner.util.DebouncedOnClickListener;
@@ -108,6 +109,12 @@ public class NewExpenseActivity extends BaseActivity {
                 binding.peopleName.setText(payers);
             }
 
+            if (expenseDetails.getSubcontractorId() > 0) {
+                Subcontractor subcontractor = DAOUtil.getSubcontractorById(this, expenseDetails.getSubcontractorId());
+                binding.connectedSubcontractorTitle.setVisibility(View.VISIBLE);
+                binding.connectedSubcontractorName.setText(subcontractor.getName());
+            }
+
             binding.addSaveButton.setText(getResources().getString(R.string.button_save));
         }
     }
@@ -120,6 +127,7 @@ public class NewExpenseActivity extends BaseActivity {
         initAddButtonEnableStatusListener();
         setCategoryOnClickListener();
         setPeopleOnClickListener();
+        setSubcontractorOnClickListener();
         initRootScrollViewListener();
         setOnFocusChangeListener();
         setAddSaveButtonClickListener();
@@ -159,6 +167,17 @@ public class NewExpenseActivity extends BaseActivity {
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
                 new PeopleDialog(NewExpenseActivity.this, selectedPeopleKeys).showDialog();
+            }
+        });
+    }
+
+    private void setSubcontractorOnClickListener() {
+        binding.connectedSubcontractorLayout.setOnClickListener(new DebouncedOnClickListener(getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
+            @Override
+            public void onDebouncedClick(View v) {
+                clearFocusAndHideKeyboard();
+                List<Subcontractor> subcontractors = DAOUtil.getAllNotConnectedSubcontractors(NewExpenseActivity.this);
+                new SingleSelectionListDialog(NewExpenseActivity.this, subcontractors, R.string.dialog_expense_subcontractor_choice).showDialog();
             }
         });
     }
@@ -218,21 +237,12 @@ public class NewExpenseActivity extends BaseActivity {
                     prepareAmount(newExpense);
 
                     if (expenseDetails != null && expenseId > 0) {
-                        newExpense.setId(expenseId);
-
-                        DAOUtil.mergeExpense(getApplicationContext(), newExpense);
-
-                        Intent intent = new Intent(NewExpenseActivity.this, ExpenseActivity.class);
-                        intent.putExtra(EXPENSE_ID_EXTRA, expenseId);
-                        startActivity(intent);
+                        proceedWhenEditingExpense(newExpense);
                     } else {
-                        DAOUtil.insertExpense(getApplicationContext(), newExpense);
-
-                        Intent intent = new Intent(NewExpenseActivity.this, NavigationActivity.class);
-                        intent.putExtra(FRAGMENT_TO_LOAD_ID, R.id.navigation_budget);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
+                        proceedWhenNewExpense(newExpense);
                     }
+
+                    updateSubcontractorExpenseId(newExpense);
                 } else {
                     if (newExpense.getTitle().isEmpty()) {
                         Toast toast = Toast.makeText(NewExpenseActivity.this, "Nazwa nie może być pusta", Toast.LENGTH_LONG);
@@ -252,12 +262,14 @@ public class NewExpenseActivity extends BaseActivity {
         String recipient = binding.recipientName.getText().toString();
         String forWhat = binding.forWhatName.getText().toString();
         String payers = binding.peopleName.getText().toString();
+        String subcontractorName = binding.connectedSubcontractorName.getText().toString();
 
         boolean isCategoryChosen = !category.equals(getResources().getString(R.string.field_category));
         boolean isAmountSet = !initialAmount.isEmpty();
         boolean isRecipientSet = !recipient.equals(getResources().getString(R.string.expense_field_for_whom));
         boolean isForWhatSet = !forWhat.equals(getResources().getString(R.string.expense_field_for_what));
         boolean arePayersSet = !payers.equals(getResources().getString(R.string.field_payer));
+        boolean isSubcontractorChosen = !subcontractorName.equals(getResources().getString(R.string.header_title_subcontractor));
 
         String payersIdsString = arePayersSet ? getPayersIds(payers) : StringUtils.EMPTY;
 
@@ -269,6 +281,7 @@ public class NewExpenseActivity extends BaseActivity {
                 .recipient(isRecipientSet ? recipient : StringUtils.EMPTY)
                 .forWhat(isForWhatSet ? forWhat : StringUtils.EMPTY)
                 .payers(payersIdsString)
+                .subcontractorId(isSubcontractorChosen ? getChosenSubcontractorId(subcontractorName) : 0)
                 .build();
     }
 
@@ -286,6 +299,46 @@ public class NewExpenseActivity extends BaseActivity {
         }
 
         return payersIdsJoiner.toString();
+    }
+
+    private int getChosenSubcontractorId(String subcontractorName) {
+        return DAOUtil.getSubcontractorByName(this, subcontractorName).getId();
+    }
+
+    private void proceedWhenEditingExpense(Expense newExpense) {
+        newExpense.setId(expenseId);
+
+        DAOUtil.mergeExpense(getApplicationContext(), newExpense);
+
+        Intent intent = new Intent(NewExpenseActivity.this, ExpenseActivity.class);
+        intent.putExtra(EXPENSE_ID_EXTRA, expenseId);
+        startActivity(intent);
+    }
+
+    private void proceedWhenNewExpense(Expense newExpense) {
+        DAOUtil.insertExpense(getApplicationContext(), newExpense);
+
+        Intent intent = new Intent(NewExpenseActivity.this, NavigationActivity.class);
+        intent.putExtra(FRAGMENT_TO_LOAD_ID, R.id.navigation_budget);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    private void updateSubcontractorExpenseId(Expense newExpense) {
+        if (newExpense.getSubcontractorId() > 0) {
+            if (expenseId > 0) {
+                DAOUtil.updateSubcontractorExpenseId(this, expenseId, newExpense.getSubcontractorId());
+            } else {
+                DAOUtil.updateSubcontractorExpenseId(this, getLastExpenseId(), newExpense.getSubcontractorId());
+            }
+        }
+    }
+
+    private Integer getLastExpenseId() {
+        List<Expense> allExpenses = DAOUtil.getAllExpenses(getApplicationContext());
+        allExpenses.sort((expense1, expense2) -> expense1.getId().compareTo(expense2.getId()));
+
+        return allExpenses.get(allExpenses.size() - 1).getId();
     }
 
     private boolean isAmountValid(String amount) {

@@ -34,6 +34,9 @@ public interface ExpenseDAO {
     @Update
     void merge(Expense expense);
 
+    @Query("UPDATE expense SET subcontractorId = :subcontractorId WHERE id = :expenseId")
+    void updateSubcontractorId(Integer subcontractorId, Integer expenseId);
+
     @Query("SELECT COUNT(*) FROM expense")
     int count();
 }

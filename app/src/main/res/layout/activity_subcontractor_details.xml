@@ -71,7 +71,6 @@
                             android:id="@+id/name"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Grzegorz Brzęczyszczykiewicz Photography"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -198,7 +197,6 @@
                             android:id="@+id/category"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Foto Wideo"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -246,7 +244,6 @@
                             android:id="@+id/email"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="email@poczta.pl"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -288,7 +285,6 @@
                             android:id="@+id/phone"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="666 777 888"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -330,7 +326,6 @@
                             android:id="@+id/www"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="janusz-photography.pl"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -372,7 +367,6 @@
                             android:id="@+id/address"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="ul. Polna 6"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -420,7 +414,6 @@
                             android:id="@+id/collaboration_stage"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Opłacone"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -462,7 +455,6 @@
                             android:id="@+id/cost"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="25 000,00"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -483,7 +475,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:paddingEnd="@dimen/text_view_padding"
-                            android:text="@string/guest_field_notes"
+                            android:text="@string/field_notes"
                             android:textAlignment="center"
                             android:textColor="@color/gray_555555"
                             android:textSize="@dimen/_13sdp"
@@ -504,12 +496,52 @@
                             android:id="@+id/notes"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Fajny ziomek, profeska"
                             android:textColor="@color/gray_949494"
                             android:textSize="@dimen/field_text_size"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/guideline_notes"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/connected_expense_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
+
+                        <TextView
+                            android:id="@+id/connected_expense_header"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/subcontractor_details_connected_expense"
+                            android:textAlignment="center"
+                            android:textColor="@color/gray_555555"
+                            android:textSize="@dimen/_13sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_connected_expense"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_connected_expense"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.30" />
+
+                        <TextView
+                            android:id="@+id/connected_expense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_connected_expense"
                             app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

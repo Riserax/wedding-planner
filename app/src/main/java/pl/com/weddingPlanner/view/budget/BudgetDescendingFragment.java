@@ -117,6 +117,7 @@ public class BudgetDescendingFragment extends Fragment {
         });
 
         RecyclerView recyclerView = binding.recyclerView;
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
 

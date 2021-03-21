@@ -173,6 +173,10 @@ public class BaseActivity extends AppCompatActivity {
                 TextView tableTitle = findViewById(R.id.table_title);
                 tableTitle.setVisibility(visible ? View.VISIBLE : View.GONE);
                 break;
+            case R.id.connected_subcontractor_name:
+                TextView connectedSubcontractorTitle = findViewById(R.id.connected_subcontractor_title);
+                connectedSubcontractorTitle.setVisibility(visible ? View.VISIBLE : View.GONE);
+                break;
         }
     }
 
