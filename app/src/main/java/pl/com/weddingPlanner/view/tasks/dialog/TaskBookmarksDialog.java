@@ -21,7 +21,7 @@ import pl.com.weddingPlanner.view.util.ListViewUtil;
 
 public class TaskBookmarksDialog extends CustomAlertDialog {
 
-    private DialogTaskBookmarksBinding binding;
+    private final DialogTaskBookmarksBinding binding;
     private Map<Integer, String> bookmarks;
 
     public TaskBookmarksDialog(NewTaskActivity activity, List<Integer> selectedBookmarksKeys) {

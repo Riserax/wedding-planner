@@ -124,6 +124,12 @@ public class DAOUtil {
         return taskDAO.countByStatus(status);
     }
 
+    public static List<SubTask> getAllSubTasks(Context context) {
+        AppDatabase appDatabase = getInstance(context);
+        SubTaskDAO subTaskDAO = appDatabase.subTaskDAO();
+        return subTaskDAO.getAll();
+    }
+
     public static SubTask getSubTaskById(Context context, int subTaskId) {
         AppDatabase appDatabase = getInstance(context);
         SubTaskDAO subTaskDAO = appDatabase.subTaskDAO();
@@ -452,6 +458,12 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
         subcontractorDAO.updateExpenseId(expenseId, subcontractorId);
+    }
+
+    public static void updateTaskSubTasks(Context context, String subTasksIds, Integer taskId) {
+        AppDatabase appDatabase = getInstance(context);
+        TaskDAO taskDAO = appDatabase.taskDAO();
+        taskDAO.updateSubTasks(subTasksIds, taskId);
     }
 
     public static void clearSubcontractorExpenseId(Context context, Integer subcontractorId) {

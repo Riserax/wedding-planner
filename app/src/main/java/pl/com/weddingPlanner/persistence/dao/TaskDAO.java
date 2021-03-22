@@ -34,6 +34,9 @@ public interface TaskDAO {
     @Update
     void merge(Task task);
 
+    @Query("UPDATE task SET subTasks = :subTasksIds WHERE id = :taskId")
+    void updateSubTasks(String subTasksIds, Integer taskId);
+
     @Query("SELECT COUNT(*) FROM task")
     int count();
 

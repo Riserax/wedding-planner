@@ -28,6 +28,10 @@
     <string name="day_saturday">Sobota</string>
     <string name="day_sunday">Niedziela</string>
 
+    <string name="details_delete">Usuń</string>
+    <string name="details_edit">Edytuj</string>
+
+    <string name="dialog_add">Dodaj</string>
     <string name="dialog_back">Powrót</string>
     <string name="dialog_pick">Wybierz</string>
     <string name="dialog_yes">Tak</string>
@@ -38,6 +42,7 @@
     <string name="dialog_guest_choice">Wybierz gościa, dla którego będzie osobą towarzyszącą</string>
     <string name="dialog_table_choice">Wybierz miejsce</string>
     <string name="dialog_person_choice">Wybierz osobę</string>
+    <string name="dialog_task_add_sub_task_title">Nowe podzadanie</string>
     <string name="dialog_task_bookmarks_title">Wybierz etykiety</string>
     <string name="dialog_task_date_title">Wybierz datę</string>
     <string name="dialog_task_people_title">Wybierz osoby</string>
@@ -165,9 +170,7 @@
     <string name="subcontractor_field_www">Strona WWW</string>
     <string name="subcontractor_info">Stworzenie podwykonawcy spowoduje automatyczne dodanie powiązanego z nim wydatku</string>
 
-    <string name="subcontractor_details_delete">Usuń</string>
     <string name="subcontractor_details_delete_question">Czy na pewno chcesz usunąć tego podwykonawcę? Spowoduje to usunięcie powiązanego wydatku</string>
-    <string name="subcontractor_details_edit">Edytuj</string>
     <string name="subcontractor_details_connected_expense">Powiązany wydatek</string>
 
     <string name="tab_title_budget_categories">Kategorie</string>
@@ -181,10 +184,7 @@
     <string name="tab_title_tasks_categories">Kategorie</string>
     <string name="tab_title_tasks_months">Miesiące</string>
 
-    <string name="task_details_add_sub_task">Dodaj podzadanie</string>
-    <string name="task_details_delete">Usuń zadanie</string>
     <string name="task_details_delete_question">Czy na pewno chcesz usunąć to zadanie?</string>
-    <string name="task_details_edit">Edytuj zadanie</string>
     <string name="task_details_mark_done">Oznacz jako wykonane</string>
     <string name="task_details_mark_in_progress">Oznacz jako w toku</string>
     <string name="task_details_no_bookmarks">Brak etykiet</string>
