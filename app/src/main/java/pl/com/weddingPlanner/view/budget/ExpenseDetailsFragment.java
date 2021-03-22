@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -241,12 +242,14 @@ public class ExpenseDetailsFragment extends Fragment {
         binding.deleteLayout.setVisibility(View.VISIBLE);
         binding.editLayout.setVisibility(View.VISIBLE);
         binding.backgroundFade.setVisibility(View.VISIBLE);
+        binding.expenseFloatingButton.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_clear));
     }
 
     private void hideFloatingMenu() {
         binding.deleteLayout.setVisibility(View.GONE);
         binding.editLayout.setVisibility(View.GONE);
         binding.backgroundFade.setVisibility(View.GONE);
+        binding.expenseFloatingButton.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_menu));
     }
 
     public Intent getDeleteIntent() {

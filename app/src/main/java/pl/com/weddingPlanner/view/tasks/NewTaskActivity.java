@@ -355,7 +355,6 @@ public class NewTaskActivity extends BaseActivity {
                 .status(taskStatus.name())
                 .date(isDateSet ? date : StringUtils.EMPTY)
                 .time(isTimeSet ? time : StringUtils.EMPTY)
-                .subTasks(taskDetails != null ? taskDetails.getSubTasks() : StringUtils.EMPTY)
                 .build();
     }
 

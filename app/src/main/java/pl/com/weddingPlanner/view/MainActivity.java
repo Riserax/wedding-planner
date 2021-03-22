@@ -350,7 +350,6 @@ public class MainActivity extends AppCompatActivity {
                 .status("NEW")
                 .date("2021-01-23")
                 .time("16:30")
-                .subTasks("1,2")
                 .build();
 
         Task taskNotFilled = Task.builder()

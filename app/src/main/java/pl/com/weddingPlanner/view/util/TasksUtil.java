@@ -19,7 +19,6 @@ import pl.com.weddingPlanner.model.PickedDate;
 import pl.com.weddingPlanner.model.PickedTime;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Person;
-import pl.com.weddingPlanner.persistence.entity.SubTask;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
 
@@ -228,20 +227,5 @@ public class TasksUtil {
         }
 
         return assignees;
-    }
-
-    public static List<SubTask> getSubTasks(Task taskDetails, Context context) {
-        List<SubTask> subTasks = new ArrayList<>();
-
-        if (StringUtils.isNotBlank(taskDetails.getSubTasks())) {
-            String[] subTasksIds = taskDetails.getSubTasks().split(",", -1);
-
-            for (String subTaskIdString : subTasksIds) {
-                int subTaskId = Integer.parseInt(subTaskIdString);
-                subTasks.add(DAOUtil.getSubTaskById(context, subTaskId));
-            }
-        }
-
-        return subTasks;
     }
 }

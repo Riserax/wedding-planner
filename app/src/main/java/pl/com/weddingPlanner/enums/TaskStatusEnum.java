@@ -8,10 +8,11 @@ import pl.com.weddingPlanner.R;
 @AllArgsConstructor
 public enum TaskStatusEnum {
 
-    NEW(R.string.task_field_status_new),
-    IN_PROGRESS(R.string.task_field_status_in_progress),
-    DONE(R.string.task_field_status_done),
+    NEW(R.string.task_field_status_new, R.drawable.ic_new),
+    IN_PROGRESS(R.string.task_field_status_in_progress, R.drawable.ic_progress),
+    DONE(R.string.task_field_status_done, R.drawable.ic_check_circle_outline),
     ;
 
-    private final int nameResId;
+    private final int textResId;
+    private final int drawableResId;
 }

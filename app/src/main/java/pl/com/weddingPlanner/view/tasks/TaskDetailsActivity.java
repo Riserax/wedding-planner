@@ -1,12 +1,9 @@
 package pl.com.weddingPlanner.view.tasks;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
 
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -18,11 +15,9 @@ import java.util.List;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityTaskDetailsBinding;
-import pl.com.weddingPlanner.enums.LocationEnum;
 import pl.com.weddingPlanner.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.LocationEnum;
 import pl.com.weddingPlanner.enums.TaskStatusEnum;
-import pl.com.weddingPlanner.view.component.Assignees;
-import pl.com.weddingPlanner.view.component.Bookmarks;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Person;
@@ -31,7 +26,12 @@ import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.NavigationActivity;
+import pl.com.weddingPlanner.view.component.Assignees;
+import pl.com.weddingPlanner.view.component.Bookmarks;
 import pl.com.weddingPlanner.view.dialog.QuestionDialog;
+import pl.com.weddingPlanner.view.tasks.dialog.NewSubTaskDialog;
+import pl.com.weddingPlanner.view.tasks.dialog.TaskManageSubTasksDialog;
+import pl.com.weddingPlanner.view.util.ComponentsUtil;
 import pl.com.weddingPlanner.view.util.ResourceUtil;
 import pl.com.weddingPlanner.view.util.TasksUtil;
 
@@ -43,6 +43,8 @@ import static pl.com.weddingPlanner.view.util.ExtraUtil.TASK_ID_EXTRA;
 public class TaskDetailsActivity extends BaseActivity {
 
     private ActivityTaskDetailsBinding binding;
+
+    private int taskId;
 
     private Task taskDetails;
     private Category categoryDetails;
@@ -58,20 +60,24 @@ public class TaskDetailsActivity extends BaseActivity {
 
         setActivityToolbarContentWithBackIcon(R.string.header_title_task_details);
 
-        getAndSetData();
-        setComponents();
+        taskId = getIntent().getExtras().getInt(TASK_ID_EXTRA, 0);
+
+        setDetails();
         setListeners();
     }
 
-    private void getAndSetData() {
-        int taskId = getIntent().getExtras().getInt(TASK_ID_EXTRA, 0);
+    public void setDetails() {
+        getAndSetData();
+        setComponents();
+    }
 
+    private void getAndSetData() {
         taskDetails = DAOUtil.getTaskById(this, taskId);
         categoryDetails = DAOUtil.getCategoryByNameAndType(this, taskDetails.getCategory(), CategoryTypeEnum.TASKS.name());
 
         bookmarksList = TasksUtil.getBookmarks(taskDetails, this);
         assigneesList = TasksUtil.getAssignees(taskDetails, this);
-        subTasksList = TasksUtil.getSubTasks(taskDetails, this);
+        subTasksList = DAOUtil.getAllSubTasksByTask(this, taskId);
     }
 
     private void setComponents() {
@@ -91,6 +97,11 @@ public class TaskDetailsActivity extends BaseActivity {
     private void setBookmarks() {
         if (StringUtils.isNotBlank(taskDetails.getBookmarks())) {
             Bookmarks bookmarks = new Bookmarks(this, bookmarksList, LocationEnum.DETAILS);
+
+            if (binding.bookmarksLayout.getChildCount() > 1) {
+                binding.bookmarksLayout.removeViewAt(1);
+            }
+
             binding.bookmarksLayout.addView(bookmarks.getBookmarksContainer());
         } else {
             binding.noBookmarks.setVisibility(View.VISIBLE);
@@ -100,6 +111,11 @@ public class TaskDetailsActivity extends BaseActivity {
     private void setAssignees() {
         if (StringUtils.isNotBlank(taskDetails.getAssignees())) {
             Assignees assignees = new Assignees(this, assigneesList, LocationEnum.DETAILS);
+
+            if (binding.assigneesLayout.getChildCount() > 1) {
+                binding.assigneesLayout.removeViewAt(1);
+            }
+
             binding.assigneesLayout.addView(assignees.getAssigneesContainer());
         } else {
             binding.noAssignees.setVisibility(View.VISIBLE);
@@ -130,39 +146,26 @@ public class TaskDetailsActivity extends BaseActivity {
     private void setMarkAsOption() {
         if (TaskStatusEnum.DONE.name().equals(taskDetails.getStatus())) {
             binding.markAsText.setText(getString(R.string.task_details_mark_in_progress));
+            binding.markAsButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_progress));
         } else {
             binding.markAsText.setText(getString(R.string.task_details_mark_done));
+            binding.markAsButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_done));
         }
     }
 
     private void setSubTasks() {
         if (!subTasksList.isEmpty()) {
+            if (binding.subTasksLayout.getChildCount() > 2) {
+                binding.subTasksLayout.removeViews(2, binding.subTasksLayout.getChildCount() - 2);
+            }
+
             for (SubTask subTask : subTasksList) {
-                binding.subTasksLayout.addView(createSubTask(subTask));
+                CheckBox subTaskCheckBox = ComponentsUtil.createSubTaskCheckbox(this, subTask);
+                binding.subTasksLayout.addView(subTaskCheckBox);
             }
         } else {
             binding.noSubTasks.setVisibility(View.VISIBLE);
         }
-    }
-
-    private CheckBox createSubTask(SubTask subTask) {
-        CheckBox checkBox = new CheckBox(this);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-
-        int marginStart = Math.round(getResources().getDimension(R.dimen.checkbox_margin_start));
-        int marginBottom = Math.round(getResources().getDimension(R.dimen.checkbox_margin_bottom));
-        layoutParams.setMargins(marginStart, 0, 0, marginBottom);
-
-        checkBox.setLayoutParams(layoutParams);
-        checkBox.setId(subTask.getId());
-        checkBox.setText(subTask.getName());
-        checkBox.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-        checkBox.setTextColor(ContextCompat.getColor(this, R.color.gray_949494));
-        checkBox.setButtonTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorPrimaryDark)));
-        checkBox.setChecked(subTask.getDone() != null && (subTask.getDone().equals("true")));
-
-        return checkBox;
     }
 
     private int getCheckedSubTasks() {
@@ -194,27 +197,43 @@ public class TaskDetailsActivity extends BaseActivity {
     }
 
     private void setStatus() {
-        binding.status.setText(getString(TaskStatusEnum.valueOf(taskDetails.getStatus()).getNameResId()));
+        int iconResId = TaskStatusEnum.valueOf(taskDetails.getStatus()).getDrawableResId();
+        binding.statusIcon.setImageDrawable(ContextCompat.getDrawable(this, iconResId));
+        binding.status.setText(getString(TaskStatusEnum.valueOf(taskDetails.getStatus()).getTextResId()));
     }
 
     private void setListeners() {
+        setAddSubTaskClickListener();
         setTaskFloatingButtonListener();
+        setManageSubTasksClickListener();
         setCheckBoxesListener();
         setMarkAsListener();
         setDeleteTaskListener();
         setEditTaskListener();
     }
 
+    private void setAddSubTaskClickListener() {
+        binding.addIcon.setOnClickListener(v -> {
+            new NewSubTaskDialog(TaskDetailsActivity.this, taskDetails.getId()).showDialog();
+        });
+    }
+
     private void setTaskFloatingButtonListener() {
-        binding.tasksFloatingButton.setOnClickListener(v -> {
+        binding.floatingButton.setOnClickListener(v -> {
             if (binding.markAsLayout.getVisibility() == View.GONE
-                    &&binding.deleteLayout.getVisibility() == View.GONE
-                    && binding.addSubTasksLayout.getVisibility() == View.GONE
+                    && binding.deleteLayout.getVisibility() == View.GONE
                     && binding.editLayout.getVisibility() == View.GONE) {
                 showFloatingMenu();
             } else {
                 hideFloatingMenu();
             }
+        });
+    }
+
+    private void setManageSubTasksClickListener() {
+        binding.manageSubTasksLayout.setOnClickListener(v -> {
+            new TaskManageSubTasksDialog(TaskDetailsActivity.this, subTasksList).showDialog();
+            hideFloatingMenu();
         });
     }
 
@@ -229,18 +248,42 @@ public class TaskDetailsActivity extends BaseActivity {
                     if (compoundButton.isChecked()) {
                         setProgressAndText(binding.progressBar.getProgress() + 1);
                         DAOUtil.setSubTaskDone(this, "true", compoundButton.getId());
+                        markAsAfterCheck();
                     } else {
-                        setProgressAndText(binding.progressBar.getProgress() -1);
+                        setProgressAndText(binding.progressBar.getProgress() - 1);
                         DAOUtil.setSubTaskDone(this, "false", compoundButton.getId());
+                        markAsAfterUncheck();
                     }
                 });
             }
         }
     }
 
+    private void markAsAfterCheck() {
+        int progress = binding.progressBar.getProgress();
+        int max = binding.progressBar.getMax();
+
+        if (progress == max) {
+            taskDetails.setStatus(TaskStatusEnum.DONE.name());
+        } else {
+            taskDetails.setStatus(TaskStatusEnum.IN_PROGRESS.name());
+        }
+
+        DAOUtil.mergeTask(getApplicationContext(), taskDetails);
+        setStatus();
+        setMarkAsOption();
+    }
+
+    private void markAsAfterUncheck() {
+        taskDetails.setStatus(TaskStatusEnum.IN_PROGRESS.name());
+        DAOUtil.mergeTask(getApplicationContext(), taskDetails);
+        setStatus();
+        setMarkAsOption();
+    }
+
     private void setMarkAsListener() {
         binding.markAsLayout.setOnClickListener(v -> {
-            setTaskNewStatus();
+            setTaskStatus();
             DAOUtil.mergeTask(getApplicationContext(), taskDetails);
             setStatus();
             hideFloatingMenu();
@@ -248,7 +291,7 @@ public class TaskDetailsActivity extends BaseActivity {
         });
     }
 
-    private void setTaskNewStatus() {
+    private void setTaskStatus() {
         switch (TaskStatusEnum.valueOf(taskDetails.getStatus())) {
             case NEW:
             case IN_PROGRESS:
@@ -278,19 +321,21 @@ public class TaskDetailsActivity extends BaseActivity {
     }
 
     private void showFloatingMenu() {
+        binding.manageSubTasksLayout.setVisibility(!subTasksList.isEmpty() ? View.VISIBLE : View.GONE);
         binding.markAsLayout.setVisibility(View.VISIBLE);
         binding.deleteLayout.setVisibility(View.VISIBLE);
-        binding.addSubTasksLayout.setVisibility(View.VISIBLE);
         binding.editLayout.setVisibility(View.VISIBLE);
-        binding.backgroundFade.setVisibility(View.VISIBLE);
+        binding.floatingButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_clear));
+//        binding.backgroundFade.setVisibility(View.VISIBLE);
     }
 
     private void hideFloatingMenu() {
+        binding.manageSubTasksLayout.setVisibility(View.GONE);
         binding.markAsLayout.setVisibility(View.GONE);
         binding.deleteLayout.setVisibility(View.GONE);
-        binding.addSubTasksLayout.setVisibility(View.GONE);
         binding.editLayout.setVisibility(View.GONE);
-        binding.backgroundFade.setVisibility(View.GONE);
+        binding.floatingButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_menu));
+//        binding.backgroundFade.setVisibility(View.GONE);
     }
 
     @Override
