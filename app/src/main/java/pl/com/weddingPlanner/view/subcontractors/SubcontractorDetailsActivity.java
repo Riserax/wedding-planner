@@ -7,6 +7,7 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import org.apache.commons.lang3.StringUtils;
@@ -205,12 +206,14 @@ public class SubcontractorDetailsActivity extends BaseActivity {
         binding.deleteLayout.setVisibility(View.VISIBLE);
         binding.editLayout.setVisibility(View.VISIBLE);
         binding.backgroundFade.setVisibility(View.VISIBLE);
+        binding.floatingButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_clear));
     }
 
     private void hideFloatingMenu() {
         binding.deleteLayout.setVisibility(View.GONE);
         binding.editLayout.setVisibility(View.GONE);
         binding.backgroundFade.setVisibility(View.GONE);
+        binding.floatingButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_menu));
     }
 
     @Override

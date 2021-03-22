@@ -6,9 +6,6 @@ import androidx.databinding.DataBindingUtil;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.List;
-import java.util.StringJoiner;
-
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.DialogTaskNewSubtaskBinding;
 import pl.com.weddingPlanner.persistence.entity.SubTask;
@@ -44,30 +41,7 @@ public class NewSubTaskDialog extends CustomAlertDialog {
                     .build();
 
             DAOUtil.insertSubTask(activity, subTask);
-            updateTask(activity, taskId);
         }
-    }
-
-    private void updateTask(TaskDetailsActivity activity, int taskId) {
-        String updatedSubTasksIds = getUpdatedSubTasksIds(activity, taskId);
-        DAOUtil.updateTaskSubTasks(activity, updatedSubTasksIds, taskId);
-    }
-
-    private String getUpdatedSubTasksIds(TaskDetailsActivity activity, int taskId) {
-        String taskSubTasks = DAOUtil.getTaskById(activity, taskId).getSubTasks();
-        Integer lastSubTaskId = getLastSubTaskId(activity);
-
-        StringJoiner stringJoiner = new StringJoiner(",");
-        stringJoiner.add(taskSubTasks).add(String.valueOf(lastSubTaskId));
-
-        return stringJoiner.toString();
-    }
-
-    private Integer getLastSubTaskId(TaskDetailsActivity activity) {
-        List<SubTask> allSubTasks = DAOUtil.getAllSubTasks(activity);
-        allSubTasks.sort((subTask1, subTask2) -> subTask1.getId().compareTo(subTask2.getId()));
-
-        return allSubTasks.get(allSubTasks.size() - 1).getId();
     }
 
     @Override

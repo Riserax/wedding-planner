@@ -33,6 +33,7 @@
 
     <string name="dialog_add">Dodaj</string>
     <string name="dialog_back">Powrót</string>
+    <string name="dialog_delete">Usuń</string>
     <string name="dialog_pick">Wybierz</string>
     <string name="dialog_yes">Tak</string>
     <string name="dialog_no">Nie</string>
@@ -45,6 +46,7 @@
     <string name="dialog_task_add_sub_task_title">Nowe podzadanie</string>
     <string name="dialog_task_bookmarks_title">Wybierz etykiety</string>
     <string name="dialog_task_date_title">Wybierz datę</string>
+    <string name="dialog_task_manage_sub_tasks_title">Zaznacz podzadania do usunięcia</string>
     <string name="dialog_task_people_title">Wybierz osoby</string>
     <string name="dialog_task_time_title">Wybierz godzinę</string>
 
@@ -185,6 +187,7 @@
     <string name="tab_title_tasks_months">Miesiące</string>
 
     <string name="task_details_delete_question">Czy na pewno chcesz usunąć to zadanie?</string>
+    <string name="task_details_manage_sub_tasks">Zarządzaj podzadaniami</string>
     <string name="task_details_mark_done">Oznacz jako wykonane</string>
     <string name="task_details_mark_in_progress">Oznacz jako w toku</string>
     <string name="task_details_no_bookmarks">Brak etykiet</string>

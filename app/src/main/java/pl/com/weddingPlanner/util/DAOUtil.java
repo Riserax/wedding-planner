@@ -76,6 +76,12 @@ public class DAOUtil {
         subcontractorDAO.delete(subcontractor);
     }
 
+    public static void deleteSubTaskById(Context context, int subTaskId) {
+        AppDatabase appDatabase = getInstance(context);
+        SubTaskDAO subTaskDAO = appDatabase.subTaskDAO();
+        subTaskDAO.deleteById(subTaskId);
+    }
+
     public static List<Category> getAllCategoriesByType(Context context, String type) {
         AppDatabase appDatabase = getInstance(context);
         CategoryDAO categoryDAO = appDatabase.categoryDAO();
@@ -128,6 +134,12 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         SubTaskDAO subTaskDAO = appDatabase.subTaskDAO();
         return subTaskDAO.getAll();
+    }
+
+    public static List<SubTask> getAllSubTasksByTask(Context context, Integer taskId) {
+        AppDatabase appDatabase = getInstance(context);
+        SubTaskDAO subTaskDAO = appDatabase.subTaskDAO();
+        return subTaskDAO.getAllByTask(taskId);
     }
 
     public static SubTask getSubTaskById(Context context, int subTaskId) {
@@ -458,12 +470,6 @@ public class DAOUtil {
         AppDatabase appDatabase = getInstance(context);
         SubcontractorDAO subcontractorDAO = appDatabase.subcontractorDAO();
         subcontractorDAO.updateExpenseId(expenseId, subcontractorId);
-    }
-
-    public static void updateTaskSubTasks(Context context, String subTasksIds, Integer taskId) {
-        AppDatabase appDatabase = getInstance(context);
-        TaskDAO taskDAO = appDatabase.taskDAO();
-        taskDAO.updateSubTasks(subTasksIds, taskId);
     }
 
     public static void clearSubcontractorExpenseId(Context context, Integer subcontractorId) {

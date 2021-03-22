@@ -17,7 +17,6 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentTasksBinding;
 import pl.com.weddingPlanner.view.NavigationActivity;
-import pl.com.weddingPlanner.view.category.NewCategoryActivity;
 
 public class TasksFragment extends Fragment {
 
@@ -70,8 +69,9 @@ public class TasksFragment extends Fragment {
                     startActivity(intent);
                     break;
                 case 1:
-                    intent = new Intent(requireActivity(), NewCategoryActivity.class);
-                    startActivity(intent);
+                    //TODO
+//                    intent = new Intent(requireActivity(), NewCategoryActivity.class);
+//                    startActivity(intent);
             }
         });
     }

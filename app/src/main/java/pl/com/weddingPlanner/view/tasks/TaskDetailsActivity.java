@@ -1,12 +1,9 @@
 package pl.com.weddingPlanner.view.tasks;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
 
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -33,6 +30,8 @@ import pl.com.weddingPlanner.view.component.Assignees;
 import pl.com.weddingPlanner.view.component.Bookmarks;
 import pl.com.weddingPlanner.view.dialog.QuestionDialog;
 import pl.com.weddingPlanner.view.tasks.dialog.NewSubTaskDialog;
+import pl.com.weddingPlanner.view.tasks.dialog.TaskManageSubTasksDialog;
+import pl.com.weddingPlanner.view.util.ComponentsUtil;
 import pl.com.weddingPlanner.view.util.ResourceUtil;
 import pl.com.weddingPlanner.view.util.TasksUtil;
 
@@ -78,7 +77,7 @@ public class TaskDetailsActivity extends BaseActivity {
 
         bookmarksList = TasksUtil.getBookmarks(taskDetails, this);
         assigneesList = TasksUtil.getAssignees(taskDetails, this);
-        subTasksList = TasksUtil.getSubTasks(taskDetails, this);
+        subTasksList = DAOUtil.getAllSubTasksByTask(this, taskId);
     }
 
     private void setComponents() {
@@ -157,35 +156,16 @@ public class TaskDetailsActivity extends BaseActivity {
     private void setSubTasks() {
         if (!subTasksList.isEmpty()) {
             if (binding.subTasksLayout.getChildCount() > 2) {
-                binding.subTasksLayout.removeViews(2, subTasksList.size() - 1);
+                binding.subTasksLayout.removeViews(2, binding.subTasksLayout.getChildCount() - 2);
             }
 
             for (SubTask subTask : subTasksList) {
-                binding.subTasksLayout.addView(createSubTask(subTask));
+                CheckBox subTaskCheckBox = ComponentsUtil.createSubTaskCheckbox(this, subTask);
+                binding.subTasksLayout.addView(subTaskCheckBox);
             }
         } else {
             binding.noSubTasks.setVisibility(View.VISIBLE);
         }
-    }
-
-    private CheckBox createSubTask(SubTask subTask) {
-        CheckBox checkBox = new CheckBox(this);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-
-        int marginStart = Math.round(getResources().getDimension(R.dimen.checkbox_margin_start));
-        int marginBottom = Math.round(getResources().getDimension(R.dimen.checkbox_margin_bottom));
-        layoutParams.setMargins(marginStart, 0, 0, marginBottom);
-
-        checkBox.setLayoutParams(layoutParams);
-        checkBox.setId(subTask.getId());
-        checkBox.setText(subTask.getName());
-        checkBox.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-        checkBox.setTextColor(ContextCompat.getColor(this, R.color.gray_949494));
-        checkBox.setButtonTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorPrimaryDark)));
-        checkBox.setChecked(subTask.getDone() != null && (subTask.getDone().equals("true")));
-
-        return checkBox;
     }
 
     private int getCheckedSubTasks() {
@@ -225,6 +205,7 @@ public class TaskDetailsActivity extends BaseActivity {
     private void setListeners() {
         setAddSubTaskClickListener();
         setTaskFloatingButtonListener();
+        setManageSubTasksClickListener();
         setCheckBoxesListener();
         setMarkAsListener();
         setDeleteTaskListener();
@@ -246,6 +227,13 @@ public class TaskDetailsActivity extends BaseActivity {
             } else {
                 hideFloatingMenu();
             }
+        });
+    }
+
+    private void setManageSubTasksClickListener() {
+        binding.manageSubTasksLayout.setOnClickListener(v -> {
+            new TaskManageSubTasksDialog(TaskDetailsActivity.this, subTasksList).showDialog();
+            hideFloatingMenu();
         });
     }
 
@@ -333,16 +321,20 @@ public class TaskDetailsActivity extends BaseActivity {
     }
 
     private void showFloatingMenu() {
+        binding.manageSubTasksLayout.setVisibility(!subTasksList.isEmpty() ? View.VISIBLE : View.GONE);
         binding.markAsLayout.setVisibility(View.VISIBLE);
         binding.deleteLayout.setVisibility(View.VISIBLE);
         binding.editLayout.setVisibility(View.VISIBLE);
+        binding.floatingButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_clear));
 //        binding.backgroundFade.setVisibility(View.VISIBLE);
     }
 
     private void hideFloatingMenu() {
+        binding.manageSubTasksLayout.setVisibility(View.GONE);
         binding.markAsLayout.setVisibility(View.GONE);
         binding.deleteLayout.setVisibility(View.GONE);
         binding.editLayout.setVisibility(View.GONE);
+        binding.floatingButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_menu));
 //        binding.backgroundFade.setVisibility(View.GONE);
     }
 

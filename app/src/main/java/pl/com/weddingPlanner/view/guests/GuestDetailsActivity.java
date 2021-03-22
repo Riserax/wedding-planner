@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import org.apache.commons.lang3.StringUtils;
@@ -191,12 +192,14 @@ public class GuestDetailsActivity extends BaseActivity {
         binding.deleteLayout.setVisibility(View.VISIBLE);
         binding.editLayout.setVisibility(View.VISIBLE);
         binding.backgroundFade.setVisibility(View.VISIBLE);
+        binding.guestFloatingButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_clear));
     }
 
     private void hideFloatingMenu() {
         binding.deleteLayout.setVisibility(View.GONE);
         binding.editLayout.setVisibility(View.GONE);
         binding.backgroundFade.setVisibility(View.GONE);
+        binding.guestFloatingButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_menu));
     }
 
     @Override
