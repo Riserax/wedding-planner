@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class TasksMonthsAdapter extends FragmentStateAdapter {
 
-    private Map<Integer, String> months;
+    private final Map<Integer, String> months;
 
     public TasksMonthsAdapter(@NonNull FragmentActivity fragmentActivity, Map<Integer, String> months) {
         super(fragmentActivity);
