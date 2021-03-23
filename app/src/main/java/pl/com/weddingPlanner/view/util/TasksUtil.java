@@ -7,6 +7,8 @@ import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,7 +22,14 @@ import pl.com.weddingPlanner.model.PickedTime;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.Task;
+import pl.com.weddingPlanner.persistence.entity.Wedding;
 import pl.com.weddingPlanner.util.DAOUtil;
+import pl.com.weddingPlanner.util.DateUtil;
+
+import static java.util.Calendar.DECEMBER;
+import static java.util.Calendar.JANUARY;
+import static java.util.Calendar.MONTH;
+import static java.util.Calendar.YEAR;
 
 public class TasksUtil {
 
@@ -227,5 +236,96 @@ public class TasksUtil {
         }
 
         return assignees;
+    }
+
+    public static Map<Integer,String> getMonthsMap(Context context) {
+        Map<Integer, String> months = new LinkedHashMap<>();
+        int count = 0;
+
+        Wedding wedding = DAOUtil.getWeddingById(context, 1); //TODO rozpoznawać w którym weselu jesteśmy
+
+        Calendar weddingCreationDateCalendar = getCalendarFromStringDate(wedding.getCreationDate());
+        Calendar weddingDateCalendar = getCalendarFromStringDate(wedding.getDate());
+
+        while (!yearsAndMonthsEqual(weddingCreationDateCalendar, weddingDateCalendar)) {
+            String monthYear = getMonthYear(weddingCreationDateCalendar, context);
+            months.put(count++, monthYear);
+
+            if (!yearsEqual(weddingCreationDateCalendar, weddingDateCalendar)) {
+                proceedWhenYearsNotEqual(weddingCreationDateCalendar);
+            } else if (!monthsEqual(weddingCreationDateCalendar, weddingDateCalendar)) {
+                addMonth(weddingCreationDateCalendar);
+
+                if (monthsEqual(weddingCreationDateCalendar, weddingDateCalendar)) {
+                    monthYear = getMonthYear(weddingCreationDateCalendar, context);
+                    months.put(count++, monthYear);
+                }
+            }
+        }
+
+        return months;
+    }
+
+    private static Calendar getCalendarFromStringDate(String stringDate) {
+        Date date = DateUtil.convertStringToDate(stringDate);
+        return getCalendarFromDate(date);
+    }
+
+    private static Calendar getCalendarFromDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar;
+    }
+
+    private static boolean yearsAndMonthsEqual(Calendar calendar1, Calendar calendar2) {
+        return yearsEqual(calendar1, calendar2) && monthsEqual(calendar1, calendar2);
+    }
+
+    private static boolean yearsEqual(Calendar calendar1, Calendar calendar2) {
+        return calendar1.get(YEAR) == calendar2.get(YEAR);
+    }
+
+    private static boolean monthsEqual(Calendar calendar1, Calendar calendar2) {
+        return calendar1.get(MONTH) == calendar2.get(MONTH);
+    }
+
+    private static boolean monthEqualsDecember(Calendar calendar) {
+        return calendar.get(MONTH) == DECEMBER;
+    }
+
+    public static String getMonthYear(String stringDate, Context context) {
+        Calendar calendar = getCalendarFromStringDate(stringDate);
+        return DateUtil.getMonth(calendar, context) + " " + calendar.get(YEAR);
+    }
+
+    private static String getMonthYear(Calendar calendar, Context context) {
+        return DateUtil.getMonth(calendar, context) + " " + calendar.get(YEAR);
+    }
+
+    private static void proceedWhenYearsNotEqual(Calendar calendar) {
+        if (monthEqualsDecember(calendar)) {
+            calendar.add(YEAR, 1);
+            calendar.set(MONTH, JANUARY);
+        } else {
+            addMonth(calendar);
+        }
+    }
+
+    private static void addMonth(Calendar calendar) {
+        calendar.add(MONTH, 1);
+    }
+
+    public static int getCurrentMonthYearTab(Context context, Map<Integer, String> months) {
+        Calendar calendarNow = getCalendarFromDate(new Date());
+        String monthYearNow = getMonthYear(calendarNow, context);
+
+        int tabId = 0;
+        for (Map.Entry<Integer, String> month : months.entrySet()) {
+            if (monthYearNow.equals(month.getValue())) {
+                tabId = month.getKey();
+            }
+        }
+
+        return tabId;
     }
 }

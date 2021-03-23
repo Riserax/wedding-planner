@@ -23,18 +23,17 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentTasksMonthBinding;
+import pl.com.weddingPlanner.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.enums.LocationEnum;
 import pl.com.weddingPlanner.enums.TaskStatusEnum;
-import pl.com.weddingPlanner.view.component.Assignees;
-import pl.com.weddingPlanner.view.component.Bookmarks;
 import pl.com.weddingPlanner.model.info.TaskInfo;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
-import pl.com.weddingPlanner.util.DateUtil;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.view.component.Assignees;
+import pl.com.weddingPlanner.view.component.Bookmarks;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.HeaderItem;
 import pl.com.weddingPlanner.view.list.ListItem;
@@ -125,7 +124,7 @@ public class TasksMonthFragment extends Fragment {
 
         List<Task> tasksByMonth = new ArrayList<>();
         for (Task task : allTasks) {
-            if (month.equals(DateUtil.getDateMonth(task.getDate(), requireContext()))) {
+            if (month.equals(TasksUtil.getMonthYear(task.getDate(), requireContext()))) {
                 tasksByMonth.add(task);
             }
         }

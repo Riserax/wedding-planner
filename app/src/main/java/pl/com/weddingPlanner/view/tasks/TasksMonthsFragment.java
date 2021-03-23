@@ -13,11 +13,11 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentTasksMonthsBinding;
+import pl.com.weddingPlanner.view.util.TasksUtil;
 
 public class TasksMonthsFragment extends Fragment {
 
@@ -40,21 +40,7 @@ public class TasksMonthsFragment extends Fragment {
     }
 
     private void setMonths() {
-        Map<Integer, String> months = new LinkedHashMap<>();
-        months.put(0, getResources().getString(R.string.month_january));
-        months.put(1, getResources().getString(R.string.month_february));
-        months.put(2, getResources().getString(R.string.month_march));
-        months.put(3, getResources().getString(R.string.month_april));
-        months.put(4, getResources().getString(R.string.month_may));
-        months.put(5, getResources().getString(R.string.month_june));
-        months.put(6, getResources().getString(R.string.month_july));
-        months.put(7, getResources().getString(R.string.month_august));
-        months.put(8, getResources().getString(R.string.month_september));
-        months.put(9, getResources().getString(R.string.month_october));
-        months.put(10, getResources().getString(R.string.month_november));
-        months.put(11, getResources().getString(R.string.month_december));
-
-        this.months = months;
+        this.months = TasksUtil.getMonthsMap(getContext());
     }
 
     private void initComponents() {
@@ -70,5 +56,13 @@ public class TasksMonthsFragment extends Fragment {
     private void attachTabLayoutMediator() {
         new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> tab.setText(months.get(position))).attach();
+
+        int tabId = TasksUtil.getCurrentMonthYearTab(getContext(), months);
+        selectTab(tabId);
+    }
+
+    private void selectTab(int tabId) {
+        TabLayout.Tab tab = tabLayout.getTabAt(tabId);
+        tab.select();
     }
 }
