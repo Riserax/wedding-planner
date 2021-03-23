@@ -3,26 +3,39 @@ package pl.com.weddingPlanner.util;
 import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.Month;
-import org.threeten.bp.format.DateTimeFormatter;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import pl.com.weddingPlanner.R;
+
+import static java.util.Calendar.APRIL;
+import static java.util.Calendar.AUGUST;
+import static java.util.Calendar.DECEMBER;
+import static java.util.Calendar.FEBRUARY;
+import static java.util.Calendar.JANUARY;
+import static java.util.Calendar.JULY;
+import static java.util.Calendar.JUNE;
+import static java.util.Calendar.MARCH;
+import static java.util.Calendar.MAY;
+import static java.util.Calendar.MONTH;
+import static java.util.Calendar.NOVEMBER;
+import static java.util.Calendar.OCTOBER;
+import static java.util.Calendar.SEPTEMBER;
 
 public class DateUtil {
 
     public static String convertDateToString(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", new Locale("PL"));
         return dateFormat.format(date);
     }
 
     public static Date convertStringToDate(String dateString) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", new Locale("PL"));
 
         try {
             return dateFormat.parse(dateString);
@@ -33,11 +46,8 @@ public class DateUtil {
         return new Date();
     }
 
-    public static String getDateMonth(String date, Context context) {
-        LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.ISO_DATE);
-        Month month = localDate.getMonth();
-
-        switch (month) {
+    public static String getMonth(Calendar calendar, Context context) {
+        switch (calendar.get(MONTH)) {
             case JANUARY:
                 return context.getResources().getString(R.string.month_january);
             case FEBRUARY:
@@ -63,12 +73,12 @@ public class DateUtil {
             case DECEMBER:
                 return context.getResources().getString(R.string.month_december);
             default:
-                return month.toString();
+                return String.valueOf(calendar.get(MONTH));
         }
     }
 
     public static String getNewDateWithHourString() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm", new Locale("PL"));
         return formatter.format(new Date());
     }
 

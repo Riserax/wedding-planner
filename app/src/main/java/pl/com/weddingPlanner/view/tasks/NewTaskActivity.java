@@ -20,6 +20,7 @@ import lombok.Setter;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityNewTaskBinding;
 import pl.com.weddingPlanner.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.TaskStatusEnum;
 import pl.com.weddingPlanner.model.PickedDate;
 import pl.com.weddingPlanner.model.PickedTime;
 import pl.com.weddingPlanner.persistence.entity.Category;
@@ -60,6 +61,8 @@ public class NewTaskActivity extends BaseActivity {
     @Setter
     private PickedTime pickedTime;
 
+    private TaskStatusEnum taskStatus = TaskStatusEnum.NEW;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +73,7 @@ public class NewTaskActivity extends BaseActivity {
 
         prepareForEditing();
         setListeners();
-        setButtonEnability(binding.addSaveButton, false);
+        setButtonEnability(binding.addSaveButton, areFieldsValid());
     }
 
     private void getExtrasAndSetVariables() {
@@ -88,6 +91,7 @@ public class NewTaskActivity extends BaseActivity {
         if (taskId > 0) {
             taskDetails = DAOUtil.getTaskById(this, taskId);
             categoryDetails = DAOUtil.getCategoryByNameAndType(this, taskDetails.getCategory(), CategoryTypeEnum.TASKS.name());
+            taskStatus = TaskStatusEnum.valueOf(taskDetails.getStatus());
         }
     }
 
@@ -99,6 +103,8 @@ public class NewTaskActivity extends BaseActivity {
             fillBookmarks();
             fillAssignees();
             fillDescription();
+
+            TasksUtil.setSelectedTaskStatus(taskStatus, binding, this);
 
             binding.taskDate.setText(taskDetails.getDate());
 
@@ -166,6 +172,9 @@ public class NewTaskActivity extends BaseActivity {
         setCategoryOnClickListener();
         setBookmarksOnClickListener();
         setPeopleOnClickListener();
+        setTaskNewButtonListener();
+        setTaskInProgressButtonListener();
+        setTaskDoneButtonListener();
         setDateOnCLickListener();
         setTimeOnClickListener();
         initRootScrollViewListener();
@@ -219,6 +228,30 @@ public class NewTaskActivity extends BaseActivity {
                 clearFocusAndHideKeyboard();
                 new PeopleDialog(NewTaskActivity.this, selectedPeopleKeys).showDialog();
             }
+        });
+    }
+
+    private void setTaskNewButtonListener() {
+        binding.newButton.setOnClickListener(v -> {
+            clearFocusAndHideKeyboard();
+            TasksUtil.setTaskNewButtonsSelection(binding, getApplicationContext());
+            taskStatus = TaskStatusEnum.NEW;
+        });
+    }
+
+    private void setTaskInProgressButtonListener() {
+        binding.inProgressButton.setOnClickListener(v -> {
+            clearFocusAndHideKeyboard();
+            TasksUtil.setTaskInProgressButtonsSelection(binding, getApplicationContext());
+            taskStatus = TaskStatusEnum.IN_PROGRESS;
+        });
+    }
+
+    private void setTaskDoneButtonListener() {
+        binding.doneButton.setOnClickListener(v -> {
+            clearFocusAndHideKeyboard();
+            TasksUtil.setTaskDoneButtonsSelection(binding, getApplicationContext());
+            taskStatus = TaskStatusEnum.DONE;
         });
     }
 
@@ -278,12 +311,11 @@ public class NewTaskActivity extends BaseActivity {
                 Task newTask = getNewTaskData();
 
                 if (!newTask.getTitle().isEmpty() && !newTask.getDate().isEmpty()) {
-                    DAOUtil.insertTask(getApplicationContext(), newTask);
-
-                    Intent intent = new Intent(NewTaskActivity.this, NavigationActivity.class);
-                    intent.putExtra(FRAGMENT_TO_LOAD_ID, R.id.navigation_tasks);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+                    if (taskDetails != null && taskId > 0) {
+                        proceedWhenEditingTask(newTask);
+                    } else {
+                        proceedWhenNewTask(newTask);
+                    }
                 } else {
                     Toast toast;
                     if (newTask.getTitle().isEmpty()) {
@@ -302,11 +334,13 @@ public class NewTaskActivity extends BaseActivity {
         String category = binding.categoryName.getText().toString();
         String bookmarks = binding.bookmarksName.getText().toString();
         String assignees = binding.peopleName.getText().toString();
+        String date = binding.taskDate.getText().toString();
         String time = binding.taskTime.getText().toString();
 
         boolean isCategoryChosen = !category.equals(getResources().getString(R.string.field_category));
         boolean areBookmarksSet = !bookmarks.equals(getResources().getString(R.string.task_field_bookmarks));
         boolean areAssigneesSet = !assignees.equals(getResources().getString(R.string.task_field_people));
+        boolean isDateSet = !date.equals(getResources().getString(R.string.task_field_date));
         boolean isTimeSet = !time.equals(getResources().getString(R.string.task_field_time));
 
         String bookmarksIdsString = areBookmarksSet ? TasksUtil.getBookmarksIds(bookmarks, this) : StringUtils.EMPTY;
@@ -318,9 +352,30 @@ public class NewTaskActivity extends BaseActivity {
                 .description(binding.taskDescriptionName.getText().toString())
                 .bookmarks(bookmarksIdsString)
                 .assignees(assigneesIdsString)
-                .date(binding.taskDate.getText().toString())
+                .status(taskStatus.name())
+                .date(isDateSet ? date : StringUtils.EMPTY)
                 .time(isTimeSet ? time : StringUtils.EMPTY)
                 .build();
+    }
+
+    private void proceedWhenEditingTask(Task newTask) {
+        newTask.setId(taskId);
+
+        DAOUtil.mergeTask(getApplicationContext(), newTask);
+
+        Intent intent = new Intent(NewTaskActivity.this, NavigationActivity.class);
+        intent.putExtra(FRAGMENT_TO_LOAD_ID, R.id.navigation_tasks);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    private void proceedWhenNewTask(Task newTask) {
+        DAOUtil.insertTask(getApplicationContext(), newTask);
+
+        Intent intent = new Intent(NewTaskActivity.this, NavigationActivity.class);
+        intent.putExtra(FRAGMENT_TO_LOAD_ID, R.id.navigation_tasks);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     @Override

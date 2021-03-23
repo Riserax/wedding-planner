@@ -55,4 +55,6 @@
     <color name="white_FFFFFF_60">#99FFFFFF</color>
 
     <color name="yellow_F99F1F">#F99F1F</color>
+
+    <color name="transparent">#00FFFFFF</color>
 </resources>

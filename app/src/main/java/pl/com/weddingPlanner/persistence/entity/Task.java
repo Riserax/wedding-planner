@@ -33,8 +33,7 @@ public class Task implements Serializable {
     private String description;
     private String bookmarks;
     private String assignees;
+    private String status;
     private String date;
     private String time;
-    private String subTasks;
-    private String status;
 }

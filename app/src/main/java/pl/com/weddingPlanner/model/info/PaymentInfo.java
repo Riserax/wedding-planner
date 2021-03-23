@@ -1,12 +1,14 @@
 package pl.com.weddingPlanner.model.info;
 
+import android.widget.LinearLayout;
+
 import java.io.Serializable;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.com.weddingPlanner.enums.StateEnum;
+import pl.com.weddingPlanner.enums.PaymentStateEnum;
 
 @Data
 @Builder
@@ -16,8 +18,8 @@ public class PaymentInfo implements Serializable {
 
     private int itemId;
     private String title;
-    private StateEnum state;
+    private PaymentStateEnum state;
     private String amount;
-    private String payer;
     private String date;
+    private LinearLayout payerLayout;
 }

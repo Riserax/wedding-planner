@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -20,8 +21,10 @@ import java.util.List;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentExpenseDetailsBinding;
 import pl.com.weddingPlanner.enums.CategoryTypeEnum;
-import pl.com.weddingPlanner.enums.StateEnum;
-import pl.com.weddingPlanner.model.Assignees;
+import pl.com.weddingPlanner.enums.LocationEnum;
+import pl.com.weddingPlanner.enums.PaymentStateEnum;
+import pl.com.weddingPlanner.persistence.entity.Subcontractor;
+import pl.com.weddingPlanner.view.component.Assignees;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
 import pl.com.weddingPlanner.persistence.entity.Payment;
@@ -29,7 +32,9 @@ import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.dialog.QuestionDialog;
+import pl.com.weddingPlanner.view.subcontractors.SubcontractorDetailsActivity;
 import pl.com.weddingPlanner.view.util.FormatUtil;
+import pl.com.weddingPlanner.view.util.LinksUtil;
 import pl.com.weddingPlanner.view.util.PersonUtil;
 import pl.com.weddingPlanner.view.util.ResourceUtil;
 
@@ -38,6 +43,7 @@ import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA
 import static pl.com.weddingPlanner.view.dialog.QuestionDialog.CLASS_EXTRA;
 import static pl.com.weddingPlanner.view.util.ComponentsUtil.getIcon;
 import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
+import static pl.com.weddingPlanner.view.util.ExtraUtil.SUBCONTRACTOR_ID_EXTRA;
 import static pl.com.weddingPlanner.view.util.ResourceUtil.AMOUNT_ZERO;
 
 public class ExpenseDetailsFragment extends Fragment {
@@ -83,9 +89,9 @@ public class ExpenseDetailsFragment extends Fragment {
         List<Payment> allPayments = DAOUtil.getAllPaymentsByExpenseId(getContext(), expenseId);
 
         for (Payment payment : allPayments) {
-            if (StateEnum.PENDING == StateEnum.valueOf(payment.getState())) {
+            if (PaymentStateEnum.PENDING == PaymentStateEnum.valueOf(payment.getState())) {
                 awaitingPaymentsSum += Double.parseDouble(payment.getAmount());
-            } else if (StateEnum.PAID == StateEnum.valueOf(payment.getState())) {
+            } else if (PaymentStateEnum.PAID == PaymentStateEnum.valueOf(payment.getState())) {
                 paidPaymentsSum += Double.parseDouble(payment.getAmount());
             }
         }
@@ -102,7 +108,8 @@ public class ExpenseDetailsFragment extends Fragment {
 
         setRecipient();
         setForWhat();
-        setProgressBarAndText(paidPaymentsSum);
+        setConnectedSubcontractor();
+        setProgressBarAndText();
         setInitialAmount();
         setRealExpenses();
         setAwaitingPayments();
@@ -126,18 +133,27 @@ public class ExpenseDetailsFragment extends Fragment {
         }
     }
 
-    private void setProgressBarAndText(double realExpensesSum) {
+    private void setConnectedSubcontractor() {
+        if (expenseDetails.getSubcontractorId() > 0) {
+            Subcontractor subcontractor = DAOUtil.getSubcontractorById(getContext(), expenseDetails.getSubcontractorId());
+            LinksUtil.makeLinkAlike(binding.connectedSubcontractor, getContext(), subcontractor.getName());
+        } else {
+            binding.connectedSubcontractorLayout.setVisibility(View.GONE);
+        }
+    }
+
+    private void setProgressBarAndText() {
         double initialAmount = Double.parseDouble(expenseDetails.getInitialAmount());
         int percentage;
 
         if (initialAmount == 0) {
-            if (realExpensesSum > 0) {
+            if (paidPaymentsSum > 0) {
                 percentage = 100;
             } else {
                 percentage = 0;
             }
         } else {
-            percentage = (int) (realExpensesSum / initialAmount * 100);
+            percentage = (int) (paidPaymentsSum / initialAmount * 100);
         }
 
         String progress = percentage + "%";
@@ -164,7 +180,7 @@ public class ExpenseDetailsFragment extends Fragment {
 
     private void setPayers() {
         if (StringUtils.isNotBlank(expenseDetails.getPayers())) {
-            Assignees assignees = new Assignees(getContext(), payersList);
+            Assignees assignees = new Assignees(getContext(), payersList, LocationEnum.DETAILS);
             binding.payersLayout.addView(assignees.getAssigneesContainer());
         } else {
             binding.noPayers.setVisibility(View.VISIBLE);
@@ -177,9 +193,18 @@ public class ExpenseDetailsFragment extends Fragment {
     }
 
     private void setListeners() {
+        setConnectedSubcontractorOnClickListener();
         setExpenseFloatingButtonListener();
         setDeleteExpenseListener();
         setEditExpenseListener();
+    }
+
+    private void setConnectedSubcontractorOnClickListener() {
+        binding.connectedSubcontractor.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), SubcontractorDetailsActivity.class);
+            intent.putExtra(SUBCONTRACTOR_ID_EXTRA, expenseDetails.getSubcontractorId());
+            startActivity(intent);
+        });
     }
 
     private void setExpenseFloatingButtonListener() {
@@ -217,18 +242,21 @@ public class ExpenseDetailsFragment extends Fragment {
         binding.deleteLayout.setVisibility(View.VISIBLE);
         binding.editLayout.setVisibility(View.VISIBLE);
         binding.backgroundFade.setVisibility(View.VISIBLE);
+        binding.expenseFloatingButton.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_clear));
     }
 
     private void hideFloatingMenu() {
         binding.deleteLayout.setVisibility(View.GONE);
         binding.editLayout.setVisibility(View.GONE);
         binding.backgroundFade.setVisibility(View.GONE);
+        binding.expenseFloatingButton.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_menu));
     }
 
     public Intent getDeleteIntent() {
         Intent intent = new Intent(getContext(), NavigationActivity.class);
         intent.putExtra(FRAGMENT_TO_LOAD_ID, R.id.navigation_budget);
         intent.putExtra(EXPENSE_ID_EXTRA, expenseId);
+        intent.putExtra(SUBCONTRACTOR_ID_EXTRA, expenseDetails.getSubcontractorId());
         intent.putExtra(CLASS_EXTRA, ExpenseDetailsFragment.class.toString());
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         return intent;

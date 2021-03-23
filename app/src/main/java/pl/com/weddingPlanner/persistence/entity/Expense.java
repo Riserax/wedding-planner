@@ -36,6 +36,7 @@ public class Expense implements Serializable {
     private String recipient;
     private String forWhat;
     private String payers;
+    private Integer subcontractorId;
     private String subExpenses;
     @NonNull
     private String editDate;

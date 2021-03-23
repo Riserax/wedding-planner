@@ -47,18 +47,14 @@ public class BaseActivity extends AppCompatActivity {
     public void setActivityToolbarContentWithBackIcon(@StringRes int resourceId) {
         initToolbar();
         ImageButton backIcon = setComponentsAndReturnBackIcon(resourceId);
-        backIcon.setOnClickListener(view -> {
-            finish();
-        });
+        backIcon.setOnClickListener(view -> finish());
     }
 
     // finishes Activity (back to previous fragment/activity)
     public void setActivityToolbarContentWithBackIcon(String headerTitle) {
         initToolbar();
         ImageButton backIcon = setComponentsAndReturnBackIcon(headerTitle);
-        backIcon.setOnClickListener(view -> {
-            finish();
-        });
+        backIcon.setOnClickListener(view -> finish());
     }
 
     // back from Activity to chosen Fragment
@@ -176,6 +172,10 @@ public class BaseActivity extends AppCompatActivity {
             case R.id.table_name:
                 TextView tableTitle = findViewById(R.id.table_title);
                 tableTitle.setVisibility(visible ? View.VISIBLE : View.GONE);
+                break;
+            case R.id.connected_subcontractor_name:
+                TextView connectedSubcontractorTitle = findViewById(R.id.connected_subcontractor_title);
+                connectedSubcontractorTitle.setVisibility(visible ? View.VISIBLE : View.GONE);
                 break;
         }
     }

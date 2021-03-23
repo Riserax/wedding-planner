@@ -45,8 +45,8 @@
 
                     <ImageButton
                         android:id="@+id/expense_name_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_edit"
@@ -85,8 +85,8 @@
 
                     <ImageButton
                         android:id="@+id/category_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_dashboard"
@@ -130,8 +130,8 @@
 
                     <ImageButton
                         android:id="@+id/category_arrow_right"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_arrow_right_keyboard"
@@ -153,8 +153,8 @@
 
                     <ImageButton
                         android:id="@+id/initial_amount_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_dollar"
@@ -196,8 +196,8 @@
 
                     <ImageButton
                         android:id="@+id/recipient_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_person"
@@ -237,8 +237,8 @@
 
                     <ImageButton
                         android:id="@+id/for_what_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_list_alt"
@@ -277,8 +277,8 @@
 
                     <ImageButton
                         android:id="@+id/people_icon"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_people"
@@ -324,12 +324,80 @@
 
                     <ImageButton
                         android:id="@+id/people_arrow_right"
-                        android:layout_width="@dimen/image_button_size_24"
-                        android:layout_height="@dimen/image_button_size_24"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
                         android:background="@color/gray_FDFDFD"
                         android:tint="@color/gray_949494"
                         app:srcCompat="@drawable/ic_arrow_right_keyboard"
                         app:layout_constraintStart_toEndOf="@id/people_name_layout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/connected_subcontractor_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/field_height"
+                    android:layout_marginBottom="@dimen/field_margin"
+                    android:paddingStart="@dimen/field_padding_start"
+                    android:paddingEnd="@dimen/field_padding_end"
+                    android:background="@drawable/bg_fields">
+
+                    <ImageButton
+                        android:id="@+id/connected_subcontractor_icon"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_engineering"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/connected_subcontractor_name_layout"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/connected_subcontractor_name_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toEndOf="@id/connected_subcontractor_icon"
+                        app:layout_constraintEnd_toStartOf="@id/connected_subcontractor_arrow_right"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" >
+
+                        <TextView
+                            android:id="@+id/connected_subcontractor_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="@dimen/text_view_padding"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/header_title_subcontractor"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size_small"
+                            android:visibility="gone"/>
+
+                        <TextView
+                            android:id="@+id/connected_subcontractor_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="@dimen/text_view_padding"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/header_title_subcontractor"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"/>
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/connected_subcontractor_arrow_right"
+                        android:layout_width="@dimen/image_button_size_20"
+                        android:layout_height="@dimen/image_button_size_20"
+                        android:background="@color/gray_FDFDFD"
+                        android:tint="@color/gray_949494"
+                        app:srcCompat="@drawable/ic_arrow_right_keyboard"
+                        app:layout_constraintStart_toEndOf="@id/connected_subcontractor_name_layout"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>

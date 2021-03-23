@@ -850,7 +850,7 @@
                                         android:clickable="true"
                                         android:focusable="true"
                                         android:tint="@color/gray_949494"
-                                        app:srcCompat="@drawable/ic_dollar_small"/>
+                                        app:srcCompat="@drawable/ic_dollar_midium"/>
 
                                     <TextView
                                         android:id="@+id/collaboration_paid"

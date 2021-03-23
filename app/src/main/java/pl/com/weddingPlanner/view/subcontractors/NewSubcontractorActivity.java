@@ -20,8 +20,10 @@ import pl.com.weddingPlanner.databinding.ActivityNewSubcontractorBinding;
 import pl.com.weddingPlanner.enums.CategoryTypeEnum;
 import pl.com.weddingPlanner.enums.CollaborationStageEnum;
 import pl.com.weddingPlanner.persistence.entity.Category;
+import pl.com.weddingPlanner.persistence.entity.Expense;
 import pl.com.weddingPlanner.persistence.entity.Subcontractor;
 import pl.com.weddingPlanner.util.DAOUtil;
+import pl.com.weddingPlanner.util.DateUtil;
 import pl.com.weddingPlanner.util.DebouncedOnClickListener;
 import pl.com.weddingPlanner.validator.AmountValidator;
 import pl.com.weddingPlanner.validator.ValidationUtil;
@@ -30,12 +32,14 @@ import pl.com.weddingPlanner.view.dialog.SingleSelectionListDialog;
 import pl.com.weddingPlanner.view.util.ButtonsUtil;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
 import pl.com.weddingPlanner.view.util.FormatUtil;
+import pl.com.weddingPlanner.view.util.LinksUtil;
 import pl.com.weddingPlanner.view.util.SubcontractorUtil;
 
 import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
 import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
 import static pl.com.weddingPlanner.view.util.ExtraUtil.SUBCONTRACTOR_ID_EXTRA;
 import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
+import static pl.com.weddingPlanner.view.util.ResourceUtil.AMOUNT_ZERO;
 import static pl.com.weddingPlanner.view.util.ResourceUtil.CATEGORY_OTHER;
 
 public class NewSubcontractorActivity extends BaseActivity {
@@ -112,6 +116,10 @@ public class NewSubcontractorActivity extends BaseActivity {
 
             if (StringUtils.isNotBlank(subcontractor.getNotes())) {
                 binding.notes.setText(subcontractor.getNotes());
+            }
+
+            if (subcontractorId > 0) {
+                binding.infoLayout.setVisibility(View.GONE);
             }
 
             binding.addSaveButton.setText(getResources().getString(R.string.button_save));
@@ -289,16 +297,15 @@ public class NewSubcontractorActivity extends BaseActivity {
         String category = binding.categoryName.getText().toString();
 
         boolean isCategoryChosen = !category.equals(getResources().getString(R.string.field_category));
-        boolean isCollaborationStageChosen = !CollaborationStageEnum.NONE.equals(collaborationStage);
 
         return Subcontractor.builder()
                 .name(binding.name.getText().toString())
                 .category(isCategoryChosen ? category : CATEGORY_OTHER)
                 .email(binding.email.getText().toString())
                 .phone(binding.phone.getText().toString())
-                .website(SubcontractorUtil.getWebsiteLink(binding.website))
+                .website(LinksUtil.getWebsiteLink(binding.website))
                 .address(binding.address.getText().toString())
-                .collaborationStage(isCollaborationStageChosen ? collaborationStage.name() : StringUtils.EMPTY)
+                .collaborationStage(collaborationStage.name())
                 .cost(binding.cost.getText().toString())
                 .notes(binding.notes.getText().toString())
                 .build();
@@ -325,6 +332,7 @@ public class NewSubcontractorActivity extends BaseActivity {
         if (!isNameUnique(newSubcontractor.getName())) {
             Toast.makeText(this, "Istnieje już podwykonawca o podanej nazwie", Toast.LENGTH_LONG).show();
         } else {
+            insertExpense(newSubcontractor);
             insertSubcontractorAndStartActivity(newSubcontractor);
         }
     }
@@ -334,12 +342,41 @@ public class NewSubcontractorActivity extends BaseActivity {
         return subcontractor == null;
     }
 
+    private void insertExpense(Subcontractor newSubcontractor) {
+        Expense newExpense = Expense.builder()
+                .title(newSubcontractor.getName())
+                .initialAmount(StringUtils.isNotBlank(newSubcontractor.getCost()) ? newSubcontractor.getCost() : AMOUNT_ZERO)
+                .category(newSubcontractor.getCategory())
+                .recipient(newSubcontractor.getName())
+                .editDate(DateUtil.getNewDateWithHourString())
+                .build();
+
+        DAOUtil.insertExpense(this, newExpense);
+    }
+
     private void insertSubcontractorAndStartActivity(Subcontractor newSubcontractor) {
+        newSubcontractor.setExpenseId(getLastExpenseId());
+
         DAOUtil.insertSubcontractor(getApplicationContext(), newSubcontractor);
+        DAOUtil.updateExpenseSubcontractorId(this, getLastSubcontractorId(), getLastExpenseId());
 
         Intent intent = new Intent(NewSubcontractorActivity.this, SubcontractorsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    private Integer getLastSubcontractorId() {
+        List<Subcontractor> allSubcontractors = DAOUtil.getAllSubcontractors(getApplicationContext());
+        allSubcontractors.sort((subcontractor1, subcontractor2) -> subcontractor1.getId().compareTo(subcontractor2.getId()));
+
+        return allSubcontractors.get(allSubcontractors.size() - 1).getId();
+    }
+
+    private Integer getLastExpenseId() {
+        List<Expense> allExpenses = DAOUtil.getAllExpenses(getApplicationContext());
+        allExpenses.sort((expense1, expense2) -> expense1.getId().compareTo(expense2.getId()));
+
+        return allExpenses.get(allExpenses.size() - 1).getId();
     }
 
     @Override

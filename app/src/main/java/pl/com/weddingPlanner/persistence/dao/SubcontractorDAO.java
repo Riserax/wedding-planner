@@ -19,6 +19,9 @@ public interface SubcontractorDAO {
     @Query("SELECT * FROM subcontractor WHERE category = :category")
     List<Subcontractor> getAllByCategory(String category);
 
+    @Query("SELECT * FROM subcontractor WHERE expenseId = 0")
+    List<Subcontractor> getAllNotConnected();
+
     @Query("SELECT * FROM subcontractor WHERE id = :id")
     Subcontractor getById(Integer id);
 
@@ -36,6 +39,12 @@ public interface SubcontractorDAO {
 
     @Update
     void merge(Subcontractor subcontractor);
+
+    @Query("UPDATE subcontractor SET expenseId = :expenseId WHERE id = :subcontractorId")
+    void updateExpenseId(Integer expenseId, Integer subcontractorId);
+
+    @Query("UPDATE subcontractor SET expenseId = 0 WHERE id = :subcontractorId")
+    void clearExpenseId(Integer subcontractorId);
 
     @Query("SELECT COUNT(*) FROM subcontractor")
     int count();

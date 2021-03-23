@@ -12,5 +12,5 @@ public enum GuestTypeEnum {
     ACCOMPANY(R.string.guest_field_accompany),
     ;
 
-    private int nameResId;
+    private final int nameResId;
 }

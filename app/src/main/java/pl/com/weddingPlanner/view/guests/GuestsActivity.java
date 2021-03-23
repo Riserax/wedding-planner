@@ -66,6 +66,7 @@ public class GuestsActivity extends BaseActivity {
                     startActivity(intent);
                     break;
                 case 1:
+                    //TODO
 //                    intent = new Intent(this, NewTableActivity.class);
 //                    startActivity(intent);
             }

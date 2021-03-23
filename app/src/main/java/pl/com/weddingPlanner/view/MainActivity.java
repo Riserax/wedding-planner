@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.enums.CategoryTypeEnum;
-import pl.com.weddingPlanner.enums.StateEnum;
+import pl.com.weddingPlanner.enums.PaymentStateEnum;
 import pl.com.weddingPlanner.persistence.entity.AgeRange;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
@@ -72,12 +72,13 @@ public class MainActivity extends AppCompatActivity {
         Wedding wedding = Wedding.builder()
                 .id(1)
                 .name("Cały Ten Ślub")
-                .date("26.08.2023")
+                .date("2023-08-26")
                 .time("13:00:00")
                 .ceremonyVenue("Kościółek w starym stylu, gdzieś niedaleko sali")
                 .banquetVenue("Sala Zielone Wzgórze")
                 .people("1,2")
                 .initialTotalAmount("40000.00")
+                .creationDate("2020-09-14")
                 .build();
 
         DAOUtil.insertWedding(this, wedding);
@@ -353,15 +354,16 @@ public class MainActivity extends AppCompatActivity {
                 .description("Wielolinijkowy opis zadania, który może mieć maksymalnie 250 znaków, ale ten tyle nie ma, więc muszę go troszkę przeciągnąć, lejąc wodę o niczym")
                 .bookmarks("1,2,3,4")
                 .assignees("1,2,3")
+                .status("NEW")
                 .date("2021-01-23")
                 .time("16:30")
-                .subTasks("1,2")
                 .build();
 
         Task taskNotFilled = Task.builder()
                 .id(2)
                 .title("Nieuzupełnione zadanie")
                 .category(CATEGORY_OTHER)
+                .status("DONE")
                 .date("2021-01-31")
                 .build();
 
@@ -392,6 +394,7 @@ public class MainActivity extends AppCompatActivity {
                 .recipient("Sala weselna \"Zielone wzgórze\"")
                 .forWhat("Sala weselna, goście")
                 .payers("1,2")
+                .subcontractorId(1)
                 .subExpenses("1,2,3")
                 .editDate("2021-01-03 21:40")
                 .build();
@@ -400,6 +403,7 @@ public class MainActivity extends AppCompatActivity {
                 .title("Niewypełniony wydatek")
                 .initialAmount("0.00")
                 .category(CATEGORY_OTHER)
+                .subcontractorId(0)
                 .editDate("2020-12-30 16:16")
                 .build();
 
@@ -414,7 +418,7 @@ public class MainActivity extends AppCompatActivity {
                 .date("2021-01-31")
                 .amount("2000.00")
                 .payer("1")
-                .state(StateEnum.PAID.name())
+                .state(PaymentStateEnum.PAID.name())
                 .info("2000 zł")
                 .build();
 
@@ -424,7 +428,7 @@ public class MainActivity extends AppCompatActivity {
                 .date("2023-03-31")
                 .amount("12500.00")
                 .payer("2")
-                .state(StateEnum.PENDING.name())
+                .state(PaymentStateEnum.PENDING.name())
                 .info("Połowa całości (minus zaliczka)")
                 .build();
 
@@ -537,7 +541,8 @@ public class MainActivity extends AppCompatActivity {
                 .website("<a href=\"https://salazielonewzgorze.pl\">https://salazielonewzgorze.pl</a>")
                 .address("Zielona 43, Koniusza, Kraków")
                 .collaborationStage("CONFIRMED")
-                .cost("20000.00")
+                .expenseId(1)
+                .cost("25000.00")
                 .notes("Zapłacona zaliczka")
                 .build();
 
@@ -548,6 +553,7 @@ public class MainActivity extends AppCompatActivity {
                 .phone("604 052 252")
                 .website("<a href=\"http://www.mateuszgumula.pl\">http://www.mateuszgumula.pl</a>")
                 .collaborationStage("CONFIRMED")
+                .expenseId(0)
                 .cost("3000.00")
                 .build();
 

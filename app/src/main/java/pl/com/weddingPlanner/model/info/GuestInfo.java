@@ -1,5 +1,7 @@
 package pl.com.weddingPlanner.model.info;
 
+import android.widget.LinearLayout;
+
 import java.io.Serializable;
 
 import lombok.AllArgsConstructor;
@@ -20,4 +22,5 @@ public class GuestInfo implements Serializable {
     private String nameSurname;
     private int tableNumber;
     private PresenceEnum presence;
+    private LinearLayout tablePresenceLayout;
 }

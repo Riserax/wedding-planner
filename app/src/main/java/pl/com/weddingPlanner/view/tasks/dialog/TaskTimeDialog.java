@@ -12,7 +12,7 @@ import pl.com.weddingPlanner.view.tasks.NewTaskActivity;
 
 public class TaskTimeDialog extends CustomAlertDialog {
 
-    private DialogTaskTimeBinding binding;
+    private final DialogTaskTimeBinding binding;
 
     public TaskTimeDialog(NewTaskActivity activity, PickedTime pickedTime) {
         super(activity, R.layout.dialog_task_time);

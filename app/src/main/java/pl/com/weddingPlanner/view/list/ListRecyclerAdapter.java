@@ -1,6 +1,7 @@
 package pl.com.weddingPlanner.view.list;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import java.util.List;
 
 import lombok.Getter;
 import pl.com.weddingPlanner.R;
+import pl.com.weddingPlanner.enums.ContentItemState;
 
 public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 //        implements SwipeAndDragHelper.ActionCompletionContract
@@ -101,47 +103,61 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         } else if (holder instanceof VHItem) {
             ContentItem currentItem = (ContentItem) items.get(holder.getAdapterPosition());
             VHItem VHitem = (VHItem) holder;
-//            if (currentItem.isDisabled()) {
-//                int colorGray = ContextCompat.getColor(context, R.color.gray_B4B4B4);
-//                VHitem.disableClick();
-//                VHitem.caption.setText(currentItem.getMainCaption());
-//                VHitem.caption.setTextColor(colorGray);
-////                VHitem.amountCaption.setText(currentItem.getSubCaption());
-////                VHitem.amountCaption.setTextColor(colorGray);
-//                VHitem.leftIcon.setImageDrawable(getIcon(currentItem));
-//                VHitem.leftIcon.setColorFilter(colorGray, PorterDuff.Mode.SRC_IN);
-////                if (isIconEnabled()) {
-////                    VHitem.rightIcon.setVisibility(View.VISIBLE);
-////                    VHitem.rightIcon.setImageDrawable(ContextCompat.getDrawable(context, iconDrawable));
-////                    VHitem.rightIcon.setColorFilter(colorGray, PorterDuff.Mode.SRC_IN);
-////                }
-//            } else {
-                VHitem.bind(currentItem, itemClickListener);
-                VHitem.caption.setText(currentItem.getMainCaption());
-                VHitem.caption.setTextColor(getColor(currentItem.getMainCaptionColor()));
-                if (StringUtils.isNotBlank(currentItem.getSubCaption())) {
-                    VHitem.amountCaption.setVisibility(View.VISIBLE);
-                    VHitem.amountCaption.setText(currentItem.getSubCaption());
-                    VHitem.amountCaption.setTextColor(getColor(currentItem.getSubCaptionColor()));
-                }
-                VHitem.leftIcon.setImageDrawable(getIcon(currentItem));
-                if (StringUtils.isNotBlank(currentItem.getRightIconCaption())) {
-                    VHitem.rightIconLayout.setVisibility(View.VISIBLE);
-                    VHitem.rightIconCaption.setText(currentItem.getRightIconCaption());
-                }
-//                if (isIconEnabled()) {
-//                    VHitem.rightIcon.setImageDrawable(ContextCompat.getDrawable(context, iconDrawable));
-//                    VHitem.rightIcon.setColorFilter(ContextCompat.getColor(context, R.color.purple_500), PorterDuff.Mode.SRC_IN);
-//                    ButtonHitArea.increaseHitArea(VHitem.itemView, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, context.getResources().getDisplayMetrics()), VHitem.rightIcon);
-//                    VHitem.bindRightIcon(currentItem, rightIconClickListener);
-//                    VHitem.rightIcon.setVisibility(iconVisibility);
-//                }
-//            }
+            VHitem.bind(currentItem, itemClickListener);
+
+            VHitem.leftIcon.setImageDrawable(getIcon(currentItem));
+
+            setTopLayout(currentItem, VHitem);
+
+            VHitem.caption.setText(currentItem.getMainCaption());
+            VHitem.caption.setTextColor(getColor(currentItem.getMainCaptionColor()));
+
+            setCaptionPaintFlags(currentItem, VHitem);
+            setAmountCaption(currentItem, VHitem);
+            setRightLayout(currentItem, VHitem);
+        }
+    }
+
+    private void setTopLayout(ContentItem currentItem, VHItem VHitem) {
+        if (currentItem.getTopLayout() != null) {
+            if (VHitem.topLayout.getChildCount() > 0) {
+                VHitem.topLayout.removeViewAt(0);
+            }
+            VHitem.topLayout.setVisibility(View.VISIBLE);
+            VHitem.topLayout.addView(currentItem.getTopLayout());
         }
     }
 
     private int getColor(@ColorRes int colorId) {
         return ContextCompat.getColor(context, colorId);
+    }
+
+    private void setCaptionPaintFlags(ContentItem currentItem, VHItem VHitem) {
+        if (currentItem.getState() != null && currentItem.getState() == ContentItemState.DONE) {
+            VHitem.caption.setPaintFlags(VHitem.caption.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        } else {
+            if ((VHitem.caption.getPaintFlags() & Paint.STRIKE_THRU_TEXT_FLAG) > 0) {
+                VHitem.caption.setPaintFlags(VHitem.caption.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+            }
+        }
+    }
+
+    private void setAmountCaption(ContentItem currentItem, VHItem VHitem) {
+        if (StringUtils.isNotBlank(currentItem.getSubCaption())) {
+            VHitem.amountCaption.setVisibility(View.VISIBLE);
+            VHitem.amountCaption.setText(currentItem.getSubCaption());
+            VHitem.amountCaption.setTextColor(getColor(currentItem.getSubCaptionColor()));
+        }
+    }
+
+    private void setRightLayout(ContentItem currentItem, VHItem VHitem) {
+        if (currentItem.getRightLayout() != null) {
+            if (VHitem.rightLayout.getChildCount() > 0) {
+                VHitem.rightLayout.removeViewAt(0);
+            }
+            VHitem.rightLayout.setVisibility(View.VISIBLE);
+            VHitem.rightLayout.addView(currentItem.getRightLayout());
+        }
     }
 
     private Drawable getIcon(ContentItem contentItem) {
@@ -336,16 +352,16 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ImageView leftIcon;
         TextView caption;
         TextView amountCaption;
-        LinearLayout rightIconLayout;
-        TextView rightIconCaption;
+        LinearLayout topLayout;
+        LinearLayout rightLayout;
 
         VHItem(View itemView) {
             super(itemView);
             this.leftIcon = itemView.findViewById(R.id.row_icon);
-            this.caption = itemView.findViewById(R.id.row_caption);
+            this.caption = itemView.findViewById(R.id.main_caption);
             this.amountCaption = itemView.findViewById(R.id.amount_caption);
-            this.rightIconLayout = itemView.findViewById(R.id.right_icon_layout);
-            this.rightIconCaption = itemView.findViewById(R.id.right_icon_caption);
+            this.topLayout = itemView.findViewById(R.id.top_layout);
+            this.rightLayout = itemView.findViewById(R.id.right_layout);
         }
 
         void bind(final ContentItem item, final OnClickListener listener) {

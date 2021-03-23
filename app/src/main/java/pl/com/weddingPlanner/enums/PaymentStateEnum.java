@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-public enum StateEnum {
+public enum PaymentStateEnum {
 
     PENDING("ic_clock"),
     PAID("ic_check_circle_outline"),

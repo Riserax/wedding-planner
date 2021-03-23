@@ -16,8 +16,14 @@ public interface PaymentDAO {
     @Query("SELECT * FROM payment")
     List<Payment> getAll();
 
+    @Query("SELECT * FROM payment WHERE state = 'PAID'")
+    List<Payment> getAllPaid();
+
     @Query("SELECT * FROM payment WHERE expenseId = :expenseId")
     List<Payment> getAllByExpenseId(int expenseId);
+
+    @Query("SELECT * FROM payment WHERE expenseId = :expenseId AND state = 'PAID'")
+    List<Payment> getAllPaidByExpenseId(int expenseId);
 
     @Query("SELECT * FROM payment WHERE id = :id")
     Payment getById(int id);

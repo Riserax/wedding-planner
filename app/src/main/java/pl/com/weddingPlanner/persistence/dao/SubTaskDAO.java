@@ -16,6 +16,9 @@ public interface SubTaskDAO {
     @Query("SELECT * FROM subTask")
     List<SubTask> getAll();
 
+    @Query("SELECT * FROM subTask WHERE taskId = :taskId")
+    List<SubTask> getAllByTask(Integer taskId);
+
     @Query("SELECT * FROM subTask WHERE id = :id")
     SubTask get(Integer id);
 
@@ -29,7 +32,7 @@ public interface SubTaskDAO {
     void delete(SubTask subTask);
 
     @Query("DELETE FROM subTask WHERE id = :id")
-    void delete(Integer id);
+    void deleteById(Integer id);
 
     @Update
     void merge(SubTask subTask);

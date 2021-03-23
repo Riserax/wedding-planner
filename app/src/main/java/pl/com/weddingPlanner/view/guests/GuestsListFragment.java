@@ -14,16 +14,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentGuestsListBinding;
+import pl.com.weddingPlanner.enums.GuestTypeEnum;
+import pl.com.weddingPlanner.enums.PresenceEnum;
+import pl.com.weddingPlanner.view.component.TableAndPresence;
 import pl.com.weddingPlanner.model.info.GuestInfo;
 import pl.com.weddingPlanner.persistence.entity.Guest;
 import pl.com.weddingPlanner.util.DAOUtil;
-import pl.com.weddingPlanner.enums.GuestTypeEnum;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.ListItem;
 import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
@@ -108,7 +112,12 @@ public class GuestsListFragment extends Fragment {
                     .type(GuestTypeEnum.valueOf(guest.getType()))
                     .nameSurname(guest.getNameSurname())
                     .tableNumber(guest.getTableNumber())
+                    .presence(StringUtils.isNotBlank(guest.getPresence()) ? PresenceEnum.valueOf(guest.getPresence()) : null)
                     .build();
+
+            TableAndPresence tableAndPresence = new TableAndPresence(getContext(), guestInfo);
+
+            guestInfo.setTablePresenceLayout(tableAndPresence.getLayoutContainer());
 
             toReturn.add(guestInfo);
         }

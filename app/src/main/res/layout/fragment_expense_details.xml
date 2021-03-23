@@ -172,6 +172,48 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/connected_subcontractor_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/details_field_margin_bottom">
+
+                        <TextView
+                            android:id="@+id/connected_subcontractor_header"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/text_view_padding"
+                            android:text="@string/expense_details_connected_subcontractor"
+                            android:textAlignment="center"
+                            android:textColor="@color/gray_555555"
+                            android:textStyle="bold"
+                            app:autoSizePresetSizes="@array/field_header_text_sizes"
+                            app:autoSizeTextType="uniform"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline_connected_subcontractor"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_connected_subcontractor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.30" />
+
+                        <TextView
+                            android:id="@+id/connected_subcontractor"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/gray_949494"
+                            android:textSize="@dimen/field_text_size"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline_connected_subcontractor"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -398,8 +440,8 @@
 
                                 <ImageButton
                                     android:id="@+id/category_icon"
-                                    android:layout_width="@dimen/image_button_size_24"
-                                    android:layout_height="@dimen/image_button_size_24"
+                                    android:layout_width="@dimen/image_button_size_20"
+                                    android:layout_height="@dimen/image_button_size_20"
                                     android:background="@color/gray_F2F2F2"
                                     android:tint="@color/gray_949494"
                                     app:srcCompat="@drawable/ic_dashboard"/>
@@ -440,8 +482,8 @@
 
                                 <ImageButton
                                     android:id="@+id/edit_date_icon"
-                                    android:layout_width="@dimen/image_button_size_24"
-                                    android:layout_height="@dimen/image_button_size_24"
+                                    android:layout_width="@dimen/image_button_size_20"
+                                    android:layout_height="@dimen/image_button_size_20"
                                     android:background="@color/gray_F2F2F2"
                                     android:tint="@color/gray_949494"
                                     app:srcCompat="@drawable/ic_clock"/>

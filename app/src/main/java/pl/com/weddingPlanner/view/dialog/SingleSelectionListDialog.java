@@ -1,6 +1,7 @@
 package pl.com.weddingPlanner.view.dialog;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import pl.com.weddingPlanner.persistence.entity.AgeRange;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Guest;
 import pl.com.weddingPlanner.persistence.entity.Person;
+import pl.com.weddingPlanner.persistence.entity.Subcontractor;
 import pl.com.weddingPlanner.persistence.entity.Table;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.util.GuestUtil;
@@ -34,6 +36,7 @@ public class SingleSelectionListDialog extends CustomAlertDialog {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_single_selection_list, null, false);
 
         setHeaderCaption(headerCaptionId);
+        handleNoData(positionsList);
         setAllPositions(positionsList);
         initListView();
         setListeners(activity);
@@ -45,6 +48,12 @@ public class SingleSelectionListDialog extends CustomAlertDialog {
 
     private void setHeaderCaption(int headerCaptionId) {
         binding.header.setText(headerCaptionId);
+    }
+
+    private void handleNoData(List<?> positionsList) {
+        if (positionsList.isEmpty()) {
+            binding.noData.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setAllPositions(List<?> positionsList) {
@@ -69,6 +78,9 @@ public class SingleSelectionListDialog extends CustomAlertDialog {
             } else if (object instanceof Guest) {
                 Guest guest = (Guest) object;
                 positions.put(id++, guest.getNameSurname());
+            } else if (object instanceof Subcontractor) {
+                Subcontractor guest = (Subcontractor) object;
+                positions.put(id++, guest.getName());
             }
         }
 
@@ -103,6 +115,8 @@ public class SingleSelectionListDialog extends CustomAlertDialog {
             textView = activity.findViewById(R.id.table_name);
         } else if (listObject instanceof Guest) {
             textView = activity.findViewById(R.id.connected_with_info);
+        } else if (listObject instanceof Subcontractor) {
+            textView = activity.findViewById(R.id.connected_subcontractor_name);
         } else {
             textView = activity.findViewById(R.id.payer_name);
         }

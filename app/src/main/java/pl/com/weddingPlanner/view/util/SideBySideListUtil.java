@@ -74,7 +74,7 @@ public class SideBySideListUtil {
         ImageView icon = buttonView.findViewById(R.id.row_icon);
         icon.setImageDrawable(getIcon(context, ResourceUtil.getResId(getIconCode(resource), R.drawable.class)));
 
-        TextView textView = buttonView.findViewById(R.id.row_caption);
+        TextView textView = buttonView.findViewById(R.id.main_caption);
         textView.setText(context.getResources().getString(getResourceId(resource)));
 
         relativeLayout.setOnClickListener(new DebouncedOnClickListener(context.getResources().getInteger(R.integer.debounce_long_block_time_ms)) {
@@ -97,7 +97,7 @@ public class SideBySideListUtil {
         ImageView icon = buttonView.findViewById(R.id.row_icon);
         icon.setImageDrawable(getIcon(context, ResourceUtil.getResId(getIconCode(entity), R.drawable.class)));
 
-        TextView textView = buttonView.findViewById(R.id.row_caption);
+        TextView textView = buttonView.findViewById(R.id.main_caption);
         textView.setText(getCategoryName(entity));
 
         relativeLayout.setOnClickListener(new DebouncedOnClickListener(context.getResources().getInteger(R.integer.debounce_long_block_time_ms)) {

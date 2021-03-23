@@ -1,6 +1,7 @@
 <resources>
     <string name="amount_invalid_format">Nieprawidłowy format kwoty</string>
     <string name="app_name">WeddingPlanner</string>
+    <string name="assignees_2_plus">2+</string>
 
     <string name="budget_estimated_expenses">Szacunkowe\nwydatki</string>
     <string name="budget_initial_budget">Wstępny budżet</string>
@@ -27,17 +28,25 @@
     <string name="day_saturday">Sobota</string>
     <string name="day_sunday">Niedziela</string>
 
+    <string name="details_delete">Usuń</string>
+    <string name="details_edit">Edytuj</string>
+
+    <string name="dialog_add">Dodaj</string>
     <string name="dialog_back">Powrót</string>
+    <string name="dialog_delete">Usuń</string>
     <string name="dialog_pick">Wybierz</string>
     <string name="dialog_yes">Tak</string>
     <string name="dialog_no">Nie</string>
     <string name="dialog_category_choice">Wybierz kategorię</string>
     <string name="dialog_age_choice">Wybierz przedział wiekowy</string>
+    <string name="dialog_expense_subcontractor_choice">Wybierz podwykonawcę</string>
     <string name="dialog_guest_choice">Wybierz gościa, dla którego będzie osobą towarzyszącą</string>
     <string name="dialog_table_choice">Wybierz miejsce</string>
     <string name="dialog_person_choice">Wybierz osobę</string>
+    <string name="dialog_task_add_sub_task_title">Nowe podzadanie</string>
     <string name="dialog_task_bookmarks_title">Wybierz etykiety</string>
     <string name="dialog_task_date_title">Wybierz datę</string>
+    <string name="dialog_task_manage_sub_tasks_title">Zaznacz podzadania do usunięcia</string>
     <string name="dialog_task_people_title">Wybierz osoby</string>
     <string name="dialog_task_time_title">Wybierz godzinę</string>
 
@@ -53,9 +62,11 @@
     <string name="expense_details_delete_question">Czy na pewno chcesz usunąć ten wydatek?</string>
     <string name="expense_details_delete">Usuń wydatek</string>
     <string name="expense_details_edit">Edytuj wydatek</string>
+    <string name="expense_details_connected_subcontractor">Powiązany podwykonawca</string>
 
     <string name="field_category">Kategoria</string>
     <string name="field_name">Nazwa</string>
+    <string name="field_notes">Uwagi</string>
     <string name="field_payer">Kto płaci</string>
     <string name="field_title">Tytuł</string>
 
@@ -77,7 +88,6 @@
     <string name="guest_field_invitation_rejected">Odmowa</string>
     <string name="guest_field_invitation_awaiting">Oczekuje</string>
     <string name="guest_field_name_surname">Imię i\u00A0nazwisko</string>
-    <string name="guest_field_notes">Uwagi</string>
     <string name="guest_field_phone">Telefon</string>
     <string name="guest_field_table">Miejsce</string>
 
@@ -160,33 +170,37 @@
     <string name="subcontractor_field_cost">Kwota do zapłaty</string>
     <string name="subcontractor_field_name">Nazwa</string>
     <string name="subcontractor_field_www">Strona WWW</string>
+    <string name="subcontractor_info">Stworzenie podwykonawcy spowoduje automatyczne dodanie powiązanego z nim wydatku</string>
 
-    <string name="subcontractor_details_delete">Usuń</string>
-    <string name="subcontractor_details_delete_question">Czy na pewno chcesz usunąć tego podwykonawcę?</string>
-    <string name="subcontractor_details_edit">Edytuj</string>
+    <string name="subcontractor_details_delete_question">Czy na pewno chcesz usunąć tego podwykonawcę? Spowoduje to usunięcie powiązanego wydatku</string>
+    <string name="subcontractor_details_connected_expense">Powiązany wydatek</string>
 
-    <string name="tab_title_tasks_categories">Kategorie</string>
-    <string name="tab_title_tasks_months">Miesiące</string>
     <string name="tab_title_budget_categories">Kategorie</string>
     <string name="tab_title_budget_descending">Chronologicznie</string>
     <string name="tab_title_expense_details">Szczegóły</string>
     <string name="tab_title_expense_payments">Płatności: %1$d</string>
-    <string name="tab_title_guests_list">Lista</string>
     <string name="tab_title_guests_groups">Grupy</string>
-    <string name="tab_title_subcontractors_list">Lista</string>
+    <string name="tab_title_guests_list">Lista</string>
     <string name="tab_title_subcontractors_categories">Kategorie</string>
+    <string name="tab_title_subcontractors_list">Lista</string>
+    <string name="tab_title_tasks_categories">Kategorie</string>
+    <string name="tab_title_tasks_months">Miesiące</string>
 
-    <string name="task_details_no_bookmarks">Brak etykiet</string>
-    <string name="task_details_sub_tasks">Podzadania:</string>
-    <string name="task_details_no_sub_tasks">Brak elementów do wyświetlenia</string>
-    <string name="task_details_delete">Usuń zadanie</string>
     <string name="task_details_delete_question">Czy na pewno chcesz usunąć to zadanie?</string>
-    <string name="task_details_add_sub_task">Dodaj podzadanie</string>
-    <string name="task_details_edit">Edytuj zadanie</string>
+    <string name="task_details_manage_sub_tasks">Zarządzaj podzadaniami</string>
+    <string name="task_details_mark_done">Oznacz jako wykonane</string>
+    <string name="task_details_mark_in_progress">Oznacz jako w toku</string>
+    <string name="task_details_no_bookmarks">Brak etykiet</string>
+    <string name="task_details_no_sub_tasks">Brak elementów do wyświetlenia</string>
+    <string name="task_details_status">Status</string>
+    <string name="task_details_sub_tasks">Podzadania:</string>
 
     <string name="task_field_bookmarks">Etykiety</string>
     <string name="task_field_people">Przypisane osoby</string>
     <string name="task_field_description">Opis</string>
+    <string name="task_field_status_new">Nowe</string>
+    <string name="task_field_status_in_progress">W toku</string>
+    <string name="task_field_status_done">Wykonane</string>
     <string name="task_field_date">Data</string>
     <string name="task_field_time">Godzina</string>
 </resources>

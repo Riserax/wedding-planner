@@ -37,4 +37,6 @@ public class Wedding implements Serializable {
     @NonNull
     private String people;
     private String initialTotalAmount;
+    @NonNull
+    private String creationDate;
 }

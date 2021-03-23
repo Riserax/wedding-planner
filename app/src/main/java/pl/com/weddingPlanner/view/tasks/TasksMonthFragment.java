@@ -23,17 +23,23 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentTasksMonthBinding;
+import pl.com.weddingPlanner.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.LocationEnum;
+import pl.com.weddingPlanner.enums.TaskStatusEnum;
 import pl.com.weddingPlanner.model.info.TaskInfo;
+import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
+import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.persistence.entity.Task;
 import pl.com.weddingPlanner.util.DAOUtil;
-import pl.com.weddingPlanner.util.DateUtil;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.view.component.Assignees;
+import pl.com.weddingPlanner.view.component.Bookmarks;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.HeaderItem;
 import pl.com.weddingPlanner.view.list.ListItem;
 import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
 import pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView;
+import pl.com.weddingPlanner.view.util.PersonUtil;
 import pl.com.weddingPlanner.view.util.TasksUtil;
 
 import static pl.com.weddingPlanner.view.list.HeaderItem.getHeaderItemWithDayOfWeek;
@@ -118,7 +124,7 @@ public class TasksMonthFragment extends Fragment {
 
         List<Task> tasksByMonth = new ArrayList<>();
         for (Task task : allTasks) {
-            if (month.equals(DateUtil.getDateMonth(task.getDate(), requireContext()))) {
+            if (month.equals(TasksUtil.getMonthYear(task.getDate(), requireContext()))) {
                 tasksByMonth.add(task);
             }
         }
@@ -128,15 +134,24 @@ public class TasksMonthFragment extends Fragment {
             Map<Integer, Task> tasksMap = TasksUtil.getTasksMap(tasksByMonth);
 
             for (Map.Entry<Integer, LocalDate> sortedIdDate : sortedIdDateMap.entrySet()) {
-                Task task = (Task) tasksMap.get(sortedIdDate.getKey());
+                Task task = tasksMap.get(sortedIdDate.getKey());
 
                 Category category = DAOUtil.getCategoryByNameAndType(requireContext(), task.getCategory(), CategoryTypeEnum.TASKS.name());
+
+                List<Bookmark> bookmarkList = TasksUtil.getBookmarks(task, requireContext());
+                Bookmarks bookmarks = new Bookmarks(requireContext(), bookmarkList, LocationEnum.LIST_ITEM);
+
+                List<Person> assigneeList = PersonUtil.getPersonsList(requireContext(), task.getAssignees());
+                Assignees assignees = new Assignees(requireContext(), assigneeList, LocationEnum.LIST_ITEM);
 
                 TaskInfo taskInfo = TaskInfo.builder()
                         .itemId(task.getId())
                         .title(task.getTitle())
                         .categoryIconId(category.getIconId())
                         .date(task.getDate())
+                        .status(TaskStatusEnum.valueOf(task.getStatus()))
+                        .bookmarksLayout(bookmarks.getBookmarksContainer())
+                        .assigneesLayout(assignees.getAssigneesContainer())
                         .build();
 
                 toReturn.add(taskInfo);
