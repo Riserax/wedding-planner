@@ -29,11 +29,6 @@ import static java.util.Calendar.SEPTEMBER;
 
 public class DateUtil {
 
-    public static String convertDateToString(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", new Locale("PL"));
-        return dateFormat.format(date);
-    }
-
     public static Date convertStringToDate(String dateString) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", new Locale("PL"));
 

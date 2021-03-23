@@ -355,7 +355,7 @@ public class MainActivity extends AppCompatActivity {
                 .bookmarks("1,2,3,4")
                 .assignees("1,2,3")
                 .status("NEW")
-                .date("2021-01-23")
+                .date("2021-03-23")
                 .time("16:30")
                 .build();
 
@@ -364,7 +364,7 @@ public class MainActivity extends AppCompatActivity {
                 .title("Nieuzupełnione zadanie")
                 .category(CATEGORY_OTHER)
                 .status("DONE")
-                .date("2021-01-31")
+                .date("2021-03-31")
                 .build();
 
         DAOUtil.insertTask(this, taskFilled);
