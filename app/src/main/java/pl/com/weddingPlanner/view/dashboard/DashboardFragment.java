@@ -211,7 +211,7 @@ public class DashboardFragment extends Fragment {
 
     private Interval getRemainingInterval() {
         Locale locale = new Locale("PL");
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.M.yyyy hh:mm:ss", locale);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", locale);
 
         Wedding wedding = DAOUtil.getWeddingById(getContext(), 1);
 

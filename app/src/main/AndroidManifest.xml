@@ -10,14 +10,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+
         <activity
             android:name="pl.com.weddingPlanner.view.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.Launcher"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -31,6 +32,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pl.com.weddingPlanner.view.MainActivity" />
         </activity>
+        <activity
+            android:name="pl.com.weddingPlanner.view.IntroActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name="pl.com.weddingPlanner.view.tasks.NewTaskActivity"
             android:screenOrientation="portrait"
