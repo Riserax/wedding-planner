@@ -45,7 +45,7 @@ public class ComponentsUtil {
         setButtonEnability(button, isEnabled, R.drawable.bg_button, R.drawable.bg_button_disabled);
     }
 
-    public static CheckBox createSubTaskCheckbox(Context context, SubTask subTask) {
+    public static CheckBox createSubTaskCheckbox(Context context, SubTask subTask, boolean canBeChecked) {
         CheckBox checkBox = new CheckBox(context);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -60,7 +60,7 @@ public class ComponentsUtil {
         checkBox.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         checkBox.setTextColor(ContextCompat.getColor(context, R.color.gray_949494));
         checkBox.setButtonTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.colorPrimaryDark)));
-        checkBox.setChecked(subTask.getDone() != null && (subTask.getDone().equals("true")));
+        checkBox.setChecked(canBeChecked && subTask.getDone() != null && (subTask.getDone().equals("true")));
 
         return checkBox;
     }

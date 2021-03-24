@@ -62,13 +62,13 @@ public class TaskDetailsActivity extends BaseActivity {
 
         taskId = getIntent().getExtras().getInt(TASK_ID_EXTRA, 0);
 
-        setDetails();
-        setListeners();
+        loadView();
     }
 
-    public void setDetails() {
+    public void loadView() {
         getAndSetData();
         setComponents();
+        setListeners();
     }
 
     private void getAndSetData() {
@@ -155,17 +155,34 @@ public class TaskDetailsActivity extends BaseActivity {
 
     private void setSubTasks() {
         if (!subTasksList.isEmpty()) {
-            if (binding.subTasksLayout.getChildCount() > 2) {
-                binding.subTasksLayout.removeViews(2, binding.subTasksLayout.getChildCount() - 2);
-            }
-
-            for (SubTask subTask : subTasksList) {
-                CheckBox subTaskCheckBox = ComponentsUtil.createSubTaskCheckbox(this, subTask);
-                binding.subTasksLayout.addView(subTaskCheckBox);
-            }
+            handleSubTasksChildrenWhenListNotEmpty();
+            addSubTasksCheckboxes();
         } else {
-            binding.noSubTasks.setVisibility(View.VISIBLE);
+            handleSubTasksChildrenWhenListEmpty();
         }
+    }
+
+    private void handleSubTasksChildrenWhenListNotEmpty() {
+        if (binding.subTasksLayout.getChildCount() == 2) {
+            binding.noSubTasks.setVisibility(View.GONE);
+        } else if (binding.subTasksLayout.getChildCount() > 2) {
+            binding.noSubTasks.setVisibility(View.GONE);
+            binding.subTasksLayout.removeViews(2, binding.subTasksLayout.getChildCount() - 2);
+        }
+    }
+
+    private void addSubTasksCheckboxes() {
+        for (SubTask subTask : subTasksList) {
+            CheckBox subTaskCheckBox = ComponentsUtil.createSubTaskCheckbox(this, subTask, true);
+            binding.subTasksLayout.addView(subTaskCheckBox);
+        }
+    }
+
+    private void handleSubTasksChildrenWhenListEmpty() {
+        if (binding.subTasksLayout.getChildCount() > 2) {
+            binding.subTasksLayout.removeViews(2, binding.subTasksLayout.getChildCount() - 2);
+        }
+        binding.noSubTasks.setVisibility(View.VISIBLE);
     }
 
     private int getCheckedSubTasks() {

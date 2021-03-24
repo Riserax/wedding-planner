@@ -60,8 +60,6 @@
     <string name="expense_field_awaiting_payments">Oczekujące płatności</string>
 
     <string name="expense_details_delete_question">Czy na pewno chcesz usunąć ten wydatek?</string>
-    <string name="expense_details_delete">Usuń wydatek</string>
-    <string name="expense_details_edit">Edytuj wydatek</string>
     <string name="expense_details_connected_subcontractor">Powiązany podwykonawca</string>
 
     <string name="field_category">Kategoria</string>
@@ -91,16 +89,15 @@
     <string name="guest_field_phone">Telefon</string>
     <string name="guest_field_table">Miejsce</string>
 
-    <string name="guest_details_delete">Usuń gościa</string>
     <string name="guest_details_delete_question">Czy na pewno chcesz usunąć tego gościa?</string>
     <string name="guest_details_delete_question_guest">Czy na pewno chcesz usunąć tego gościa? Wiąże się to z usunięciem osoby towarzyszącej</string>
-    <string name="guest_details_edit">Edytuj gościa</string>
 
     <string name="header_title_budget">Budżet</string>
     <string name="header_title_budget_new">Nowy wydatek</string>
     <string name="header_title_category">Kategoria</string>
     <string name="header_title_category_new">Nowa kategoria</string>
     <string name="header_title_expense_details">Wydatek</string>
+    <string name="header_title_expense_edit">Edycja wydatku</string>
     <string name="header_title_guests">Goście</string>
     <string name="header_title_guest_details">Gość</string>
     <string name="header_title_guest_edit">Edycja gościa</string>

@@ -40,7 +40,7 @@ public class IntroActivity extends BaseActivity {
             Intent intent = new Intent(this, NavigationActivity.class);
             startActivity(intent);
             finish();
-        }, 2500);
+        }, 2000);
     }
 
     @Override

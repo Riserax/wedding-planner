@@ -231,7 +231,7 @@ public class ExpenseDetailsFragment extends Fragment {
         binding.editLayout.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), NewExpenseActivity.class);
             intent.putExtra(EXPENSE_ID_EXTRA, expenseId);
-            intent.putExtra(ACTIVITY_TITLE_EXTRA, R.string.header_title_expense_details);
+            intent.putExtra(ACTIVITY_TITLE_EXTRA, R.string.header_title_expense_edit);
             startActivity(intent);
 
             hideFloatingMenu();

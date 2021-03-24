@@ -24,7 +24,7 @@ public class NewSubTaskDialog extends CustomAlertDialog {
 
         setPositiveButton(R.string.dialog_add, (dialog, which) -> {
             addSubTask(activity, taskId);
-            activity.setDetails();
+            activity.loadView();
         });
         setNegativeButton(R.string.dialog_back, (dialog, which) -> {});
 
