@@ -297,6 +297,7 @@ public class NewSubcontractorActivity extends BaseActivity {
         String category = binding.categoryName.getText().toString();
 
         boolean isCategoryChosen = !category.equals(getResources().getString(R.string.field_category));
+        boolean areSubcontractorAndExpenseIdNotNull = subcontractor != null && subcontractor.getExpenseId() != null;
 
         return Subcontractor.builder()
                 .name(binding.name.getText().toString())
@@ -306,6 +307,7 @@ public class NewSubcontractorActivity extends BaseActivity {
                 .website(LinksUtil.getWebsiteLink(binding.website))
                 .address(binding.address.getText().toString())
                 .collaborationStage(collaborationStage.name())
+                .expenseId(areSubcontractorAndExpenseIdNotNull ? subcontractor.getExpenseId() : 0)
                 .cost(binding.cost.getText().toString())
                 .notes(binding.notes.getText().toString())
                 .build();

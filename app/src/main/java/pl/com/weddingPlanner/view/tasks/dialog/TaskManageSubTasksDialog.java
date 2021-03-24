@@ -28,7 +28,7 @@ public class TaskManageSubTasksDialog extends CustomAlertDialog {
 
         setPositiveButton(R.string.dialog_delete, (dialog, which) -> {
             removeCheckedSubTasks(activity);
-            activity.setDetails();
+            activity.loadView();
         });
         setNegativeButton(R.string.dialog_back, (dialog, which) -> {});
 
@@ -40,7 +40,7 @@ public class TaskManageSubTasksDialog extends CustomAlertDialog {
     private void createCheckboxes(List<SubTask> subTasksList, TaskDetailsActivity activity) {
         if (!subTasksList.isEmpty()) {
             for (SubTask subTask : subTasksList) {
-                CheckBox subTaskCheckBox = ComponentsUtil.createSubTaskCheckbox(activity, subTask);
+                CheckBox subTaskCheckBox = ComponentsUtil.createSubTaskCheckbox(activity, subTask, false);
                 binding.checkboxesLayout.addView(subTaskCheckBox);
             }
         } else {

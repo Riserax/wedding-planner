@@ -46,9 +46,11 @@ public class TableAndPresence {
     private void prepareAndAddTable() {
         if (guestInfo.getTableNumber() != 0) {
             LinearLayout backgroundLayout = createBackgroundLayout();
+            LinearLayout primaryCircleLayout = createPrimaryCircleLayout();
             TextView textView = createTextView();
 
-            backgroundLayout.addView(textView);
+            backgroundLayout.addView(primaryCircleLayout);
+            primaryCircleLayout.addView(textView);
             layoutContainer.addView(backgroundLayout);
         }
     }
@@ -64,13 +66,26 @@ public class TableAndPresence {
     }
 
     private LinearLayout createBackgroundLayout() {
-        LinearLayout backgroundLayout = new LinearLayout(context);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(context.getResources().getDimensionPixelSize(R.dimen.circle_background_size), context.getResources().getDimensionPixelSize(R.dimen.circle_background_size));
 
+        LinearLayout backgroundLayout = new LinearLayout(context);
         backgroundLayout.setLayoutParams(layoutParams);
         backgroundLayout.setGravity(Gravity.CENTER);
         backgroundLayout.setOrientation(LinearLayout.VERTICAL);
         backgroundLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_circle_white));
+
+        return backgroundLayout;
+    }
+
+    private LinearLayout createPrimaryCircleLayout() {
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(context.getResources().getDimensionPixelSize(R.dimen.circle_primary_size), context.getResources().getDimensionPixelSize(R.dimen.circle_primary_size));
+
+        LinearLayout backgroundLayout = new LinearLayout(context);
+        backgroundLayout.setLayoutParams(layoutParams);
+        backgroundLayout.setPadding(0, 0, 0, 2);
+        backgroundLayout.setGravity(Gravity.CENTER);
+        backgroundLayout.setOrientation(LinearLayout.VERTICAL);
+        backgroundLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_circle_primary));
 
         return backgroundLayout;
     }
@@ -85,7 +100,7 @@ public class TableAndPresence {
         textView.setFocusable(true);
         textView.setText(String.valueOf(guestInfo.getTableNumber()));
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
-        textView.setTextColor(ContextCompat.getColor(context, R.color.gray_555555));
+        textView.setTextColor(ContextCompat.getColor(context, R.color.white_FFFFFF));
         textView.setTypeface(Typeface.DEFAULT_BOLD);
 
         return textView;
