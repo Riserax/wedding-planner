@@ -506,6 +506,7 @@ public class MainActivity extends AppCompatActivity {
                 .connectedWithId(0)
                 .nameSurname("Jan Kowalski")
                 .tableNumber(1)
+                .presence("NONE")
                 .build();
 
         Guest guest2 = Guest.builder()
@@ -513,6 +514,7 @@ public class MainActivity extends AppCompatActivity {
                 .connectedWithId(3)
                 .nameSurname("Adam Nowak")
                 .tableNumber(1)
+                .presence("NONE")
                 .build();
 
         Guest accompany1 = Guest.builder()

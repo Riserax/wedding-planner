@@ -80,11 +80,18 @@
     <string name="guest_field_email">E-mail</string>
     <string name="guest_field_guest">Gość</string>
     <string name="guest_field_guest_type">Rodzaj gościa</string>
+
     <string name="guest_field_invitation_status">Status zaproszenia</string>
-    <string name="guest_field_invitation_sent">Wysłano</string>
-    <string name="guest_field_invitation_accepted">Zgoda</string>
-    <string name="guest_field_invitation_rejected">Odmowa</string>
-    <string name="guest_field_invitation_awaiting">Oczekuje</string>
+    <string name="guest_field_invitation_sent">Wysłano zaproszenie</string>
+    <string name="guest_field_invitation_sent_short">Wysłano</string>
+    <string name="guest_field_invitation_accepted">Potwierdzona obecność</string>
+    <string name="guest_field_invitation_accepted_short">Zgoda</string>
+    <string name="guest_field_invitation_rejected">Potwierdzona nieobecność</string>
+    <string name="guest_field_invitation_rejected_short">Odmowa</string>
+    <string name="guest_field_invitation_awaiting">Oczekuje na potwierdzenie</string>
+    <string name="guest_field_invitation_awaiting_short">Oczekuje</string>
+    <string name="guest_field_invitation_none">Nie określono</string>
+
     <string name="guest_field_name_surname">Imię i\u00A0nazwisko</string>
     <string name="guest_field_phone">Telefon</string>
     <string name="guest_field_table">Miejsce</string>

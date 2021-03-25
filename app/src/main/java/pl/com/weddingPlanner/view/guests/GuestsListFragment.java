@@ -112,7 +112,7 @@ public class GuestsListFragment extends Fragment {
                     .type(GuestTypeEnum.valueOf(guest.getType()))
                     .nameSurname(guest.getNameSurname())
                     .tableNumber(guest.getTableNumber())
-                    .presence(StringUtils.isNotBlank(guest.getPresence()) ? PresenceEnum.valueOf(guest.getPresence()) : null)
+                    .presence(StringUtils.isNotBlank(guest.getPresence()) ? PresenceEnum.valueOf(guest.getPresence()) : PresenceEnum.NONE)
                     .build();
 
             TableAndPresence tableAndPresence = new TableAndPresence(getContext(), guestInfo);

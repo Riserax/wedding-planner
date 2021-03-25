@@ -319,7 +319,6 @@ public class NewGuestActivity extends BaseActivity {
         boolean isAgeChosen = !ageRange.equals(getResources().getString(R.string.guest_field_age));
         boolean isCategoryChosen = !category.equals(getResources().getString(R.string.field_category));
         boolean isTableChosen = !tableInfo.equals(getResources().getString(R.string.guest_field_table));
-        boolean isPresenceChosen = !PresenceEnum.NONE.equals(presenceStatus);
 
         String connectedWithNameSurname = getConnectedWithNameSurname(connectedWithInfo);
 
@@ -330,7 +329,7 @@ public class NewGuestActivity extends BaseActivity {
                 .ageRange(isAgeChosen ? ageRange : StringUtils.EMPTY)
                 .category(isCategoryChosen ? category : StringUtils.EMPTY)
                 .tableNumber(isTableChosen ? getTableNumber(tableInfo) : 0)
-                .presence(isPresenceChosen ? presenceStatus.name() : StringUtils.EMPTY)
+                .presence(presenceStatus.name())
                 .contact(binding.guestContact.getText().toString())
                 .notes(binding.guestNotes.getText().toString())
                 .build();

@@ -19,7 +19,7 @@ import pl.com.weddingPlanner.util.DateUtil;
 
 public class BudgetUtil {
 
-    public static Map<Integer, LocalDate> getSortedIdDateMap(List objectList) {
+    public static Map<Integer, LocalDate> getSortedIdDateMap(List<?> objectList) {
         Map<Integer, String> idDateStringMap = getIdDateStringMap(objectList);
 
         Map<Integer, LocalDate> unsortedIdDateMap = getUnsortedIdDateMap(idDateStringMap);
@@ -32,7 +32,7 @@ public class BudgetUtil {
         return sortedIdDateMap;
     }
 
-    public static Map<Integer, Object> getObjectsMap(List objectList) {
+    public static Map<Integer, Object> getObjectsMap(List<?> objectList) {
         Map<Integer, Object> objectsMap = new HashMap<>();
         for (Object object : objectList) {
             if (object instanceof Expense) {
@@ -46,7 +46,7 @@ public class BudgetUtil {
         return objectsMap;
     }
 
-    private static Map<Integer, String> getIdDateStringMap(List objectList) {
+    private static Map<Integer, String> getIdDateStringMap(List<?> objectList) {
         Map<Integer, String> idDateStringMap = new HashMap<>();
         for (Object object : objectList) {
             if (object instanceof Expense) {
