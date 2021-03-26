@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +19,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -55,12 +58,27 @@ public class GuestsGroupsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_guests_groups, container, false);
 
+        setSpinner();
         setRecyclerView();
         setSwipeRefresh();
 
         setGuestsList();
 
         return binding.getRoot();
+    }
+
+    private void setSpinner() {
+        List<String> groups = Arrays.asList("Status obecności", "Przedział wiekowy", "Stoły", "Kategorie");
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_text_layout);
+
+        for (String group : groups) {
+            adapter.add(group);
+        }
+
+        adapter.setDropDownViewResource(R.layout.spinner_item_layout);
+
+        Spinner spinner = binding.groupsSpinner;
+        spinner.setAdapter(adapter);
     }
 
     private void setRecyclerView() {
