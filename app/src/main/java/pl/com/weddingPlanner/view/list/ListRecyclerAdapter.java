@@ -152,11 +152,23 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private void setRightLayout(ContentItem currentItem, VHItem VHitem) {
         if (currentItem.getRightLayout() != null) {
-            if (VHitem.rightLayout.getChildCount() > 0) {
-                VHitem.rightLayout.removeViewAt(0);
-            }
+            clearChild(VHitem);
+            clearNewLayoutParent(currentItem);
+
             VHitem.rightLayout.setVisibility(View.VISIBLE);
             VHitem.rightLayout.addView(currentItem.getRightLayout());
+        }
+    }
+
+    private void clearChild(VHItem VHitem) {
+        if (VHitem.rightLayout.getChildCount() > 0) {
+            VHitem.rightLayout.removeViewAt(0);
+        }
+    }
+
+    private void clearNewLayoutParent(ContentItem currentItem) {
+        if (currentItem.getRightLayout().getParent() != null) {
+            ((ViewGroup) currentItem.getRightLayout().getParent()).removeView(currentItem.getRightLayout());
         }
     }
 

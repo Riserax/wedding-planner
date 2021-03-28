@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentSubcontractorsCategoriesBinding;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.CategoryType;
 import pl.com.weddingPlanner.util.DAOUtil;
 
 import static pl.com.weddingPlanner.view.util.SideBySideListUtil.renderCategoriesButtons;
@@ -26,7 +26,7 @@ public class SubcontractorsCategoriesFragment extends Fragment {
 
         renderCategoriesButtons(
                 this,
-                DAOUtil.getAllCategoriesByType(requireContext(), CategoryTypeEnum.SUBCONTRACTORS.name()),
+                DAOUtil.getAllCategoriesByType(requireContext(), CategoryType.SUBCONTRACTORS.name()),
                 binding.sideBySideMenu.leftColumn,
                 binding.sideBySideMenu.rightColumn);
 

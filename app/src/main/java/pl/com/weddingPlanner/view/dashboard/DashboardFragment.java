@@ -12,7 +12,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import org.joda.time.Interval;
 import org.joda.time.Period;
-import org.joda.time.PeriodType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,10 +23,10 @@ import java.util.TimerTask;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentDashboardBinding;
-import pl.com.weddingPlanner.enums.CollaborationStageEnum;
-import pl.com.weddingPlanner.enums.PeriodTypeEnum;
-import pl.com.weddingPlanner.enums.PresenceEnum;
-import pl.com.weddingPlanner.enums.TaskStatusEnum;
+import pl.com.weddingPlanner.enums.CollaborationStage;
+import pl.com.weddingPlanner.enums.PeriodType;
+import pl.com.weddingPlanner.enums.Presence;
+import pl.com.weddingPlanner.enums.TaskStatus;
 import pl.com.weddingPlanner.persistence.entity.Wedding;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.NavigationActivity;
@@ -103,22 +102,22 @@ public class DashboardFragment extends Fragment {
         weddingDetails = DAOUtil.getWeddingById(getContext(), 1); //TODO rozróżniać w którym weselu się znajdujemy
 
         guestsCount = DAOUtil.getAllGuestsCount(getContext());
-        guestsInvitedCount = DAOUtil.getGuestsCountByPresence(getContext(), PresenceEnum.INVITATION_SENT.name());
-        guestsAcceptedCount = DAOUtil.getGuestsCountByPresence(getContext(), PresenceEnum.CONFIRMED_PRESENCE.name());
-        guestsRejectedCount = DAOUtil.getGuestsCountByPresence(getContext(), PresenceEnum.CONFIRMED_ABSENCE.name());
-        guestsAwaitingCount = DAOUtil.getGuestsCountByPresence(getContext(), PresenceEnum.AWAITING.name());
+        guestsInvitedCount = DAOUtil.getGuestsCountByPresence(getContext(), Presence.INVITATION_SENT.name());
+        guestsAcceptedCount = DAOUtil.getGuestsCountByPresence(getContext(), Presence.CONFIRMED_PRESENCE.name());
+        guestsRejectedCount = DAOUtil.getGuestsCountByPresence(getContext(), Presence.CONFIRMED_ABSENCE.name());
+        guestsAwaitingCount = DAOUtil.getGuestsCountByPresence(getContext(), Presence.AWAITING.name());
 
         tasksCount = DAOUtil.getAllTasksCount(getContext());
-        tasksDoneCount = DAOUtil.getTasksByStatusCount(getContext(), TaskStatusEnum.DONE.name());
+        tasksDoneCount = DAOUtil.getTasksByStatusCount(getContext(), TaskStatus.DONE.name());
 
         initialAmountsSum = BudgetUtil.getInitialAmountsSum(getContext());
         initialTotalAmount = Double.parseDouble(weddingDetails.getInitialTotalAmount());
 
         subcontractorsCount = DAOUtil.getAllSubcontractorsCount(getContext());
-        subcontractorsConsideringCount = DAOUtil.getSubcontractorsByStageCount(getContext(), CollaborationStageEnum.CONSIDERING.name());
-        subcontractorsInContactCount = DAOUtil.getSubcontractorsByStageCount(getContext(), CollaborationStageEnum.IN_CONTACT.name());
-        subcontractorsConfirmedCount = DAOUtil.getSubcontractorsByStageCount(getContext(), CollaborationStageEnum.CONFIRMED.name());
-        subcontractorsPaidCount = DAOUtil.getSubcontractorsByStageCount(getContext(), CollaborationStageEnum.PAID.name());
+        subcontractorsConsideringCount = DAOUtil.getSubcontractorsByStageCount(getContext(), CollaborationStage.CONSIDERING.name());
+        subcontractorsInContactCount = DAOUtil.getSubcontractorsByStageCount(getContext(), CollaborationStage.IN_CONTACT.name());
+        subcontractorsConfirmedCount = DAOUtil.getSubcontractorsByStageCount(getContext(), CollaborationStage.CONFIRMED.name());
+        subcontractorsPaidCount = DAOUtil.getSubcontractorsByStageCount(getContext(), CollaborationStage.PAID.name());
     }
 
     private void setComponents() {
@@ -169,7 +168,7 @@ public class DashboardFragment extends Fragment {
     }
 
     private int getCountdownRefreshingMillis() {
-        Period period = getRemainingInterval().toPeriod(PeriodType.yearMonthDayTime());
+        Period period = getRemainingInterval().toPeriod(org.joda.time.PeriodType.yearMonthDayTime());
 
         if (period.getYears() > 0) {
             return TIME_5_MINUTES;
@@ -184,27 +183,27 @@ public class DashboardFragment extends Fragment {
 
     private void setCountdownComponents() {
         Interval interval = getRemainingInterval();
-        Period period = interval.toPeriod(PeriodType.yearMonthDayTime());
+        Period period = interval.toPeriod(org.joda.time.PeriodType.yearMonthDayTime());
 
         if (period.getYears() > 0) {
-            DashboardUtil.setValueAndTitleForPeriod(binding.value1, binding.value1Title, period.getYears(), PeriodTypeEnum.YEAR);
-            DashboardUtil.setValueAndTitleForPeriod(binding.value2, binding.value2Title, period.getMonths(), PeriodTypeEnum.MONTH);
-            DashboardUtil.setValueAndTitleForPeriod(binding.value3, binding.value3Title, period.getDays(), PeriodTypeEnum.DAY);
+            DashboardUtil.setValueAndTitleForPeriod(binding.value1, binding.value1Title, period.getYears(), PeriodType.YEAR);
+            DashboardUtil.setValueAndTitleForPeriod(binding.value2, binding.value2Title, period.getMonths(), PeriodType.MONTH);
+            DashboardUtil.setValueAndTitleForPeriod(binding.value3, binding.value3Title, period.getDays(), PeriodType.DAY);
         } else if (period.getMonths() > 0) {
-            DashboardUtil.setValueAndTitleForPeriod(binding.value1, binding.value1Title, period.getMonths(), PeriodTypeEnum.MONTH);
-            DashboardUtil.setValueAndTitleForPeriod(binding.value2, binding.value2Title, period.getDays(), PeriodTypeEnum.DAY);
+            DashboardUtil.setValueAndTitleForPeriod(binding.value1, binding.value1Title, period.getMonths(), PeriodType.MONTH);
+            DashboardUtil.setValueAndTitleForPeriod(binding.value2, binding.value2Title, period.getDays(), PeriodType.DAY);
             binding.value3Layout.setVisibility(View.GONE);
         } else if (period.getDays() > 0) {
-            DashboardUtil.setValueAndTitleForPeriod(binding.value1, binding.value1Title, period.getDays(), PeriodTypeEnum.DAY);
-            DashboardUtil.setValueAndTitleForPeriod(binding.value2, binding.value2Title, period.getHours(), PeriodTypeEnum.HOUR);
-            DashboardUtil.setValueAndTitleForPeriod(binding.value3, binding.value3Title, period.getMinutes(), PeriodTypeEnum.MINUTE);
+            DashboardUtil.setValueAndTitleForPeriod(binding.value1, binding.value1Title, period.getDays(), PeriodType.DAY);
+            DashboardUtil.setValueAndTitleForPeriod(binding.value2, binding.value2Title, period.getHours(), PeriodType.HOUR);
+            DashboardUtil.setValueAndTitleForPeriod(binding.value3, binding.value3Title, period.getMinutes(), PeriodType.MINUTE);
         } else if (period.getHours() > 0) {
-            DashboardUtil.setValueAndTitleForPeriod(binding.value1, binding.value1Title, period.getHours(), PeriodTypeEnum.HOUR);
-            DashboardUtil.setValueAndTitleForPeriod(binding.value2, binding.value2Title, period.getMinutes(), PeriodTypeEnum.MINUTE);
-            DashboardUtil.setValueAndTitleForPeriod(binding.value3, binding.value3Title, period.getSeconds(), PeriodTypeEnum.SECOND);
+            DashboardUtil.setValueAndTitleForPeriod(binding.value1, binding.value1Title, period.getHours(), PeriodType.HOUR);
+            DashboardUtil.setValueAndTitleForPeriod(binding.value2, binding.value2Title, period.getMinutes(), PeriodType.MINUTE);
+            DashboardUtil.setValueAndTitleForPeriod(binding.value3, binding.value3Title, period.getSeconds(), PeriodType.SECOND);
         } else {
-            DashboardUtil.setValueAndTitleForPeriod(binding.value1, binding.value1Title, period.getMinutes(), PeriodTypeEnum.MINUTE);
-            DashboardUtil.setValueAndTitleForPeriod(binding.value2, binding.value2Title, period.getSeconds(), PeriodTypeEnum.SECOND);
+            DashboardUtil.setValueAndTitleForPeriod(binding.value1, binding.value1Title, period.getMinutes(), PeriodType.MINUTE);
+            DashboardUtil.setValueAndTitleForPeriod(binding.value2, binding.value2Title, period.getSeconds(), PeriodType.SECOND);
             binding.value3Layout.setVisibility(View.GONE);
         }
     }

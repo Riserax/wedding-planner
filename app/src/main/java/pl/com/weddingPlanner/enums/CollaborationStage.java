@@ -6,7 +6,7 @@ import pl.com.weddingPlanner.R;
 
 @Getter
 @AllArgsConstructor
-public enum CollaborationStageEnum {
+public enum CollaborationStage {
 
     NONE(0, 0),
     CONSIDERING(R.string.subcontractor_field_considering, R.drawable.ic_help_circle_small),

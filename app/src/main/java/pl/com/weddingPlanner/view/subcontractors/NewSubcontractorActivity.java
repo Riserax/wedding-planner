@@ -17,8 +17,8 @@ import java.util.List;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityNewSubcontractorBinding;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
-import pl.com.weddingPlanner.enums.CollaborationStageEnum;
+import pl.com.weddingPlanner.enums.CategoryType;
+import pl.com.weddingPlanner.enums.CollaborationStage;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
 import pl.com.weddingPlanner.persistence.entity.Subcontractor;
@@ -53,7 +53,7 @@ public class NewSubcontractorActivity extends BaseActivity {
 
     private AmountValidator amountValidator;
 
-    private CollaborationStageEnum collaborationStage = CollaborationStageEnum.NONE;
+    private CollaborationStage collaborationStage = CollaborationStage.NONE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +80,7 @@ public class NewSubcontractorActivity extends BaseActivity {
             subcontractor = DAOUtil.getSubcontractorById(this, subcontractorId);
 
             if (StringUtils.isNotBlank(subcontractor.getCollaborationStage())) {
-                collaborationStage = CollaborationStageEnum.valueOf(subcontractor.getCollaborationStage());
+                collaborationStage = CollaborationStage.valueOf(subcontractor.getCollaborationStage());
             }
         }
     }
@@ -160,7 +160,7 @@ public class NewSubcontractorActivity extends BaseActivity {
             @Override
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
-                List<Category> categories = DAOUtil.getAllCategoriesByType(NewSubcontractorActivity.this, CategoryTypeEnum.SUBCONTRACTORS.name());
+                List<Category> categories = DAOUtil.getAllCategoriesByType(NewSubcontractorActivity.this, CategoryType.SUBCONTRACTORS.name());
                 new SingleSelectionListDialog(NewSubcontractorActivity.this, categories, R.string.dialog_category_choice).showDialog();
             }
         });
@@ -215,12 +215,12 @@ public class NewSubcontractorActivity extends BaseActivity {
     private void setConsideringButtonListener() {
         binding.consideringButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
-            if (CollaborationStageEnum.CONSIDERING.equals(collaborationStage)) {
+            if (CollaborationStage.CONSIDERING.equals(collaborationStage)) {
                 ButtonsUtil.setButtonSelection(binding.consideringButton, this, false);
-                collaborationStage = CollaborationStageEnum.NONE;
+                collaborationStage = CollaborationStage.NONE;
             } else {
                 SubcontractorUtil.setConsideringButtonsSelection(binding, getApplicationContext());
-                collaborationStage = CollaborationStageEnum.CONSIDERING;
+                collaborationStage = CollaborationStage.CONSIDERING;
             }
         });
     }
@@ -228,12 +228,12 @@ public class NewSubcontractorActivity extends BaseActivity {
     private void setInContactButtonListener() {
         binding.inContactButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
-            if (CollaborationStageEnum.IN_CONTACT.equals(collaborationStage)) {
+            if (CollaborationStage.IN_CONTACT.equals(collaborationStage)) {
                 ButtonsUtil.setButtonSelection(binding.inContactButton, this, false);
-                collaborationStage = CollaborationStageEnum.NONE;
+                collaborationStage = CollaborationStage.NONE;
             } else {
                 SubcontractorUtil.setInContactButtonsSelection(binding, getApplicationContext());
-                collaborationStage = CollaborationStageEnum.IN_CONTACT;
+                collaborationStage = CollaborationStage.IN_CONTACT;
             }
         });
     }
@@ -241,12 +241,12 @@ public class NewSubcontractorActivity extends BaseActivity {
     private void setConfirmedButtonListener() {
         binding.confirmedButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
-            if (CollaborationStageEnum.CONFIRMED.equals(collaborationStage)) {
+            if (CollaborationStage.CONFIRMED.equals(collaborationStage)) {
                 ButtonsUtil.setButtonSelection(binding.confirmedButton, this, false);
-                collaborationStage = CollaborationStageEnum.NONE;
+                collaborationStage = CollaborationStage.NONE;
             } else {
                 SubcontractorUtil.setConfirmedButtonsSelection(binding, getApplicationContext());
-                collaborationStage = CollaborationStageEnum.CONFIRMED;
+                collaborationStage = CollaborationStage.CONFIRMED;
             }
         });
     }
@@ -254,12 +254,12 @@ public class NewSubcontractorActivity extends BaseActivity {
     private void setPaidButtonListener() {
         binding.paidButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
-            if (CollaborationStageEnum.PAID.equals(collaborationStage)) {
+            if (CollaborationStage.PAID.equals(collaborationStage)) {
                 ButtonsUtil.setButtonSelection(binding.paidButton, this, false);
-                collaborationStage = CollaborationStageEnum.NONE;
+                collaborationStage = CollaborationStage.NONE;
             } else {
                 SubcontractorUtil.setPaidButtonsSelection(binding, getApplicationContext());
-                collaborationStage = CollaborationStageEnum.PAID;
+                collaborationStage = CollaborationStage.PAID;
             }
         });
     }

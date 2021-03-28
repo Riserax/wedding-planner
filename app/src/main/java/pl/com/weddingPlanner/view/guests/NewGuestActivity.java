@@ -19,9 +19,9 @@ import java.util.regex.Pattern;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityNewGuestBinding;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
-import pl.com.weddingPlanner.enums.GuestTypeEnum;
-import pl.com.weddingPlanner.enums.PresenceEnum;
+import pl.com.weddingPlanner.enums.CategoryType;
+import pl.com.weddingPlanner.enums.GuestType;
+import pl.com.weddingPlanner.enums.Presence;
 import pl.com.weddingPlanner.persistence.entity.AgeRange;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Guest;
@@ -48,8 +48,8 @@ public class NewGuestActivity extends BaseActivity {
 
     private Guest guestDetails;
 
-    private GuestTypeEnum guestType = GuestTypeEnum.GUEST;
-    private PresenceEnum presenceStatus = PresenceEnum.NONE;
+    private GuestType guestType = GuestType.GUEST;
+    private Presence presenceStatus = Presence.NONE;
 
     private boolean isConnectedWithChosen;
 
@@ -77,7 +77,7 @@ public class NewGuestActivity extends BaseActivity {
             guestDetails = DAOUtil.getGuestById(this, guestId);
 
             if (StringUtils.isNotBlank(guestDetails.getPresence())) {
-                presenceStatus = PresenceEnum.valueOf(guestDetails.getPresence());
+                presenceStatus = Presence.valueOf(guestDetails.getPresence());
             }
         }
     }
@@ -189,7 +189,7 @@ public class NewGuestActivity extends BaseActivity {
             @Override
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
-                List<Category> categories = DAOUtil.getAllCategoriesByType(NewGuestActivity.this, CategoryTypeEnum.GUESTS.name());
+                List<Category> categories = DAOUtil.getAllCategoriesByType(NewGuestActivity.this, CategoryType.GUESTS.name());
                 new SingleSelectionListDialog(NewGuestActivity.this, categories, R.string.dialog_category_choice).showDialog();
             }
         });
@@ -239,12 +239,12 @@ public class NewGuestActivity extends BaseActivity {
     private void setInvitationSentButtonListener() {
         binding.sentButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
-            if (PresenceEnum.INVITATION_SENT.equals(presenceStatus)) {
+            if (Presence.INVITATION_SENT.equals(presenceStatus)) {
                 ButtonsUtil.setButtonSelection(binding.sentButton, this, false);
-                presenceStatus = PresenceEnum.NONE;
+                presenceStatus = Presence.NONE;
             } else {
                 GuestUtil.setInvitationSentButtonsSelection(binding, getApplicationContext());
-                presenceStatus = PresenceEnum.INVITATION_SENT;
+                presenceStatus = Presence.INVITATION_SENT;
             }
         });
     }
@@ -252,12 +252,12 @@ public class NewGuestActivity extends BaseActivity {
     private void setInvitationAcceptedButtonListener() {
         binding.acceptedButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
-            if (PresenceEnum.CONFIRMED_PRESENCE.equals(presenceStatus)) {
+            if (Presence.CONFIRMED_PRESENCE.equals(presenceStatus)) {
                 ButtonsUtil.setButtonSelection(binding.acceptedButton, this, false);
-                presenceStatus = PresenceEnum.NONE;
+                presenceStatus = Presence.NONE;
             } else {
                 GuestUtil.setInvitationAcceptedButtonsSelection(binding, getApplicationContext());
-                presenceStatus = PresenceEnum.CONFIRMED_PRESENCE;
+                presenceStatus = Presence.CONFIRMED_PRESENCE;
             }
         });
     }
@@ -265,12 +265,12 @@ public class NewGuestActivity extends BaseActivity {
     private void setInvitationRejectedButtonListener() {
         binding.rejectedButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
-            if (PresenceEnum.CONFIRMED_ABSENCE.equals(presenceStatus)) {
+            if (Presence.CONFIRMED_ABSENCE.equals(presenceStatus)) {
                 ButtonsUtil.setButtonSelection(binding.rejectedButton, this, false);
-                presenceStatus = PresenceEnum.NONE;
+                presenceStatus = Presence.NONE;
             } else {
                 GuestUtil.setInvitationRejectedButtonsSelection(binding, getApplicationContext());
-                presenceStatus = PresenceEnum.CONFIRMED_ABSENCE;
+                presenceStatus = Presence.CONFIRMED_ABSENCE;
             }
         });
     }
@@ -278,12 +278,12 @@ public class NewGuestActivity extends BaseActivity {
     private void setInvitationAwaitingButtonListener() {
         binding.awaitingButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
-            if (PresenceEnum.AWAITING.equals(presenceStatus)) {
+            if (Presence.AWAITING.equals(presenceStatus)) {
                 ButtonsUtil.setButtonSelection(binding.awaitingButton, this, false);
-                presenceStatus = PresenceEnum.NONE;
+                presenceStatus = Presence.NONE;
             } else {
                 GuestUtil.setInvitationAwaitingButtonsSelection(binding, getApplicationContext());
-                presenceStatus = PresenceEnum.AWAITING;
+                presenceStatus = Presence.AWAITING;
             }
         });
     }
@@ -325,7 +325,7 @@ public class NewGuestActivity extends BaseActivity {
         return Guest.builder()
                 .nameSurname(binding.guestNameSurname.getText().toString())
                 .type(guestType.name())
-                .connectedWithId(GuestTypeEnum.ACCOMPANY.equals(guestType) ? getConnectedWithId(connectedWithNameSurname) : 0)
+                .connectedWithId(GuestType.ACCOMPANY.equals(guestType) ? getConnectedWithId(connectedWithNameSurname) : 0)
                 .ageRange(isAgeChosen ? ageRange : StringUtils.EMPTY)
                 .category(isCategoryChosen ? category : StringUtils.EMPTY)
                 .tableNumber(isTableChosen ? getTableNumber(tableInfo) : 0)
@@ -378,7 +378,7 @@ public class NewGuestActivity extends BaseActivity {
     private void proceedWhenNewGuest(Guest newGuest) {
         if (!isNameSurnameUnique(newGuest.getNameSurname())) {
             Toast.makeText(this, "Istnieje już gość o podanym imieniu i nazwisku", Toast.LENGTH_LONG).show();
-        } else if (GuestTypeEnum.ACCOMPANY.name().equals(newGuest.getType()) && newGuest.getConnectedWithId() == 0) {
+        } else if (GuestType.ACCOMPANY.name().equals(newGuest.getType()) && newGuest.getConnectedWithId() == 0) {
             Toast.makeText(this, "Należy wybrać gościa, dla którego będzie to osoba towarzysząca", Toast.LENGTH_LONG).show();
         } else {
             insertGuestAndStartActivity(newGuest);
@@ -410,13 +410,13 @@ public class NewGuestActivity extends BaseActivity {
     private void setGuestSelectedAccompanyNotSelected() {
         ButtonsUtil.setButtonSelection(binding.guestButton, this, true);
         ButtonsUtil.setButtonSelection(binding.accompanyButton, this, false);
-        guestType = GuestTypeEnum.GUEST;
+        guestType = GuestType.GUEST;
     }
 
     private void setAccompanySelectedGuestNotSelected() {
         ButtonsUtil.setButtonSelection(binding.guestButton, this, false);
         ButtonsUtil.setButtonSelection(binding.accompanyButton, this, true);
-        guestType = GuestTypeEnum.ACCOMPANY;
+        guestType = GuestType.ACCOMPANY;
     }
 
     @Override
@@ -435,6 +435,6 @@ public class NewGuestActivity extends BaseActivity {
     }
 
     private boolean isGuest() {
-        return GuestTypeEnum.GUEST.name().equals(guestDetails.getType());
+        return GuestType.GUEST.name().equals(guestDetails.getType());
     }
 }

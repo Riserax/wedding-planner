@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat;
 
 import lombok.Getter;
 import pl.com.weddingPlanner.R;
-import pl.com.weddingPlanner.enums.CollaborationStageEnum;
+import pl.com.weddingPlanner.enums.CollaborationStage;
 import pl.com.weddingPlanner.model.info.SubcontractorInfo;
 
 public class StageAndPayments {
@@ -47,7 +47,7 @@ public class StageAndPayments {
     }
 
     private void prepareAndAddStage() {
-        if (subcontractorInfo.getCollaborationStage() != CollaborationStageEnum.NONE) {
+        if (subcontractorInfo.getCollaborationStage() != CollaborationStage.NONE) {
             LinearLayout backgroundLayout = createBackgroundLayout();
             ImageButton imageButton = createImageButton();
 

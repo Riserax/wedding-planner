@@ -6,7 +6,7 @@ import pl.com.weddingPlanner.R;
 
 @Getter
 @AllArgsConstructor
-public enum GuestTypeEnum {
+public enum GuestType {
 
     GUEST(R.string.guest_field_guest),
     ACCOMPANY(R.string.guest_field_accompany),

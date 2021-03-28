@@ -6,7 +6,7 @@ import pl.com.weddingPlanner.R;
 
 @Getter
 @AllArgsConstructor
-public enum PresenceEnum {
+public enum Presence {
 
     INVITATION_SENT(1, R.string.guest_field_invitation_sent_short, R.string.guest_field_invitation_sent, R.drawable.ic_email),
     CONFIRMED_PRESENCE(2, R.string.guest_field_invitation_accepted_short, R.string.guest_field_invitation_accepted, R.drawable.ic_check_circle),

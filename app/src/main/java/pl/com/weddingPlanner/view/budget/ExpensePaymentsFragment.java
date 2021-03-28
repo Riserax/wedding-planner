@@ -25,8 +25,8 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentExpensePaymentsBinding;
-import pl.com.weddingPlanner.enums.LocationEnum;
-import pl.com.weddingPlanner.enums.PaymentStateEnum;
+import pl.com.weddingPlanner.enums.Location;
+import pl.com.weddingPlanner.enums.PaymentState;
 import pl.com.weddingPlanner.view.component.Assignees;
 import pl.com.weddingPlanner.model.info.PaymentInfo;
 import pl.com.weddingPlanner.persistence.entity.Payment;
@@ -136,7 +136,7 @@ public class ExpensePaymentsFragment extends Fragment {
                 PaymentInfo paymentInfo = PaymentInfo.builder()
                         .itemId(payment.getId())
                         .title(payment.getTitle())
-                        .state(PaymentStateEnum.valueOf(payment.getState()))
+                        .state(PaymentState.valueOf(payment.getState()))
                         .amount(payment.getAmount())
                         .date(payment.getDate())
                         .payerLayout(getPayerLayout(payment))
@@ -155,7 +155,7 @@ public class ExpensePaymentsFragment extends Fragment {
 
         if (StringUtils.isNotBlank(payment.getPayer())) {
             Person payer = DAOUtil.getPersonById(getContext(), Integer.parseInt(payment.getPayer()));
-            assignees = new Assignees(getContext(), Collections.singletonList(payer), LocationEnum.LIST_ITEM);
+            assignees = new Assignees(getContext(), Collections.singletonList(payer), Location.LIST_ITEM);
         }
 
         return assignees != null ? assignees.getAssigneesContainer() : new LinearLayout(getContext());

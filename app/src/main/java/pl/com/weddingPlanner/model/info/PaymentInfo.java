@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.com.weddingPlanner.enums.PaymentStateEnum;
+import pl.com.weddingPlanner.enums.PaymentState;
 
 @Data
 @Builder
@@ -18,7 +18,7 @@ public class PaymentInfo implements Serializable {
 
     private int itemId;
     private String title;
-    private PaymentStateEnum state;
+    private PaymentState state;
     private String amount;
     private String date;
     private LinearLayout payerLayout;

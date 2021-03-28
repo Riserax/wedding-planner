@@ -2,11 +2,11 @@ package pl.com.weddingPlanner.view.util;
 
 import android.widget.TextView;
 
-import pl.com.weddingPlanner.enums.PeriodTypeEnum;
+import pl.com.weddingPlanner.enums.PeriodType;
 
 public class DashboardUtil {
 
-    public static void setValueAndTitleForPeriod(TextView valueTextView, TextView titleTextView, int value, PeriodTypeEnum periodType) {
+    public static void setValueAndTitleForPeriod(TextView valueTextView, TextView titleTextView, int value, PeriodType periodType) {
         String preparedValue = prepareValue(value);
         valueTextView.setText(preparedValue);
         setTitleForPeriod(titleTextView, periodType, value);
@@ -19,7 +19,7 @@ public class DashboardUtil {
         return String.valueOf(value);
     }
 
-    private static void setTitleForPeriod(TextView titleTextView, PeriodTypeEnum periodType, int value) {
+    private static void setTitleForPeriod(TextView titleTextView, PeriodType periodType, int value) {
         switch (periodType) {
             case YEAR:
             case MONTH:

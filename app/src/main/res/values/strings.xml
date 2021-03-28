@@ -71,6 +71,9 @@
     <string name="field_lack">Brak</string>
     <string name="field_not_specified">Nie określono</string>
 
+    <string name="guest_details_delete_question">Czy na pewno chcesz usunąć tego gościa?</string>
+    <string name="guest_details_delete_question_guest">Czy na pewno chcesz usunąć tego gościa? Wiąże się to z usunięciem osoby towarzyszącej</string>
+
     <string name="guest_field_accompany">Osoba towarzysząca</string>
     <string name="guest_field_accompany_info">Osoba towarzysząca gościa %1$s</string>
     <string name="guest_field_age">Przedział wiekowy</string>
@@ -95,9 +98,6 @@
     <string name="guest_field_name_surname">Imię i\u00A0nazwisko</string>
     <string name="guest_field_phone">Telefon</string>
     <string name="guest_field_table">Miejsce</string>
-
-    <string name="guest_details_delete_question">Czy na pewno chcesz usunąć tego gościa?</string>
-    <string name="guest_details_delete_question_guest">Czy na pewno chcesz usunąć tego gościa? Wiąże się to z usunięciem osoby towarzyszącej</string>
 
     <string name="header_title_budget">Budżet</string>
     <string name="header_title_budget_new">Nowy wydatek</string>

@@ -6,7 +6,7 @@ import pl.com.weddingPlanner.R;
 
 @Getter
 @AllArgsConstructor
-public enum PeriodTypeEnum {
+public enum PeriodType {
 
     YEAR(R.string.period_year_1, R.string.period_year_2, R.string.period_year_3),
     MONTH(R.string.period_month_1, R.string.period_month_2, R.string.period_month_3),

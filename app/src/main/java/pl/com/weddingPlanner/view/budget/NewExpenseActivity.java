@@ -32,7 +32,7 @@ import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.dialog.PeopleDialog;
 import pl.com.weddingPlanner.view.dialog.SingleSelectionListDialog;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.CategoryType;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
 import pl.com.weddingPlanner.view.util.FormatUtil;
 import pl.com.weddingPlanner.view.util.PersonUtil;
@@ -82,7 +82,7 @@ public class NewExpenseActivity extends BaseActivity {
     private void getAndSetData() {
         if (expenseId > 0) {
             expenseDetails = DAOUtil.getExpenseById(this, expenseId);
-            categoryDetails = DAOUtil.getCategoryByNameAndType(this, expenseDetails.getCategory(), CategoryTypeEnum.BUDGET.name());
+            categoryDetails = DAOUtil.getCategoryByNameAndType(this, expenseDetails.getCategory(), CategoryType.BUDGET.name());
         }
     }
 
@@ -155,7 +155,7 @@ public class NewExpenseActivity extends BaseActivity {
             @Override
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
-                List<Category> categories = DAOUtil.getAllCategoriesByType(NewExpenseActivity.this, CategoryTypeEnum.BUDGET.name());
+                List<Category> categories = DAOUtil.getAllCategoriesByType(NewExpenseActivity.this, CategoryType.BUDGET.name());
                 new SingleSelectionListDialog(NewExpenseActivity.this, categories, R.string.dialog_category_choice).showDialog();
             }
         });

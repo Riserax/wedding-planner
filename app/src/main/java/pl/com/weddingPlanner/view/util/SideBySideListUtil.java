@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.Objects;
 
 import pl.com.weddingPlanner.R;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
-import pl.com.weddingPlanner.enums.MoreEnum;
-import pl.com.weddingPlanner.enums.MoreResource;
+import pl.com.weddingPlanner.enums.CategoryType;
+import pl.com.weddingPlanner.enums.MenuMore;
+import pl.com.weddingPlanner.enums.MenuMoreResource;
 import pl.com.weddingPlanner.exception.EnumValueNotFoundException;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.util.DebouncedOnClickListener;
@@ -43,7 +43,7 @@ public class SideBySideListUtil {
         for (int i = 0; i < positions.size(); i++) {
             RelativeLayout relativeLayout = null;
 
-            if (positions.get(i) instanceof MoreEnum) {
+            if (positions.get(i) instanceof MenuMore) {
                 try {
                     relativeLayout = prepareCategoryButton(fragment, Objects.requireNonNull(getResource(positions.get(i))), inflater);
                 } catch (EnumValueNotFoundException e) {
@@ -113,16 +113,16 @@ public class SideBySideListUtil {
     }
 
     private static Enum getResource(Object object) throws EnumValueNotFoundException {
-        if (object instanceof MoreEnum) {
-            return MoreResource.of((MoreEnum) object);
+        if (object instanceof MenuMore) {
+            return MenuMoreResource.of((MenuMore) object);
         } else {
             return null;
         }
     }
 
     private static String getIconCode(Enum resource) {
-        if (resource instanceof MoreResource) {
-            return ((MoreResource) resource).getIconCode();
+        if (resource instanceof MenuMoreResource) {
+            return ((MenuMoreResource) resource).getIconCode();
         } else {
             return null;
         }
@@ -137,8 +137,8 @@ public class SideBySideListUtil {
     }
 
     private static int getResourceId(Enum resource) {
-        if (resource instanceof MoreResource) {
-            return ((MoreResource) resource).getResourceId();
+        if (resource instanceof MenuMoreResource) {
+            return ((MenuMoreResource) resource).getResourceId();
         } else {
             return -1;
         }
@@ -153,8 +153,8 @@ public class SideBySideListUtil {
     }
 
     private static Class getTargetActivity(Enum resource) {
-        if (resource instanceof MoreResource) {
-            return ((MoreResource) resource).getTargetActivity();
+        if (resource instanceof MenuMoreResource) {
+            return ((MenuMoreResource) resource).getTargetActivity();
         } else {
             return null;
         }
@@ -163,11 +163,11 @@ public class SideBySideListUtil {
     private static Class getTargetActivity(Object object) {
         if (object instanceof Category) {
             Category category = (Category) object;
-            if (CategoryTypeEnum.TASKS == CategoryTypeEnum.valueOf(category.getType())) {
+            if (CategoryType.TASKS == CategoryType.valueOf(category.getType())) {
                 return TasksCategoryActivity.class;
-            } else if (CategoryTypeEnum.BUDGET == CategoryTypeEnum.valueOf(category.getType())) {
+            } else if (CategoryType.BUDGET == CategoryType.valueOf(category.getType())) {
                 return BudgetCategoryActivity.class;
-            } else if (CategoryTypeEnum.SUBCONTRACTORS == CategoryTypeEnum.valueOf(category.getType())) {
+            } else if (CategoryType.SUBCONTRACTORS == CategoryType.valueOf(category.getType())) {
                 return SubcontractorsCategoryActivity.class;
             } else {
                 return null;

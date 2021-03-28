@@ -1,6 +1,6 @@
 package pl.com.weddingPlanner.enums;
 
-public enum CategoryTypeEnum {
+public enum CategoryType {
 
     TASKS,
     BUDGET,

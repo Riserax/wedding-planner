@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -19,21 +20,18 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentGuestsGroupsBinding;
-import pl.com.weddingPlanner.enums.GuestTypeEnum;
-import pl.com.weddingPlanner.enums.PresenceEnum;
+import pl.com.weddingPlanner.enums.GuestGroup;
+import pl.com.weddingPlanner.enums.GuestType;
+import pl.com.weddingPlanner.enums.Presence;
 import pl.com.weddingPlanner.model.info.GuestInfo;
 import pl.com.weddingPlanner.persistence.entity.Guest;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.component.TableAndPresence;
-import pl.com.weddingPlanner.view.list.ContentItem;
-import pl.com.weddingPlanner.view.list.HeaderItem;
 import pl.com.weddingPlanner.view.list.ListItem;
 import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
 import pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView;
@@ -42,15 +40,20 @@ import pl.com.weddingPlanner.view.util.GuestUtil;
 import static pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView.PAGE_START;
 import static pl.com.weddingPlanner.view.util.ExtraUtil.GUEST_ID_EXTRA;
 
-public class GuestsGroupsFragment extends Fragment {
+public class GuestsGroupsFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private FragmentGuestsGroupsBinding binding;
 
     private int currentPage = PAGE_START;
     private boolean isLastPage = false;
     private boolean isLoading = false;
+
     private LinearLayoutManager linearLayoutManager;
     private ListRecyclerAdapter adapter;
+    private RecyclerView recyclerView;
+
+    private List<GuestInfo> guestInfoList = new ArrayList<>();
+    private String currentlySelectedItemInSpinner;
 
     @Nullable
     @Override
@@ -60,19 +63,17 @@ public class GuestsGroupsFragment extends Fragment {
 
         setSpinner();
         setRecyclerView();
-        setSwipeRefresh();
-
         setGuestsList();
+        setListeners();
 
         return binding.getRoot();
     }
 
     private void setSpinner() {
-        List<String> groups = Arrays.asList("Status obecności", "Przedział wiekowy", "Stoły", "Kategorie");
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_text_layout);
 
-        for (String group : groups) {
-            adapter.add(group);
+        for (GuestGroup group : GuestGroup.values()) {
+            adapter.add(group.getText());
         }
 
         adapter.setDropDownViewResource(R.layout.spinner_item_layout);
@@ -89,10 +90,18 @@ public class GuestsGroupsFragment extends Fragment {
             startActivity(intent);
         });
 
-        RecyclerView recyclerView = binding.recyclerView;
+        recyclerView = binding.recyclerView;
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+    }
 
+    private void setListeners() {
+        setRecyclerViewListener();
+        setSwipeRefresh();
+        setSpinnerListener();
+    }
+
+    private void setRecyclerViewListener() {
         recyclerView.addOnScrollListener(new PaginationListenerRecyclerView(linearLayoutManager) {
             @Override
             public boolean isLoading() {
@@ -120,48 +129,51 @@ public class GuestsGroupsFragment extends Fragment {
             adapter.clear();
             currentPage = PAGE_START;
             setGuestsList();
+            prepareGuestList(currentlySelectedItemInSpinner);
         });
     }
 
+    private void setSpinnerListener() {
+        binding.groupsSpinner.setOnItemSelectedListener(this);
+    }
+
     private void setGuestsList() {
-        List<GuestInfo> toReturn = new ArrayList<>();
         List<Guest> allGuests = DAOUtil.getAllGuests(requireContext());
+        guestInfoList.clear();
 
         for (Guest guest : allGuests) {
             GuestInfo guestInfo = GuestInfo.builder()
                     .itemId(guest.getId())
-                    .type(GuestTypeEnum.valueOf(guest.getType()))
+                    .type(GuestType.valueOf(guest.getType()))
                     .nameSurname(guest.getNameSurname())
+                    .ageRange(guest.getAgeRange())
                     .tableNumber(guest.getTableNumber())
-                    .presence(StringUtils.isNotBlank(guest.getPresence()) ? PresenceEnum.valueOf(guest.getPresence()) : PresenceEnum.NONE)
+                    .presence(StringUtils.isNotBlank(guest.getPresence()) ? Presence.valueOf(guest.getPresence()) : Presence.NONE)
                     .build();
 
             TableAndPresence tableAndPresence = new TableAndPresence(getContext(), guestInfo);
 
             guestInfo.setTablePresenceLayout(tableAndPresence.getLayoutContainer());
 
-            toReturn.add(guestInfo);
+            guestInfoList.add(guestInfo);
         }
-
-        List<ListItem> listItems = prepareGuestsInfoList(toReturn);
-        adapter.addItems(listItems);
     }
 
-    private List<ListItem> prepareGuestsInfoList(List<GuestInfo> guestInfoList) {
-        List<ListItem> toReturn = new ArrayList<>();
+    private void prepareGuestList(String selectedItem) {
+        List<ListItem> listItems = GuestUtil.getGroupedGuests(selectedItem, guestInfoList, getContext());
+        adapter.clear();
+        adapter.addItems(listItems);
+        currentlySelectedItemInSpinner = selectedItem;
+    }
 
-        Map<PresenceEnum, List<GuestInfo>> guestsPerPresences = GuestUtil.groupGuestsPerPresences(guestInfoList);
+    @Override
+    public void onItemSelected(AdapterView<?> parentView, View view, int position, long id) {
+        String selectedItem = (String) parentView.getItemAtPosition(position);
+        prepareGuestList(selectedItem);
+    }
 
-        for (Map.Entry<PresenceEnum, List<GuestInfo>> guestsPerPresence : guestsPerPresences.entrySet()) {
-            String headerText = getContext().getString(guestsPerPresence.getKey().getTextResourceId());
-            HeaderItem headerItem = new HeaderItem(headerText);
-            toReturn.add(headerItem);
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
 
-            for (GuestInfo guest : guestsPerPresence.getValue()) {
-                toReturn.add(ContentItem.of(guest));
-            }
-        }
-
-        return toReturn;
     }
 }

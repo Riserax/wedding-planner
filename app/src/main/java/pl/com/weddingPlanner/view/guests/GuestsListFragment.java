@@ -22,8 +22,8 @@ import java.util.List;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentGuestsListBinding;
-import pl.com.weddingPlanner.enums.GuestTypeEnum;
-import pl.com.weddingPlanner.enums.PresenceEnum;
+import pl.com.weddingPlanner.enums.GuestType;
+import pl.com.weddingPlanner.enums.Presence;
 import pl.com.weddingPlanner.view.component.TableAndPresence;
 import pl.com.weddingPlanner.model.info.GuestInfo;
 import pl.com.weddingPlanner.persistence.entity.Guest;
@@ -109,10 +109,10 @@ public class GuestsListFragment extends Fragment {
         for (Guest guest : allGuests) {
             GuestInfo guestInfo = GuestInfo.builder()
                     .itemId(guest.getId())
-                    .type(GuestTypeEnum.valueOf(guest.getType()))
+                    .type(GuestType.valueOf(guest.getType()))
                     .nameSurname(guest.getNameSurname())
                     .tableNumber(guest.getTableNumber())
-                    .presence(StringUtils.isNotBlank(guest.getPresence()) ? PresenceEnum.valueOf(guest.getPresence()) : PresenceEnum.NONE)
+                    .presence(StringUtils.isNotBlank(guest.getPresence()) ? Presence.valueOf(guest.getPresence()) : Presence.NONE)
                     .build();
 
             TableAndPresence tableAndPresence = new TableAndPresence(getContext(), guestInfo);

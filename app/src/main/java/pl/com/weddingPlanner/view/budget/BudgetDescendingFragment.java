@@ -22,8 +22,8 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentBudgetDescendingBinding;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
-import pl.com.weddingPlanner.enums.LocationEnum;
+import pl.com.weddingPlanner.enums.CategoryType;
+import pl.com.weddingPlanner.enums.Location;
 import pl.com.weddingPlanner.view.component.Assignees;
 import pl.com.weddingPlanner.model.info.ExpenseInfo;
 import pl.com.weddingPlanner.persistence.entity.Category;
@@ -164,10 +164,10 @@ public class BudgetDescendingFragment extends Fragment {
             for (Map.Entry<Integer, LocalDate> sortedIdDate : sortedIdDateMap.entrySet()) {
                 Expense expense = (Expense) expensesMap.get(sortedIdDate.getKey());
 
-                Category category = DAOUtil.getCategoryByNameAndType(requireContext(), expense.getCategory(), CategoryTypeEnum.BUDGET.name());
+                Category category = DAOUtil.getCategoryByNameAndType(requireContext(), expense.getCategory(), CategoryType.BUDGET.name());
 
                 List<Person> payersList = PersonUtil.getPersonsList(getContext(), expense.getPayers());
-                Assignees assignees = new Assignees(getContext(), payersList, LocationEnum.LIST_ITEM);
+                Assignees assignees = new Assignees(getContext(), payersList, Location.LIST_ITEM);
 
                 ExpenseInfo expenseInfo = ExpenseInfo.builder()
                         .itemId(expense.getId())

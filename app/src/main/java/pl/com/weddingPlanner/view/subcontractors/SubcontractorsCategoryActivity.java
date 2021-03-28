@@ -14,7 +14,7 @@ import java.util.List;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityCategorySubcontractorsBinding;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.CategoryType;
 import pl.com.weddingPlanner.model.info.SubcontractorInfo;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Subcontractor;
@@ -113,7 +113,7 @@ public class SubcontractorsCategoryActivity extends BaseActivity {
         List<Subcontractor> allSubcontractors = DAOUtil.getAllSubcontractorsByCategory(this, categoryName);
 
         for (Subcontractor subcontractor : allSubcontractors) {
-            Category category = DAOUtil.getCategoryByNameAndType(this, subcontractor.getCategory(), CategoryTypeEnum.SUBCONTRACTORS.name());
+            Category category = DAOUtil.getCategoryByNameAndType(this, subcontractor.getCategory(), CategoryType.SUBCONTRACTORS.name());
 
             SubcontractorInfo subcontractorInfo = SubcontractorInfo.builder()
                     .itemId(subcontractor.getId())
