@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.com.weddingPlanner.enums.TaskStatusEnum;
+import pl.com.weddingPlanner.enums.TaskStatus;
 
 @Data
 @Builder
@@ -22,7 +22,7 @@ public class TaskInfo implements Serializable {
     private String bookmarks;
     private String assignees;
     private String date;
-    private TaskStatusEnum status;
+    private TaskStatus status;
     private LinearLayout bookmarksLayout;
     private LinearLayout assigneesLayout;
 }

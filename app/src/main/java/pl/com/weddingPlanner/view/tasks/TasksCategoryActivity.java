@@ -17,9 +17,9 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityCategoryTasksBinding;
-import pl.com.weddingPlanner.enums.LocationEnum;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
-import pl.com.weddingPlanner.enums.TaskStatusEnum;
+import pl.com.weddingPlanner.enums.Location;
+import pl.com.weddingPlanner.enums.CategoryType;
+import pl.com.weddingPlanner.enums.TaskStatus;
 import pl.com.weddingPlanner.view.component.Assignees;
 import pl.com.weddingPlanner.view.component.Bookmarks;
 import pl.com.weddingPlanner.model.info.TaskInfo;
@@ -132,20 +132,20 @@ public class TasksCategoryActivity extends BaseActivity {
             for (Map.Entry<Integer, LocalDate> sortedIdDate : sortedIdDateMap.entrySet()) {
                 Task task = tasksMap.get(sortedIdDate.getKey());
 
-                Category category = DAOUtil.getCategoryByNameAndType(this, task.getCategory(), CategoryTypeEnum.TASKS.name());
+                Category category = DAOUtil.getCategoryByNameAndType(this, task.getCategory(), CategoryType.TASKS.name());
 
                 List<Bookmark> bookmarkList = TasksUtil.getBookmarks(task, this);
-                Bookmarks bookmarks = new Bookmarks(this, bookmarkList, LocationEnum.LIST_ITEM);
+                Bookmarks bookmarks = new Bookmarks(this, bookmarkList, Location.LIST_ITEM);
 
                 List<Person> assigneeList = PersonUtil.getPersonsList(this, task.getAssignees());
-                Assignees assignees = new Assignees(this, assigneeList, LocationEnum.LIST_ITEM);
+                Assignees assignees = new Assignees(this, assigneeList, Location.LIST_ITEM);
 
                 TaskInfo taskInfo = TaskInfo.builder()
                         .itemId(task.getId())
                         .title(task.getTitle())
                         .categoryIconId(category.getIconId())
                         .date(task.getDate())
-                        .status(TaskStatusEnum.valueOf(task.getStatus()))
+                        .status(TaskStatus.valueOf(task.getStatus()))
                         .bookmarksLayout(bookmarks.getBookmarksContainer())
                         .assigneesLayout(assignees.getAssigneesContainer())
                         .build();

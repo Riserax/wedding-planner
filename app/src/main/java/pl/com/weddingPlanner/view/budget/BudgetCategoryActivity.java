@@ -17,7 +17,7 @@ import java.util.Map;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityCategoryBudgetBinding;
-import pl.com.weddingPlanner.enums.LocationEnum;
+import pl.com.weddingPlanner.enums.Location;
 import pl.com.weddingPlanner.view.component.Assignees;
 import pl.com.weddingPlanner.model.info.ExpenseInfo;
 import pl.com.weddingPlanner.persistence.entity.Category;
@@ -26,7 +26,7 @@ import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.util.DateUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
+import pl.com.weddingPlanner.enums.CategoryType;
 import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.HeaderItem;
 import pl.com.weddingPlanner.view.list.ListItem;
@@ -130,10 +130,10 @@ public class BudgetCategoryActivity extends BaseActivity {
             for (Map.Entry<Integer, LocalDate> sortedIdDate : sortedIdDateMap.entrySet()) {
                 Expense expense = (Expense) expensesMap.get(sortedIdDate.getKey());
 
-                Category category = DAOUtil.getCategoryByNameAndType(this, expense.getCategory(), CategoryTypeEnum.BUDGET.name());
+                Category category = DAOUtil.getCategoryByNameAndType(this, expense.getCategory(), CategoryType.BUDGET.name());
 
                 List<Person> payersList = PersonUtil.getPersonsList(this, expense.getPayers());
-                Assignees assignees = new Assignees(this, payersList, LocationEnum.LIST_ITEM);
+                Assignees assignees = new Assignees(this, payersList, Location.LIST_ITEM);
 
                 ExpenseInfo expenseInfo = ExpenseInfo.builder()
                         .itemId(expense.getId())

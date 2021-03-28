@@ -6,7 +6,7 @@ import pl.com.weddingPlanner.R;
 
 @Getter
 @AllArgsConstructor
-public enum TaskStatusEnum {
+public enum TaskStatus {
 
     NEW(R.string.task_field_status_new, R.drawable.ic_new),
     IN_PROGRESS(R.string.task_field_status_in_progress, R.drawable.ic_progress),

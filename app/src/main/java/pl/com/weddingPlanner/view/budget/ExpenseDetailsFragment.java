@@ -20,9 +20,9 @@ import java.util.List;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentExpenseDetailsBinding;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
-import pl.com.weddingPlanner.enums.LocationEnum;
-import pl.com.weddingPlanner.enums.PaymentStateEnum;
+import pl.com.weddingPlanner.enums.CategoryType;
+import pl.com.weddingPlanner.enums.Location;
+import pl.com.weddingPlanner.enums.PaymentState;
 import pl.com.weddingPlanner.persistence.entity.Subcontractor;
 import pl.com.weddingPlanner.view.component.Assignees;
 import pl.com.weddingPlanner.persistence.entity.Category;
@@ -79,7 +79,7 @@ public class ExpenseDetailsFragment extends Fragment {
 
     private void getAndSetData() {
         expenseDetails = DAOUtil.getExpenseById(getContext(), expenseId);
-        categoryDetails = DAOUtil.getCategoryByNameAndType(getContext(), expenseDetails.getCategory(), CategoryTypeEnum.BUDGET.name());
+        categoryDetails = DAOUtil.getCategoryByNameAndType(getContext(), expenseDetails.getCategory(), CategoryType.BUDGET.name());
 
         getAndSetPayments();
         getAndSetPayers();
@@ -89,9 +89,9 @@ public class ExpenseDetailsFragment extends Fragment {
         List<Payment> allPayments = DAOUtil.getAllPaymentsByExpenseId(getContext(), expenseId);
 
         for (Payment payment : allPayments) {
-            if (PaymentStateEnum.PENDING == PaymentStateEnum.valueOf(payment.getState())) {
+            if (PaymentState.PENDING == PaymentState.valueOf(payment.getState())) {
                 awaitingPaymentsSum += Double.parseDouble(payment.getAmount());
-            } else if (PaymentStateEnum.PAID == PaymentStateEnum.valueOf(payment.getState())) {
+            } else if (PaymentState.PAID == PaymentState.valueOf(payment.getState())) {
                 paidPaymentsSum += Double.parseDouble(payment.getAmount());
             }
         }
@@ -180,7 +180,7 @@ public class ExpenseDetailsFragment extends Fragment {
 
     private void setPayers() {
         if (StringUtils.isNotBlank(expenseDetails.getPayers())) {
-            Assignees assignees = new Assignees(getContext(), payersList, LocationEnum.DETAILS);
+            Assignees assignees = new Assignees(getContext(), payersList, Location.DETAILS);
             binding.payersLayout.addView(assignees.getAssigneesContainer());
         } else {
             binding.noPayers.setVisibility(View.VISIBLE);

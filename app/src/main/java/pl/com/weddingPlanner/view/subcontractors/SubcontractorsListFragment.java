@@ -20,9 +20,9 @@ import java.util.List;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentSubcontractorsListBinding;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
-import pl.com.weddingPlanner.enums.CollaborationStageEnum;
-import pl.com.weddingPlanner.enums.PaymentStateEnum;
+import pl.com.weddingPlanner.enums.CategoryType;
+import pl.com.weddingPlanner.enums.CollaborationStage;
+import pl.com.weddingPlanner.enums.PaymentState;
 import pl.com.weddingPlanner.model.info.SubcontractorInfo;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Expense;
@@ -109,13 +109,13 @@ public class SubcontractorsListFragment extends Fragment {
         List<Subcontractor> allSubcontractors = DAOUtil.getAllSubcontractors(requireContext());
 
         for (Subcontractor subcontractor : allSubcontractors) {
-            Category category = DAOUtil.getCategoryByNameAndType(requireContext(), subcontractor.getCategory(), CategoryTypeEnum.SUBCONTRACTORS.name());
+            Category category = DAOUtil.getCategoryByNameAndType(requireContext(), subcontractor.getCategory(), CategoryType.SUBCONTRACTORS.name());
 
             SubcontractorInfo subcontractorInfo = SubcontractorInfo.builder()
                     .itemId(subcontractor.getId())
                     .name(subcontractor.getName())
                     .categoryIconId(category.getIconId())
-                    .collaborationStage(CollaborationStageEnum.valueOf(subcontractor.getCollaborationStage()))
+                    .collaborationStage(CollaborationStage.valueOf(subcontractor.getCollaborationStage()))
                     .paymentsPercentage(getPaymentsPercentage(subcontractor))
                     .build();
 
@@ -154,7 +154,7 @@ public class SubcontractorsListFragment extends Fragment {
         double paidPaymentsSum = 0.00;
 
         for (Payment payment : allPayments) {
-            if (PaymentStateEnum.PAID == PaymentStateEnum.valueOf(payment.getState())) {
+            if (PaymentState.PAID == PaymentState.valueOf(payment.getState())) {
                 paidPaymentsSum += Double.parseDouble(payment.getAmount());
             }
         }

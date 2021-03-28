@@ -16,7 +16,7 @@ import java.util.List;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.FragmentMoreBinding;
 import pl.com.weddingPlanner.view.NavigationActivity;
-import pl.com.weddingPlanner.enums.MoreEnum;
+import pl.com.weddingPlanner.enums.MenuMore;
 
 import static pl.com.weddingPlanner.view.util.SideBySideListUtil.renderCategoriesButtons;
 
@@ -39,7 +39,7 @@ public class MoreFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private List<MoreEnum> getMenuItems() {
-        return new ArrayList<>(Arrays.asList(MoreEnum.values()));
+    private List<MenuMore> getMenuItems() {
+        return new ArrayList<>(Arrays.asList(MenuMore.values()));
     }
 }

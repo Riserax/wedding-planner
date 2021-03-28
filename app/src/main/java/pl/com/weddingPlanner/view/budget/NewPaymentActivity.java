@@ -18,7 +18,7 @@ import java.util.List;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityNewPaymentBinding;
-import pl.com.weddingPlanner.enums.PaymentStateEnum;
+import pl.com.weddingPlanner.enums.PaymentState;
 import pl.com.weddingPlanner.model.PickedDate;
 import pl.com.weddingPlanner.persistence.entity.Payment;
 import pl.com.weddingPlanner.persistence.entity.Person;
@@ -57,7 +57,7 @@ public class NewPaymentActivity extends BaseActivity {
     private Payment paymentDetails;
 
     private PickedDate pickedDate;
-    private PaymentStateEnum state = PaymentStateEnum.PENDING;
+    private PaymentState state = PaymentState.PENDING;
 
     private boolean isAmountSet;
     private boolean isDateSet;
@@ -107,7 +107,7 @@ public class NewPaymentActivity extends BaseActivity {
 
             binding.paymentDate.setText(paymentDetails.getDate());
 
-            if (PaymentStateEnum.PENDING == PaymentStateEnum.valueOf(paymentDetails.getState())) {
+            if (PaymentState.PENDING == PaymentState.valueOf(paymentDetails.getState())) {
                 setPendingSelectedPaidNotSelected();
             } else {
                 setPaidSelectedPendingNotSelected();
@@ -312,13 +312,13 @@ public class NewPaymentActivity extends BaseActivity {
     private void setPendingSelectedPaidNotSelected() {
         setPendingButtonSelected();
         setPaidButtonNotSelected();
-        state = PaymentStateEnum.PENDING;
+        state = PaymentState.PENDING;
     }
 
     private void setPaidSelectedPendingNotSelected() {
         setPendingButtonNotSelected();
         setPaidButtonSelected();
-        state = PaymentStateEnum.PAID;
+        state = PaymentState.PAID;
     }
 
     private void setPendingButtonSelected() {

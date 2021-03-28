@@ -12,7 +12,7 @@ import java.util.List;
 
 import lombok.Getter;
 import pl.com.weddingPlanner.R;
-import pl.com.weddingPlanner.enums.LocationEnum;
+import pl.com.weddingPlanner.enums.Location;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 
 
@@ -24,9 +24,9 @@ public class Bookmarks {
     private final List<Bookmark> bookmarkList;
     @Getter
     private final LinearLayout bookmarksContainer;
-    private final LocationEnum location;
+    private final Location location;
 
-    public Bookmarks(Context context, List<Bookmark> bookmarkList, LocationEnum location) {
+    public Bookmarks(Context context, List<Bookmark> bookmarkList, Location location) {
         this.context = context;
         this.bookmarkList = bookmarkList;
         this.bookmarksContainer = new LinearLayout(context);
@@ -45,7 +45,7 @@ public class Bookmarks {
     private int getRowsNumber() {
         int rowsNumber = 1;
 
-        if (LocationEnum.DETAILS == location) {
+        if (Location.DETAILS == location) {
             rowsNumber = (int) Math.ceil((double) bookmarkList.size() / BOOKMARKS_DETAILS_PER_ROW);
         }
 
@@ -55,13 +55,13 @@ public class Bookmarks {
     private void createAndAddOneRowBookmarksLayout(int row) {
         LinearLayout bookmarksSingleRowLayout = null;
 
-        if (LocationEnum.LIST_ITEM == location) {
+        if (Location.LIST_ITEM == location) {
             bookmarksSingleRowLayout = setListBookmarksRowLayout();
 
             for (Bookmark bookmark : bookmarkList) {
                 prepareAndAddListBookmark(bookmark, bookmarksSingleRowLayout);
             }
-        } else if (LocationEnum.DETAILS == location) {
+        } else if (Location.DETAILS == location) {
             bookmarksSingleRowLayout = setDetailsBookmarksRowLayout();
 
             for (int i = 0; i < bookmarkList.size(); i++) {

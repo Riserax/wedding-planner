@@ -6,8 +6,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import pl.com.weddingPlanner.R;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
-import pl.com.weddingPlanner.enums.PaymentStateEnum;
+import pl.com.weddingPlanner.enums.CategoryType;
+import pl.com.weddingPlanner.enums.PaymentState;
 import pl.com.weddingPlanner.persistence.entity.AgeRange;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
@@ -94,43 +94,43 @@ public class MainActivity extends AppCompatActivity {
     private void insertTasksCategories() {
         Category categoryTasks1 = Category.builder()
                 .name("Najważniejsze")
-                .type(CategoryTypeEnum.TASKS.name())
+                .type(CategoryType.TASKS.name())
                 .iconId("ic_star")
                 .build();
 
         Category categoryTasks2 = Category.builder()
                 .name("Ceremonia")
-                .type(CategoryTypeEnum.TASKS.name())
+                .type(CategoryType.TASKS.name())
                 .iconId("ic_favorite")
                 .build();
 
         Category categoryTasks3 = Category.builder()
                 .name("Bankiet")
-                .type(CategoryTypeEnum.TASKS.name())
+                .type(CategoryType.TASKS.name())
                 .iconId("ic_local_bar")
                 .build();
 
         Category categoryTasks4 = Category.builder()
                 .name("Podwykonawcy")
-                .type(CategoryTypeEnum.TASKS.name())
+                .type(CategoryType.TASKS.name())
                 .iconId("ic_engineering")
                 .build();
 
         Category categoryTasks5 = Category.builder()
                 .name("Stylizacje P&P")
-                .type(CategoryTypeEnum.TASKS.name())
+                .type(CategoryType.TASKS.name())
                 .iconId("ic_checkroom")
                 .build();
 
         Category categoryTasks6 = Category.builder()
                 .name("Dokumenty formalne")
-                .type(CategoryTypeEnum.TASKS.name())
+                .type(CategoryType.TASKS.name())
                 .iconId("ic_assignment")
                 .build();
 
         Category categoryTasks7 = Category.builder()
                 .name(CATEGORY_OTHER)
-                .type(CategoryTypeEnum.TASKS.name())
+                .type(CategoryType.TASKS.name())
                 .iconId("ic_add_box")
                 .build();
 
@@ -146,37 +146,37 @@ public class MainActivity extends AppCompatActivity {
     private void insertBudgetCategories() {
         Category categoryBudget1 = Category.builder()
                 .name("Ceremonia")
-                .type(CategoryTypeEnum.BUDGET.name())
+                .type(CategoryType.BUDGET.name())
                 .iconId("ic_favorite")
                 .build();
 
         Category categoryBudget2 = Category.builder()
                 .name("Bankiet")
-                .type(CategoryTypeEnum.BUDGET.name())
+                .type(CategoryType.BUDGET.name())
                 .iconId("ic_local_bar")
                 .build();
 
         Category categoryBudget3 = Category.builder()
                 .name("Podwykonawcy")
-                .type(CategoryTypeEnum.BUDGET.name())
+                .type(CategoryType.BUDGET.name())
                 .iconId("ic_engineering")
                 .build();
 
         Category categoryBudget4 = Category.builder()
                 .name("Stylizacje")
-                .type(CategoryTypeEnum.BUDGET.name())
+                .type(CategoryType.BUDGET.name())
                 .iconId("ic_checkroom")
                 .build();
 
         Category categoryBudget5 = Category.builder()
                 .name("Dekoracje")
-                .type(CategoryTypeEnum.BUDGET.name())
+                .type(CategoryType.BUDGET.name())
                 .iconId("ic_style")
                 .build();
 
         Category categoryBudget6 = Category.builder()
                 .name(CATEGORY_OTHER)
-                .type(CategoryTypeEnum.BUDGET.name())
+                .type(CategoryType.BUDGET.name())
                 .iconId("ic_add_box")
                 .build();
 
@@ -191,25 +191,25 @@ public class MainActivity extends AppCompatActivity {
     private void insertGuestsCategories() {
         Category categoryGuests1 = Category.builder()
                 .name("Rodzina Młodej Pary")
-                .type(CategoryTypeEnum.GUESTS.name())
+                .type(CategoryType.GUESTS.name())
                 .iconId("ic_dashboard")
                 .build();
 
         Category categoryGuests2 = Category.builder()
                 .name("Znajomi Młodej Pary")
-                .type(CategoryTypeEnum.GUESTS.name())
+                .type(CategoryType.GUESTS.name())
                 .iconId("ic_dashboard")
                 .build();
 
         Category categoryGuests3 = Category.builder()
                 .name("Osoby towarzyszące")
-                .type(CategoryTypeEnum.GUESTS.name())
+                .type(CategoryType.GUESTS.name())
                 .iconId("ic_dashboard")
                 .build();
 
         Category categoryGuests4 = Category.builder()
                 .name("Podwykonawcy")
-                .type(CategoryTypeEnum.GUESTS.name())
+                .type(CategoryType.GUESTS.name())
                 .iconId("ic_dashboard")
                 .build();
 
@@ -222,61 +222,61 @@ public class MainActivity extends AppCompatActivity {
     private void insertSubcontractorsCategories() {
         Category categorySubcontractors1 = Category.builder()
                 .name("Ceremonia")
-                .type(CategoryTypeEnum.SUBCONTRACTORS.name())
+                .type(CategoryType.SUBCONTRACTORS.name())
                 .iconId("ic_favorite")
                 .build();
 
         Category categorySubcontractors2 = Category.builder()
                 .name("Bankiet")
-                .type(CategoryTypeEnum.SUBCONTRACTORS.name())
+                .type(CategoryType.SUBCONTRACTORS.name())
                 .iconId("ic_local_bar")
                 .build();
 
         Category categorySubcontractors3 = Category.builder()
                 .name("Atrakcje")
-                .type(CategoryTypeEnum.SUBCONTRACTORS.name())
+                .type(CategoryType.SUBCONTRACTORS.name())
                 .iconId("ic_stars")
                 .build();
 
         Category categorySubcontractors4 = Category.builder()
                 .name("Foto & Wideo")
-                .type(CategoryTypeEnum.SUBCONTRACTORS.name())
+                .type(CategoryType.SUBCONTRACTORS.name())
                 .iconId("ic_camera")
                 .build();
 
         Category categorySubcontractors5 = Category.builder()
                 .name("Dekoracje")
-                .type(CategoryTypeEnum.SUBCONTRACTORS.name())
+                .type(CategoryType.SUBCONTRACTORS.name())
                 .iconId("ic_style")
                 .build();
 
         Category categorySubcontractors6 = Category.builder()
                 .name("Stylizacje")
-                .type(CategoryTypeEnum.SUBCONTRACTORS.name())
+                .type(CategoryType.SUBCONTRACTORS.name())
                 .iconId("ic_checkroom")
                 .build();
 
         Category categorySubcontractors7 = Category.builder()
                 .name("Transport")
-                .type(CategoryTypeEnum.SUBCONTRACTORS.name())
+                .type(CategoryType.SUBCONTRACTORS.name())
                 .iconId("ic_transportation")
                 .build();
 
         Category categorySubcontractors8 = Category.builder()
                 .name("Nocleg")
-                .type(CategoryTypeEnum.SUBCONTRACTORS.name())
+                .type(CategoryType.SUBCONTRACTORS.name())
                 .iconId("ic_hotel")
                 .build();
 
         Category categorySubcontractors9 = Category.builder()
                 .name("Akcesoria")
-                .type(CategoryTypeEnum.SUBCONTRACTORS.name())
+                .type(CategoryType.SUBCONTRACTORS.name())
                 .iconId("ic_loupe")
                 .build();
 
         Category categorySubcontractors10 = Category.builder()
                 .name(CATEGORY_OTHER)
-                .type(CategoryTypeEnum.SUBCONTRACTORS.name())
+                .type(CategoryType.SUBCONTRACTORS.name())
                 .iconId("ic_add_box")
                 .build();
 
@@ -418,7 +418,7 @@ public class MainActivity extends AppCompatActivity {
                 .date("2021-01-31")
                 .amount("2000.00")
                 .payer("1")
-                .state(PaymentStateEnum.PAID.name())
+                .state(PaymentState.PAID.name())
                 .info("2000 zł")
                 .build();
 
@@ -428,7 +428,7 @@ public class MainActivity extends AppCompatActivity {
                 .date("2023-03-31")
                 .amount("12500.00")
                 .payer("2")
-                .state(PaymentStateEnum.PENDING.name())
+                .state(PaymentState.PENDING.name())
                 .info("Połowa całości (minus zaliczka)")
                 .build();
 
@@ -505,21 +505,26 @@ public class MainActivity extends AppCompatActivity {
                 .type("GUEST")
                 .connectedWithId(0)
                 .nameSurname("Jan Kowalski")
+                .category("")
                 .tableNumber(1)
+                .presence("NONE")
                 .build();
 
         Guest guest2 = Guest.builder()
                 .type("GUEST")
                 .connectedWithId(3)
                 .nameSurname("Adam Nowak")
+                .ageRange("60+")
+                .category("")
                 .tableNumber(1)
+                .presence("NONE")
                 .build();
 
         Guest accompany1 = Guest.builder()
                 .type("ACCOMPANY")
                 .connectedWithId(2)
                 .nameSurname("Krystyna Uzupełniona")
-                .ageRange("19-25")
+                .ageRange("46-60")
                 .category("Osoby towarzyszące")
                 .tableNumber(2)
                 .presence("AWAITING")

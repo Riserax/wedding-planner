@@ -19,8 +19,8 @@ import java.util.List;
 import lombok.Setter;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityNewTaskBinding;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
-import pl.com.weddingPlanner.enums.TaskStatusEnum;
+import pl.com.weddingPlanner.enums.CategoryType;
+import pl.com.weddingPlanner.enums.TaskStatus;
 import pl.com.weddingPlanner.model.PickedDate;
 import pl.com.weddingPlanner.model.PickedTime;
 import pl.com.weddingPlanner.persistence.entity.Category;
@@ -61,7 +61,7 @@ public class NewTaskActivity extends BaseActivity {
     @Setter
     private PickedTime pickedTime;
 
-    private TaskStatusEnum taskStatus = TaskStatusEnum.NEW;
+    private TaskStatus taskStatus = TaskStatus.NEW;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +90,8 @@ public class NewTaskActivity extends BaseActivity {
     private void getDataAndSetVariables() {
         if (taskId > 0) {
             taskDetails = DAOUtil.getTaskById(this, taskId);
-            categoryDetails = DAOUtil.getCategoryByNameAndType(this, taskDetails.getCategory(), CategoryTypeEnum.TASKS.name());
-            taskStatus = TaskStatusEnum.valueOf(taskDetails.getStatus());
+            categoryDetails = DAOUtil.getCategoryByNameAndType(this, taskDetails.getCategory(), CategoryType.TASKS.name());
+            taskStatus = TaskStatus.valueOf(taskDetails.getStatus());
         }
     }
 
@@ -205,7 +205,7 @@ public class NewTaskActivity extends BaseActivity {
             @Override
             public void onDebouncedClick(View v) {
                 clearFocusAndHideKeyboard();
-                List<Category> categories = DAOUtil.getAllCategoriesByType(NewTaskActivity.this, CategoryTypeEnum.TASKS.name());
+                List<Category> categories = DAOUtil.getAllCategoriesByType(NewTaskActivity.this, CategoryType.TASKS.name());
                 new SingleSelectionListDialog(NewTaskActivity.this, categories, R.string.dialog_category_choice).showDialog();
             }
         });
@@ -235,7 +235,7 @@ public class NewTaskActivity extends BaseActivity {
         binding.newButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
             TasksUtil.setTaskNewButtonsSelection(binding, getApplicationContext());
-            taskStatus = TaskStatusEnum.NEW;
+            taskStatus = TaskStatus.NEW;
         });
     }
 
@@ -243,7 +243,7 @@ public class NewTaskActivity extends BaseActivity {
         binding.inProgressButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
             TasksUtil.setTaskInProgressButtonsSelection(binding, getApplicationContext());
-            taskStatus = TaskStatusEnum.IN_PROGRESS;
+            taskStatus = TaskStatus.IN_PROGRESS;
         });
     }
 
@@ -251,7 +251,7 @@ public class NewTaskActivity extends BaseActivity {
         binding.doneButton.setOnClickListener(v -> {
             clearFocusAndHideKeyboard();
             TasksUtil.setTaskDoneButtonsSelection(binding, getApplicationContext());
-            taskStatus = TaskStatusEnum.DONE;
+            taskStatus = TaskStatus.DONE;
         });
     }
 

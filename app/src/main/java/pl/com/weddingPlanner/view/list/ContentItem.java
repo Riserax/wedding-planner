@@ -12,14 +12,14 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.enums.ContentItemState;
-import pl.com.weddingPlanner.enums.TaskStatusEnum;
+import pl.com.weddingPlanner.enums.TaskStatus;
 import pl.com.weddingPlanner.model.info.ExpenseInfo;
 import pl.com.weddingPlanner.model.info.GuestInfo;
 import pl.com.weddingPlanner.model.info.PaymentInfo;
 import pl.com.weddingPlanner.model.info.SubcontractorInfo;
 import pl.com.weddingPlanner.model.info.TaskInfo;
-import pl.com.weddingPlanner.enums.GuestTypeEnum;
-import pl.com.weddingPlanner.enums.PaymentStateEnum;
+import pl.com.weddingPlanner.enums.GuestType;
+import pl.com.weddingPlanner.enums.PaymentState;
 import pl.com.weddingPlanner.view.util.FormatUtil;
 import pl.com.weddingPlanner.view.util.ResourceUtil;
 
@@ -105,7 +105,7 @@ public class ContentItem extends ListItem implements Serializable {
                 .build();
     }
 
-    private static int getLeftIconId(GuestTypeEnum guestType) {
+    private static int getLeftIconId(GuestType guestType) {
         switch (guestType) {
             case ACCOMPANY:
                 return R.drawable.ic_person_add;
@@ -115,7 +115,7 @@ public class ContentItem extends ListItem implements Serializable {
         }
     }
 
-    private static int getLeftIconColor(PaymentStateEnum paymentState) {
+    private static int getLeftIconColor(PaymentState paymentState) {
         switch (paymentState) {
             case PAID:
                 return R.color.gray_949494;
@@ -125,7 +125,7 @@ public class ContentItem extends ListItem implements Serializable {
         }
     }
 
-    private static int getLeftIconColor(TaskStatusEnum taskStatus) {
+    private static int getLeftIconColor(TaskStatus taskStatus) {
         switch (taskStatus) {
             case DONE:
                 return R.color.gray_949494;
@@ -136,7 +136,7 @@ public class ContentItem extends ListItem implements Serializable {
         }
     }
 
-    private static int getSubCaptionColor(PaymentStateEnum paymentState) {
+    private static int getSubCaptionColor(PaymentState paymentState) {
         switch (paymentState) {
             case PENDING:
                 return R.color.colorPrimaryDark;
@@ -146,7 +146,7 @@ public class ContentItem extends ListItem implements Serializable {
         }
     }
 
-    private static ContentItemState getItemState(PaymentStateEnum paymentState) {
+    private static ContentItemState getItemState(PaymentState paymentState) {
         switch (paymentState) {
             case PAID:
                 return ContentItemState.DONE;
@@ -156,7 +156,7 @@ public class ContentItem extends ListItem implements Serializable {
         }
     }
 
-    private static ContentItemState getItemState(TaskStatusEnum taskStatus) {
+    private static ContentItemState getItemState(TaskStatus taskStatus) {
         switch (taskStatus) {
             case DONE:
                 return ContentItemState.DONE;

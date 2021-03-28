@@ -1,6 +1,6 @@
 package pl.com.weddingPlanner.enums;
 
-public enum MoreEnum {
+public enum MenuMore {
     GUESTS,
     SUBCONTRACTORS,
     SETTINGS

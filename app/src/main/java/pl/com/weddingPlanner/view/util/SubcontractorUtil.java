@@ -5,12 +5,12 @@ import android.content.Context;
 import org.apache.commons.lang3.StringUtils;
 
 import pl.com.weddingPlanner.databinding.ActivityNewSubcontractorBinding;
-import pl.com.weddingPlanner.enums.CollaborationStageEnum;
+import pl.com.weddingPlanner.enums.CollaborationStage;
 import pl.com.weddingPlanner.persistence.entity.Subcontractor;
 
 public class SubcontractorUtil {
 
-    public static void setSelectedCollaborationStage(CollaborationStageEnum collaborationStage, ActivityNewSubcontractorBinding binding, Context context) {
+    public static void setSelectedCollaborationStage(CollaborationStage collaborationStage, ActivityNewSubcontractorBinding binding, Context context) {
         switch (collaborationStage) {
             case CONSIDERING:
                 setConsideringButtonsSelection(binding, context);

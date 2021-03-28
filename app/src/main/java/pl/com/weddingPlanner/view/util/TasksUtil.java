@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.StringJoiner;
 
 import pl.com.weddingPlanner.databinding.ActivityNewTaskBinding;
-import pl.com.weddingPlanner.enums.TaskStatusEnum;
+import pl.com.weddingPlanner.enums.TaskStatus;
 import pl.com.weddingPlanner.model.PickedDate;
 import pl.com.weddingPlanner.model.PickedTime;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
@@ -177,7 +177,7 @@ public class TasksUtil {
                 .build();
     }
 
-    public static void setSelectedTaskStatus(TaskStatusEnum taskStatus, ActivityNewTaskBinding binding, Context context) {
+    public static void setSelectedTaskStatus(TaskStatus taskStatus, ActivityNewTaskBinding binding, Context context) {
         switch (taskStatus) {
             case NEW:
                 setTaskNewButtonsSelection(binding, context);

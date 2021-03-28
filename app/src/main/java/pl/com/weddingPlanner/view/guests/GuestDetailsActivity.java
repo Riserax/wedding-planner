@@ -11,8 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityGuestDetailsBinding;
-import pl.com.weddingPlanner.enums.GuestTypeEnum;
-import pl.com.weddingPlanner.enums.PresenceEnum;
+import pl.com.weddingPlanner.enums.GuestType;
+import pl.com.weddingPlanner.enums.Presence;
 import pl.com.weddingPlanner.persistence.entity.Guest;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
@@ -50,7 +50,7 @@ public class GuestDetailsActivity extends BaseActivity {
     }
 
     private void setHeaderTitleResId() {
-        headerTitleResId = GuestTypeEnum.valueOf(guestDetails.getType()).getNameResId();
+        headerTitleResId = GuestType.valueOf(guestDetails.getType()).getNameResId();
     }
 
     private void setComponents() {
@@ -99,7 +99,7 @@ public class GuestDetailsActivity extends BaseActivity {
 
     private void setTable() {
         if (guestDetails.getTableNumber() != 0) {
-            String table = "Stół nr " + guestDetails.getTableNumber();
+            String table = getString(R.string.guest_table_number, guestDetails.getTableNumber());
             binding.table.setText(table);
         } else {
             binding.table.setText(getString(R.string.field_not_specified));
@@ -108,7 +108,7 @@ public class GuestDetailsActivity extends BaseActivity {
 
     private void setInvitationStatus() {
         if (StringUtils.isNotBlank(guestDetails.getPresence())) {
-            int presenceResId = PresenceEnum.valueOf(guestDetails.getPresence()).getTextResourceId();
+            int presenceResId = Presence.valueOf(guestDetails.getPresence()).getTextResourceId();
             binding.invitationStatus.setText(getString(presenceResId));
         } else {
             binding.invitationStatus.setText(getString(R.string.field_not_specified));
@@ -223,7 +223,7 @@ public class GuestDetailsActivity extends BaseActivity {
     }
 
     private boolean isGuest() {
-        return GuestTypeEnum.GUEST.name().equals(guestDetails.getType());
+        return GuestType.GUEST.name().equals(guestDetails.getType());
     }
 }
 

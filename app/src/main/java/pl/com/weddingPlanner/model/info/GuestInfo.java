@@ -8,8 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.com.weddingPlanner.enums.GuestTypeEnum;
-import pl.com.weddingPlanner.enums.PresenceEnum;
+import pl.com.weddingPlanner.enums.GuestType;
+import pl.com.weddingPlanner.enums.Presence;
 
 @Data
 @Builder
@@ -18,9 +18,11 @@ import pl.com.weddingPlanner.enums.PresenceEnum;
 public class GuestInfo implements Serializable {
 
     private int itemId;
-    private GuestTypeEnum type;
+    private GuestType type;
     private String nameSurname;
+    private String ageRange;
+    private String category;
     private int tableNumber;
-    private PresenceEnum presence;
+    private Presence presence;
     private LinearLayout tablePresenceLayout;
 }

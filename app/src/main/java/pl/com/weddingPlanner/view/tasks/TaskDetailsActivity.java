@@ -15,9 +15,9 @@ import java.util.List;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityTaskDetailsBinding;
-import pl.com.weddingPlanner.enums.CategoryTypeEnum;
-import pl.com.weddingPlanner.enums.LocationEnum;
-import pl.com.weddingPlanner.enums.TaskStatusEnum;
+import pl.com.weddingPlanner.enums.CategoryType;
+import pl.com.weddingPlanner.enums.Location;
+import pl.com.weddingPlanner.enums.TaskStatus;
 import pl.com.weddingPlanner.persistence.entity.Bookmark;
 import pl.com.weddingPlanner.persistence.entity.Category;
 import pl.com.weddingPlanner.persistence.entity.Person;
@@ -73,7 +73,7 @@ public class TaskDetailsActivity extends BaseActivity {
 
     private void getAndSetData() {
         taskDetails = DAOUtil.getTaskById(this, taskId);
-        categoryDetails = DAOUtil.getCategoryByNameAndType(this, taskDetails.getCategory(), CategoryTypeEnum.TASKS.name());
+        categoryDetails = DAOUtil.getCategoryByNameAndType(this, taskDetails.getCategory(), CategoryType.TASKS.name());
 
         bookmarksList = TasksUtil.getBookmarks(taskDetails, this);
         assigneesList = TasksUtil.getAssignees(taskDetails, this);
@@ -96,7 +96,7 @@ public class TaskDetailsActivity extends BaseActivity {
 
     private void setBookmarks() {
         if (StringUtils.isNotBlank(taskDetails.getBookmarks())) {
-            Bookmarks bookmarks = new Bookmarks(this, bookmarksList, LocationEnum.DETAILS);
+            Bookmarks bookmarks = new Bookmarks(this, bookmarksList, Location.DETAILS);
 
             if (binding.bookmarksLayout.getChildCount() > 1) {
                 binding.bookmarksLayout.removeViewAt(1);
@@ -110,7 +110,7 @@ public class TaskDetailsActivity extends BaseActivity {
 
     private void setAssignees() {
         if (StringUtils.isNotBlank(taskDetails.getAssignees())) {
-            Assignees assignees = new Assignees(this, assigneesList, LocationEnum.DETAILS);
+            Assignees assignees = new Assignees(this, assigneesList, Location.DETAILS);
 
             if (binding.assigneesLayout.getChildCount() > 1) {
                 binding.assigneesLayout.removeViewAt(1);
@@ -144,7 +144,7 @@ public class TaskDetailsActivity extends BaseActivity {
     }
 
     private void setMarkAsOption() {
-        if (TaskStatusEnum.DONE.name().equals(taskDetails.getStatus())) {
+        if (TaskStatus.DONE.name().equals(taskDetails.getStatus())) {
             binding.markAsText.setText(getString(R.string.task_details_mark_in_progress));
             binding.markAsButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_progress));
         } else {
@@ -214,9 +214,9 @@ public class TaskDetailsActivity extends BaseActivity {
     }
 
     private void setStatus() {
-        int iconResId = TaskStatusEnum.valueOf(taskDetails.getStatus()).getDrawableResId();
+        int iconResId = TaskStatus.valueOf(taskDetails.getStatus()).getDrawableResId();
         binding.statusIcon.setImageDrawable(ContextCompat.getDrawable(this, iconResId));
-        binding.status.setText(getString(TaskStatusEnum.valueOf(taskDetails.getStatus()).getTextResId()));
+        binding.status.setText(getString(TaskStatus.valueOf(taskDetails.getStatus()).getTextResId()));
     }
 
     private void setListeners() {
@@ -281,9 +281,9 @@ public class TaskDetailsActivity extends BaseActivity {
         int max = binding.progressBar.getMax();
 
         if (progress == max) {
-            taskDetails.setStatus(TaskStatusEnum.DONE.name());
+            taskDetails.setStatus(TaskStatus.DONE.name());
         } else {
-            taskDetails.setStatus(TaskStatusEnum.IN_PROGRESS.name());
+            taskDetails.setStatus(TaskStatus.IN_PROGRESS.name());
         }
 
         DAOUtil.mergeTask(getApplicationContext(), taskDetails);
@@ -292,7 +292,7 @@ public class TaskDetailsActivity extends BaseActivity {
     }
 
     private void markAsAfterUncheck() {
-        taskDetails.setStatus(TaskStatusEnum.IN_PROGRESS.name());
+        taskDetails.setStatus(TaskStatus.IN_PROGRESS.name());
         DAOUtil.mergeTask(getApplicationContext(), taskDetails);
         setStatus();
         setMarkAsOption();
@@ -309,13 +309,13 @@ public class TaskDetailsActivity extends BaseActivity {
     }
 
     private void setTaskStatus() {
-        switch (TaskStatusEnum.valueOf(taskDetails.getStatus())) {
+        switch (TaskStatus.valueOf(taskDetails.getStatus())) {
             case NEW:
             case IN_PROGRESS:
-                taskDetails.setStatus(TaskStatusEnum.DONE.name());
+                taskDetails.setStatus(TaskStatus.DONE.name());
                 break;
             case DONE:
-                taskDetails.setStatus(TaskStatusEnum.IN_PROGRESS.name());
+                taskDetails.setStatus(TaskStatus.IN_PROGRESS.name());
         }
     }
 

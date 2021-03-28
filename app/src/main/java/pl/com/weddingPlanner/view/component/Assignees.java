@@ -13,7 +13,7 @@ import java.util.List;
 
 import lombok.Getter;
 import pl.com.weddingPlanner.R;
-import pl.com.weddingPlanner.enums.LocationEnum;
+import pl.com.weddingPlanner.enums.Location;
 import pl.com.weddingPlanner.persistence.entity.Person;
 import pl.com.weddingPlanner.view.util.PersonUtil;
 
@@ -26,9 +26,9 @@ public class Assignees {
     private final List<Person> assigneeList;
     @Getter
     private final LinearLayout assigneesContainer;
-    private final LocationEnum location;
+    private final Location location;
 
-    public Assignees(Context context, List<Person> assigneeList, LocationEnum location) {
+    public Assignees(Context context, List<Person> assigneeList, Location location) {
         this.context = context;
         this.assigneeList = assigneeList;
         this.assigneesContainer = new LinearLayout(context);
@@ -47,7 +47,7 @@ public class Assignees {
     private int getRowsNumber() {
         int rowsNumber = 1;
 
-        if (LocationEnum.DETAILS == location) {
+        if (Location.DETAILS == location) {
             rowsNumber = (int) Math.ceil((double) assigneeList.size() / ASSIGNEES_PER_ROW_DETAILS);
         }
 
@@ -57,7 +57,7 @@ public class Assignees {
     private void createAndAddOneRowAssigneesLayout(int row) {
         LinearLayout assigneesSingleRowLayout = null;
 
-        if (LocationEnum.LIST_ITEM == location) {
+        if (Location.LIST_ITEM == location) {
             assigneesSingleRowLayout = setAssigneesRowLayout();
 
             if (assigneeList.size() <= ASSIGNEES_PER_ROW_LIST) {
@@ -68,7 +68,7 @@ public class Assignees {
                 prepareAndAddAssignee(assigneeList.get(0), assigneesSingleRowLayout);
                 prepareAndAddMoreInfo(assigneesSingleRowLayout);
             }
-        } else if (LocationEnum.DETAILS == location) {
+        } else if (Location.DETAILS == location) {
             assigneesSingleRowLayout = setAssigneesRowLayout();
 
             for (int i = 0; i < assigneeList.size(); i++) {

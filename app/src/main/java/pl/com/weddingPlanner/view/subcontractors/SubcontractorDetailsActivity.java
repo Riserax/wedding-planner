@@ -14,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivitySubcontractorDetailsBinding;
-import pl.com.weddingPlanner.enums.CollaborationStageEnum;
+import pl.com.weddingPlanner.enums.CollaborationStage;
 import pl.com.weddingPlanner.persistence.entity.Expense;
 import pl.com.weddingPlanner.persistence.entity.Subcontractor;
 import pl.com.weddingPlanner.util.DAOUtil;
@@ -100,8 +100,8 @@ public class SubcontractorDetailsActivity extends BaseActivity {
     }
 
     private void setCollaborationStage() {
-        if (!CollaborationStageEnum.NONE.name().equals(subcontractorDetails.getCollaborationStage())) {
-            int resourceId = CollaborationStageEnum.valueOf(subcontractorDetails.getCollaborationStage()).getTextResourceId();
+        if (!CollaborationStage.NONE.name().equals(subcontractorDetails.getCollaborationStage())) {
+            int resourceId = CollaborationStage.valueOf(subcontractorDetails.getCollaborationStage()).getTextResourceId();
             binding.collaborationStage.setText(getString(resourceId));
         } else {
             binding.collaborationStage.setText(getString(R.string.field_not_specified));

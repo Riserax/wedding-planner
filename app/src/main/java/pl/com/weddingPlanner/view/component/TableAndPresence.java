@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat;
 
 import lombok.Getter;
 import pl.com.weddingPlanner.R;
+import pl.com.weddingPlanner.enums.Presence;
 import pl.com.weddingPlanner.model.info.GuestInfo;
 
 public class TableAndPresence {
@@ -56,7 +57,7 @@ public class TableAndPresence {
     }
 
     private void prepareAndAddPresence() {
-        if (guestInfo.getPresence() != null) {
+        if (guestInfo.getPresence() != null && guestInfo.getPresence() != Presence.NONE) {
             LinearLayout backgroundLayout = createBackgroundLayout();
             ImageButton imageButton = createImageButton();
 
