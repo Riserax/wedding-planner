@@ -21,6 +21,7 @@ public class GuestInfo implements Serializable {
     private GuestType type;
     private String nameSurname;
     private String ageRange;
+    private String category;
     private int tableNumber;
     private Presence presence;
     private LinearLayout tablePresenceLayout;

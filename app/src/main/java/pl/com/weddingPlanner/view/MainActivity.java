@@ -505,6 +505,7 @@ public class MainActivity extends AppCompatActivity {
                 .type("GUEST")
                 .connectedWithId(0)
                 .nameSurname("Jan Kowalski")
+                .category("")
                 .tableNumber(1)
                 .presence("NONE")
                 .build();
@@ -514,6 +515,7 @@ public class MainActivity extends AppCompatActivity {
                 .connectedWithId(3)
                 .nameSurname("Adam Nowak")
                 .ageRange("60+")
+                .category("")
                 .tableNumber(1)
                 .presence("NONE")
                 .build();

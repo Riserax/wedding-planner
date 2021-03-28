@@ -147,6 +147,7 @@ public class GuestsGroupsFragment extends Fragment implements AdapterView.OnItem
                     .type(GuestType.valueOf(guest.getType()))
                     .nameSurname(guest.getNameSurname())
                     .ageRange(guest.getAgeRange())
+                    .category(guest.getCategory())
                     .tableNumber(guest.getTableNumber())
                     .presence(StringUtils.isNotBlank(guest.getPresence()) ? Presence.valueOf(guest.getPresence()) : Presence.NONE)
                     .build();

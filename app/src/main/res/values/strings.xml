@@ -99,6 +99,8 @@
     <string name="guest_field_phone">Telefon</string>
     <string name="guest_field_table">Miejsce</string>
 
+    <string name="guest_table_number">Stół nr %1$d</string>
+
     <string name="header_title_budget">Budżet</string>
     <string name="header_title_budget_new">Nowy wydatek</string>
     <string name="header_title_category">Kategoria</string>

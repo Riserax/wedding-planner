@@ -18,15 +18,16 @@ public enum MenuMoreResource {
     SETTINGS(MenuMore.SETTINGS, SettingsActivity.class, R.string.header_title_settings, "ic_settings"),
     ;
 
-    private final MenuMore category;
-    private final Class targetActivity;
+    private final MenuMore menuMore;
+    private final Class<?> targetActivity;
     private final int resourceId;
     private final String iconCode;
 
     public static MenuMoreResource of(MenuMore menuMore) throws EnumValueNotFoundException {
         for (MenuMoreResource value : values()) {
-            if (menuMore.equals(value.category))
+            if (menuMore.equals(value.menuMore)) {
                 return value;
+            }
         }
         throw new EnumValueNotFoundException(menuMore.name());
     }

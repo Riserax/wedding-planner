@@ -99,7 +99,7 @@ public class GuestDetailsActivity extends BaseActivity {
 
     private void setTable() {
         if (guestDetails.getTableNumber() != 0) {
-            String table = "Stół nr " + guestDetails.getTableNumber();
+            String table = getString(R.string.guest_table_number, guestDetails.getTableNumber());
             binding.table.setText(table);
         } else {
             binding.table.setText(getString(R.string.field_not_specified));
