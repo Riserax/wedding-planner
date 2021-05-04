@@ -3,18 +3,119 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/gray_F2F2F2">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/components_layout_padding"
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_2sdp"
+                android:layout_marginBottom="@dimen/_30sdp"
+                android:layout_gravity="center"
+                android:text="@string/sign_up_create_account"
+                android:textColor="@color/gray_555555"
+                android:textSize="@dimen/_25sdp"
+                android:textStyle="bold"
+                android:textAlignment="center"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/email_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/field_height"
+                android:layout_marginBottom="@dimen/field_margin"
+                android:paddingStart="@dimen/field_padding_start"
+                android:paddingEnd="@dimen/field_padding_end"
+                android:background="@drawable/bg_fields">
+
+                <ImageButton
+                    android:id="@+id/email_icon"
+                    android:layout_width="@dimen/image_button_size_20"
+                    android:layout_height="@dimen/image_button_size_20"
+                    android:background="@color/gray_FDFDFD"
+                    android:tint="@color/gray_949494"
+                    app:srcCompat="@drawable/ic_email"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/email"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/edit_text_padding"
+                    android:maxLength="50"
+                    android:inputType="textEmailAddress"
+                    android:hint="@string/field_email"
+                    android:textSize="@dimen/field_text_size"
+                    android:textColorHint="@color/gray_949494"
+                    android:textColor="@color/gray_949494"
+                    android:background="@color/gray_FDFDFD"
+                    app:layout_constraintStart_toEndOf="@id/email_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/password_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/field_height"
+                android:layout_marginBottom="@dimen/field_margin"
+                android:paddingStart="@dimen/field_padding_start"
+                android:paddingEnd="@dimen/field_padding_end"
+                android:background="@drawable/bg_fields">
+
+                <ImageButton
+                    android:id="@+id/password_icon"
+                    android:layout_width="@dimen/image_button_size_20"
+                    android:layout_height="@dimen/image_button_size_20"
+                    android:background="@color/gray_FDFDFD"
+                    android:tint="@color/gray_949494"
+                    app:srcCompat="@drawable/ic_key"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/password"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/edit_text_padding"
+                    android:maxLength="50"
+                    android:inputType="textPassword"
+                    android:hint="@string/field_password"
+                    android:textSize="@dimen/field_text_size"
+                    android:textColorHint="@color/gray_949494"
+                    android:textColor="@color/gray_949494"
+                    android:background="@color/gray_FDFDFD"
+                    app:layout_constraintStart_toEndOf="@id/password_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <CheckBox
+                android:id="@+id/regulation_checkbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_up_regulation_info"
+                android:textSize="@dimen/_9sdp"/>
 
             <Button
                 android:id="@+id/register_button"
@@ -24,7 +125,7 @@
                 android:layout_marginTop="@dimen/add_button_margin_top"
                 android:background="@drawable/bg_button"
                 android:letterSpacing="0.075"
-                android:text="Zarejestruj"
+                android:text="@string/button_register"
                 android:textColor="@color/white_FFFFFF"
                 android:textSize="@dimen/add_button_text_size"
                 android:textStyle="bold" />
@@ -39,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_2sdp"
-                    android:text="Masz konto?"
+                    android:text="@string/sign_up_have_account"
                     android:textColor="@color/gray_555555"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold"
@@ -49,7 +150,7 @@
                     android:id="@+id/sign_in_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Zaloguj się"
+                    android:text="@string/sign_in"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold"
