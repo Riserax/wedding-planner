@@ -8,7 +8,9 @@
     <string name="budget_paid">Wydano</string>
 
     <string name="button_add">Dodaj</string>
+    <string name="button_register">Zarejestruj</string>
     <string name="button_save">Zapisz</string>
+    <string name="button_sign_in">Zaloguj</string>
 
     <string name="category_most_important">Najważniejsze</string>
     <string name="category_most_ceremony">Ceremonia</string>
@@ -63,9 +65,11 @@
     <string name="expense_details_connected_subcontractor">Powiązany podwykonawca</string>
 
     <string name="field_category">Kategoria</string>
+    <string name="field_email">E-mail</string>
     <string name="field_name">Nazwa</string>
     <string name="field_notes">Uwagi</string>
     <string name="field_payer">Kto płaci</string>
+    <string name="field_password">Hasło</string>
     <string name="field_title">Tytuł</string>
 
     <string name="field_lack">Brak</string>
@@ -80,7 +84,6 @@
     <string name="guest_field_contact">Kontakt</string>
     <string name="guest_field_connected_with">Powiązanie</string>
     <string name="guest_field_connected_with_info">Powiązanie z %1$s</string>
-    <string name="guest_field_email">E-mail</string>
     <string name="guest_field_guest">Gość</string>
     <string name="guest_field_guest_type">Rodzaj gościa</string>
 
@@ -166,6 +169,13 @@
     <string name="period_second_1">sekunda</string>
     <string name="period_second_2">sekundy</string>
     <string name="period_second_3">sekund</string>
+
+    <string name="sign_in">Zaloguj się</string>
+    <string name="sign_in_dont_have_account">Nie masz konta?</string>
+    <string name="sign_up">Zarejestruj</string>
+    <string name="sign_up_create_account">Utwórz konto</string>
+    <string name="sign_up_have_account">Masz konto?</string>
+    <string name="sign_up_regulation_info">Zapoznałem się z warunkami i akceptuję regulamin</string>
 
     <string name="subcontractor_field_address">Adres</string>
     <string name="subcontractor_field_collaboration_stage">Etap współpracy</string>

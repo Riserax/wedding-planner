@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "871216995706",
+    "project_id": "weddingplanner-eca86",
+    "storage_bucket": "weddingplanner-eca86.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871216995706:android:d602d8d6c20b59d59bcac3",
+        "android_client_info": {
+          "package_name": "pl.com.weddingPlanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "871216995706-b3vjmvcgb1cleeob8r5uh1996j63b245.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXPv1bfzJkZSLNNX5qQ6zxZbKn2jXfBkk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "871216995706-b3vjmvcgb1cleeob8r5uh1996j63b245.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

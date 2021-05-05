@@ -340,7 +340,7 @@
                                         android:clickable="true"
                                         android:focusable="true"
                                         android:tint="@color/gray_949494"
-                                        app:srcCompat="@drawable/ic_email"/>
+                                        app:srcCompat="@drawable/ic_envelope"/>
 
                                     <TextView
                                         android:id="@+id/invitations_sent"
