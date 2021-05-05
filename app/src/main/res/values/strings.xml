@@ -176,6 +176,7 @@
     <string name="sign_up_create_account">Utwórz konto</string>
     <string name="sign_up_have_account">Masz konto?</string>
     <string name="sign_up_regulation_info">Zapoznałem się z warunkami i akceptuję regulamin</string>
+    <string name="sign_up_username">Nazwa użytkownika</string>
 
     <string name="subcontractor_field_address">Adres</string>
     <string name="subcontractor_field_collaboration_stage">Etap współpracy</string>
