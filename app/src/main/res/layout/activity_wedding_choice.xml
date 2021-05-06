@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_F2F2F2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/components_layout_padding"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <Button
+                android:id="@+id/new_wedding_button"
+                android:layout_width="@dimen/_250sdp"
+                android:layout_height="@dimen/add_button_height"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/field_margin"
+                android:background="@drawable/button_shape_border_only"
+                android:letterSpacing="0.075"
+                android:text="Stwórz nowe wesele"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="@dimen/_13sdp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/choose_existing_button"
+                android:layout_width="@dimen/_250sdp"
+                android:layout_height="@dimen/add_button_height"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/field_margin"
+                android:background="@drawable/button_shape_border_only"
+                android:letterSpacing="0.075"
+                android:text="Moje wesela"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="@dimen/_13sdp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/join_button"
+                android:layout_width="@dimen/_250sdp"
+                android:layout_height="@dimen/add_button_height"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/field_margin"
+                android:background="@drawable/button_shape_border_only"
+                android:letterSpacing="0.075"
+                android:text="Dołącz"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="@dimen/_13sdp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

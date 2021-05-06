@@ -18,6 +18,7 @@ import java.util.List;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.model.PickedDate;
+import pl.com.weddingPlanner.model.PickedTime;
 
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
 
@@ -185,6 +186,8 @@ public class BaseActivity extends AppCompatActivity {
     public void setSelectedPeopleKeys(List<Integer> selectedPeopleKeys) {}
 
     public void setPickedDate(PickedDate pickedDate) {}
+
+    public void setPickedTime(PickedTime pickedTime) {}
 
     public void executeQuestionDialog() {}
 }

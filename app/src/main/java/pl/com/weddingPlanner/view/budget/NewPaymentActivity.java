@@ -82,7 +82,7 @@ public class NewPaymentActivity extends BaseActivity {
     private void getAndSetExtras() {
         expenseId = getIntent().getIntExtra(EXPENSE_ID_EXTRA, 0);
         paymentId = getIntent().getIntExtra(PAYMENT_ID_EXTRA, 0);
-        headerTitle = getIntent().getIntExtra(ACTIVITY_TITLE_EXTRA, R.string.header_title_new_payment);
+        headerTitle = getIntent().getIntExtra(ACTIVITY_TITLE_EXTRA, R.string.header_title_payment_new);
     }
 
     private void getAndSetData() {

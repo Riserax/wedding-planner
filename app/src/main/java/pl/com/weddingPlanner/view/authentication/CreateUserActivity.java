@@ -21,8 +21,8 @@ import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityCreateUserBinding;
 import pl.com.weddingPlanner.model.User;
 import pl.com.weddingPlanner.view.BaseActivity;
-import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
+import pl.com.weddingPlanner.view.weddings.WeddingChoiceActivity;
 
 import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
 import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
@@ -126,7 +126,7 @@ public class CreateUserActivity extends BaseActivity {
             sendVerificationEmail(currentUser);
             saveUser(currentUser);
 
-            startActivity(new Intent(CreateUserActivity.this, NavigationActivity.class)); //FIXME
+            startActivity(new Intent(CreateUserActivity.this, WeddingChoiceActivity.class)); //FIXME
         } else {
             Toast.makeText(CreateUserActivity.this, "Niepowodzenie podczas rejestracji",
                     Toast.LENGTH_LONG).show();

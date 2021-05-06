@@ -12,7 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivitySettingsBinding;
-import pl.com.weddingPlanner.model.User;
+import pl.com.weddingPlanner.model.Wedding;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.authentication.SignInActivity;
 
@@ -45,10 +45,10 @@ public class SettingsActivity extends BaseActivity {
         binding.signOutButton.setOnClickListener(v -> signOut());
 
         binding.testReadButton.setOnClickListener(v -> {
-            databaseReference.child("users").child(currentUser.getUid()).get().addOnCompleteListener(task -> {
+            databaseReference.child("weddings").child("69d7d5c8-630b-47b1-9013-8c24c5352d64").get().addOnCompleteListener(task -> {
                 if (task.isSuccessful() && task.getResult() != null && task.getResult().exists() && task.getResult().getValue() != null) {
-                    User user = task.getResult().getValue(User.class);
-                    binding.testReadButton.setText(user.getUsername());
+                    Wedding wedding = task.getResult().getValue(Wedding.class);
+                    binding.testReadButton.setText(wedding.getName());
                 }
             });
         });

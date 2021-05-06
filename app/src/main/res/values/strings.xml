@@ -65,11 +65,13 @@
     <string name="expense_details_connected_subcontractor">Powiązany podwykonawca</string>
 
     <string name="field_category">Kategoria</string>
+    <string name="field_date">Data</string>
     <string name="field_email">E-mail</string>
     <string name="field_name">Nazwa</string>
     <string name="field_notes">Uwagi</string>
     <string name="field_payer">Kto płaci</string>
     <string name="field_password">Hasło</string>
+    <string name="field_time">Godzina</string>
     <string name="field_title">Tytuł</string>
 
     <string name="field_lack">Brak</string>
@@ -115,8 +117,8 @@
     <string name="header_title_guest_edit">Edycja gościa</string>
     <string name="header_title_guest_new">Nowy gość</string>
     <string name="header_title_more">Więcej</string>
-    <string name="header_title_new_payment">Nowa płatność</string>
     <string name="header_title_payment">Płatność</string>
+    <string name="header_title_payment_new">Nowa płatność</string>
     <string name="header_title_settings">Ustawienia</string>
     <string name="header_title_subcontractor">Podwykonawca</string>
     <string name="header_title_subcontractor_edit">Edycja podwykonawcy</string>
@@ -126,6 +128,7 @@
     <string name="header_title_task_details">Szczegóły zadania</string>
     <string name="header_title_task_edit">Edycja zadania</string>
     <string name="header_title_task_new">Nowe zadanie</string>
+    <string name="header_title_wedding_new">Nowe wesele</string>
 
     <string name="list_standard_caption_empty">Brak danych do wyświetlenia</string>
 
@@ -218,6 +221,4 @@
     <string name="task_field_status_new">Nowe</string>
     <string name="task_field_status_in_progress">W toku</string>
     <string name="task_field_status_done">Wykonane</string>
-    <string name="task_field_date">Data</string>
-    <string name="task_field_time">Godzina</string>
 </resources>
