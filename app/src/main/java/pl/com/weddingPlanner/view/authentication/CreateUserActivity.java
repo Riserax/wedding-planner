@@ -12,14 +12,11 @@ import androidx.databinding.DataBindingUtil;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityCreateUserBinding;
 import pl.com.weddingPlanner.model.User;
+import pl.com.weddingPlanner.util.FirebaseUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
 import pl.com.weddingPlanner.view.weddings.WeddingChoiceActivity;
@@ -31,14 +28,9 @@ public class CreateUserActivity extends BaseActivity {
 
     private ActivityCreateUserBinding binding;
 
-    private FirebaseAuth firebaseAuth;
-    private DatabaseReference databaseReference;
-
     @Override
     public void onStart() {
         super.onStart();
-        firebaseAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference();
     }
 
     @Override
@@ -121,11 +113,8 @@ public class CreateUserActivity extends BaseActivity {
 
     private void handleRegistrationTask(Task<AuthResult> task) {
         if (task.isSuccessful()) {
-            FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-
-            sendVerificationEmail(currentUser);
-            saveUser(currentUser);
-
+            sendVerificationEmail();
+            saveUser();
             startActivity(new Intent(CreateUserActivity.this, WeddingChoiceActivity.class));
         } else {
             Toast.makeText(CreateUserActivity.this, "Niepowodzenie podczas rejestracji",
@@ -133,12 +122,12 @@ public class CreateUserActivity extends BaseActivity {
         }
     }
 
-    private void sendVerificationEmail(FirebaseUser user) {
-        if (user != null) {
-            user.sendEmailVerification().addOnCompleteListener(task -> {
+    private void sendVerificationEmail() {
+        if (currentUser != null) {
+            currentUser.sendEmailVerification().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Toast.makeText(CreateUserActivity.this,
-                            "Wysłano e-mail weryfikujący na adres " + user.getEmail(),
+                            "Wysłano e-mail weryfikujący na adres " + currentUser.getEmail(),
                             Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(CreateUserActivity.this,
@@ -149,14 +138,14 @@ public class CreateUserActivity extends BaseActivity {
         }
     }
 
-    private void saveUser(FirebaseUser currentUser) {
+    private void saveUser() {
         if (currentUser != null) {
             User user = User.builder()
                     .username(binding.username.getText().toString())
                     .email(currentUser.getEmail())
                     .build();
 
-            databaseReference.child("users").child(currentUser.getUid()).setValue(user);
+            FirebaseUtil.getUserChild(databaseReference, currentUser).setValue(user);
         }
     }
 

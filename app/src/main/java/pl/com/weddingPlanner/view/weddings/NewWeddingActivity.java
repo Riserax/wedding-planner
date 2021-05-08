@@ -11,11 +11,6 @@ import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
@@ -32,6 +27,7 @@ import pl.com.weddingPlanner.model.PickedTime;
 import pl.com.weddingPlanner.model.User;
 import pl.com.weddingPlanner.model.Wedding;
 import pl.com.weddingPlanner.util.DebouncedOnClickListener;
+import pl.com.weddingPlanner.util.FirebaseUtil;
 import pl.com.weddingPlanner.validator.AmountValidator;
 import pl.com.weddingPlanner.validator.ValidationUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
@@ -49,9 +45,6 @@ public class NewWeddingActivity extends BaseActivity {
 
     private ActivityNewWeddingBinding binding;
 
-    private FirebaseUser currentUser;
-    private DatabaseReference databaseReference;
-
     private AmountValidator amountValidator;
 
     private PickedDate pickedDate;
@@ -60,10 +53,6 @@ public class NewWeddingActivity extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        currentUser = firebaseAuth.getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference();
     }
 
     @Override
@@ -229,7 +218,7 @@ public class NewWeddingActivity extends BaseActivity {
     private void proceed(Wedding newWedding) {
 //        DAOUtil.insertWedding(getApplicationContext(), newWedding);
 
-        databaseReference.child("weddings").child(newWedding.getId()).setValue(newWedding).addOnCompleteListener(addWeddingTask -> {
+        FirebaseUtil.getWeddingChild(databaseReference, newWedding).setValue(newWedding).addOnCompleteListener(addWeddingTask -> {
             if (addWeddingTask.isSuccessful()) {
                 getAndSetUserInfo(newWedding);
             }
@@ -237,7 +226,7 @@ public class NewWeddingActivity extends BaseActivity {
     }
 
     private void getAndSetUserInfo(Wedding newWedding) {
-        databaseReference.child("users").child(currentUser.getUid()).get().addOnCompleteListener(task -> {
+        FirebaseUtil.getUser(databaseReference, currentUser).addOnCompleteListener(task -> {
             if (task.isSuccessful() && task.getResult() != null) {
                 User userInfo = task.getResult().getValue(User.class);
                 if (userInfo != null) {
@@ -266,7 +255,7 @@ public class NewWeddingActivity extends BaseActivity {
     }
 
     private void updateUserWeddingsAndStartActivity(User userUpdated) {
-        databaseReference.child("users").child(currentUser.getUid()).setValue(userUpdated).addOnCompleteListener(task -> {
+        FirebaseUtil.getUserChild(databaseReference, currentUser).setValue(userUpdated).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 startActivity(new Intent(NewWeddingActivity.this, NavigationActivity.class));
             }
