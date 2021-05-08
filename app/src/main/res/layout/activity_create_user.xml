@@ -71,6 +71,46 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/username_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/field_height"
+                android:layout_marginBottom="@dimen/field_margin"
+                android:paddingStart="@dimen/field_padding_start"
+                android:paddingEnd="@dimen/field_padding_end"
+                android:background="@drawable/bg_fields">
+
+                <ImageButton
+                    android:id="@+id/username_icon"
+                    android:layout_width="@dimen/image_button_size_20"
+                    android:layout_height="@dimen/image_button_size_20"
+                    android:background="@color/gray_FDFDFD"
+                    android:tint="@color/gray_949494"
+                    app:srcCompat="@drawable/ic_edit"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/username"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <EditText
+                    android:id="@+id/username"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/edit_text_padding"
+                    android:maxLength="50"
+                    android:inputType="text"
+                    android:hint="@string/sign_up_username"
+                    android:textSize="@dimen/field_text_size"
+                    android:textColorHint="@color/gray_949494"
+                    android:textColor="@color/gray_949494"
+                    android:background="@color/gray_FDFDFD"
+                    app:layout_constraintStart_toEndOf="@id/username_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/password_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/field_height"

@@ -12,28 +12,25 @@ import androidx.databinding.DataBindingUtil;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityCreateUserBinding;
+import pl.com.weddingPlanner.model.User;
+import pl.com.weddingPlanner.util.FirebaseUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
-import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
+import pl.com.weddingPlanner.view.weddings.WeddingChoiceActivity;
 
-import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
+import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnablity;
 import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
 
 public class CreateUserActivity extends BaseActivity {
 
     private ActivityCreateUserBinding binding;
 
-    private FirebaseAuth firebaseAuth;
-
     @Override
     public void onStart() {
         super.onStart();
-        firebaseAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -41,7 +38,7 @@ public class CreateUserActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_user);
 
-        setButtonEnability(binding.registerButton, false);
+        setButtonEnablity(binding.registerButton, false);
         setListeners();
     }
 
@@ -51,6 +48,7 @@ public class CreateUserActivity extends BaseActivity {
         setOnFocusChangeListener();
 
         binding.registerButton.setOnClickListener(v -> {
+            ComponentsUtil.hideKeyboard(this, getCurrentFocus());
             handleCreateUserWithEmailAndPassword(binding.email.getText().toString(), binding.password.getText().toString());
         });
 
@@ -59,22 +57,24 @@ public class CreateUserActivity extends BaseActivity {
         });
 
         binding.regulationCheckbox.setOnCheckedChangeListener((compoundButton, b) -> {
-            setButtonEnability(binding.registerButton, areFieldsValid());
             ComponentsUtil.hideKeyboard(this, getCurrentFocus());
+            setButtonEnablity(binding.registerButton, areFieldsValid());
         });
     }
 
     private void setRegisterButtonEnableStatusListener() {
         TextWatcher listener = getOnTextChangedTextWatcher((s, start, before, count) ->
-                setButtonEnability(binding.registerButton, areFieldsValid())
+                setButtonEnablity(binding.registerButton, areFieldsValid())
         );
 
         binding.email.addTextChangedListener(listener);
+        binding.username.addTextChangedListener(listener);
         binding.password.addTextChangedListener(listener);
     }
 
     private boolean areFieldsValid() {
         return !binding.email.getText().toString().isEmpty()
+                && !binding.username.getText().toString().isEmpty()
                 && !binding.password.getText().toString().isEmpty()
                 && binding.regulationCheckbox.isChecked();
     }
@@ -113,20 +113,21 @@ public class CreateUserActivity extends BaseActivity {
 
     private void handleRegistrationTask(Task<AuthResult> task) {
         if (task.isSuccessful()) {
-            sendVerificationEmail(firebaseAuth.getCurrentUser());
-            startActivity(new Intent(CreateUserActivity.this, NavigationActivity.class));
+            sendVerificationEmail();
+            saveUser();
+            startActivity(new Intent(CreateUserActivity.this, WeddingChoiceActivity.class));
         } else {
             Toast.makeText(CreateUserActivity.this, "Niepowodzenie podczas rejestracji",
                     Toast.LENGTH_LONG).show();
         }
     }
 
-    private void sendVerificationEmail(FirebaseUser user) {
-        if (user != null) {
-            user.sendEmailVerification().addOnCompleteListener(task -> {
+    private void sendVerificationEmail() {
+        if (currentUser != null) {
+            currentUser.sendEmailVerification().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Toast.makeText(CreateUserActivity.this,
-                            "Wysłano e-mail weryfikujący na adres " + user.getEmail(),
+                            "Wysłano e-mail weryfikujący na adres " + currentUser.getEmail(),
                             Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(CreateUserActivity.this,
@@ -134,6 +135,17 @@ public class CreateUserActivity extends BaseActivity {
                             Toast.LENGTH_LONG).show();
                 }
             });
+        }
+    }
+
+    private void saveUser() {
+        if (currentUser != null) {
+            User user = User.builder()
+                    .username(binding.username.getText().toString())
+                    .email(currentUser.getEmail())
+                    .build();
+
+            FirebaseUtil.getUserChild(databaseReference, currentUser).setValue(user);
         }
     }
 

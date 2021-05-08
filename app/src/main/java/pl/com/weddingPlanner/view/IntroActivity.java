@@ -7,17 +7,24 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.RelativeLayout;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseNetworkException;
+
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Objects;
 
 import pl.com.weddingPlanner.R;
+import pl.com.weddingPlanner.model.User;
+import pl.com.weddingPlanner.util.FirebaseUtil;
 import pl.com.weddingPlanner.view.authentication.CreateUserActivity;
+import pl.com.weddingPlanner.view.weddings.WeddingChoiceActivity;
+
+import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
 
 public class IntroActivity extends BaseActivity {
 
     private AnimationDrawable animation;
-
-    private FirebaseUser currentUser;
 
     public static Intent createIntent(Context context) {
         return new Intent(context, IntroActivity.class);
@@ -34,15 +41,19 @@ public class IntroActivity extends BaseActivity {
     }
 
     private void handleCurrentUser() {
-        currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
         if (currentUser != null) {
             currentUser.reload().addOnCompleteListener(task -> {
                 if (!task.isSuccessful()) {
-                    currentUser = null;
+                    if (isNotFirebaseNetworkException(task)) {
+                        currentUser = null;
+                    }
                 }
             });
         }
+    }
+
+    private boolean isNotFirebaseNetworkException(Task<Void> task) {
+        return FirebaseNetworkException.class != Objects.requireNonNull(task.getException()).getClass();
     }
 
     private void setAnimation() {
@@ -56,17 +67,61 @@ public class IntroActivity extends BaseActivity {
 
     private void handlePostDelay() {
         new Handler().postDelayed(() -> {
-            Intent intent;
+            Intent intent = new Intent(this, CreateUserActivity.class);
 
             if (currentUser != null) {
-                intent = new Intent(this, NavigationActivity.class);
+                proceedWhenUserLoggedIn();
             } else {
-                intent = new Intent(this, CreateUserActivity.class);
+                goToActivity(intent);
             }
-
-            startActivity(intent);
-            finish();
         }, 2000);
+    }
+
+    private void proceedWhenUserLoggedIn() {
+        FirebaseUtil.getUser(databaseReference, currentUser).addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null) {
+                User userInfo = task.getResult().getValue(User.class);
+                handleAfterIntroIntent(userInfo);
+            }
+        });
+    }
+
+    private void handleAfterIntroIntent(User userInfo) {
+        Intent intent;
+
+        if (userInfo != null) {
+            intent = getIntentWhenUserNotNull(userInfo);
+        } else {
+            intent = new Intent(this, CreateUserActivity.class);
+        }
+
+        goToActivity(intent);
+    }
+
+    private Intent getIntentWhenUserNotNull(User userInfo) {
+        Intent intent;
+
+        if (userHasWeddings(userInfo) && userHasCurrentWedding(userInfo)) {
+            intent = new Intent(this, NavigationActivity.class);
+            intent.putExtra(FRAGMENT_TO_LOAD_ID, R.id.navigation_dashboard);
+        } else {
+            intent = new Intent(this, WeddingChoiceActivity.class);
+        }
+
+        return intent;
+    }
+
+    private boolean userHasWeddings(User userInfo) {
+        return userInfo.getWeddings() != null && !userInfo.getWeddings().isEmpty();
+    }
+
+    private boolean userHasCurrentWedding(User userInfo) {
+        return userInfo != null && StringUtils.isNotBlank(userInfo.getCurrentWedding());
+    }
+
+    private void goToActivity(Intent intent) {
+        startActivity(intent);
+        finish();
     }
 
     @Override

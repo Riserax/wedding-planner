@@ -38,7 +38,7 @@ import pl.com.weddingPlanner.view.util.ComponentsUtil;
 import pl.com.weddingPlanner.view.util.TasksUtil;
 
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
-import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
+import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnablity;
 import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
 import static pl.com.weddingPlanner.view.util.ExtraUtil.TASK_ID_EXTRA;
 import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
@@ -58,7 +58,6 @@ public class NewTaskActivity extends BaseActivity {
     private List<Integer> selectedBookmarksKeys = new ArrayList<>();
     private List<Integer> selectedPeopleKeys = new ArrayList<>();
     private PickedDate pickedDate;
-    @Setter
     private PickedTime pickedTime;
 
     private TaskStatus taskStatus = TaskStatus.NEW;
@@ -73,7 +72,7 @@ public class NewTaskActivity extends BaseActivity {
 
         prepareForEditing();
         setListeners();
-        setButtonEnability(binding.addSaveButton, areFieldsValid());
+        setButtonEnablity(binding.addSaveButton, areFieldsValid());
     }
 
     private void getExtrasAndSetVariables() {
@@ -184,7 +183,7 @@ public class NewTaskActivity extends BaseActivity {
 
     private void initAddButtonEnableStatusListener() {
         TextWatcher listener = getOnTextChangedTextWatcher((s, start, before, count) ->
-                setButtonEnability(binding.addSaveButton, areFieldsValid())
+                setButtonEnablity(binding.addSaveButton, areFieldsValid())
         );
 
         binding.taskName.addTextChangedListener(listener);
@@ -340,8 +339,8 @@ public class NewTaskActivity extends BaseActivity {
         boolean isCategoryChosen = !category.equals(getResources().getString(R.string.field_category));
         boolean areBookmarksSet = !bookmarks.equals(getResources().getString(R.string.task_field_bookmarks));
         boolean areAssigneesSet = !assignees.equals(getResources().getString(R.string.task_field_people));
-        boolean isDateSet = !date.equals(getResources().getString(R.string.task_field_date));
-        boolean isTimeSet = !time.equals(getResources().getString(R.string.task_field_time));
+        boolean isDateSet = !date.equals(getResources().getString(R.string.field_date));
+        boolean isTimeSet = !time.equals(getResources().getString(R.string.field_time));
 
         String bookmarksIdsString = areBookmarksSet ? TasksUtil.getBookmarksIds(bookmarks, this) : StringUtils.EMPTY;
         String assigneesIdsString = areAssigneesSet ? TasksUtil.getAssigneesIds(assignees, this) : StringUtils.EMPTY;
@@ -388,7 +387,7 @@ public class NewTaskActivity extends BaseActivity {
                 view.setText(getResources().getString(R.string.task_field_people));
                 break;
             case R.id.task_date:
-                view.setText(getResources().getString(R.string.task_field_date));
+                view.setText(getResources().getString(R.string.field_date));
                 break;
         }
     }
@@ -401,5 +400,10 @@ public class NewTaskActivity extends BaseActivity {
     @Override
     public void setPickedDate(PickedDate pickedDate) {
         this.pickedDate = pickedDate;
+    }
+
+    @Override
+    public void setPickedTime(PickedTime pickedTime) {
+        this.pickedTime = pickedTime;
     }
 }

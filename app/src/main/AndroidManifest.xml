@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
+        android:name=".FirebaseConfig"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -41,6 +42,16 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name="pl.com.weddingPlanner.view.authentication.CreateUserActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="pl.com.weddingPlanner.view.weddings.WeddingChoiceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="pl.com.weddingPlanner.view.weddings.NewWeddingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />

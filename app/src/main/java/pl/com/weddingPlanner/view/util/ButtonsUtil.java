@@ -20,7 +20,11 @@ public class ButtonsUtil {
             button.setBackground(ContextCompat.getDrawable(context, R.drawable.button_shape_border_only));
         }
 
-        button.setPadding(0, context.getResources().getDimensionPixelSize(R.dimen.button_padding_top),
-                0, context.getResources().getDimensionPixelSize(R.dimen.button_padding_bottom));
+        button.setPadding(0, context.getResources().getDimensionPixelSize(R.dimen.button_padding_top), 0, context.getResources().getDimensionPixelSize(R.dimen.button_padding_bottom));
+    }
+
+    public static void setBorderButtonDisabled(Button button, Context context) {
+        button.setTextColor(ContextCompat.getColor(context, R.color.gray_BCBCBC));
+        button.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_white_border_gray));
     }
 }

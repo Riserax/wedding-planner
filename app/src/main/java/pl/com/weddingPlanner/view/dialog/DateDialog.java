@@ -10,10 +10,11 @@ import pl.com.weddingPlanner.databinding.DialogDateBinding;
 import pl.com.weddingPlanner.model.PickedDate;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.tasks.NewTaskActivity;
+import pl.com.weddingPlanner.view.weddings.NewWeddingActivity;
 
 public class DateDialog extends CustomAlertDialog {
 
-    private DialogDateBinding binding;
+    private final DialogDateBinding binding;
 
     public DateDialog(BaseActivity activity, PickedDate pickedDate) {
         super(activity, R.layout.dialog_date);
@@ -36,6 +37,8 @@ public class DateDialog extends CustomAlertDialog {
 
         if (NewTaskActivity.class == activity.getClass()) {
             textView = activity.findViewById(R.id.task_date);
+        } else if (NewWeddingActivity.class == activity.getClass()) {
+            textView = activity.findViewById(R.id.wedding_date);
         } else {
             textView = activity.findViewById(R.id.payment_date);
         }
@@ -45,13 +48,13 @@ public class DateDialog extends CustomAlertDialog {
 
     private void setDatePicker(PickedDate pickedDate) {
         if (pickedDate != null)
-            binding.taskDatePicker.updateDate(pickedDate.getYear(), pickedDate.getMonth(), pickedDate.getDayOfMonth());
+            binding.datePicker.updateDate(pickedDate.getYear(), pickedDate.getMonth(), pickedDate.getDayOfMonth());
     }
 
     private String getSelectedDate() {
-        String year = String.valueOf(binding.taskDatePicker.getYear());
-        int month = binding.taskDatePicker.getMonth() + 1;
-        int dayOfMonth = binding.taskDatePicker.getDayOfMonth();
+        String year = String.valueOf(binding.datePicker.getYear());
+        int month = binding.datePicker.getMonth() + 1;
+        int dayOfMonth = binding.datePicker.getDayOfMonth();
 
         String monthString = month < 10 ? ("0" + month) : String.valueOf(month);
         String dayString = dayOfMonth < 10 ? ("0" + dayOfMonth) : String.valueOf(dayOfMonth);
@@ -61,9 +64,9 @@ public class DateDialog extends CustomAlertDialog {
 
     private PickedDate getPickedDate() {
         return PickedDate.builder()
-                .year(binding.taskDatePicker.getYear())
-                .month(binding.taskDatePicker.getMonth())
-                .dayOfMonth(binding.taskDatePicker.getDayOfMonth())
+                .year(binding.datePicker.getYear())
+                .month(binding.datePicker.getMonth())
+                .dayOfMonth(binding.datePicker.getDayOfMonth())
                 .build();
     }
 

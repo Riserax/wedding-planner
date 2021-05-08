@@ -14,10 +14,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.List;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.model.PickedDate;
+import pl.com.weddingPlanner.model.PickedTime;
 
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
 
@@ -25,9 +31,25 @@ public class BaseActivity extends AppCompatActivity {
 
     protected Toolbar toolbar;
 
+    protected FirebaseAuth firebaseAuth;
+    protected FirebaseUser currentUser;
+    protected FirebaseDatabase firebaseDatabase;
+    protected DatabaseReference databaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initFirebase();
+    }
+
+    private void initFirebase() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        currentUser = firebaseAuth.getCurrentUser();
+
+        firebaseDatabase = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url));
+
+        databaseReference = firebaseDatabase.getReference();
+        databaseReference.keepSynced(true);
     }
 
     protected void initToolbar() {
@@ -185,6 +207,8 @@ public class BaseActivity extends AppCompatActivity {
     public void setSelectedPeopleKeys(List<Integer> selectedPeopleKeys) {}
 
     public void setPickedDate(PickedDate pickedDate) {}
+
+    public void setPickedTime(PickedTime pickedTime) {}
 
     public void executeQuestionDialog() {}
 }
