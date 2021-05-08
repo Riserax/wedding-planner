@@ -39,7 +39,7 @@ import static pl.com.weddingPlanner.view.budget.ExpenseActivity.TAB_ID_EXTRA;
 import static pl.com.weddingPlanner.view.budget.ExpenseActivity.TAB_PAYMENTS_ID;
 import static pl.com.weddingPlanner.view.budget.ExpensePaymentsFragment.PAYMENT_ID_EXTRA;
 import static pl.com.weddingPlanner.view.dialog.QuestionDialog.CLASS_EXTRA;
-import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
+import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnablity;
 import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
 import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
 import static pl.com.weddingPlanner.view.util.ResourceUtil.AMOUNT_ZERO;
@@ -76,7 +76,7 @@ public class NewPaymentActivity extends BaseActivity {
         setValidator();
         getAndSetExtra();
         setListeners();
-        setButtonEnability(binding.addSaveButton, areFieldsValid());
+        setButtonEnablity(binding.addSaveButton, areFieldsValid());
     }
 
     private void getAndSetExtras() {
@@ -141,7 +141,7 @@ public class NewPaymentActivity extends BaseActivity {
 
     private void initAddButtonEnableStatusListener() {
         TextWatcher listener = getOnTextChangedTextWatcher((s, start, before, count) ->
-                setButtonEnability(binding.addSaveButton, areFieldsValid())
+                setButtonEnablity(binding.addSaveButton, areFieldsValid())
         );
 
         binding.paymentTitle.addTextChangedListener(listener);
@@ -227,14 +227,14 @@ public class NewPaymentActivity extends BaseActivity {
     private void setPendingButtonListener() {
         binding.awaitingButton.setOnClickListener(v -> {
             setPendingSelectedPaidNotSelected();
-            setButtonEnability(binding.addSaveButton, areFieldsValid());
+            setButtonEnablity(binding.addSaveButton, areFieldsValid());
         });
     }
 
     private void setPaidButtonListener() {
         binding.paidButton.setOnClickListener(v -> {
             setPaidSelectedPendingNotSelected();
-            setButtonEnability(binding.addSaveButton, areFieldsValid());
+            setButtonEnablity(binding.addSaveButton, areFieldsValid());
         });
     }
 

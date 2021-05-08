@@ -1,14 +1,19 @@
 package pl.com.weddingPlanner.model;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Getter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-
     public String username;
     public String email;
+    public List<String> weddings;
+    public String currentWedding;
 }

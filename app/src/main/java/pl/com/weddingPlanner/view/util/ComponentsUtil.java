@@ -31,7 +31,11 @@ public class ComponentsUtil {
         return ContextCompat.getDrawable(context, iconId);
     }
 
-    public static void setButtonEnability(Button button, boolean isEnabled, int buttonEnabledResourceId, int buttonDisabledResourceId) {
+    public static void setButtonEnablity(Button button, boolean isEnabled) {
+        setButtonEnablity(button, isEnabled, R.drawable.bg_button, R.drawable.bg_button_disabled);
+    }
+
+    public static void setButtonEnablity(Button button, boolean isEnabled, int buttonEnabledResourceId, int buttonDisabledResourceId) {
         button.setEnabled(isEnabled);
 
         if (isEnabled) {
@@ -39,10 +43,6 @@ public class ComponentsUtil {
         } else {
             button.setBackground(ContextCompat.getDrawable(button.getContext(), buttonDisabledResourceId));
         }
-    }
-
-    public static void setButtonEnability(Button button, boolean isEnabled) {
-        setButtonEnability(button, isEnabled, R.drawable.bg_button, R.drawable.bg_button_disabled);
     }
 
     public static CheckBox createSubTaskCheckbox(Context context, SubTask subTask, boolean canBeChecked) {

@@ -39,7 +39,7 @@
 
     <item>
         <shape>
-            <solid android:color="@color/gray_F2F2F2" />
+            <solid android:color="@color/gray_FDFDFD" />
             <corners android:radius="12dp" />
             <stroke
                 android:width="2dp"

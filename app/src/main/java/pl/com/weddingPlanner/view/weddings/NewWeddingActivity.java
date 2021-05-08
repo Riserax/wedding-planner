@@ -19,7 +19,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -27,16 +29,21 @@ import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityNewWeddingBinding;
 import pl.com.weddingPlanner.model.PickedDate;
 import pl.com.weddingPlanner.model.PickedTime;
+import pl.com.weddingPlanner.model.User;
 import pl.com.weddingPlanner.model.Wedding;
 import pl.com.weddingPlanner.util.DebouncedOnClickListener;
+import pl.com.weddingPlanner.validator.AmountValidator;
+import pl.com.weddingPlanner.validator.ValidationUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.dialog.DateDialog;
 import pl.com.weddingPlanner.view.tasks.dialog.TaskTimeDialog;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
+import pl.com.weddingPlanner.view.util.FormatUtil;
 
-import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
+import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnablity;
 import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
+import static pl.com.weddingPlanner.view.util.ResourceUtil.AMOUNT_ZERO;
 
 public class NewWeddingActivity extends BaseActivity {
 
@@ -44,6 +51,8 @@ public class NewWeddingActivity extends BaseActivity {
 
     private FirebaseUser currentUser;
     private DatabaseReference databaseReference;
+
+    private AmountValidator amountValidator;
 
     private PickedDate pickedDate;
     private PickedTime pickedTime;
@@ -64,8 +73,13 @@ public class NewWeddingActivity extends BaseActivity {
 
         setActivityToolbarContentWithBackIcon(R.string.header_title_wedding_new);
 
+        setValidator();
         setListeners();
-        setButtonEnability(binding.addSaveButton, false);
+        setButtonEnablity(binding.addSaveButton, false);
+    }
+
+    private void setValidator() {
+        amountValidator = new AmountValidator(this, true);
     }
 
     private void setListeners() {
@@ -79,7 +93,7 @@ public class NewWeddingActivity extends BaseActivity {
 
     private void initAddButtonEnableStatusListener() {
         TextWatcher listener = getOnTextChangedTextWatcher((s, start, before, count) ->
-                setButtonEnability(binding.addSaveButton, areFieldsValid())
+                setButtonEnablity(binding.addSaveButton, areFieldsValid())
         );
 
         binding.weddingName.addTextChangedListener(listener);
@@ -136,6 +150,20 @@ public class NewWeddingActivity extends BaseActivity {
         final View.OnFocusChangeListener listener = (v, hasFocus) -> {
             if (!hasFocus) {
                 ComponentsUtil.hideKeyboard(this, v);
+
+                if (R.id.initial_amount == v.getId()) {
+                    String amount = binding.initialAmount.getText().toString();
+                    amount = FormatUtil.format(amount);
+
+                    ValidationUtil.isValid(amount, true, NewWeddingActivity.this, amountValidator);
+
+                    binding.initialAmount.setText(FormatUtil.convertToAmount(amount));
+                }
+            } else {
+                if (R.id.initial_amount == v.getId()) {
+                    String amount = binding.initialAmount.getText().toString();
+                    binding.initialAmount.setText(amount.replaceAll("\\s", ""));
+                }
             }
         };
 
@@ -172,9 +200,11 @@ public class NewWeddingActivity extends BaseActivity {
     private Wedding getNewWeddingData() {
         String date = binding.weddingDate.getText().toString();
         String time = binding.weddingTime.getText().toString();
+        String initialAmount = binding.initialAmount.getText().toString();
 
         boolean isDateSet = !date.equals(getResources().getString(R.string.field_date));
         boolean isTimeSet = !time.equals(getResources().getString(R.string.field_time));
+        boolean isAmountSet = !initialAmount.isEmpty();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", new Locale("PL"));
         String nowDateString = simpleDateFormat.format(new Date());
@@ -186,7 +216,7 @@ public class NewWeddingActivity extends BaseActivity {
                 .time(isTimeSet ? time : StringUtils.EMPTY)
                 .ceremonyVenue(binding.ceremonyVenue.getText().toString())
                 .banquetVenue(binding.banquetVenue.getText().toString())
-                .initialBudget(Integer.parseInt(binding.initialAmount.getText().toString()))
+                .initialBudget(isAmountSet ? initialAmount : AMOUNT_ZERO)
                 .ownerUid(currentUser.getUid())
                 .partnerUid(StringUtils.EMPTY)
                 .partnerName(binding.partnerName.getText().toString())
@@ -197,29 +227,48 @@ public class NewWeddingActivity extends BaseActivity {
     }
 
     private void proceed(Wedding newWedding) {
-        //TODO
 //        DAOUtil.insertWedding(getApplicationContext(), newWedding);
 
-//        String key = databaseReference.child("weddings").push().getKey();
-//        Map<String, Object> weddingValues = newWedding.toMap();
-//
-//        Map<String, Object> childUpdates = new HashMap<>();
-//        childUpdates.put("/weddings/" + key, weddingValues);
-//        childUpdates.put("/users/" + currentUser.getUid() + "/weddings/" + key, new HashMap<>());
-//
-//        databaseReference.updateChildren(childUpdates).addOnCompleteListener(task -> {
-//            if (task.isSuccessful()) {
-//                startActivity(new Intent(NewWeddingActivity.this, NavigationActivity.class));
-//            }
-//        });
+        databaseReference.child("weddings").child(newWedding.getId()).setValue(newWedding).addOnCompleteListener(addWeddingTask -> {
+            if (addWeddingTask.isSuccessful()) {
+                getAndSetUserInfo(newWedding);
+            }
+        });
+    }
 
-        databaseReference.child("weddings").child(newWedding.getId()).setValue(newWedding).addOnCompleteListener(weddingTask -> {
-            if (weddingTask.isSuccessful()) {
-                databaseReference.child("users").child(currentUser.getUid()).child("weddings").setValue(newWedding.getId()).addOnCompleteListener(userTask -> {
-                    if (userTask.isSuccessful()) {
-                        startActivity(new Intent(NewWeddingActivity.this, NavigationActivity.class));
-                    }
-                });
+    private void getAndSetUserInfo(Wedding newWedding) {
+        databaseReference.child("users").child(currentUser.getUid()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null) {
+                User userInfo = task.getResult().getValue(User.class);
+                if (userInfo != null) {
+                    User userUpdated = getUpdatedUserInfo(userInfo, newWedding);
+                    updateUserWeddingsAndStartActivity(userUpdated);
+                }
+            } else {
+                Toast.makeText(NewWeddingActivity.this, "Niepowodzenie podczas tworzenia wesela",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private User getUpdatedUserInfo(User userInfo, Wedding newWedding) {
+        List<String> userWeddings = userInfo.getWeddings();
+
+        if (userWeddings == null) {
+            userWeddings = new ArrayList<>();
+        }
+        userWeddings.add(newWedding.getId());
+
+        userInfo.setWeddings(userWeddings);
+        userInfo.setCurrentWedding(newWedding.getId());
+
+        return userInfo;
+    }
+
+    private void updateUserWeddingsAndStartActivity(User userUpdated) {
+        databaseReference.child("users").child(currentUser.getUid()).setValue(userUpdated).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                startActivity(new Intent(NewWeddingActivity.this, NavigationActivity.class));
             }
         });
     }

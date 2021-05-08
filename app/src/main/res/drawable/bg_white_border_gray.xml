@@ -43,7 +43,7 @@
             <corners android:radius="12dp" />
             <stroke
                 android:width="2dp"
-                android:color="@color/gray_949494" />
+                android:color="@color/gray_BCBCBC" />
         </shape>
     </item>
 

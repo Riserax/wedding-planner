@@ -17,10 +17,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivitySignInBinding;
 import pl.com.weddingPlanner.view.BaseActivity;
-import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
+import pl.com.weddingPlanner.view.weddings.WeddingChoiceActivity;
 
-import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
+import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnablity;
 import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
 
 public class SignInActivity extends BaseActivity {
@@ -40,7 +40,7 @@ public class SignInActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_in);
 
-        setButtonEnability(binding.signInButton, false);
+        setButtonEnablity(binding.signInButton, false);
         setListeners();
     }
 
@@ -60,7 +60,7 @@ public class SignInActivity extends BaseActivity {
 
     private void setSignInButtonEnableStatusListener() {
         TextWatcher listener = getOnTextChangedTextWatcher((s, start, before, count) ->
-                setButtonEnability(binding.signInButton, areFieldsValid())
+                setButtonEnablity(binding.signInButton, areFieldsValid())
         );
 
         binding.email.addTextChangedListener(listener);
@@ -105,7 +105,7 @@ public class SignInActivity extends BaseActivity {
 
     private void handleSignInTask(Task<AuthResult> task) {
         if (task.isSuccessful()) {
-            startActivity(new Intent(SignInActivity.this, NavigationActivity.class));
+            startActivity(new Intent(SignInActivity.this, WeddingChoiceActivity.class));
         } else {
             Toast.makeText(SignInActivity.this, "Niepowodzenie podczas logowania",
                     Toast.LENGTH_LONG).show();

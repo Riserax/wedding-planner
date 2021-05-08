@@ -38,7 +38,7 @@ import pl.com.weddingPlanner.view.util.ComponentsUtil;
 import pl.com.weddingPlanner.view.util.TasksUtil;
 
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
-import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
+import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnablity;
 import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
 import static pl.com.weddingPlanner.view.util.ExtraUtil.TASK_ID_EXTRA;
 import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
@@ -72,7 +72,7 @@ public class NewTaskActivity extends BaseActivity {
 
         prepareForEditing();
         setListeners();
-        setButtonEnability(binding.addSaveButton, areFieldsValid());
+        setButtonEnablity(binding.addSaveButton, areFieldsValid());
     }
 
     private void getExtrasAndSetVariables() {
@@ -183,7 +183,7 @@ public class NewTaskActivity extends BaseActivity {
 
     private void initAddButtonEnableStatusListener() {
         TextWatcher listener = getOnTextChangedTextWatcher((s, start, before, count) ->
-                setButtonEnability(binding.addSaveButton, areFieldsValid())
+                setButtonEnablity(binding.addSaveButton, areFieldsValid())
         );
 
         binding.taskName.addTextChangedListener(listener);

@@ -39,7 +39,7 @@ import pl.com.weddingPlanner.view.util.PersonUtil;
 
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
 import static pl.com.weddingPlanner.view.budget.ExpenseActivity.EXPENSE_ID_EXTRA;
-import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
+import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnablity;
 import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
 import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
 import static pl.com.weddingPlanner.view.util.ResourceUtil.AMOUNT_ZERO;
@@ -71,7 +71,7 @@ public class NewExpenseActivity extends BaseActivity {
         fillFields();
         setValidator();
         setListeners();
-        setButtonEnability(binding.addSaveButton, areFieldsValid());
+        setButtonEnablity(binding.addSaveButton, areFieldsValid());
     }
 
     private void getAndSetExtras() {
@@ -135,7 +135,7 @@ public class NewExpenseActivity extends BaseActivity {
 
     private void initAddButtonEnableStatusListener() {
         TextWatcher listener = getOnTextChangedTextWatcher((s, start, before, count) ->
-                setButtonEnability(binding.addSaveButton, areFieldsValid())
+                setButtonEnablity(binding.addSaveButton, areFieldsValid())
         );
 
         binding.expenseName.addTextChangedListener(listener);

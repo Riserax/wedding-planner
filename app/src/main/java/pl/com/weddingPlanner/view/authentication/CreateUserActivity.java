@@ -24,7 +24,7 @@ import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
 import pl.com.weddingPlanner.view.weddings.WeddingChoiceActivity;
 
-import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
+import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnablity;
 import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
 
 public class CreateUserActivity extends BaseActivity {
@@ -46,7 +46,7 @@ public class CreateUserActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_user);
 
-        setButtonEnability(binding.registerButton, false);
+        setButtonEnablity(binding.registerButton, false);
         setListeners();
     }
 
@@ -66,13 +66,13 @@ public class CreateUserActivity extends BaseActivity {
 
         binding.regulationCheckbox.setOnCheckedChangeListener((compoundButton, b) -> {
             ComponentsUtil.hideKeyboard(this, getCurrentFocus());
-            setButtonEnability(binding.registerButton, areFieldsValid());
+            setButtonEnablity(binding.registerButton, areFieldsValid());
         });
     }
 
     private void setRegisterButtonEnableStatusListener() {
         TextWatcher listener = getOnTextChangedTextWatcher((s, start, before, count) ->
-                setButtonEnability(binding.registerButton, areFieldsValid())
+                setButtonEnablity(binding.registerButton, areFieldsValid())
         );
 
         binding.email.addTextChangedListener(listener);
@@ -126,7 +126,7 @@ public class CreateUserActivity extends BaseActivity {
             sendVerificationEmail(currentUser);
             saveUser(currentUser);
 
-            startActivity(new Intent(CreateUserActivity.this, WeddingChoiceActivity.class)); //FIXME
+            startActivity(new Intent(CreateUserActivity.this, WeddingChoiceActivity.class));
         } else {
             Toast.makeText(CreateUserActivity.this, "Niepowodzenie podczas rejestracji",
                     Toast.LENGTH_LONG).show();
@@ -151,7 +151,11 @@ public class CreateUserActivity extends BaseActivity {
 
     private void saveUser(FirebaseUser currentUser) {
         if (currentUser != null) {
-            User user = new User(binding.username.getText().toString(), currentUser.getEmail());
+            User user = User.builder()
+                    .username(binding.username.getText().toString())
+                    .email(currentUser.getEmail())
+                    .build();
+
             databaseReference.child("users").child(currentUser.getUid()).setValue(user);
         }
     }

@@ -35,7 +35,7 @@ import pl.com.weddingPlanner.view.util.FormatUtil;
 import pl.com.weddingPlanner.view.util.LinksUtil;
 import pl.com.weddingPlanner.view.util.SubcontractorUtil;
 
-import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnability;
+import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnablity;
 import static pl.com.weddingPlanner.view.util.ExtraUtil.ACTIVITY_TITLE_EXTRA;
 import static pl.com.weddingPlanner.view.util.ExtraUtil.SUBCONTRACTOR_ID_EXTRA;
 import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
@@ -67,7 +67,7 @@ public class NewSubcontractorActivity extends BaseActivity {
         fillFields();
         setValidator();
         setListeners();
-        setButtonEnability(binding.addSaveButton, areFieldsValid());
+        setButtonEnablity(binding.addSaveButton, areFieldsValid());
     }
 
     private void getExtrasAndSetVariables() {
@@ -144,7 +144,7 @@ public class NewSubcontractorActivity extends BaseActivity {
 
     private void setAddButtonEnableStatusListener() {
         TextWatcher listener = getOnTextChangedTextWatcher((s, start, before, count) ->
-                setButtonEnability(binding.addSaveButton, areFieldsValid())
+                setButtonEnablity(binding.addSaveButton, areFieldsValid())
         );
 
         binding.name.addTextChangedListener(listener);
