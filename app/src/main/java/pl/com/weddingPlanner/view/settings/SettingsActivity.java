@@ -16,6 +16,7 @@ import pl.com.weddingPlanner.databinding.ActivitySettingsBinding;
 import pl.com.weddingPlanner.util.FirebaseUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.authentication.SignInActivity;
+import pl.com.weddingPlanner.view.dialog.JoinWeddingDialog;
 
 public class SettingsActivity extends BaseActivity {
 
@@ -66,6 +67,10 @@ public class SettingsActivity extends BaseActivity {
 
     private void setListeners() {
         binding.signOutButton.setOnClickListener(v -> signOut());
+
+        binding.joinOtherWeddingButton.setOnClickListener(v -> {
+            new JoinWeddingDialog(SettingsActivity.this).showDialog();
+        });
     }
 
     private void signOut() {

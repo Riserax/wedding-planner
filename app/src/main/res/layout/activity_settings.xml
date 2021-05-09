@@ -22,14 +22,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/test_read_button"
+            android:id="@+id/join_other_wedding_button"
             android:layout_width="@dimen/add_button_width"
             android:layout_height="@dimen/add_button_height"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/add_button_margin_top"
             android:background="@drawable/bg_button"
             android:letterSpacing="0.075"
-            android:text="Test odczytu"
+            android:text="Dołącz do innego wesela"
             android:textColor="@color/white_FFFFFF"
             android:textSize="@dimen/add_button_text_size"
             android:textStyle="bold"
