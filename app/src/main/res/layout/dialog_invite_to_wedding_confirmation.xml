@@ -15,36 +15,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/_5sdp"
-            android:text="@string/dialog_join_wedding_title"
+            android:layout_marginBottom="@dimen/_25sdp"
+            android:text="Pomyślnie stworzono zaproszenie dla pomocnika"
             android:textColor="@color/black"
             android:textSize="@dimen/_16sdp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/invitation_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/_25sdp"
+            android:text="Dgv8CW8P"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_30sdp"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/_15sdp"
-            android:text="@string/dialog_join_wedding_info"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:text="@string/invite_to_wedding_dialog_info"
             android:textColor="@color/black"
             android:textSize="@dimen/_10sdp"
+            android:textStyle="italic"
             android:textAlignment="center"/>
-
-        <EditText
-            android:id="@+id/code"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_5sdp"
-            android:maxLines="1"
-            android:maxLength="100"
-            android:inputType="text"
-            android:hint="@string/field_code"
-            android:textSize="@dimen/field_text_size"
-            android:textColorHint="@color/gray_949494"
-            android:textColor="@color/gray_949494"
-            android:textAlignment="center"
-            android:background="@drawable/bg_edittext_underline"/>
 
     </LinearLayout>
 

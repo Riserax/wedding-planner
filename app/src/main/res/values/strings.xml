@@ -8,6 +8,7 @@
     <string name="budget_paid">Wydano</string>
 
     <string name="button_add">Dodaj</string>
+    <string name="button_invite">Zaproś</string>
     <string name="button_register">Zarejestruj</string>
     <string name="button_save">Zapisz</string>
     <string name="button_sign_in">Zaloguj</string>
@@ -38,6 +39,7 @@
     <string name="dialog_cancel">Anuluj</string>
     <string name="dialog_confirm">Zatwierdź</string>
     <string name="dialog_delete">Usuń</string>
+    <string name="dialog_send_email">Wyślij e-mail</string>
     <string name="dialog_pick">Wybierz</string>
     <string name="dialog_yes">Tak</string>
     <string name="dialog_no">Nie</string>
@@ -45,6 +47,7 @@
     <string name="dialog_age_choice">Wybierz przedział wiekowy</string>
     <string name="dialog_expense_subcontractor_choice">Wybierz podwykonawcę</string>
     <string name="dialog_guest_choice">Wybierz gościa, dla którego będzie osobą towarzyszącą</string>
+    <string name="dialog_invite_to_wedding_title">Pomyślnie stworzono zaproszenie dla pomocnika</string>
     <string name="dialog_join_wedding_title">Wprowadź kod zaproszenia</string>
     <string name="dialog_join_wedding_info">Otrzymasz go od właściciela wesela lub znajdziesz w skrzynce e-mailowej</string>
     <string name="dialog_person_choice">Wybierz osobę</string>
@@ -121,6 +124,7 @@
     <string name="header_title_guest_details">Gość</string>
     <string name="header_title_guest_edit">Edycja gościa</string>
     <string name="header_title_guest_new">Nowy gość</string>
+    <string name="header_title_invite_to_wedding">Zaproś pomocnika</string>
     <string name="header_title_more">Więcej</string>
     <string name="header_title_payment">Płatność</string>
     <string name="header_title_payment_new">Nowa płatność</string>
@@ -134,6 +138,11 @@
     <string name="header_title_task_edit">Edycja zadania</string>
     <string name="header_title_task_new">Nowe zadanie</string>
     <string name="header_title_wedding_new">Nowe wesele</string>
+
+    <string name="invite_to_wedding_title">Wprowadź adres e-mail pomocnika</string>
+    <string name="invite_to_wedding_email_subject">Kod zaproszenia do wesela</string>
+    <string name="invite_to_wedding_email_text">Zapraszam Cię do wpółtworzenia wesela w aplikacji WeddingPlanner.\nPoniżej znajduje się Twój kod:\n\n%1$s\n\nPodaj go w aplikacji podczas dołączania do wesela.\nJeśli nie posiadasz jeszcze konta - utwórz je.</string>
+    <string name="invite_to_wedding_dialog_info">Przekaż powyższy kod pomocnikowi, aby mógł wykorzystać go podczas dołączania do Twojego wesela w swojej aplikacji.\n\nMożesz także skorzystać z opcji wysłania kodu w wiadomości e-mail.</string>
 
     <string name="list_standard_caption_empty">Brak danych do wyświetlenia</string>
 

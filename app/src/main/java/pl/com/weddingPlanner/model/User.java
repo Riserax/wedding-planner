@@ -16,4 +16,5 @@ public class User {
     public String email;
     public List<String> weddings;
     public String currentWedding;
+    public List<String> invitedPeople;
 }

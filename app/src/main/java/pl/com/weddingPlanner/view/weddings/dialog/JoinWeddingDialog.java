@@ -1,4 +1,4 @@
-package pl.com.weddingPlanner.view.dialog;
+package pl.com.weddingPlanner.view.weddings.dialog;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -25,6 +25,7 @@ import pl.com.weddingPlanner.model.WeddingInvitation;
 import pl.com.weddingPlanner.util.FirebaseUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.NavigationActivity;
+import pl.com.weddingPlanner.view.dialog.CustomAlertDialog;
 
 import static pl.com.weddingPlanner.util.FirebaseUtil.isSuccessfulAndNotNull;
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;

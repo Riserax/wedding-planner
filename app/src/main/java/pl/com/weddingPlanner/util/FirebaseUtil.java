@@ -28,7 +28,11 @@ public class FirebaseUtil {
     }
 
     public static DatabaseReference getInvitationChild(DatabaseReference databaseReference, String code) {
-        return databaseReference.child("invitations").child(code);
+        return getInvitationRoot(databaseReference).child(code);
+    }
+
+    public static DatabaseReference getInvitationRoot(DatabaseReference databaseReference) {
+        return databaseReference.child("invitations");
     }
 
     public static boolean isSuccessfulAndNotNull(Task<DataSnapshot> task) {
