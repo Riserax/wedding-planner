@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -150,6 +151,19 @@ public class CreateUserActivity extends BaseActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK)
+            return onKeyDown() || super.onKeyDown(keyCode, event);
+
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private boolean onKeyDown() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
+        return true;
     }
 }
