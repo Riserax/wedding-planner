@@ -1,5 +1,7 @@
 package pl.com.weddingPlanner.model;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +23,7 @@ public class Wedding {
     private String partnerUid;
     private String partnerName;
     private String partnerEmail;
-    private String people;
+    private List<String> people;
+    private String joinCode;
     private String creationDate;
 }

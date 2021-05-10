@@ -11,7 +11,9 @@ import pl.com.weddingPlanner.databinding.ActivityWeddingChoiceBinding;
 import pl.com.weddingPlanner.model.User;
 import pl.com.weddingPlanner.util.FirebaseUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
-import pl.com.weddingPlanner.view.util.ButtonsUtil;
+import pl.com.weddingPlanner.view.weddings.dialog.JoinWeddingDialog;
+
+import static pl.com.weddingPlanner.util.FirebaseUtil.isSuccessfulAndNotNull;
 
 public class WeddingChoiceActivity extends BaseActivity {
 
@@ -22,18 +24,13 @@ public class WeddingChoiceActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_wedding_choice);
 
-        setComponents();
         setChoicesVisibility();
         setListeners();
     }
 
-    private void setComponents() {
-        ButtonsUtil.setBorderButtonDisabled(binding.joinButton, this);
-    }
-
     private void setChoicesVisibility() {
         FirebaseUtil.getUser(databaseReference, currentUser).addOnCompleteListener(task -> {
-            if (task.isSuccessful() && task.getResult() != null && task.getResult().exists()) {
+            if (isSuccessfulAndNotNull(task)) {
                 User user = task.getResult().getValue(User.class);
                 if (user != null && (user.getWeddings() == null || user.getWeddings().isEmpty())) {
                     binding.chooseExistingButton.setVisibility(View.GONE);
@@ -52,7 +49,7 @@ public class WeddingChoiceActivity extends BaseActivity {
         });
 
         binding.joinButton.setOnClickListener(v -> {
-            //TODO
+            new JoinWeddingDialog(WeddingChoiceActivity.this).showDialog();
         });
     }
 

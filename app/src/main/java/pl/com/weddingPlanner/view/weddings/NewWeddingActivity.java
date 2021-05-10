@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -210,7 +211,7 @@ public class NewWeddingActivity extends BaseActivity {
                 .partnerUid(StringUtils.EMPTY)
                 .partnerName(binding.partnerName.getText().toString())
                 .partnerEmail(binding.partnerEmail.getText().toString())
-                .people(StringUtils.EMPTY)
+                .people(Collections.singletonList(currentUser.getUid()))
                 .creationDate(nowDateString)
                 .build();
     }
@@ -218,7 +219,7 @@ public class NewWeddingActivity extends BaseActivity {
     private void proceed(Wedding newWedding) {
 //        DAOUtil.insertWedding(getApplicationContext(), newWedding);
 
-        FirebaseUtil.getWeddingChild(databaseReference, newWedding).setValue(newWedding).addOnCompleteListener(addWeddingTask -> {
+        FirebaseUtil.getWeddingChild(databaseReference, newWedding.getId()).setValue(newWedding).addOnCompleteListener(addWeddingTask -> {
             if (addWeddingTask.isSuccessful()) {
                 getAndSetUserInfo(newWedding);
             }

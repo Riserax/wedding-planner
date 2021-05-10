@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white_FFFFFF"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:filterTouchesWhenObscured="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:text="@string/dialog_join_wedding_title"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:text="@string/dialog_join_wedding_info"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10sdp"
+            android:textAlignment="center"/>
+
+        <EditText
+            android:id="@+id/code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_5sdp"
+            android:maxLines="1"
+            android:maxLength="100"
+            android:inputType="text"
+            android:hint="@string/field_code"
+            android:textSize="@dimen/field_text_size"
+            android:textColorHint="@color/gray_949494"
+            android:textColor="@color/gray_949494"
+            android:textAlignment="center"
+            android:background="@drawable/bg_edittext_underline"/>
+
+    </LinearLayout>
+
+</layout>

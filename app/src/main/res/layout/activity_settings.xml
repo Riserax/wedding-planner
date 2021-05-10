@@ -11,32 +11,51 @@
         <include android:id="@+id/toolbar_layout"
             layout="@layout/toolbar" />
 
-        <TextView
-            android:id="@+id/message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ustawienia"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <TextView-->
+<!--            android:id="@+id/wedding_name"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Nazwa wesela"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/toolbar_layout" />-->
 
-        <Button
-            android:id="@+id/test_read_button"
-            android:layout_width="@dimen/add_button_width"
-            android:layout_height="@dimen/add_button_height"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/add_button_margin_top"
-            android:background="@drawable/bg_button"
-            android:letterSpacing="0.075"
-            android:text="Test odczytu"
-            android:textColor="@color/white_FFFFFF"
-            android:textSize="@dimen/add_button_text_size"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/message"
-            app:layout_constraintBottom_toTopOf="@id/sign_out_button"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="@id/toolbar_layout"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <Button
+                android:id="@+id/invite_to_wedding_button"
+                android:layout_width="@dimen/add_button_width"
+                android:layout_height="@dimen/add_button_height"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/field_margin"
+                android:background="@drawable/bg_button"
+                android:letterSpacing="0.075"
+                android:text="Zaproś pomocnika"
+                android:textColor="@color/white_FFFFFF"
+                android:textSize="@dimen/add_button_text_size"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/join_wedding_button"
+                android:layout_width="@dimen/add_button_width"
+                android:layout_height="@dimen/add_button_height"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/field_margin"
+                android:background="@drawable/bg_button"
+                android:letterSpacing="0.075"
+                android:text="Dołącz do wesela"
+                android:textColor="@color/white_FFFFFF"
+                android:textSize="@dimen/add_button_text_size"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/sign_out_button"
@@ -44,10 +63,10 @@
             android:layout_height="@dimen/add_button_height"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/add_button_margin_top"
-            android:background="@drawable/bg_button"
+            android:background="@drawable/button_shape_border_only"
             android:letterSpacing="0.075"
             android:text="Wyloguj"
-            android:textColor="@color/white_FFFFFF"
+            android:textColor="@color/colorPrimaryLight"
             android:textSize="@dimen/add_button_text_size"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
