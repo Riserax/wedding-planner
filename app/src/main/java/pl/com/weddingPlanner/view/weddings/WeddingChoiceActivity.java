@@ -45,7 +45,7 @@ public class WeddingChoiceActivity extends BaseActivity {
         });
 
         binding.chooseExistingButton.setOnClickListener(v -> {
-            //TODO
+            startActivity(new Intent(WeddingChoiceActivity.this, MyWeddingsActivity.class));
         });
 
         binding.joinButton.setOnClickListener(v -> {

@@ -138,6 +138,7 @@
     <string name="header_title_task_edit">Edycja zadania</string>
     <string name="header_title_task_new">Nowe zadanie</string>
     <string name="header_title_wedding_new">Nowe wesele</string>
+    <string name="header_title_weddings_list">Moje wesela</string>
 
     <string name="invite_to_wedding_title">Wprowadź adres e-mail pomocnika</string>
     <string name="invite_to_wedding_email_subject">Kod zaproszenia do wesela</string>
