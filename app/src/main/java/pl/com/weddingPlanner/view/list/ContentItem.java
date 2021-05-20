@@ -15,6 +15,7 @@ import pl.com.weddingPlanner.enums.ContentItemState;
 import pl.com.weddingPlanner.enums.TaskStatus;
 import pl.com.weddingPlanner.model.info.ExpenseInfo;
 import pl.com.weddingPlanner.model.info.GuestInfo;
+import pl.com.weddingPlanner.model.info.MyWeddingInfo;
 import pl.com.weddingPlanner.model.info.PaymentInfo;
 import pl.com.weddingPlanner.model.info.SubcontractorInfo;
 import pl.com.weddingPlanner.model.info.TaskInfo;
@@ -29,6 +30,7 @@ import pl.com.weddingPlanner.view.util.ResourceUtil;
 @AllArgsConstructor
 public class ContentItem extends ListItem implements Serializable {
 
+    private String itemUUID;
     private String mainCaption;
     private String subCaption;
 
@@ -102,6 +104,15 @@ public class ContentItem extends ListItem implements Serializable {
                 .leftIconId(ResourceUtil.getResId(info.getCategoryIconId(), R.drawable.class))
                 .leftIconColor(R.color.colorPrimaryDark)
                 .rightLayout(info.getStagePaymentsLayout())
+                .build();
+    }
+
+    public static ContentItem of(MyWeddingInfo info) {
+        return ContentItem.builder()
+                .itemUUID(info.getId())
+                .mainCaption(info.getName())
+                .mainCaptionColor(R.color.black)
+                .leftIconId(0)
                 .build();
     }
 

@@ -19,14 +19,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivitySignInBinding;
-import pl.com.weddingPlanner.model.User;
 import pl.com.weddingPlanner.util.FirebaseUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
-import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.view.util.ComponentsUtil;
 import pl.com.weddingPlanner.view.weddings.WeddingChoiceActivity;
 
-import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
 import static pl.com.weddingPlanner.view.util.ComponentsUtil.setButtonEnablity;
 import static pl.com.weddingPlanner.view.util.LambdaUtil.getOnTextChangedTextWatcher;
 
@@ -110,37 +107,20 @@ public class SignInActivity extends BaseActivity {
     private void handleSignInTask(Task<AuthResult> task) {
         if (task.isSuccessful()) {
             currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            getUserAndStartActivity();
+            clearCurrentWeddingAndStartActivity();
         } else {
             Toast.makeText(SignInActivity.this, "Niepowodzenie podczas logowania",
                     Toast.LENGTH_LONG).show();
         }
     }
 
-    private void getUserAndStartActivity() {
+    private void clearCurrentWeddingAndStartActivity() {
         FirebaseUtil.getUser(databaseReference, currentUser).addOnCompleteListener(task -> {
-            if (task.isSuccessful() && task.getResult() != null) {
-                User userInfo = task.getResult().getValue(User.class);
-                startAppropriateActivity(userInfo);
+            if (task.isSuccessful()) {
+                FirebaseUtil.getUserChild(databaseReference, currentUser).child("currentWedding").setValue(StringUtils.EMPTY);
+                startActivity(new Intent(SignInActivity.this, WeddingChoiceActivity.class));
             }
         });
-    }
-
-    private void startAppropriateActivity(User userInfo) {
-        Intent intent;
-
-        if (userHasCurrentWedding(userInfo)) {
-            intent = new Intent(SignInActivity.this, NavigationActivity.class);
-            intent.putExtra(FRAGMENT_TO_LOAD_ID, R.id.navigation_dashboard);
-        } else {
-            intent = new Intent(SignInActivity.this, WeddingChoiceActivity.class);
-        }
-
-        startActivity(intent);
-    }
-
-    private boolean userHasCurrentWedding(User userInfo) {
-        return userInfo != null && StringUtils.isNotBlank(userInfo.getCurrentWedding());
     }
 
     @Override

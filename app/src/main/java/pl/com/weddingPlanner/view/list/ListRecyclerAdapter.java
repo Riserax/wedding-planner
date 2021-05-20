@@ -105,8 +105,7 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             VHItem VHitem = (VHItem) holder;
             VHitem.bind(currentItem, itemClickListener);
 
-            VHitem.leftIcon.setImageDrawable(getIcon(currentItem));
-
+            setLeftIcon(VHitem, currentItem);
             setTopLayout(currentItem, VHitem);
 
             VHitem.caption.setText(currentItem.getMainCaption());
@@ -169,6 +168,14 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private void clearNewLayoutParent(ContentItem currentItem) {
         if (currentItem.getRightLayout().getParent() != null) {
             ((ViewGroup) currentItem.getRightLayout().getParent()).removeView(currentItem.getRightLayout());
+        }
+    }
+
+    private void setLeftIcon(VHItem VHitem, ContentItem currentItem) {
+        if (currentItem.getLeftIconId() != 0) {
+            VHitem.leftIcon.setImageDrawable(getIcon(currentItem));
+        } else {
+            VHitem.leftIcon.setVisibility(View.GONE);
         }
     }
 
