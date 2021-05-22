@@ -18,7 +18,7 @@ import pl.com.weddingPlanner.databinding.FragmentMoreBinding;
 import pl.com.weddingPlanner.view.NavigationActivity;
 import pl.com.weddingPlanner.enums.MenuMore;
 
-import static pl.com.weddingPlanner.view.util.SideBySideListUtil.renderCategoriesButtons;
+import static pl.com.weddingPlanner.view.util.SideBySideListUtil.renderButtons;
 
 public class MoreFragment extends Fragment {
 
@@ -30,7 +30,7 @@ public class MoreFragment extends Fragment {
 
         ((NavigationActivity) requireActivity()).setFragmentToolbar(R.string.header_title_more);
 
-        renderCategoriesButtons(
+        renderButtons(
                 this,
                 getMenuItems(),
                 binding.sideBySideMenu.leftColumn,

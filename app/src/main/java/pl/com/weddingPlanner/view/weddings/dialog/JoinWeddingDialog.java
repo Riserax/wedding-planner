@@ -22,6 +22,7 @@ import pl.com.weddingPlanner.databinding.DialogJoinWeddingBinding;
 import pl.com.weddingPlanner.model.User;
 import pl.com.weddingPlanner.model.Wedding;
 import pl.com.weddingPlanner.model.WeddingInvitation;
+import pl.com.weddingPlanner.model.WeddingItem;
 import pl.com.weddingPlanner.util.FirebaseUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.NavigationActivity;
@@ -94,40 +95,53 @@ public class JoinWeddingDialog extends CustomAlertDialog {
     private void proceedWhenValid(String weddingId) {
         FirebaseUtil.getUser(databaseReference, currentUser).addOnCompleteListener(task -> {
             if (isSuccessfulAndNotNull(task)) {
-                User user = getAndUpdateUser(task.getResult(), weddingId);
-                FirebaseUtil.getUserChild(databaseReference, currentUser).setValue(user);
-                updateWedding(weddingId);
+                User user = task.getResult().getValue(User.class);
+                getWeddingAndUpdate(weddingId, user);
             }
         });
     }
 
-    private User getAndUpdateUser(DataSnapshot taskResult, String weddingId) {
-        User user = taskResult.getValue(User.class);
+    private void getWeddingAndUpdate(String weddingId, User user) {
+        FirebaseUtil.getWedding(databaseReference, weddingId).addOnCompleteListener(task -> {
+            if (isSuccessfulAndNotNull(task)) {
+                Wedding wedding = task.getResult().getValue(Wedding.class);
+                User updatedUser = updateUser(user, wedding);
 
-        List<String> weddings = new ArrayList<>();
+                FirebaseUtil.getUserChild(databaseReference, currentUser).setValue(updatedUser);
+                updateWedding(wedding);
+            }
+        });
+    }
+
+    private User updateUser(User user, Wedding wedding) {
+        List<WeddingItem> weddings = new ArrayList<>();
         if (user.getWeddings() != null) {
             weddings = user.getWeddings();
-            weddings.add(weddingId);
+            weddings.add(buildWeddingItem(wedding));
         }
+
         user.setWeddings(weddings);
-        user.setCurrentWedding(weddingId);
+        user.setCurrentWedding(wedding.getId());
 
         return user;
     }
 
-    private void updateWedding(String weddingId) {
-        FirebaseUtil.getWedding(databaseReference, weddingId).addOnCompleteListener(task -> {
-            if (isSuccessfulAndNotNull(task)) {
-                List<String> updatedPeople = getAndUpdateWeddingPeople(task.getResult());
-                FirebaseUtil.getWeddingChild(databaseReference, weddingId).child("people").setValue(updatedPeople);
-                FirebaseUtil.getInvitationChild(databaseReference, invitationCode).removeValue();
-                goToJointWeddingDashboard();
-            }
-        });
+    private WeddingItem buildWeddingItem(Wedding newWedding) {
+        return WeddingItem.builder()
+                .id(newWedding.getId())
+                .name(newWedding.getName())
+                .build();
     }
 
-    private List<String> getAndUpdateWeddingPeople(DataSnapshot taskResult) {
-        List<String> weddingPeople = taskResult.getValue(Wedding.class).getPeople();
+    private void updateWedding(Wedding wedding) {
+        List<String> updatedPeople = getAndUpdateWeddingPeople(wedding);
+        FirebaseUtil.getWeddingChild(databaseReference, wedding.getId()).child("people").setValue(updatedPeople);
+        FirebaseUtil.getInvitationChild(databaseReference, invitationCode).removeValue();
+        goToJointWeddingDashboard();
+    }
+
+    private List<String> getAndUpdateWeddingPeople(Wedding wedding) {
+        List<String> weddingPeople = wedding.getPeople();
         List<String> toReturn = new ArrayList<>();
 
         if (weddingPeople != null) {

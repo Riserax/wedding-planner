@@ -5,11 +5,17 @@ import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivitySettingsBinding;
+import pl.com.weddingPlanner.enums.Settings;
 import pl.com.weddingPlanner.view.BaseActivity;
 import pl.com.weddingPlanner.view.authentication.SignInActivity;
-import pl.com.weddingPlanner.view.weddings.dialog.JoinWeddingDialog;
+
+import static pl.com.weddingPlanner.view.util.SideBySideListUtil.renderButtons;
 
 public class SettingsActivity extends BaseActivity {
 
@@ -21,7 +27,17 @@ public class SettingsActivity extends BaseActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_settings);
         setToolbarContentWithBackIcon(R.string.header_title_settings, this, R.id.navigation_more);
 
+        renderButtons(
+                this,
+                getMenuItems(),
+                binding.sideBySideMenu.leftColumn,
+                binding.sideBySideMenu.rightColumn);
+
         setListeners();
+    }
+
+    private List<Settings> getMenuItems() {
+        return new ArrayList<>(Arrays.asList(Settings.values()));
     }
 
 //    private void showUsername() {
@@ -58,13 +74,13 @@ public class SettingsActivity extends BaseActivity {
 //    }
 
     private void setListeners() {
-        binding.inviteToWeddingButton.setOnClickListener(v -> {
-            startActivity(new Intent(SettingsActivity.this, InviteToWeddingActivity.class));
-        });
-
-        binding.joinWeddingButton.setOnClickListener(v -> {
-            new JoinWeddingDialog(SettingsActivity.this).showDialog();
-        });
+//        binding.inviteToWeddingButton.setOnClickListener(v -> {
+//            startActivity(new Intent(SettingsActivity.this, InviteToWeddingActivity.class));
+//        });
+//
+//        binding.joinWeddingButton.setOnClickListener(v -> {
+//            new JoinWeddingDialog(SettingsActivity.this).showDialog();
+//        });
 
         binding.signOutButton.setOnClickListener(v -> signOut());
     }

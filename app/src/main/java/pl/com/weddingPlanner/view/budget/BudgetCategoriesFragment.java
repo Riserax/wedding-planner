@@ -14,7 +14,7 @@ import pl.com.weddingPlanner.databinding.FragmentBudgetCategoriesBinding;
 import pl.com.weddingPlanner.util.DAOUtil;
 import pl.com.weddingPlanner.enums.CategoryType;
 
-import static pl.com.weddingPlanner.view.util.SideBySideListUtil.renderCategoriesButtons;
+import static pl.com.weddingPlanner.view.util.SideBySideListUtil.renderButtons;
 
 public class BudgetCategoriesFragment extends Fragment {
 
@@ -24,7 +24,7 @@ public class BudgetCategoriesFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_budget_categories, container, false);
 
-        renderCategoriesButtons(
+        renderButtons(
                 this,
                 DAOUtil.getAllCategoriesByType(requireContext(), CategoryType.BUDGET.name()),
                 binding.sideBySideMenu.leftColumn,

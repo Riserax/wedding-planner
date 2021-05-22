@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         Category categoryTasks2 = Category.builder()
                 .name("Ceremonia")
                 .type(CategoryType.TASKS.name())
-                .iconId("ic_favorite")
+                .iconId("ic_heart")
                 .build();
 
         Category categoryTasks3 = Category.builder()
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         Category categoryBudget1 = Category.builder()
                 .name("Ceremonia")
                 .type(CategoryType.BUDGET.name())
-                .iconId("ic_favorite")
+                .iconId("ic_heart")
                 .build();
 
         Category categoryBudget2 = Category.builder()
@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
         Category categorySubcontractors1 = Category.builder()
                 .name("Ceremonia")
                 .type(CategoryType.SUBCONTRACTORS.name())
-                .iconId("ic_favorite")
+                .iconId("ic_heart")
                 .build();
 
         Category categorySubcontractors2 = Category.builder()

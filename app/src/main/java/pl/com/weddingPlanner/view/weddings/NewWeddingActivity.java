@@ -27,6 +27,7 @@ import pl.com.weddingPlanner.model.PickedDate;
 import pl.com.weddingPlanner.model.PickedTime;
 import pl.com.weddingPlanner.model.User;
 import pl.com.weddingPlanner.model.Wedding;
+import pl.com.weddingPlanner.model.WeddingItem;
 import pl.com.weddingPlanner.util.DebouncedOnClickListener;
 import pl.com.weddingPlanner.util.FirebaseUtil;
 import pl.com.weddingPlanner.validator.AmountValidator;
@@ -242,17 +243,24 @@ public class NewWeddingActivity extends BaseActivity {
     }
 
     private User getUpdatedUserInfo(User userInfo, Wedding newWedding) {
-        List<String> userWeddings = userInfo.getWeddings();
+        List<WeddingItem> userWeddings = userInfo.getWeddings();
 
-        if (userWeddings == null) {
+        if (userWeddings == null || userWeddings.isEmpty()) {
             userWeddings = new ArrayList<>();
         }
-        userWeddings.add(newWedding.getId());
+        userWeddings.add(getWeddingItem(newWedding));
 
         userInfo.setWeddings(userWeddings);
         userInfo.setCurrentWedding(newWedding.getId());
 
         return userInfo;
+    }
+
+    private WeddingItem getWeddingItem(Wedding newWedding) {
+        return WeddingItem.builder()
+                .id(newWedding.getId())
+                .name(newWedding.getName())
+                .build();
     }
 
     private void updateUserWeddingsAndStartActivity(User userUpdated) {
