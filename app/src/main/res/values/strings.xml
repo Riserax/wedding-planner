@@ -9,6 +9,7 @@
 
     <string name="button_add">Dodaj</string>
     <string name="button_invite">Zaproś</string>
+    <string name="button_join_wedding">Dołącz do wesela</string>
     <string name="button_register">Zarejestruj</string>
     <string name="button_save">Zapisz</string>
     <string name="button_sign_in">Zaloguj</string>
@@ -48,8 +49,7 @@
     <string name="dialog_expense_subcontractor_choice">Wybierz podwykonawcę</string>
     <string name="dialog_guest_choice">Wybierz gościa, dla którego będzie osobą towarzyszącą</string>
     <string name="dialog_invite_to_wedding_title">Pomyślnie stworzono zaproszenie dla pomocnika</string>
-    <string name="dialog_join_wedding_title">Wprowadź kod zaproszenia</string>
-    <string name="dialog_join_wedding_info">Otrzymasz go od właściciela wesela lub znajdziesz w skrzynce e-mailowej</string>
+    <string name="dialog_join_wedding_info">Wprowadź kod zaproszenia. Otrzymasz go od właściciela wesela lub znajdziesz w skrzynce e-mailowej.</string>
     <string name="dialog_person_choice">Wybierz osobę</string>
     <string name="dialog_table_choice">Wybierz miejsce</string>
     <string name="dialog_task_add_sub_task_title">Nowe podzadanie</string>
@@ -72,9 +72,9 @@
     <string name="expense_details_connected_subcontractor">Powiązany podwykonawca</string>
 
     <string name="field_category">Kategoria</string>
-    <string name="field_code">Kod</string>
     <string name="field_date">Data</string>
     <string name="field_email">E-mail</string>
+    <string name="field_invitation_code">Kod zaproszenia</string>
     <string name="field_name">Nazwa</string>
     <string name="field_notes">Uwagi</string>
     <string name="field_payer">Kto płaci</string>
@@ -114,6 +114,7 @@
 
     <string name="guest_table_number">Stół nr %1$d</string>
 
+    <string name="header_title_about_app">O aplikacji</string>
     <string name="header_title_budget">Budżet</string>
     <string name="header_title_budget_new">Nowy wydatek</string>
     <string name="header_title_category">Kategoria</string>
@@ -128,6 +129,8 @@
     <string name="header_title_more">Więcej</string>
     <string name="header_title_payment">Płatność</string>
     <string name="header_title_payment_new">Nowa płatność</string>
+    <string name="header_title_helpers">Pomocnicy</string>
+    <string name="header_title_profile">Profil</string>
     <string name="header_title_settings">Ustawienia</string>
     <string name="header_title_subcontractor">Podwykonawca</string>
     <string name="header_title_subcontractor_edit">Edycja podwykonawcy</string>
@@ -138,7 +141,7 @@
     <string name="header_title_task_edit">Edycja zadania</string>
     <string name="header_title_task_new">Nowe zadanie</string>
     <string name="header_title_wedding_new">Nowe wesele</string>
-    <string name="header_title_weddings_list">Moje wesela</string>
+    <string name="header_title_weddings">Wesela</string>
 
     <string name="invite_to_wedding_title">Wprowadź adres e-mail pomocnika</string>
     <string name="invite_to_wedding_email_subject">Kod zaproszenia do wesela</string>

@@ -2,6 +2,7 @@ package pl.com.weddingPlanner.view.weddings;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import java.util.List;
 import pl.com.weddingPlanner.R;
 import pl.com.weddingPlanner.databinding.ActivityMyWeddingsBinding;
 import pl.com.weddingPlanner.model.User;
+import pl.com.weddingPlanner.model.WeddingItem;
 import pl.com.weddingPlanner.model.info.MyWeddingInfo;
 import pl.com.weddingPlanner.util.FirebaseUtil;
 import pl.com.weddingPlanner.view.BaseActivity;
@@ -23,6 +25,7 @@ import pl.com.weddingPlanner.view.list.ContentItem;
 import pl.com.weddingPlanner.view.list.ListItem;
 import pl.com.weddingPlanner.view.list.ListRecyclerAdapter;
 import pl.com.weddingPlanner.view.list.PaginationListenerRecyclerView;
+import pl.com.weddingPlanner.view.weddings.dialog.JoinWeddingDialog;
 
 import static pl.com.weddingPlanner.util.FirebaseUtil.isSuccessfulAndNotNull;
 import static pl.com.weddingPlanner.view.NavigationActivity.FRAGMENT_TO_LOAD_ID;
@@ -38,12 +41,15 @@ public class MyWeddingsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_my_weddings);
-        setActivityToolbarContentWithBackIcon(R.string.header_title_weddings_list);
+        setActivityToolbarContentWithBackIcon(R.string.header_title_weddings);
+
+        binding.toolbarLayout.addButton.setVisibility(View.VISIBLE);
 
         setRecyclerView();
         setSwipeRefresh();
 
         setMyWeddingsList();
+        setListeners();
     }
 
     private void setRecyclerView() {
@@ -99,10 +105,10 @@ public class MyWeddingsActivity extends BaseActivity {
                 User userInfo = getUserTask.getResult().getValue(User.class);
 
                 List<MyWeddingInfo> toReturn = new ArrayList<>();
-                for (String weddingId : userInfo.getWeddings()) {
+                for (WeddingItem wedding : userInfo.getWeddings()) {
                     MyWeddingInfo myWeddingInfo = MyWeddingInfo.builder()
-                            .id(weddingId)
-                            .name(weddingId) //TODO
+                            .id(wedding.getId())
+                            .name(wedding.getName())
                             .build();
                     toReturn.add(myWeddingInfo);
                 }
@@ -142,5 +148,11 @@ public class MyWeddingsActivity extends BaseActivity {
         }
 
         return toReturn;
+    }
+
+    private void setListeners() {
+        binding.toolbarLayout.addButton.setOnClickListener(v -> {
+            new JoinWeddingDialog(MyWeddingsActivity.this).showDialog();
+        });
     }
 }

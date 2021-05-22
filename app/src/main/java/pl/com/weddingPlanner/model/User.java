@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class User {
     public String username;
     public String email;
-    public List<String> weddings;
+    public List<WeddingItem> weddings;
     public String currentWedding;
     public List<String> invitedPeople;
 }
