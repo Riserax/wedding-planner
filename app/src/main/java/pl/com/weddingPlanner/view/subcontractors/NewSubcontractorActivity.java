@@ -348,7 +348,7 @@ public class NewSubcontractorActivity extends BaseActivity {
         Expense newExpense = Expense.builder()
                 .title(newSubcontractor.getName())
                 .initialAmount(StringUtils.isNotBlank(newSubcontractor.getCost()) ? newSubcontractor.getCost() : AMOUNT_ZERO)
-                .category(newSubcontractor.getCategory())
+                .category("Podwykonawcy")
                 .recipient(newSubcontractor.getName())
                 .editDate(DateUtil.getNewDateWithHourString())
                 .build();

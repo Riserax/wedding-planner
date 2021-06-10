@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -30,7 +31,8 @@ public class NavigationActivity extends BaseActivity {
     private void initNavigation() {
         setContentView(R.layout.activity_navigation);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        NavController navController = navHostFragment.getNavController();
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
 
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
